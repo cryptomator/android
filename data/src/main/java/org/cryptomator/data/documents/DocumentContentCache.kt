@@ -15,6 +15,7 @@ import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
+import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.named
 import java.io.File
@@ -28,7 +29,7 @@ import timber.log.Timber
 
 private val LOG = Timber.named("DocumentContentCache")
 
-private val MAX_COPY_AGE_MILLIS = TimeUnit.HOURS.toMillis(5)
+internal val MAX_COPY_AGE_MILLIS = TimeUnit.HOURS.toMillis(5)
 
 private const val MAX_SIZE_BYTES = 500L * 1024 * 1024
 
@@ -53,6 +54,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	private val scheduler: CloudTaskScheduler,
 	private val contentRepository: CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile>,
 	private val directory: File,
+	private val thumbnails: ThumbnailStore? = null,
 	private val watchClose: (file: File, onClosed: () -> Unit) -> AutoCloseable = ::watchCloseWrite,
 	private val currentTimeMillis: () -> Long = System::currentTimeMillis
 ) {
@@ -91,14 +93,136 @@ class DocumentContentCache @JvmOverloads constructor(
 		var watch: AutoCloseable? = null
 	}
 
+	/**
+	 * The version in the cloud each document opened for an external editor is based on, by documentId; guarded by
+	 * itself. Kept in memory only, so that a document falls back to the usual base after the process ends.
+	 */
+	private val pinnedBases = HashMap<String, Long?>()
+
+	/**
+	 * The copies, by local name, that a writer of a document with a pinned base wrote, or that were uploading when the
+	 * base was pinned; guarded by [pinnedBases]. Only their uploads move the base on, not e.g. an import the external
+	 * editor never saw.
+	 */
+	private val pinnedWrites = HashSet<String>()
+
 	init {
 		directory.mkdirs()
 		metadataCache.abandonUploadsWithoutLocalCopy()
+		metadataCache.onInterruptedMovesResolved = { vault -> resumeUploads(vault) }
 		evict()
 	}
 
-	fun file(path: VaultPath, signal: CancellationSignal? = null): File {
-		return copy(path, signal).file
+	fun file(path: VaultPath, signal: CancellationSignal? = null, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD): File {
+		return copy(path, signal, progressAware).file
+	}
+
+	/**
+	 * Makes the copy of [path] current, so that the app can open it through the documents provider without waiting for
+	 * the cloud.
+	 */
+	fun prepare(path: VaultPath, progressAware: ProgressAware<DownloadState>) {
+		release(copy(path, null, progressAware).file)
+	}
+
+	/**
+	 * Keeps the version the recorded copy of [documentId] is based on as the base of the document's writes until
+	 * [unpinBase], also if a reader refreshes the copy meanwhile. An external editor's save then becomes a conflict copy
+	 * if the file changed in the cloud since, also if the editor reopens the file to save. An upload of the writers'
+	 * content to the document itself moves the base on to the uploaded version, but one that became a conflict copy
+	 * doesn't. While pinned, the recorded copy can be written with the vault locked and is kept when copies are evicted.
+	 */
+	fun pinBase(documentId: String) {
+		val path = metadataCache.path(documentId)
+		// under the copies lock, an upload's end is recorded either before the pin, which then reads the uploaded version,
+		// or after it, and then moves the pin on
+		withCopiesLocked {
+			val copy = dao.load(path.vault.id, path.path)
+			val lastModified = copy?.lastModified ?: metadataCache.cachedDocument(path)?.lastModified
+			synchronized(pinnedBases) {
+				pinnedBases[documentId] = lastModified
+				// the editor opens what is being uploaded, e.g. its own save from before it reopened the file
+				if (copy != null && metadataCache.hasUploadNotEnded(path)) {
+					pinnedWrites.add(copy.localName)
+				}
+			}
+		}
+	}
+
+	fun unpinBase(documentId: String) {
+		synchronized(pinnedBases) {
+			pinnedBases.remove(documentId)
+			if (pinnedBases.isEmpty()) {
+				pinnedWrites.clear()
+			}
+		}
+	}
+
+	/**
+	 * Whether an external editor's writes of [path] keep a pinned base, see [pinBase].
+	 */
+	fun isPinned(path: VaultPath): Boolean {
+		return pinnedBase(path) != null
+	}
+
+	private fun pinnedBase(path: VaultPath): PinnedBase? {
+		val documentId = metadataCache.documentId(path) ?: return null
+		synchronized(pinnedBases) {
+			return if (pinnedBases.containsKey(documentId)) PinnedBase(pinnedBases[documentId]) else null
+		}
+	}
+
+	private class PinnedBase(val lastModified: Long?)
+
+	private fun movePinnedBase(path: VaultPath, uploaded: File, lastModified: Long?) {
+		val documentId = metadataCache.documentId(path) ?: return
+		synchronized(pinnedBases) {
+			// not consumed, since a copy's overlapping writes may end in one upload or in several
+			if (uploaded.name in pinnedWrites && pinnedBases.containsKey(documentId)) {
+				pinnedBases[documentId] = lastModified
+			}
+		}
+	}
+
+	/**
+	 * The local names of the recorded copies of the documents whose base is pinned.
+	 */
+	private fun pinnedCopies(): Set<String> {
+		val documentIds = synchronized(pinnedBases) { pinnedBases.keys.toList() }
+		return documentIds.mapNotNull { documentId ->
+			try {
+				localCopy(metadataCache.path(documentId))?.name
+			} catch (e: FileNotFoundException) {
+				null
+			}
+		}.toSet()
+	}
+
+	/**
+	 * Claims the recorded copy of a document whose base is pinned, without asking the cloud, e.g. while its vault is
+	 * locked. Returns null if no base is pinned or no copy is recorded.
+	 */
+	fun pinnedFile(path: VaultPath): File? {
+		pinnedBase(path) ?: return null
+		return localCopy(path)?.let(::claimIfPresent)
+	}
+
+	/**
+	 * Claims the recorded copy of [metadata]'s file if it is current as far as the cache knows, without asking the cloud.
+	 */
+	fun currentCopy(path: VaultPath, metadata: DocumentMetadataEntity): File? {
+		val cached = dao.load(path.vault.id, path.path) ?: return null
+		if (!metadata.isUploading && !isSameSecond(cached.lastModified, metadata.lastModified)) {
+			return null
+		}
+		return claimIfPresent(File(directory, cached.localName))
+	}
+
+	/**
+	 * Downloads [path] into [target] without recording it as a copy.
+	 */
+	fun downloadUnrecorded(path: VaultPath, target: File) {
+		scheduler.download(path) { read(path, target, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) }.await()
 	}
 
 	/**
@@ -106,16 +230,16 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	private class Copy(val file: File, val lastModified: Long?)
 
-	private fun copy(path: VaultPath, signal: CancellationSignal?): Copy {
+	private fun copy(path: VaultPath, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD): Copy {
 		val metadata = requireFile(metadataCache.requireCurrentDocument(path), path)
 		val cached = dao.load(path.vault.id, path.path)
 		if (cached != null && (metadata.isUploading || isSameSecond(cached.lastModified, metadata.lastModified))) {
 			claimIfPresent(File(directory, cached.localName))?.let { return Copy(it, cached.lastModified) }
 		}
-		evict()
+		evict(MAX_COPY_AGE_MILLIS)
 		val outdated = localCopy(path)
 		val downloadedFile = claim(File(directory, UUID.randomUUID().toString()))
-		val downloaded = download(path, downloadedFile, signal) ?: metadata.lastModified
+		val downloaded = download(path, downloadedFile, signal, progressAware) ?: metadata.lastModified
 		withCopiesLocked {
 			// a write recorded while downloading keeps its copy, also if it went to the cached one; the download is then only handed to the reader
 			if (localCopy(path) == outdated && !metadataCache.isUploading(path)) {
@@ -132,15 +256,25 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null): File {
 		val metadata = requireFile(metadataCache.requireDocument(path), path)
-		val downloaded = if (keepContent && !metadata.isCreating) copy(path, signal) else null
+		val pinned = pinnedBase(path)
+		val downloaded = if (keepContent && !metadata.isCreating) pinned?.let { pinnedCopy(path, it, signal) } ?: copy(path, signal) else null
 		return withCopiesLocked {
-			val copy = downloaded ?: emptyCopy(path, metadata.lastModified)
+			val copy = downloaded ?: emptyCopy(path, pinned?.lastModified ?: metadata.lastModified)
 			writers.getOrPut(copy.file.name) { Writers(copy.lastModified) }.apply {
 				base = copy.lastModified
 				open++
 			}
 			copy.file
 		}
+	}
+
+	/**
+	 * The copy an external editor writes to, based on the pinned version, also if the cloud has a newer one by now. Only
+	 * a copy that is no longer recorded is downloaded again.
+	 */
+	private fun pinnedCopy(path: VaultPath, pinned: PinnedBase, signal: CancellationSignal?): Copy {
+		val recorded = localCopy(path)?.let(::claimIfPresent) ?: copy(path, signal).file
+		return Copy(recorded, pinned.lastModified)
 	}
 
 	/**
@@ -242,7 +376,11 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * Called with the copies locked, see [withCopiesLocked].
 	 */
 	private fun uploadWrite(path: VaultPath, localFile: File) {
-		upload(keepWrite(path, localFile), localFile)
+		val kept = keepWrite(path, localFile)
+		// a save made while the vault is locked stays pending until the unlock resumes the vault's uploads
+		if (kept.vault.isUnlocked) {
+			upload(kept, localFile)
+		}
 	}
 
 	/**
@@ -255,9 +393,18 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * [withCopiesLocked].
 	 */
 	private fun keepWrite(path: VaultPath, localFile: File): VaultPath {
+		if (isPinned(path)) {
+			synchronized(pinnedBases) {
+				pinnedWrites.add(localFile.name)
+			}
+		}
 		recordedPath(path, localFile)?.let { recorded ->
-			if (!metadataCache.isUploading(recorded)) {
+			// while locked, no upload follows to mark the save, so it gets a new upload generation here. An earlier upload
+			// of the copy that ends meanwhile then leaves the save pending.
+			if (!metadataCache.isUploading(recorded) || !recorded.vault.isUnlocked) {
 				metadataCache.markPendingUpload(recorded)
+				// a reader may have refreshed the copy to a newer version than the pinned base meanwhile
+				pinnedBase(recorded)?.let { store(recorded, localFile, it.lastModified) }
 			}
 			return recorded
 		}
@@ -308,14 +455,15 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * meanwhile. The next upload of [path] is then a conflict copy, too. A copy that is still open for writing stays pending after its upload, so that what its writer writes afterwards is
 	 * kept if the process ends before the writer closes it.
 	 */
-	fun upload(path: VaultPath, localFile: File, progressAware: ProgressAware<UploadState> = ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, modifiedDate: Long? = null): DocumentMetadataCache.Upload {
+	fun upload(path: VaultPath, localFile: File, progressAware: ProgressAware<UploadState> = ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, modifiedDate: Long? = null, userInitiated: Boolean = false): DocumentMetadataCache.Upload {
 		val baseLastModified = { current: VaultPath -> dao.load(current.vault.id, current.path)?.lastModified }
 		return withCopiesLocked {
-			metadataCache.upload(path, localFile, baseLastModified, progressAware, modifiedDate) { current, uploadedPath, lastModified, isLatestWrite ->
+			metadataCache.upload(path, localFile, baseLastModified, progressAware, modifiedDate, userInitiated) { current, uploadedPath, lastModified, isLatestWrite ->
 				withCopiesLocked {
 					val recorded = recordedPath(current, localFile) ?: return@withCopiesLocked
 					if (uploadedPath == current) {
 						dao.updateLastModified(recorded.vault.id, recorded.path, lastModified)
+						movePinnedBase(recorded, localFile, lastModified)
 					} else if (isLatestWrite && !metadataCache.isUploading(recorded) && !isOpenForWriting(localFile) && localCopy(uploadedPath) == null) {
 						dao.delete(recorded.vault.id, recorded.path)
 						store(uploadedPath, localFile, lastModified)
@@ -334,14 +482,14 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * completely is dropped, together with the file if it was new; a replaced file keeps its previous copy then. The file
 	 * is followed if it is renamed or moved meanwhile.
 	 */
-	fun importFile(folder: VaultPath, name: String, replace: Boolean, requireListing: Boolean, progressAware: ProgressAware<UploadState>, modifiedDate: Long?, write: (OutputStream) -> Unit): DocumentMetadataCache.Upload {
+	fun importFile(folder: VaultPath, name: String, replace: Boolean, requireListing: Boolean, userInitiated: Boolean = false, progressAware: ProgressAware<UploadState>, modifiedDate: Long?, write: (OutputStream) -> Unit): DocumentMetadataCache.Upload {
 		metadataCache.prepareFolder(folder, requireListing)
 		val path = folder.resolve(name)
 		val target = metadataCache.createFile(path, replace)
 		val staging = claim(File(directory, UUID.randomUUID().toString()))
 		val upload = try {
 			staging.outputStream().use(write)
-			commitImport(target, path, staging, progressAware, modifiedDate)
+			commitImport(target, path, staging, progressAware, modifiedDate, userInitiated)
 		} catch (e: Exception) {
 			try {
 				dropUnrecorded(staging)
@@ -374,7 +522,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * The file is marked as waiting for its upload before its new copy is recorded, so that the copy is never taken for
 	 * the version in the cloud. That holds for a new file, too, since another import may have uploaded it meanwhile.
 	 */
-	private fun commitImport(target: DocumentMetadataCache.FileTarget, requestedPath: VaultPath, staging: File, progressAware: ProgressAware<UploadState>, modifiedDate: Long?): DocumentMetadataCache.Upload {
+	private fun commitImport(target: DocumentMetadataCache.FileTarget, requestedPath: VaultPath, staging: File, progressAware: ProgressAware<UploadState>, modifiedDate: Long?, userInitiated: Boolean): DocumentMetadataCache.Upload {
 		return withCopiesLocked {
 			val metadata = metadataCache.visibleDocument(target.id)?.takeUnless { it.isFolder } ?: throw NoSuchCloudFileException(metadataCache.logId(requestedPath))
 			val path = VaultPath(requestedPath.vault, metadata.path)
@@ -382,7 +530,7 @@ class DocumentContentCache @JvmOverloads constructor(
 			val previous = dao.load(path.vault.id, path.path)
 			store(path, staging, if (target.isNew) null else metadata.lastModified)
 			previous?.let { deleteUnlessInUse(File(directory, it.localName)) }
-			upload(path, staging, progressAware, modifiedDate)
+			upload(path, staging, progressAware, modifiedDate, userInitiated)
 		}
 	}
 
@@ -457,10 +605,13 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * Hides [path] until the cloud has deleted it, see [DocumentMetadataCache.delete]. If the cloud rejects it, the pending
 	 * uploads of the vault are resumed, among them those the deletion stopped.
 	 */
-	fun delete(path: VaultPath): DocumentMetadataCache.Deletion {
-		return metadataCache.delete(path).also { deletion ->
+	fun delete(path: VaultPath, userInitiated: Boolean = false): DocumentMetadataCache.Deletion {
+		val documentId = metadataCache.documentId(path)
+		return metadataCache.delete(path, userInitiated).also { deletion ->
 			deletion.result.whenComplete { _, e ->
-				if (e != null) {
+				if (e == null) {
+					thumbnails?.delete(listOfNotNull(documentId) + deletion.descendantIds)
+				} else {
 					try {
 						resumeUploads(path.vault)
 					} catch (resumeFailure: Exception) {
@@ -472,14 +623,16 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Retries the uploads of [vault] that did not finish and are not running.
+	 * Retries the uploads of [vault] that did not finish and are not running, or only those of [paths] if given. The
+	 * uploads an interrupted move holds are retried once it is settled.
 	 */
-	fun resumeUploads(vault: Vault) {
-		metadataCache.pendingUploads(vault).forEach { path ->
+	fun resumeUploads(vault: Vault, paths: List<VaultPath>? = null, userInitiated: Boolean = false) {
+		metadataCache.resolveInterruptedMoves(vault)
+		metadataCache.pendingUploads(vault).filter { paths == null || it in paths }.forEach { path ->
 			try {
 				withCopiesLocked {
 					if (metadataCache.isUploading(path) && !metadataCache.hasUploadInFlight(path)) {
-						localCopy(path)?.let { upload(path, it) }
+						localCopy(path)?.let { upload(path, it, userInitiated = userInitiated) }
 					}
 				}
 			} catch (e: Exception) {
@@ -500,17 +653,24 @@ class DocumentContentCache @JvmOverloads constructor(
 
 	/**
 	 * Deletes the files without a cache row, and the copies that can be downloaded again and are too old or too many.
-	 * Copies in use are kept.
+	 * Copies in use or pinned for an external editor are kept. The outdated thumbnails are deleted, too.
 	 */
 	fun evict() {
 		evict(MAX_COPY_AGE_MILLIS)
+		thumbnails?.evict()
 	}
 
 	/**
-	 * Deletes all copies except those that have a pending upload, belong to a file being deleted, or are in use.
+	 * Deletes all thumbnails, and all copies except those that have a pending upload, belong to a file being deleted, are
+	 * in use, or an external editor may write.
 	 */
 	fun evictAll() {
 		evict(0)
+		thumbnails?.clear()
+	}
+
+	fun size(): Long {
+		return directory.listFiles()?.sumOf { it.length() } ?: 0L
 	}
 
 	/**
@@ -520,9 +680,11 @@ class DocumentContentCache @JvmOverloads constructor(
 		withCopiesLocked {
 			val localNames = dao.loadLocalNames().toSet()
 			directory.listFiles()?.filter { it.name !in localNames && it.name !in inUse }?.forEach(::deleteCopy)
+			// an external editor may write a pinned copy after the vault locked, see pinBase
+			val pinned = pinnedCopies()
 			var size = 0L
 			dao.loadEvictable() //
-				.filter { it.localName !in inUse } //
+				.filter { it.localName !in inUse && it.localName !in pinned } //
 				.map { it to File(directory, it.localName) } //
 				.sortedByDescending { (_, file) -> file.lastModified() } //
 				.forEach { (cached, file) ->
@@ -614,13 +776,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	 *
 	 * @return the modification date of the downloaded version, which can be newer than the one in the cache
 	 */
-	private fun download(path: VaultPath, localFile: File, signal: CancellationSignal?): Long? {
-		val logId = metadataCache.logId(path)
+	private fun download(path: VaultPath, localFile: File, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState>): Long? {
 		val transfer = scheduler.download(path) {
 			signal?.throwIfCanceled()
-			val cloudFile = contentRepository.metadata(contentRepository.file(metadataCache.parentFolder(path), path.name)) ?: throw FileNotFoundException("$logId is gone from the cloud")
-			localFile.outputStream().use { contentRepository.read(cloudFile, null, it, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) }
-			cloudFile.modified?.time
+			read(path, localFile, progressAware)
 		}
 		try {
 			return transfer.await(signal)
@@ -628,6 +787,15 @@ class DocumentContentCache @JvmOverloads constructor(
 			transfer.whenComplete { _, _ -> drop(localFile) }
 			throw e
 		}
+	}
+
+	/**
+	 * @return the modification date of the version that was read
+	 */
+	private fun read(path: VaultPath, target: File, progressAware: ProgressAware<DownloadState>): Long? {
+		val cloudFile = contentRepository.metadata(contentRepository.file(metadataCache.parentFolder(path), path.name)) ?: throw FileNotFoundException("${metadataCache.logId(path)} is gone from the cloud")
+		target.outputStream().use { contentRepository.read(cloudFile, it, progressAware) }
+		return cloudFile.modified?.time
 	}
 
 	private fun deleteCopy(file: File) {

@@ -64,6 +64,6 @@ public class DeleteNodeTest {
 	}
 
 	private DeleteNodes testCandidate(List<CloudNode> cloudNodes) {
-		return new DeleteNodes(cloudContentRepository, mock(VaultDocumentRepository.class), cloudNodes);
+		return new DeleteNodes(cloudContentRepository, mock(VaultDocumentRepository.class), cloudNodes, null);
 	}
 }

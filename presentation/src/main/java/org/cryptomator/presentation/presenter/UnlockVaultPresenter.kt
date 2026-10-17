@@ -30,6 +30,7 @@ import org.cryptomator.domain.exception.hub.HubUserSetupRequiredException
 import org.cryptomator.domain.exception.hub.HubVaultAccessForbiddenException
 import org.cryptomator.domain.exception.hub.HubVaultIsArchivedException
 import org.cryptomator.domain.exception.hub.HubVaultOperationNotSupportedException
+import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
 import org.cryptomator.domain.usecases.vault.CreateHubDeviceUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
@@ -78,6 +79,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private val removeStoredVaultPasswordsAndDisableBiometricAuthUseCase: RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase,
 	private val saveVaultUseCase: SaveVaultUseCase,
 	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase,
+	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase,
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
 	exceptionMappings: ExceptionHandlers
@@ -503,8 +505,14 @@ class UnlockVaultPresenter @Inject constructor(
 	 * Files app has no caller that would store them, and the documents provider opens the vault with the stored format.
 	 * The unlocked vault is only handed back within the app: the Files app, or another app holding a document of the
 	 * vault, just learns that the unlock succeeded.
+	 *
+	 * The vault's pending uploads are resumed now, among them the saves an external editor made while the vault was locked.
 	 */
 	private fun finishWithUnlockedVault(cloud: Cloud) {
+		// not unsubscribed on destroy, since the screen closes right away while the uploads are being resumed
+		resumeVaultUploadsUseCase //
+			.withVault((cloud as CryptoCloud).vault) //
+			.run(DefaultResultHandler())
 		updateVaultParameterIfChangedRemotelyUseCase //
 			.withVault((cloud as CryptoCloud).vault) //
 			.run(object : DefaultResultHandler<Vault>() {

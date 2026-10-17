@@ -13,7 +13,6 @@ import com.dropbox.core.v2.files.ListFolderResult
 import com.dropbox.core.v2.files.UploadSessionCursor
 import com.dropbox.core.v2.files.UploadSessionFinishErrorException
 import com.dropbox.core.v2.files.WriteMode
-import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.dropbox.DropboxCloudNodeFactory.file
 import org.cryptomator.data.cloud.dropbox.DropboxCloudNodeFactory.folder
 import org.cryptomator.data.cloud.dropbox.DropboxCloudNodeFactory.from
@@ -33,10 +32,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
-import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
@@ -47,8 +42,6 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 	private val cloud: DropboxCloud
 	private val root: RootDropboxFolder
 	private val context: Context
-	private val sharedPreferencesHandler: SharedPreferencesHandler
-	private var diskLruCache: DiskLruCache? = null
 
 	@Throws(AuthenticationException::class)
 	private fun client(): DbxClientV2 {
@@ -309,32 +302,8 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 	}
 
 	@Throws(DbxException::class, IOException::class)
-	fun read(file: CloudFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: CloudFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
-		var cacheKey: String? = null
-		var cacheFile: File? = null
-		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			val fileMetadata = client() //
-				.files() //
-				.getMetadata(file.path) as FileMetadata
-			cacheKey = fileMetadata.id + fileMetadata.rev
-			cacheFile = diskLruCache?.let { it[cacheKey] }
-		}
-		if (sharedPreferencesHandler.useLruCache() && cacheFile != null) {
-			try {
-				retrieveFromLruCache(cacheFile, data)
-			} catch (e: IOException) {
-				Timber.tag("DropboxImpl").w(e, "Error while retrieving content from Cache, get from web request")
-				writeToData(file, data, encryptedTmpFile, cacheKey, progressAware)
-			}
-		} else {
-			writeToData(file, data, encryptedTmpFile, cacheKey, progressAware)
-		}
-		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
-	}
-
-	@Throws(DbxException::class, IOException::class)
-	private fun writeToData(file: CloudFile, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
 		object : TransferredBytesAwareOutputStream(data) {
 			override fun bytesTransferred(transferred: Long) {
 				progressAware.onProgress( //
@@ -350,27 +319,7 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 				.download(file.path) //
 				.download(it)
 		}
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("DropboxImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("DropboxImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
-		}
-	}
-
-	private fun createLruCache(cacheSize: Int): Boolean {
-		if (diskLruCache == null) {
-			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.DROPBOX), cacheSize.toLong())
-			} catch (e: IOException) {
-				Timber.tag("DropboxImpl").e(e, "Failed to setup LRU cache")
-				return false
-			}
-		}
-		return true
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
 	}
 
 	@Throws(AuthenticationException::class, DbxException::class)
@@ -408,6 +357,5 @@ internal class DropboxImpl(cloud: DropboxCloud, context: Context) {
 		this.cloud = cloud
 		this.root = RootDropboxFolder(cloud)
 		this.context = context
-		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

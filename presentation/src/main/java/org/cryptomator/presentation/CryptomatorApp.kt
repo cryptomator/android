@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
-import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
@@ -87,13 +86,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			registerActivityLifecycleCallbacks(PurchaseRevokedToastObserver(sharedPreferencesHandler))
 		}
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
-		CryptomatorDocumentsProvider.setEnabled(this, sharedPreferencesHandler.documentsProvider())
 		cleanupCache()
-
-		if (sharedPreferencesHandler.microsoftWorkaround()) {
-			val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
-			StrictMode.setVmPolicy(builder.build())
-		}
 
 		RxJavaPlugins.setErrorHandler { e: Throwable? -> Timber.tag("CryptomatorApp").e(e, "BaseErrorHandler detected a problem") }
 	}
@@ -123,7 +116,6 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 				cryptoServiceBinder = service as CryptorsService.Binder
 				cryptoServiceBinder?.let {
 					appCryptors.setDelegate(it.cryptors())
-					it.setFileUtil(applicationComponent.fileUtil())
 				}
 				updateService()
 			}

@@ -14,7 +14,6 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
-import java.io.File
 import java.io.OutputStream
 import java.util.function.Supplier
 
@@ -96,7 +95,7 @@ internal class CryptoCloudContentRepository(context: Context, cloudContentReposi
 	}
 
 	@Throws(BackendException::class)
-	override fun read(file: CryptoFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	override fun read(file: CryptoFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		cryptoImpl.read(file, data, progressAware)
 	}
 

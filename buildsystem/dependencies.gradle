@@ -1,5 +1,4 @@
 Action<InclusiveRepositoryContentDescriptor> jitpackFilterConfigurationAction = { filter ->
-	filter.includeModule('com.github.solkin', 'disk-lru-cache')
 	filter.includeModule('com.github.cryptomator', 'subsampling-scale-image-view')
 	filter.includeModule('com.github.cryptomator.pcloud-sdk-java', 'java-core')
 	filter.includeModule('com.github.cryptomator.google-http-java-client', 'google-http-client-parent') //Required by com.github.cryptomator.google-http-java-client:*
@@ -77,8 +76,6 @@ ext {
 	zxcvbnVersion = '1.9.0'
 
 	scaleImageViewVersion = '3.10.1-dev.0002'
-
-	lruFileCacheVersion = '1.2'
 
 	roomVersion = '2.8.5'
 
@@ -204,7 +201,6 @@ ext {
 			uiAutomator                    : "androidx.test.uiautomator:uiautomator:${uiautomatorVersion}",
 			zxcvbn                         : "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
 			scaleImageView                 : "com.github.cryptomator:subsampling-scale-image-view:${scaleImageViewVersion}",
-			lruFileCache                   : "com.github.solkin:disk-lru-cache:${lruFileCacheVersion}",
 			jsonWebToken                   : "com.auth0:java-jwt:${jsonWebTokenVersion}",
 			billing                        : "com.android.billingclient:billing:${billingclientVersion}"
 	]

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+import org.cryptomator.domain.CachedVaultFile
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ItemBrowseFilesNodeBinding
@@ -17,6 +19,7 @@ import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
 import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.ProgressStateModel.Companion.COMPLETED
 import org.cryptomator.presentation.model.comparator.CloudNodeModelDateNewestFirstComparator
 import org.cryptomator.presentation.model.comparator.CloudNodeModelDateOldestFirstComparator
@@ -29,7 +32,9 @@ import org.cryptomator.presentation.util.FileIcon
 import org.cryptomator.presentation.util.FileSizeHelper
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getDrawable
+import org.cryptomator.presentation.util.ThumbnailLoader
 import org.cryptomator.util.SharedPreferencesHandler
+import org.cryptomator.util.file.MimeTypes
 import javax.inject.Inject
 
 class BrowseFilesAdapter @Inject
@@ -37,7 +42,9 @@ constructor(
 	private val dateHelper: DateHelper, //
 	private val fileSizeHelper: FileSizeHelper, //
 	private val fileUtil: FileUtil, //
-	private val sharedPreferencesHandler: SharedPreferencesHandler
+	private val sharedPreferencesHandler: SharedPreferencesHandler, //
+	private val thumbnailLoader: ThumbnailLoader, //
+	private val mimeTypes: MimeTypes
 ) : RecyclerViewBaseAdapter<CloudNodeModel<*>, BrowseFilesAdapter.ItemClickListener, VaultContentViewHolder, ItemBrowseFilesNodeBinding>(CloudNodeModelNameAZComparator()), FastScrollRecyclerView.SectionedAdapter {
 
 	private var chooseCloudNodeSettings: ChooseCloudNodeSettings? = null
@@ -60,6 +67,28 @@ constructor(
 		} else {
 			addItem(cloudNodeModel)
 		}
+	}
+
+	/**
+	 * Shows [nodes] instead of the current ones, updating only the rows that changed. A row that didn't change keeps its
+	 * node, so that its selection and progress stay with what is bound; a changed row takes them over.
+	 */
+	fun replaceAll(nodes: List<CloudNodeModel<*>>) {
+		val previous = ArrayList(itemCollection)
+		val previousByPath = previous.associateBy { it.javaClass to it.path }
+		val next = nodes.map { node -> rowNode(previousByPath[node.javaClass to node.path], node) }.sortedWith(comparator)
+		val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+			override fun getOldListSize(): Int = previous.size
+			override fun getNewListSize(): Int = next.size
+			override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+				return previous[oldItemPosition].javaClass == next[newItemPosition].javaClass && previous[oldItemPosition].path == next[newItemPosition].path
+			}
+
+			override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = previous[oldItemPosition] === next[newItemPosition]
+		})
+		itemCollection.clear()
+		itemCollection.addAll(next)
+		diff.dispatchUpdatesTo(this)
 	}
 
 	fun replaceRenamedCloudFile(cloudNode: CloudNodeModel<out CloudNode>) {
@@ -135,7 +164,17 @@ constructor(
 		}
 
 		private fun bindNodeImage(node: CloudNodeModel<*>) {
-			binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+			val image = (node as? CloudFileModel)?.takeIf { mimeTypes.isImage(it.name) }
+			val thumbnail = image?.thumbnail
+			if (thumbnail != null) {
+				thumbnailLoader.load(thumbnail, binding.cloudNodeImage, bindCloudNodeImage(node))
+			} else {
+				binding.cloudNodeImage.setTag(R.id.thumbnail_key, null)
+				binding.cloudNodeImage.setImageResource(bindCloudNodeImage(node))
+				if (image?.toCloudNode() is CachedVaultFile) {
+					callback.onThumbnailMissing(image)
+				}
+			}
 		}
 
 		private fun bindCloudNodeImage(cloudNodeModel: CloudNodeModel<*>): Int {
@@ -170,9 +209,27 @@ constructor(
 		private fun internalBind(file: CloudFileModel) {
 			switchTo(FileDetails())
 			bindFile(file)
+			bindUploadIfPresent(file)
 			bindProgressIfPresent(file)
 			bindSelectItemsModeIfPresent(file)
 			bindFileSelectionModeIfPresent(file)
+		}
+
+		/**
+		 * A file whose upload failed is uploaded again when tapped. A waiting or running upload keeps the row's actions
+		 * usable, so that the file can be deleted, which also stops the upload.
+		 */
+		private fun bindUploadIfPresent(file: CloudFileModel) {
+			when (file.upload) {
+				CachedVaultFile.Upload.PENDING -> if (file.progress == null) {
+					file.progress = ProgressModel(ProgressStateModel.UPLOAD_PENDING)
+				}
+				CachedVaultFile.Upload.FAILED -> {
+					binding.llCloudFileContent.cloudFileSubText.setText(R.string.screen_file_browser_upload_failed)
+					enableNodeClick { callback.onRetryUploadClicked(file) }
+				}
+				CachedVaultFile.Upload.NONE -> {}
+			}
 		}
 
 		private fun bindFile(file: CloudFileModel) {
@@ -302,7 +359,9 @@ constructor(
 		private fun showDeterminateProgress(progress: ProgressModel) {
 			uiState?.let { switchTo(it.determinateProgress()) }
 			if (uiState?.isForFile == true) {
-				disableNodeActions()
+				if (!isUploadProgress(progress)) {
+					disableNodeActions()
+				}
 				binding.llCloudFileContent.rlCloudFileProgress.cloudFile.progress = progress.progress()
 				if (currentProgressIcon != progress.state().imageResourceId()) {
 					currentProgressIcon = progress.state().imageResourceId()
@@ -469,6 +528,13 @@ constructor(
 		fun onNodeLongClicked()
 
 		fun onSelectedNodesChanged(selectedNodes: Int)
+
+		fun onRetryUploadClicked(cloudFile: CloudFileModel)
+
+		/**
+		 * Called for each image of a vault that is shown without its thumbnail.
+		 */
+		fun onThumbnailMissing(cloudFile: CloudFileModel)
 	}
 
 	override fun getSectionName(position: Int): String {

@@ -153,6 +153,10 @@ public class DocumentMetadataEntity {
 		return DocumentsContract.Document.MIME_TYPE_DIR.equals(mimeType);
 	}
 
+	public boolean isImage() {
+		return mimeType.startsWith("image/");
+	}
+
 	public Long getSize() {
 		return size;
 	}

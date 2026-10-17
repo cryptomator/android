@@ -102,7 +102,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun inflate(cloudNode: CloudNode): String {
 		val metadataFile = metadataFile(cloudNode)
 		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(metadataFile, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 
@@ -273,7 +273,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun loadContentsOfDirFile(file: CloudFile): ByteArray {
 		try {
 			ByteArrayOutputStream().use { out ->
-				cloudContentRepository.read(file, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+				cloudContentRepository.read(file, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 				if (dirfileIsEmpty(out)) {
 					throw EmptyDirFileException(file.parent.name, file.path)
 				}

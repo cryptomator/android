@@ -8,6 +8,8 @@ import org.cryptomator.data.db.DatabaseModule;
 import org.cryptomator.data.documents.DocumentContentCache;
 import org.cryptomator.data.documents.DocumentMetadataCache;
 import org.cryptomator.data.documents.DocumentsModule;
+import org.cryptomator.data.documents.ThumbnailGenerator;
+import org.cryptomator.data.documents.ThumbnailStore;
 import org.cryptomator.data.documents.VaultDocumentEvents;
 import org.cryptomator.data.repository.RepositoryModule;
 import org.cryptomator.data.util.NetworkConnectionCheck;
@@ -61,6 +63,10 @@ public interface ApplicationComponent {
 	DocumentMetadataCache documentMetadataCache();
 
 	DocumentContentCache documentContentCache();
+
+	ThumbnailStore thumbnailStore();
+
+	ThumbnailGenerator thumbnailGenerator();
 
 	FileUtil fileUtil();
 

@@ -48,7 +48,8 @@ class DocumentsModuleTest {
 		val context: Context = mock { on { noBackupFilesDir } doReturn noBackupFilesDir }
 
 		val metadataCache = inTest.provideDocumentMetadataCache(metadataDao, scheduler, events, contentRepository, mock<CloudRepository>(), mock<VaultRepository>(), mock())
-		val contentCache = inTest.provideDocumentContentCache(cachedFileDao, metadataCache, scheduler, contentRepository, context)
+		val thumbnailStore = inTest.provideThumbnailStore(metadataDao, cachedFileDao, context)
+		val contentCache = inTest.provideDocumentContentCache(cachedFileDao, metadataCache, scheduler, contentRepository, thumbnailStore, context)
 
 		metadataCache.refresh(folder)
 		assertEquals(1, listings.size)
@@ -78,7 +79,7 @@ class DocumentsModuleTest {
 	@Test
 	fun `only the module creates the caches`() {
 		val projectDir = File(System.getProperty("user.dir")!!).parentFile!!
-		val constructorCall = Regex("""(?<![\w.])(CloudTaskScheduler|DocumentMetadataCache|DocumentContentCache)\(""")
+		val constructorCall = Regex("""(?<![\w.])(CloudTaskScheduler|DocumentMetadataCache|DocumentContentCache|ThumbnailStore|ThumbnailGenerator)\(""")
 		val callers = listOf("data", "domain", "presentation", "util") //
 			.flatMap { File(projectDir, "$it/src").listFiles()!!.filterNot { sourceSet -> sourceSet.name.startsWith("test") || sourceSet.name.startsWith("androidTest") } } //
 			.flatMap { sourceSet -> sourceSet.walk().filter { it.extension == "kt" || it.extension == "java" } } //

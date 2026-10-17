@@ -117,15 +117,40 @@ class UploadFileTest {
 		val result = testCandidate(dataSourceWithBytes(0, 3, 3), false).execute(progressAware)
 
 		MatcherAssert.assertThat(result, CoreMatchers.`is`(listOf(resultFile)))
-		verify(vaultDocumentRepository).importFile(eq(vaultFolder), eq(fileName), any(DataSource::class.java), eq(false), eq(false), same(progressAware))
+		verify(vaultDocumentRepository).importFile(eq(vaultFolder), eq(fileName), any(DataSource::class.java), eq(false), eq(false), eq(false), same(progressAware))
 		verify(vaultImport).await()
 		verifyNoMoreInteractions(cloudContentRepository)
 	}
 
 	@Test
+	fun `an optimistic upload returns the file as the cache has it, without waiting for the cloud`() {
+		givenVaultFolder()
+		val cached: CloudFile = mock()
+		val vaultImport = vaultImport { throw NetworkConnectionException() }
+		whenever(vaultImport.cachedNode()).thenReturn(cached)
+
+		val result = UploadFiles(context, cloudContentRepository, vaultDocumentRepository, parent, listOf(uploadFile(false)), true).execute(progressAware)
+
+		MatcherAssert.assertThat(result, CoreMatchers.`is`(listOf(cached)))
+		// it goes on after execute() has returned, so its progress and failure go to the listeners
+		verify(vaultDocumentRepository).importFile(eq(vaultFolder), eq(fileName), any(DataSource::class.java), eq(false), eq(false), eq(true), same(ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD))
+		verify(vaultImport, never()).await()
+	}
+
+	@Test
+	fun `an optimistic upload of a file that is gone meanwhile has no result`() {
+		givenVaultFolder()
+		vaultImport { throw NetworkConnectionException() }
+
+		val result = UploadFiles(context, cloudContentRepository, vaultDocumentRepository, parent, listOf(uploadFile(false)), true).execute(progressAware)
+
+		MatcherAssert.assertThat(result, CoreMatchers.`is`(emptyList()))
+	}
+
+	@Test
 	fun `a file name taken in the vault fails the upload`() {
 		givenVaultFolder()
-		whenever(vaultDocumentRepository.importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg())).thenThrow(CloudNodeAlreadyExistsException(fileName))
+		whenever(vaultDocumentRepository.importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg(), anyArg())).thenThrow(CloudNodeAlreadyExistsException(fileName))
 
 		assertThrows<CloudNodeAlreadyExistsException> { testCandidate(dataSourceWithBytes(0, 3, 3), false).execute(progressAware) }
 	}
@@ -146,12 +171,12 @@ class UploadFileTest {
 			inTest.onCancel()
 			throw java.util.concurrent.CancellationException()
 		}
-		inTest = UploadFiles(context, cloudContentRepository, vaultDocumentRepository, parent, listOf(uploadFile(false), uploadFile(false)))
+		inTest = UploadFiles(context, cloudContentRepository, vaultDocumentRepository, parent, listOf(uploadFile(false), uploadFile(false)), null)
 
 		assertThrows<org.cryptomator.domain.exception.CancellationException> { inTest.execute(progressAware) }
 
 		verify(vaultImport).cancel()
-		verify(vaultDocumentRepository).importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg())
+		verify(vaultDocumentRepository).importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg(), anyArg())
 	}
 
 	@Test
@@ -184,7 +209,7 @@ class UploadFileTest {
 
 	private fun vaultImport(result: () -> VaultDocumentChangeResult<CloudFile>): VaultDocumentImport {
 		val vaultImport: VaultDocumentImport = mock { on { await() } doAnswer { result() } }
-		whenever(vaultDocumentRepository.importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg())).thenReturn(vaultImport)
+		whenever(vaultDocumentRepository.importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg(), anyArg())).thenReturn(vaultImport)
 		return vaultImport
 	}
 
@@ -239,7 +264,8 @@ class UploadFileTest {
 					.withDataSource(dataSource) //
 					.thatIsReplacing(replacing) //
 					.build()
-			)
+			), //
+			null
 		)
 	}
 }

@@ -18,11 +18,13 @@ import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeIsFolderException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.NotFoundException
+import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.repository.CloudRepository
 import org.cryptomator.domain.repository.VaultDocumentChangeResult
 import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.ProgressAware
+import org.cryptomator.domain.usecases.ThrottlingProgressAware
 import org.cryptomator.domain.usecases.cloud.CancelAwareDataSource
 import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource
@@ -37,6 +39,8 @@ import java.util.UUID
 import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.Executor
+import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicLong
 import timber.log.Timber
@@ -67,6 +71,11 @@ private const val MAX_LISTING_ATTEMPTS = 3
  * A node being deleted is hidden together with its descendants until the cloud has deleted it. They keep their pending
  * uploads and local copies meanwhile, so that they come back as they were if the cloud rejects the deletion.
  *
+ * A move the process ended during is kept if the moved subtree holds a pending upload, since the upload has to go to
+ * where the node really is. The uploads in the subtree wait until the listings of the folders at both ends of the move
+ * tell where that is. A move of a node whose earlier move hasn't been recorded yet waits for it, so that a move the
+ * process ends during always knows where its node was before.
+ *
  * Nodes are identified by documentIds made of the vault id and the id of their cache entry, which stays the same when
  * they are renamed or moved. Log messages refer to nodes by their documentId rather than by their cleartext name.
  */
@@ -78,6 +87,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private val cloudRepository: CloudRepository,
 	private val vaultRepository: VaultRepository,
 	private val mimeTypes: MimeTypes,
+	private val deferredMoves: Executor = ForkJoinPool.commonPool(),
 	private val currentTimeMillis: () -> Long = System::currentTimeMillis
 ) {
 
@@ -103,17 +113,56 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * How many moves of each node, by id, are waiting for the cloud; guarded by [changeLock].
 	 */
 	private val pendingMoves = HashMap<Long, Int>()
+
+	/**
+	 * The latest move of each node, by id, until it has been recorded; guarded by [changeLock].
+	 */
+	private val latestMoves = HashMap<Long, CompletableFuture<VaultDocumentChangeResult<CloudNode>>>()
 	private val deleteTokens = AtomicLong()
+
+	/**
+	 * The moves the process ended during whose subtree holds a pending upload, by node id; guarded by [changeLock].
+	 */
+	private val interruptedMoves = HashMap<Long, InterruptedMove>()
+
+	/**
+	 * What the listings of the folders at both ends of an interrupted move told, `null` until a folder has been listed.
+	 */
+	private class InterruptedMove(val vaultId: Long) {
+
+		var atSource: Boolean? = null
+		var atTarget: Boolean? = null
+	}
+
+	/**
+	 * Why the latest upload of a file failed, by node id, until another upload of the file starts.
+	 */
+	private val uploadFailures = ConcurrentHashMap<Long, UploadFailure>()
+
+	private class UploadFailure(val generation: Long, val cause: Throwable)
+
+	/**
+	 * Called with a vault whenever a listing settled an interrupted move in it, outside of any lock.
+	 */
+	@Volatile
+	var onInterruptedMovesResolved: ((Vault) -> Unit)? = null
 
 	init {
 		dao.recoverPendingDeletes()
-		dao.loadInterruptedChanges().forEach(dao::discardPendingChange)
+		dao.loadInterruptedChanges().forEach { pending ->
+			if (pending.sourcePath != null && !pending.isCreating && dao.hasPendingUploadInSubtree(pending.vaultId, pending.path)) {
+				interruptedMoves[requireNotNull(pending.id)] = InterruptedMove(pending.vaultId)
+			} else {
+				dao.discardPendingChange(pending)
+			}
+		}
 	}
 
 	/**
 	 * [error] tells why a folder without a valid listing, e.g. one that has never been listed, could not be listed.
+	 * [authError] tells that listing the folder needs an authentication, also if the cache has an earlier listing of it.
 	 */
-	class Children(val documents: List<DocumentMetadataEntity>, val isLoading: Boolean, val error: Throwable?)
+	class Children(val documents: List<DocumentMetadataEntity>, val isLoading: Boolean, val error: Throwable?, val authError: Throwable? = null)
 
 	class Creation(val documentId: String, val result: CompletableFuture<VaultDocumentChangeResult<CloudNode>>)
 
@@ -168,8 +217,25 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			refreshInBackground(folder, force = false)
 		}
 		val isLoading = folder in refreshing
-		val error = failedListings[folder]?.takeIf { lastEnumeratedAt == null && !isLoading }?.cause
-		return Children(dao.loadChildren(folder.vault.id, folder.path), isLoading, error)
+		val failure = failedListings[folder]?.cause?.takeUnless { isLoading }
+		val error = failure?.takeIf { lastEnumeratedAt == null }
+		val authError = failure?.takeIf { it is AuthenticationException }
+		return Children(dao.loadChildren(folder.vault.id, folder.path), isLoading, error, authError)
+	}
+
+	/**
+	 * Lists [folder] from the cloud now and fails if that fails.
+	 */
+	fun listNow(folder: VaultPath) {
+		ensureFolder(folder)
+		enumerate(folder)
+	}
+
+	/**
+	 * The node at [path] unless it is being deleted; unlike [document], it never lists anything.
+	 */
+	fun cachedDocument(path: VaultPath): DocumentMetadataEntity? {
+		return loadVisible(path)
 	}
 
 	fun document(path: VaultPath): DocumentMetadataEntity? {
@@ -205,7 +271,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * Makes the cache know [folder] by listing the folders above it, from the deepest one the cache knows downwards, so
 	 * that changes can be made in folders that have only been browsed in the cloud.
 	 */
-	private fun ensureFolder(folder: VaultPath) {
+	fun ensureFolder(folder: VaultPath) {
 		if (folder.isRoot || loadVisible(folder) != null) {
 			return
 		}
@@ -267,7 +333,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	/**
 	 * Unless [failIfTaken] is set, a name that is taken in the cache is changed to an unused one.
 	 */
-	fun create(folder: VaultPath, name: String, isFolder: Boolean, failIfTaken: Boolean = false): Creation {
+	fun create(folder: VaultPath, name: String, isFolder: Boolean, failIfTaken: Boolean = false, userInitiated: Boolean = false): Creation {
 		if (failIfTaken) {
 			prepareFolder(folder, requireListing = false)
 		}
@@ -285,7 +351,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 				status = DocumentMetadataEntity.STATUS_CREATING
 			})
 			onChanged(folder)
-			val result = applyInBackground(path.vault, id, listOf(path)) {
+			val result = applyInBackground(path.vault, id, listOf(path), userInitiated) {
 				retryingNameCollisions(id, path) { current ->
 					if (isFolder) {
 						val createdFolder = contentRepository.create(contentRepository.folder(parentFolder(current), current.name))
@@ -330,12 +396,24 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * been in the cloud, e.g. because its upload failed, is only moved in the cache. Its upload then goes to where it is
 	 * in the cache.
 	 */
-	fun move(source: VaultPath, folder: VaultPath, name: String, failIfTaken: Boolean = false): CompletableFuture<VaultDocumentChangeResult<CloudNode>> {
+	fun move(source: VaultPath, folder: VaultPath, name: String, failIfTaken: Boolean = false, userInitiated: Boolean = false): CompletableFuture<VaultDocumentChangeResult<CloudNode>> {
+		return move(source, folder, name, failIfTaken, userInitiated, isQueued = false)
+	}
+
+	/**
+	 * A move [isQueued] behind an earlier move of the node, see [moveAfter], runs right away, since the moves queued
+	 * after it wait for it.
+	 */
+	private fun move(source: VaultPath, folder: VaultPath, name: String, failIfTaken: Boolean, userInitiated: Boolean, isQueued: Boolean): CompletableFuture<VaultDocumentChangeResult<CloudNode>> {
 		if (failIfTaken) {
 			prepareFolder(folder, requireListing = false)
 		}
 		synchronized(changeLock) {
 			val metadata = requireVisible(source)
+			val earlierMove = latestMoves[requireNotNull(metadata.id)]
+			if (!isQueued && earlierMove != null && !earlierMove.isDone) {
+				return moveAfter(earlierMove, requireNotNull(metadata.id), source.vault, folder, name, failIfTaken, userInitiated)
+			}
 			requireFolder(folder)
 			check(!dao.hasPendingDeleteInSubtree(source.vault.id, source.path)) { "${logId(source)} contains a node being deleted" }
 			val target = if (failIfTaken) freePath(folder.resolve(name), metadata.isFolder) else unusedPath(folder, name)
@@ -348,7 +426,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			}
 			val id = requireNotNull(metadata.id)
 			pendingMoves[id] = (pendingMoves[id] ?: 0) + 1
-			return applyInBackground(source.vault, id, listOf(source, target)) {
+			return applyInBackground(source.vault, id, listOf(source, target), userInitiated) {
 				try {
 					// a node whose move has been undone meanwhile is no longer marked as moving
 					val node = dao.loadById(id)?.takeIf { it.sourcePath != null } ?: throw CancellationException("The move of ${documentId(source.vault.id, id)} has been undone")
@@ -372,8 +450,42 @@ class DocumentMetadataCache @JvmOverloads constructor(
 						if (moves > 1) pendingMoves[id] = moves - 1 else pendingMoves.remove(id)
 					}
 				}
+			}.also { move ->
+				if (!isQueued) {
+					latestMoves[id] = move
+					move.whenComplete { _, _ -> synchronized(changeLock) { latestMoves.remove(id, move) } }
+				}
 			}
 		}
+	}
+
+	/**
+	 * Moves the node with [id] once [earlierMove] of it has been recorded, wherever that left it. A node that is gone or
+	 * being deleted by then isn't moved.
+	 */
+	private fun moveAfter(earlierMove: CompletableFuture<*>, id: Long, vault: Vault, folder: VaultPath, name: String, failIfTaken: Boolean, userInitiated: Boolean): CompletableFuture<VaultDocumentChangeResult<CloudNode>> {
+		val result = CompletableFuture<VaultDocumentChangeResult<CloudNode>>()
+		latestMoves[id] = result
+		result.whenComplete { _, _ -> synchronized(changeLock) { latestMoves.remove(id, result) } }
+		// not on the thread that recorded the earlier move, which may be needed to list the target folder
+		earlierMove.whenCompleteAsync({ _, _ ->
+			try {
+				val current = dao.loadVisibleById(id)?.let { VaultPath(vault, it.path) }
+				if (current == null) {
+					// like a move that has been undone, it's no failure the user has to learn about
+					val reason = "${documentId(vault.id, id)} is gone or being deleted, not moving it"
+					LOG.i(reason)
+					result.completeExceptionally(CancellationException(reason))
+					return@whenCompleteAsync
+				}
+				move(current, folder, name, failIfTaken, userInitiated, isQueued = true).whenComplete { moved, e -> if (e != null) result.completeExceptionally(e) else result.complete(moved) }
+			} catch (e: Exception) {
+				LOG.e(e, "Moving ${documentId(vault.id, id)} after its earlier move failed")
+				events.onChangeFailed(folder.resolve(name), e, userInitiated)
+				result.completeExceptionally(e)
+			}
+		}, deferredMoves)
+		return result
 	}
 
 	/**
@@ -381,7 +493,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * rejects the deletion, they come back as they were, and [Deletion.result] fails. A node that is already gone from
 	 * the cloud counts as deleted, a file that has never been in the cloud is only deleted in the cache.
 	 */
-	fun delete(path: VaultPath): Deletion {
+	fun delete(path: VaultPath, userInitiated: Boolean = false): Deletion {
 		synchronized(changeLock) {
 			val metadata = requireVisible(path)
 			val descendantIds = dao.loadDescendantIds(path.vault.id, path.path).map { documentId(path.vault.id, it) }
@@ -391,7 +503,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			val folder = requireNotNull(path.parent)
 			onChanged(folder)
 			val id = requireNotNull(metadata.id)
-			val result = applyInBackground(path.vault, id, listOf(path), undo = { restoreDeleted(path, id, token) }) {
+			val result = applyInBackground(path.vault, id, listOf(path), userInitiated, undo = { restoreDeleted(path, id, token) }) {
 				// a change the deletion waited for failed and dropped the node
 				val node = dao.loadById(id)?.takeIf { it.pendingDelete == token }
 				if (node != null) {
@@ -444,11 +556,12 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * file itself or its conflict copy. It also tells whether the uploaded copy is still the latest write of the file.
 	 * The cloud gets [modifiedDate] as the file's modification date, or that of the local copy if it is null.
 	 */
-	fun upload(path: VaultPath, localFile: File, baseLastModified: (VaultPath) -> Long?, progressAware: ProgressAware<UploadState> = ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, modifiedDate: Long? = null, onUploaded: OnUploaded): Upload {
+	fun upload(path: VaultPath, localFile: File, baseLastModified: (VaultPath) -> Long?, progressAware: ProgressAware<UploadState> = ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, modifiedDate: Long? = null, userInitiated: Boolean = false, onUploaded: OnUploaded): Upload {
 		synchronized(changeLock) {
 			dao.markUploading(path.vault.id, path.path)
 			val metadata = dao.load(path.vault.id, path.path) ?: throw FileNotFoundException("Unknown document: ${logId(path)}")
-			val upload = Upload(path, requireNotNull(metadata.id), metadata.uploadGeneration, localFile, progressAware, modifiedDate, onUploaded)
+			val upload = Upload(path, requireNotNull(metadata.id), metadata.uploadGeneration, localFile, progressAware, modifiedDate, userInitiated, onUploaded)
+			uploadFailures.remove(upload.id)
 			onChanged(requireNotNull(path.parent))
 			if (loadVisible(path) == null) {
 				upload.result.completeExceptionally(CancellationException("${logId(path)} is being deleted"))
@@ -551,6 +664,15 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		}
 	}
 
+	/**
+	 * Whether [path] waits for its upload, or an upload of it hasn't ended, also once its end is recorded but its local
+	 * copy isn't updated yet.
+	 */
+	fun hasUploadNotEnded(path: VaultPath): Boolean {
+		val metadata = dao.load(path.vault.id, path.path) ?: return false
+		return metadata.isUploading || uploads.any { it.id == metadata.id }
+	}
+
 	fun hasUploadInFlight(path: VaultPath): Boolean {
 		val metadata = dao.load(path.vault.id, path.path) ?: return false
 		return uploads.any { it.id == metadata.id && it.generation == metadata.uploadGeneration }
@@ -569,9 +691,9 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * The upload of one write of a file. [result] ends with a [CancellationException] if the upload was stopped, or if the
-	 * file has been deleted or is being deleted. If the file is written again before the upload started, it ends like the
-	 * upload of that write.
+	 * The upload of one write of a file. [result] ends with a [CancellationException] if the upload was stopped, if the
+	 * file has been deleted or is being deleted, or if an interrupted move holds it. If the file is written again before
+	 * the upload started, it ends like the upload of that write.
 	 */
 	inner class Upload internal constructor(
 		internal val cloudPath: VaultPath,
@@ -580,6 +702,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		val localFile: File,
 		internal val progressAware: ProgressAware<UploadState>,
 		internal val modifiedDate: Long?,
+		internal val userInitiated: Boolean,
 		internal val onUploaded: OnUploaded
 	) {
 
@@ -620,16 +743,27 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			return
 		}
 		val current = VaultPath(upload.vault, metadata.path)
+		if (isHeldByInterruptedMove(current)) {
+			uploads.remove(upload)
+			LOG.i("Uploading ${documentId(metadata)} waits until an interrupted move is settled")
+			upload.result.completeExceptionally(CancellationException("Uploading ${documentId(metadata)} waits until an interrupted move is settled"))
+			return
+		}
+		val listenerProgress = ThrottlingProgressAware<UploadState> { events.onUploadProgress(current, it) }
+		val progressAware = ProgressAware<UploadState> { progress ->
+			upload.progressAware.onProgress(progress)
+			listenerProgress.onProgress(progress)
+		}
 		try {
 			val cloudPath = upload.cloudPath
 			val remoteFile = contentRepository.metadata(contentRepository.file(parentFolder(cloudPath), cloudPath.name))
 			val base = baseLastModified(current) ?: metadata.lastModified
 			val result = if (remoteFile == null || base == null) {
-				retryingNameCollisions(upload.id, cloudPath) { uploadTo(upload, it, replace = false) }
+				retryingNameCollisions(upload.id, cloudPath) { uploadTo(upload, it, replace = false, progressAware) }
 			} else if (isSameSecond(remoteFile.modified?.time, base)) {
-				uploadTo(upload, cloudPath, replace = true)
+				uploadTo(upload, cloudPath, replace = true, progressAware)
 			} else {
-				uploadConflictCopy(upload, cloudPath, current, remoteFile)
+				uploadConflictCopy(upload, cloudPath, current, remoteFile, progressAware)
 			}
 			uploads.remove(upload)
 			upload.result.complete(result)
@@ -640,10 +774,19 @@ class DocumentMetadataCache @JvmOverloads constructor(
 				upload.result.completeExceptionally(CancellationException("Uploading ${documentId(metadata)} was stopped"))
 			} else {
 				LOG.e(e, "Uploading ${documentId(metadata)} failed")
+				uploadFailures[upload.id] = UploadFailure(upload.generation, e)
 				upload.result.completeExceptionally(e)
+				events.onChangeFailed(current, e, upload.userInitiated)
 			}
 		}
 		onChanged(requireNotNull(current.parent))
+	}
+
+	/**
+	 * Why the latest upload of [metadata] failed, unless it has been written or retried since.
+	 */
+	fun uploadFailure(metadata: DocumentMetadataEntity): Throwable? {
+		return uploadFailures[metadata.id]?.takeIf { metadata.isUploading && it.generation == metadata.uploadGeneration }?.cause
 	}
 
 	/**
@@ -658,8 +801,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		}
 	}
 
-	private fun uploadTo(upload: Upload, cloudPath: VaultPath, replace: Boolean): VaultDocumentChangeResult<CloudFile> {
-		val uploadedFile = write(cloudPath, upload, replace)
+	private fun uploadTo(upload: Upload, cloudPath: VaultPath, replace: Boolean, progressAware: ProgressAware<UploadState>): VaultDocumentChangeResult<CloudFile> {
+		val uploadedFile = write(cloudPath, upload, replace, progressAware)
 		val uploaded = recordChange(requireNotNull(cloudPath.parent)) {
 			dao.loadById(upload.id)?.also { dao.markUploaded(upload.id, uploadedFile.size ?: upload.localFile.length(), uploadedFile.modified?.time, upload.generation) }
 		} ?: return VaultDocumentChangeResult(cloudPath, uploadedFile)
@@ -672,10 +815,10 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * Keeps both versions of a file that changed locally and in the cloud: the local one is uploaded as a conflict copy,
 	 * the original takes the cloud version.
 	 */
-	private fun uploadConflictCopy(upload: Upload, cloudPath: VaultPath, current: VaultPath, remoteFile: CloudFile): VaultDocumentChangeResult<CloudFile> {
+	private fun uploadConflictCopy(upload: Upload, cloudPath: VaultPath, current: VaultPath, remoteFile: CloudFile, progressAware: ProgressAware<UploadState>): VaultDocumentChangeResult<CloudFile> {
 		val conflictName = unusedConflictPath(current).name
 		LOG.i("${upload.documentId} changed in the cloud, uploading the local changes as a conflict copy")
-		val uploadedFile = write(requireNotNull(cloudPath.parent).resolve(conflictName), upload, false)
+		val uploadedFile = write(requireNotNull(cloudPath.parent).resolve(conflictName), upload, false, progressAware)
 		val uploaded = recordChange(requireNotNull(cloudPath.parent)) {
 			dao.loadById(upload.id)?.also { metadata ->
 				dao.store(entity(upload.vault, uploadedFile, requireNotNull(VaultPath(upload.vault, metadata.path).parent).resolve(conflictName)))
@@ -708,15 +851,77 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		}
 	}
 
-	private fun write(path: VaultPath, upload: Upload, replace: Boolean): CloudFile {
+	private fun write(path: VaultPath, upload: Upload, replace: Boolean, progressAware: ProgressAware<UploadState>): CloudFile {
 		val size = upload.localFile.length()
 		val file = FileBasedDataSource.from(upload.localFile)
 		val data = CancelAwareDataSource.wrap(upload.modifiedDate?.let { DatedDataSource(file, Date(it)) } ?: file) { upload.isStopped }
-		return contentRepository.write(contentRepository.file(parentFolder(path), path.name, size), data, upload.progressAware, replace, size)
+		return contentRepository.write(contentRepository.file(parentFolder(path), path.name, size), data, progressAware, replace, size)
 	}
 
+	/**
+	 * The pending uploads of [vault], except those an interrupted move holds.
+	 */
 	fun pendingUploads(vault: Vault): List<VaultPath> {
-		return dao.loadPendingUploads(vault.id).map { VaultPath(vault, it.path) }
+		return dao.loadPendingUploads(vault.id).map { VaultPath(vault, it.path) }.filterNot(::isHeldByInterruptedMove)
+	}
+
+	/**
+	 * Lists the folders at both ends of the interrupted moves in [vault], so that they can be settled, see
+	 * [onInterruptedMovesResolved]. A listing that fails is repeated with the next call.
+	 */
+	fun resolveInterruptedMoves(vault: Vault) {
+		val folders = synchronized(changeLock) {
+			interruptedMoves.filter { (_, move) -> move.vaultId == vault.id }.keys.mapNotNull(dao::loadById).flatMap { node ->
+				listOfNotNull(VaultPath(vault, node.parentPath), node.sourcePath?.let { VaultPath(vault, it).parent })
+			}.distinct()
+		}
+		folders.forEach { refreshInBackground(it, force = true) }
+	}
+
+	private fun isHeldByInterruptedMove(path: VaultPath): Boolean {
+		synchronized(changeLock) {
+			return interruptedMoves.any { (id, move) ->
+				move.vaultId == path.vault.id && dao.loadById(id)?.let { moved -> VaultPath(path.vault, moved.path).let { it == path || path.isAnyChildOf(it) } } == true
+			}
+		}
+	}
+
+	/**
+	 * Settles the interrupted moves that have [folder] at one of their ends, from the [entries] a listing of it found:
+	 * a node found where it was moved to stays there, one found only where it came from goes back, and one found at
+	 * neither stays where it is in the cache. Called with [changeLock] held, before the listing is stored.
+	 *
+	 * @return whether a move was settled
+	 */
+	private fun settleInterruptedMoves(folder: VaultPath, entries: List<CloudNode>): Boolean {
+		var settled = false
+		interruptedMoves.entries.filter { it.value.vaultId == folder.vault.id }.forEach { (id, move) ->
+			val node = dao.loadById(id)
+			val sourcePath = node?.sourcePath
+			if (sourcePath == null) {
+				interruptedMoves.remove(id)
+				settled = true
+				return@forEach
+			}
+			val source = VaultPath(folder.vault, sourcePath)
+			if (source.parent == folder) {
+				move.atSource = entries.any { it.name == source.name }
+			}
+			if (node.parentPath == folder.path) {
+				move.atTarget = entries.any { it.name == node.name }
+			}
+			val atSource = move.atSource ?: return@forEach
+			val atTarget = move.atTarget ?: return@forEach
+			if (!atTarget && atSource) {
+				LOG.i("${documentId(node)} was not moved in the cloud before the process ended, moving it back")
+				dao.revertMove(id, mimeType(node.isFolder, source.name))
+			} else {
+				dao.clearSourcePath(id)
+			}
+			interruptedMoves.remove(id)
+			settled = true
+		}
+		return settled
 	}
 
 	/**
@@ -806,7 +1011,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 *
 	 * @return the outcome of [cloudChange], ending once the change has been undone if the cloud rejected it
 	 */
-	private fun <T> applyInBackground(vault: Vault, id: Long, paths: List<VaultPath>, undo: () -> Unit = { dao.loadById(id)?.let { discardPendingChange(vault, it) } }, cloudChange: () -> T): CompletableFuture<T> {
+	private fun <T> applyInBackground(vault: Vault, id: Long, paths: List<VaultPath>, userInitiated: Boolean, undo: () -> Unit = { dao.loadById(id)?.let { discardPendingChange(vault, it) } }, cloudChange: () -> T): CompletableFuture<T> {
 		val result = CompletableFuture<T>()
 		scheduler.write(paths) {
 			try {
@@ -823,6 +1028,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 				} catch (undoFailure: Exception) {
 					LOG.e(undoFailure, "Undoing the change of ${documentId(vault.id, id)} failed")
 				}
+				events.onChangeFailed(paths.last(), e, userInitiated)
 				throw e
 			}
 		}.whenComplete { value, e ->
@@ -908,15 +1114,24 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private fun enumerateNow(folder: VaultPath) {
 		repeat(MAX_LISTING_ATTEMPTS) {
 			val finishedChangesBefore = finishedChangesIn(folder)
-			val entries = contentRepository.list(safeResolve(folder))
-			synchronized(changeLock) {
+			val entries = contentRepository.list(cloudFolder(folder))
+			val settledMoves = synchronized(changeLock) {
 				synchronized(finishedChanges) {
 					if (finishedChanges[folder] == finishedChangesBefore) {
+						val settled = settleInterruptedMoves(folder, entries)
 						dao.storeChildren(folderEntity(folder, currentTimeMillis()), entries.map { entity(folder.vault, it) })
 						failedListings.remove(folder)
-						return
+						settled
+					} else {
+						null
 					}
 				}
+			}
+			if (settledMoves != null) {
+				if (settledMoves) {
+					onInterruptedMovesResolved?.invoke(folder.vault)
+				}
+				return
 			}
 			LOG.d("A change reached the cloud while listing ${logId(folder)}, listing it again")
 		}
@@ -927,14 +1142,14 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		events.onChanged(folder)
 	}
 
-	private fun safeResolve(folder: VaultPath): CloudFolder {
+	internal fun cloudFolder(folder: VaultPath): CloudFolder {
 		val cloud = cloudRepository.decryptedViewOf(folder.vault)
 		//resolve() can't return the root: "/" resolves to a child with an empty name
 		return if (folder.isRoot) contentRepository.root(cloud) else contentRepository.resolve(cloud, "/${folder.path}")
 	}
 
 	internal fun parentFolder(path: VaultPath): CloudFolder {
-		return safeResolve(requireNotNull(path.parent))
+		return cloudFolder(requireNotNull(path.parent))
 	}
 
 	private fun folderEntity(folder: VaultPath, lastEnumeratedAt: Long): DocumentMetadataEntity {

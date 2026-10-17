@@ -9,10 +9,11 @@
 		android:padding="@dimen/activity_vertical_margin">
 
 		<TextView
+			android:id="@+id/tv_change_failed_reason"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/dialog_microsoft_workaround_disclaimer_hint" />
+			android:textIsSelectable="true" />
 
 	</RelativeLayout>
-</androidx.core.widget.NestedScrollView>
 
+</androidx.core.widget.NestedScrollView>

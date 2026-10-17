@@ -17,7 +17,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import io.minio.MinioClient
@@ -151,7 +150,7 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, client: Mini
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: S3File, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: S3File, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
 				cloud.read(file, data, progressAware)
 			} catch (e: IOException) {

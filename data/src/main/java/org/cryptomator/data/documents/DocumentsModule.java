@@ -36,7 +36,23 @@ public class DocumentsModule {
 
 	@Singleton
 	@Provides
-	public DocumentContentCache provideDocumentContentCache(CachedFileDao dao, DocumentMetadataCache metadataCache, CloudTaskScheduler scheduler, DispatchingCloudContentRepository contentRepository, Context context) {
-		return new DocumentContentCache(dao, metadataCache, scheduler, contentRepository, new File(context.getNoBackupFilesDir(), DocumentContentCache.DIRECTORY_NAME));
+	public DocumentContentCache provideDocumentContentCache(CachedFileDao dao, DocumentMetadataCache metadataCache, CloudTaskScheduler scheduler, DispatchingCloudContentRepository contentRepository, ThumbnailStore thumbnailStore, Context context) {
+		return new DocumentContentCache(dao, metadataCache, scheduler, contentRepository, copyDirectory(context), thumbnailStore);
+	}
+
+	@Singleton
+	@Provides
+	public ThumbnailStore provideThumbnailStore(DocumentMetadataDao metadataDao, CachedFileDao cachedFileDao, Context context) {
+		return new ThumbnailStore(new File(context.getNoBackupFilesDir(), ThumbnailStore.DIRECTORY_NAME), metadataDao, cachedFileDao, copyDirectory(context));
+	}
+
+	@Singleton
+	@Provides
+	public ThumbnailGenerator provideThumbnailGenerator(ThumbnailStore store, DocumentMetadataCache metadataCache, DocumentContentCache contentCache, VaultDocumentEvents events, Context context) {
+		return new ThumbnailGenerator(store, metadataCache, contentCache, events, new File(context.getCacheDir(), "thumbnails"));
+	}
+
+	private static File copyDirectory(Context context) {
+		return new File(context.getNoBackupFilesDir(), DocumentContentCache.DIRECTORY_NAME);
 	}
 }

@@ -2,17 +2,19 @@ package org.cryptomator.presentation.docprovider
 
 import android.app.AuthenticationRequiredException
 import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.database.Cursor
 import android.database.MatrixCursor
+import android.graphics.Point
 import android.net.Uri
 import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract.*
 import android.provider.DocumentsProvider
@@ -31,6 +33,7 @@ import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.ContextHolder
 import org.cryptomator.presentation.util.FileNameValidator
+import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.named
 import java.io.FileNotFoundException
 import timber.log.Timber
@@ -62,6 +65,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	private val metadataCache by lazy { appComponent.documentMetadataCache() }
 	private val contentCache by lazy { appComponent.documentContentCache() }
+	private val thumbnailStore by lazy { appComponent.thumbnailStore() }
+	private val thumbnailGenerator by lazy { appComponent.thumbnailGenerator() }
 	private val closeHandler by lazy { Handler(HandlerThread("DocumentsProviderClose").apply { start() }.looper) }
 
 	override fun onCreate(): Boolean {
@@ -93,8 +98,11 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	@Throws(BackendException::class)
 	private fun queryRootsImpl(actualProjection: Array<String>): Cursor {
-		val vaults = appComponent.vaultRepository().vaults()
 		val result = MatrixCursor(actualProjection)
+		if (!SharedPreferencesHandler(context!!).documentsProvider()) {
+			return result
+		}
+		val vaults = appComponent.vaultRepository().vaults()
 
 		vaults.forEach { vault ->
 			result.newRow().apply {
@@ -172,7 +180,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		add(Document.COLUMN_DOCUMENT_ID, metadataCache.documentId(metadata))
 		add(Document.COLUMN_DISPLAY_NAME, metadata.name)
 		add(Document.COLUMN_MIME_TYPE, metadata.mimeType)
-		add(Document.COLUMN_FLAGS, documentFlags(vault, metadata.isFolder))
+		add(Document.COLUMN_FLAGS, documentFlags(vault, metadata.isFolder) or thumbnailFlag(metadata))
 		add(Document.COLUMN_SIZE, metadata.size)
 		add(Document.COLUMN_LAST_MODIFIED, metadata.lastModified)
 	}
@@ -184,7 +192,11 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val actualProjection = projection ?: SUPPORTED_DOCUMENT_COLUMNS
 		try {
 			return metadataCache.path(documentId).let {
-				if (it.isRoot) queryVaultRoot(documentId, it, actualProjection) else queryVaultDocument(requireUnlocked(it), actualProjection)
+				when {
+					it.isRoot -> queryVaultRoot(documentId, it, actualProjection)
+					!it.vault.isUnlocked && contentCache.isPinned(it) -> queryPinnedDocument(it, actualProjection)
+					else -> queryVaultDocument(requireUnlocked(it), actualProjection)
+				}
 			}
 		} catch (e: BackendException) {
 			return errorCursor(actualProjection, e)
@@ -221,9 +233,13 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	 */
 	private fun requireUnlocked(path: VaultPath): VaultPath {
 		if (!path.vault.isUnlocked) {
-			throw AuthenticationRequiredException(IllegalStateException("${path.vault.name} is locked"), unlockVaultIntent(path.vault))
+			throw authenticationRequired(path.vault)
 		}
 		return path
+	}
+
+	private fun authenticationRequired(vault: Vault): AuthenticationRequiredException {
+		return AuthenticationRequiredException(IllegalStateException("${vault.name} is locked"), unlockVaultIntent(vault))
 	}
 
 	private fun unlockVaultIntent(vault: Vault): PendingIntent {
@@ -252,6 +268,19 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 	}
 
+	/**
+	 * An external editor can keep using a document it opened from the app after the vault locks, see [openDocument], so
+	 * it can still look it up. It can read and write the document, but renaming, deleting and anything else require an
+	 * unlock.
+	 */
+	private fun queryPinnedDocument(documentPath: VaultPath, actualProjection: Array<String>): Cursor {
+		val metadata = metadataCache.cachedDocument(documentPath) ?: throw FileNotFoundException("Unknown document: ${metadataCache.logId(documentPath)}")
+		return singleRowCursor(actualProjection) {
+			addDocument(documentPath.vault, metadata)
+			add(Document.COLUMN_FLAGS, if (isWritable(documentPath.vault)) Document.FLAG_SUPPORTS_WRITE else 0)
+		}
+	}
+
 	private fun documentFlags(vault: Vault, isDir: Boolean): Int {
 		var flags = 0
 		if (isWritable(vault)) {
@@ -262,6 +291,24 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 					Document.FLAG_SUPPORTS_REMOVE
 		}
 		return flags
+	}
+
+	private fun thumbnailFlag(metadata: DocumentMetadataEntity): Int {
+		return if (metadata.isImage) Document.FLAG_SUPPORTS_THUMBNAIL else 0
+	}
+
+	/**
+	 * A thumbnail that hasn't been made yet is made in the background. Files shows the icon meanwhile and asks again once
+	 * the thumbnail's folder is notified.
+	 */
+	override fun openDocumentThumbnail(documentId: String?, sizeHint: Point?, signal: CancellationSignal?): AssetFileDescriptor {
+		LOG.v("openDocumentThumbnail($documentId)")
+		requireNotNull(documentId)
+
+		val path = unlockedPath(documentId)
+		val metadata = metadataCache.cachedDocument(path) ?: throw FileNotFoundException("Unknown document: $documentId")
+		val thumbnail = storedThumbnail(path, metadata, thumbnailStore, thumbnailGenerator)
+		return AssetFileDescriptor(ParcelFileDescriptor.open(thumbnail, ParcelFileDescriptor.MODE_READ_ONLY), 0, thumbnail.length())
 	}
 
 	private fun errorCursor(projection: Array<String>, e: BackendException): Cursor {
@@ -281,20 +328,25 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(mode)
 
 		val accessMode = ParcelFileDescriptor.parseMode(mode)
-		val path = unlockedPath(documentId)
+		val path = metadataCache.path(documentId)
+		val pinnedFile = claimPinnedFileIfLocked(path, contentCache, ::authenticationRequired)
 		try {
 			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
-				val localFile = contentCache.file(path, signal)
+				val localFile = pinnedFile ?: contentCache.file(path, signal)
 				try {
 					return ParcelFileDescriptor.open(localFile, accessMode)
 				} finally {
 					contentCache.release(localFile)
 				}
 			}
-			if (!isWritable(path.vault)) {
-				throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
+			try {
+				if (!isWritable(path.vault)) {
+					throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
+				}
+				return openForWriting(documentId, path, accessMode, signal)
+			} finally {
+				pinnedFile?.let(contentCache::release)
 			}
-			return openForWriting(documentId, path, accessMode, signal)
 		} catch (e: Exception) {
 			if (e is FileNotFoundException || (e is RuntimeException && e !is FatalBackendException)) {
 				throw e
@@ -432,7 +484,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		override fun onChanged(folder: VaultPath) {
 			metadataCache().documentId(folder)?.let { documentId ->
 				LOG.v("notify($documentId)")
-				contentResolver.notifyChange(buildDocumentUri(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY, documentId), null)
+				contentResolver.notifyChange(documentUri(documentId), null)
 			}
 			if (folder.isRoot) {
 				notifyRoots(contentResolver)
@@ -455,18 +507,19 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 
 		/**
-		 * Shows or hides the vaults in the system file picker. Hiding them deletes the decrypted copies that have no
-		 * pending upload.
+		 * Shows or hides the vaults in the system file picker once the setting has been saved. Hiding them revokes the
+		 * access other apps were given to documents and trees, including those the cache no longer knows. The app itself
+		 * keeps opening files through the provider.
 		 */
-		fun setEnabled(context: Context, enabled: Boolean) {
-			if (!enabled) {
-				appComponent.documentContentCache().evictAll()
+		fun setShown(context: Context, shown: Boolean) {
+			if (!shown) {
+				listOf("document", "tree").forEach { path ->
+					val prefix = Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(BuildConfig.DOCUMENTS_PROVIDER_AUTHORITY).appendPath(path).build()
+					context.revokeUriPermission(prefix, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+				}
 			}
-			val component = ComponentName(context, CryptomatorDocumentsProvider::class.java)
-			val state = if (enabled) PackageManager.COMPONENT_ENABLED_STATE_DEFAULT else PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-			if (context.packageManager.getComponentEnabledSetting(component) != state) {
-				context.packageManager.setComponentEnabledSetting(component, state, PackageManager.DONT_KILL_APP)
-			}
+			// the preference is saved once its change listener has returned
+			Handler(Looper.getMainLooper()).post { notifyRoots(context.contentResolver) }
 		}
 	}
 }

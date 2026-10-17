@@ -130,27 +130,8 @@
 
 	<PreferenceCategory android:title="@string/screen_settings_lru_cache">
 
-		<SwitchPreference
-			android:defaultValue="true"
-			android:key="lruCache"
-			android:summary="@string/screen_settings_lru_cache_toggle_summary"
-			android:title="@string/screen_settings_lru_cache_toggle" />
-
-		<ListPreference
-			android:defaultValue="100"
-			android:dialogTitle="@string/dialog_cache_size_title"
-			android:entries="@array/cache_size_entries"
-			android:entryValues="@array/cache_size_values"
-			android:key="lruCacheSize"
-			android:summary="%s"
-			android:title="@string/dialog_cache_size_title" />
-
 		<androidx.preference.PreferenceScreen
-			android:key="displayLruCacheSize"
-			android:title="@string/screen_settings_lru_cache_size" />
-
-		<androidx.preference.PreferenceScreen
-			android:key="lruCacheClear"
+			android:key="clearCache"
 			android:title="@string/screen_settings_clear_lru_cache_size" />
 
 	</PreferenceCategory>
@@ -175,12 +156,6 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/screen_settings_advanced_settings">
-
-		<SwitchPreference
-			android:defaultValue="false"
-			android:key="shareOfficeFilePublicly"
-			android:summary="@string/screen_settings_microsoft_apps_workaround_summary"
-			android:title="@string/screen_settings_microsoft_apps_workaround_label" />
 
 		<SwitchPreference
 			android:defaultValue="false"

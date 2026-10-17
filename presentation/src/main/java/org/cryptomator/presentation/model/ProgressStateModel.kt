@@ -42,6 +42,7 @@ open class ProgressStateModel private constructor(private val name: String, imag
 		val RENAMING = ProgressStateModel("RENAMING", text(R.string.action_progress_renaming))
 		val MOVING = ProgressStateModel("MOVING", text(R.string.action_progress_moving), false)
 		val DELETION = ProgressStateModel("DELETION", text(R.string.action_progress_deleting), false)
+		val UPLOAD_PENDING = ProgressStateModel("UPLOAD_PENDING", text(R.string.dialog_progress_upload_file))
 		val CREATING_FOLDER = ProgressStateModel("FOLDER", text(R.string.dialog_progress_creating_folder))
 		val CREATING_TEXT_FILE = ProgressStateModel("FILE", text(R.string.dialog_progress_creating_text_file))
 		val UNLOCKING_VAULT = ProgressStateModel("VAULT", text(R.string.dialog_progress_unlocking_vault))

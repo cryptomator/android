@@ -9,7 +9,6 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
-import java.io.File
 import java.io.OutputStream
 
 /**
@@ -98,7 +97,7 @@ interface CloudContentRepository<CloudType : Cloud, NodeType : CloudNode, DirTyp
 	fun write(file: FileType, data: DataSource, progressAware: ProgressAware<UploadState>, replace: Boolean, size: Long): FileType
 
 	@Throws(BackendException::class)
-	fun read(file: FileType, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>)
+	fun read(file: FileType, data: OutputStream, progressAware: ProgressAware<DownloadState>)
 
 	@Throws(BackendException::class)
 	fun delete(node: NodeType)

@@ -166,10 +166,6 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
 	}
 
-	fun useLruCache(): Boolean {
-		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
-	}
-
 	fun addLicenseChangedListeners(listener: Consumer<String>) {
 		licenseChangedListeners[listener] = null
 		listener.accept(licenseToken())
@@ -193,10 +189,6 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 				}
 			}
 		}
-	}
-
-	fun lruCacheSize(): Int {
-		return defaultSharedPreferences.getValue(LRU_CACHE_SIZE, "100").toInt() * 1024 * 1024
 	}
 
 	fun mail(): String {
@@ -355,14 +347,6 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, disable)
 	}
 
-	fun setMicrosoftWorkaround(enabled: Boolean) {
-		defaultSharedPreferences.setValue(MICROSOFT_WORKAROUND, enabled)
-	}
-
-	fun microsoftWorkaround(): Boolean {
-		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
-	}
-
 	fun hasCompletedWelcomeFlow(): Boolean {
 		return defaultSharedPreferences.getValue(WELCOME_FLOW_COMPLETED, false)
 	}
@@ -427,9 +411,6 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
 		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
-		const val USE_LRU_CACHE = "lruCache"
-		const val LRU_CACHE_SIZE = "lruCacheSize"
-		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
 		const val LICENSE_TOKEN = "licenseToken"
 		const val UPDATE_INTERVAL = "updateInterval"

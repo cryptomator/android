@@ -237,7 +237,7 @@ public class AutoUploadService extends Service {
 	 * CloudNodeAlreadyExistsException and is skipped instead of being uploaded as a copy.
 	 */
 	private CloudFile importIntoVault(VaultPath folder, String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
-		VaultDocumentImport vaultImport = vaultDocumentRepository.importFile(folder, fileName, dataSource, replacing, true, progressAware);
+		VaultDocumentImport vaultImport = vaultDocumentRepository.importFile(folder, fileName, dataSource, replacing, true, false, progressAware);
 		runningImport = vaultImport;
 		if (cancelled) {
 			vaultImport.cancel();

@@ -21,11 +21,14 @@ import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.NotFoundException
+import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.repository.CloudRepository
+import org.cryptomator.domain.repository.VaultDocumentListener
 import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
+import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.file.MimeTypes
 import org.junit.jupiter.api.AfterEach
@@ -33,6 +36,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -43,6 +47,7 @@ import org.mockito.kotlin.isNull
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argThat
+import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.doReturn
@@ -59,6 +64,7 @@ import java.util.Date
 import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
@@ -96,7 +102,7 @@ class DocumentMetadataCacheTest {
 	}
 
 	private fun cache(scheduler: CloudTaskScheduler): DocumentMetadataCache {
-		return DocumentMetadataCache(dao, scheduler, events, repository, cloudRepository, vaultRepository, mock<MimeTypes>()) { now }
+		return DocumentMetadataCache(dao, scheduler, events, repository, cloudRepository, vaultRepository, mock<MimeTypes>(), direct) { now }
 	}
 
 	@Test
@@ -229,19 +235,235 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
-	fun `an upload reports its progress and gives the cloud the modification date it was made with`() {
+	fun `an upload reports its progress, also to the listeners, and gives the cloud the modification date it was made with`() {
 		givenUpload(remoteModified = 5_400)
 		val target = writeTarget("x.txt")
 		val progress: ProgressAware<UploadState> = mock()
+		val reported = Progress.started(UploadState.upload(target))
+		val reportedToListeners = mutableListOf<Pair<VaultPath, Progress<UploadState>>>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onUploadProgress(path: VaultPath, progress: Progress<UploadState>) {
+				reportedToListeners.add(path to progress)
+			}
+		})
 		var modified: Date? = null
-		whenever(repository.write(eq(target), any(), eq(progress), any(), any())).thenAnswer {
+		whenever(repository.write(eq(target), any(), any(), any(), any())).thenAnswer {
 			modified = it.getArgument<DataSource>(1).modifiedDate(mock()).get()
+			it.getArgument<ProgressAware<UploadState>>(2).onProgress(reported)
 			cryptoFile("a/uploaded.txt", size = 3, modified = 9_000)
 		}
 
 		inTest.upload(path("a/x.txt"), localFile, { 5_000 }, progress, modifiedDate = 4_000) { _, _, _, _ -> }
 
 		assertEquals(Date(4_000), modified)
+		verify(progress).onProgress(reported)
+		assertEquals(listOf(path("a/x.txt") to reported), reportedToListeners)
+	}
+
+	@Test
+	fun `a failed upload is recorded for its write and reported to the listeners until the file is uploaded again`() {
+		givenUpload(remoteModified = 5_400)
+		writeTarget("x.txt")
+		val failure = NetworkConnectionException()
+		val uploaded = cryptoFile("a/x.txt", size = 3, modified = 9_000)
+		whenever(repository.write(any(), any(), any(), any(), any())).thenThrow(failure).thenReturn(uploaded)
+		val failed = mutableListOf<Triple<VaultPath, Throwable, Boolean>>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(Triple(path, error, userInitiated))
+			}
+		})
+
+		inTest.upload(path("a/x.txt"), localFile, { 5_000 }, userInitiated = true) { _, _, _, _ -> }
+
+		assertSame(failure, inTest.uploadFailure(uploading()))
+		assertNull(inTest.uploadFailure(uploading().apply { uploadGeneration = GENERATION + 1 }))
+		assertEquals(listOf(Triple(path("a/x.txt"), failure as Throwable, true)), failed)
+
+		inTest.upload(path("a/x.txt"), localFile, { 5_000 }) { _, _, _, _ -> }
+		assertNull(inTest.uploadFailure(uploading()))
+	}
+
+	@Test
+	fun `a change the cloud rejects is reported to the listeners, telling whether the user made it`() {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(null)
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(repository.folder(eq(root), any())).thenReturn(mock())
+		whenever(repository.create(any<CloudFolder>())).thenThrow(NetworkConnectionException())
+		val failed = mutableListOf<Pair<VaultPath, Boolean>>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(path to userInitiated)
+			}
+		})
+
+		inTest.create(VaultPath(vault), "new", isFolder = true, userInitiated = true)
+		inTest.create(VaultPath(vault), "other", isFolder = true)
+		listings.runAll()
+
+		assertEquals(listOf(path("new") to true, path("other") to false), failed)
+	}
+
+	@Test
+	fun `a listing that needs an authentication is reported also for a folder that has been listed before`() {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now - 60_000 })
+		whenever(repository.resolve(eq(cryptoCloud), any())).thenReturn(root)
+		val authFailure = NoAuthenticationProvidedException(cryptoCloud)
+		whenever(repository.list(root)).thenThrow(authFailure)
+
+		inTest.children(path("a"))
+		listings.runAll()
+		val children = inTest.children(path("a"))
+
+		assertSame(authFailure, children.authError)
+		assertNull(children.error)
+	}
+
+	@Test
+	fun `the uploads below a move the process ended during wait until both of its folders have been listed`() {
+		val moved = entity("b/x.txt").apply {
+			sourcePath = "a/x.txt"
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		}
+		whenever(dao.loadInterruptedChanges()).thenReturn(listOf(moved))
+		whenever(dao.hasPendingUploadInSubtree(VAULT_ID, "b/x.txt")).thenReturn(true)
+		whenever(dao.loadById(ID)).thenReturn(moved)
+		whenever(dao.loadPendingUploads(VAULT_ID)).thenReturn(listOf(moved))
+		val folderA: CloudFolder = mock()
+		val folderB: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+		whenever(repository.list(folderA)).thenReturn(emptyList())
+		val listedAtTarget = listOf<CloudNode>(cryptoFile("b/x.txt"))
+		whenever(repository.list(folderB)).thenReturn(listedAtTarget)
+		val resolved = mutableListOf<Vault>()
+		val inTest = cache(CloudTaskScheduler(listings, direct, direct)).apply { onInterruptedMovesResolved = { resolved.add(it) } }
+
+		assertEquals(emptyList<VaultPath>(), inTest.pendingUploads(vault))
+		verify(dao, never()).discardPendingChange(any())
+		inTest.resolveInterruptedMoves(vault)
+		listings.runAll()
+
+		verify(dao).clearSourcePath(ID)
+		verify(dao, never()).revertMove(any(), any())
+		assertEquals(listOf(vault), resolved)
+		assertEquals(listOf(path("b/x.txt")), inTest.pendingUploads(vault))
+	}
+
+	@Test
+	fun `a move the process ended during is settled only once its target folder has been listed, too`() {
+		val moved = givenInterruptedMove()
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR))
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR))
+		val folderA: CloudFolder = mock()
+		val folderB: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+		whenever(repository.list(folderA)).thenReturn(emptyList())
+		val listedAtTarget = listOf<CloudNode>(cryptoFile("b/x.txt"))
+		whenever(repository.list(folderB)).thenReturn(listedAtTarget)
+		val inTest = cache(CloudTaskScheduler(listings, direct, direct))
+		whenever(dao.load(VAULT_ID, "b/x.txt")).thenReturn(moved)
+
+		inTest.children(path("a"))
+		listings.runAll()
+
+		verify(dao, never()).clearSourcePath(any())
+		verify(dao, never()).revertMove(any(), any())
+		assertEquals(emptyList<VaultPath>(), inTest.pendingUploads(vault))
+
+		inTest.children(path("b"))
+		listings.runAll()
+
+		verify(dao).clearSourcePath(ID)
+		assertEquals(listOf(path("b/x.txt")), inTest.pendingUploads(vault))
+	}
+
+	@Test
+	fun `an upload below a move the process ended during waits for the move to be settled, also if a writer closed the file`() {
+		val moved = givenInterruptedMove()
+		whenever(dao.load(VAULT_ID, "b/x.txt")).thenReturn(moved)
+		val inTest = cache(CloudTaskScheduler(listings, direct, direct))
+
+		val upload = inTest.upload(path("b/x.txt"), localFile, { 5_000 }) { _, _, _, _ -> }
+		listings.runAll()
+
+		assertThrows<CancellationException> { upload.result.get() }
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+	}
+
+	@Test
+	fun `the uploads below a folder whose move the process ended during wait for the move to be settled`() {
+		val movedFolder = entity("b/sub", Document.MIME_TYPE_DIR).apply { sourcePath = "a/sub" }
+		whenever(dao.loadInterruptedChanges()).thenReturn(listOf(movedFolder))
+		whenever(dao.hasPendingUploadInSubtree(VAULT_ID, "b/sub")).thenReturn(true)
+		whenever(dao.loadById(ID)).thenReturn(movedFolder)
+		whenever(dao.loadPendingUploads(VAULT_ID)).thenReturn(listOf(entity("b/sub/x.txt").apply { status = DocumentMetadataEntity.STATUS_UPLOADING }, entity("b/y.txt").apply { status = DocumentMetadataEntity.STATUS_UPLOADING }))
+
+		val inTest = cache(CloudTaskScheduler(listings, direct, direct))
+
+		assertEquals(listOf(path("b/y.txt")), inTest.pendingUploads(vault))
+	}
+
+	@Test
+	fun `a move the process ended during stays where the cache has it if the listings find the node at neither or both of its folders`() {
+		listOf(false, true).forEach { foundAtBoth ->
+			clearInvocations(dao)
+			val moved = givenInterruptedMove()
+			val folderA: CloudFolder = mock()
+			val folderB: CloudFolder = mock()
+			whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+			whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+			val listedAtSource = if (foundAtBoth) listOf<CloudNode>(cryptoFile("a/x.txt")) else emptyList()
+			val listedAtTarget = if (foundAtBoth) listOf<CloudNode>(cryptoFile("b/x.txt")) else emptyList()
+			whenever(repository.list(folderA)).thenReturn(listedAtSource)
+			whenever(repository.list(folderB)).thenReturn(listedAtTarget)
+			val inTest = cache(CloudTaskScheduler(listings, direct, direct))
+
+			inTest.resolveInterruptedMoves(vault)
+			listings.runAll()
+
+			verify(dao).clearSourcePath(requireNotNull(moved.id))
+			verify(dao, never()).revertMove(any(), any())
+		}
+	}
+
+	@Test
+	fun `a move the process ended during without a pending upload below it is dropped when the cache is created`() {
+		val moved = entity("b/x.txt").apply { sourcePath = "a/x.txt" }
+		whenever(dao.loadInterruptedChanges()).thenReturn(listOf(moved))
+		whenever(dao.hasPendingUploadInSubtree(VAULT_ID, "b/x.txt")).thenReturn(false)
+
+		cache(CloudTaskScheduler(listings, direct, direct))
+
+		verify(dao).discardPendingChange(moved)
+	}
+
+	@Test
+	fun `a move the process ended during before it reached the cloud is undone once both of its folders have been listed`() {
+		val moved = entity("b/x.txt").apply {
+			sourcePath = "a/x.txt"
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		}
+		whenever(dao.loadInterruptedChanges()).thenReturn(listOf(moved))
+		whenever(dao.hasPendingUploadInSubtree(VAULT_ID, "b/x.txt")).thenReturn(true)
+		whenever(dao.loadById(ID)).thenReturn(moved)
+		val folderA: CloudFolder = mock()
+		val folderB: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+		val listedAtSource = listOf<CloudNode>(cryptoFile("a/x.txt"))
+		whenever(repository.list(folderA)).thenReturn(listedAtSource)
+		whenever(repository.list(folderB)).thenReturn(emptyList())
+		val inTest = cache(CloudTaskScheduler(listings, direct, direct))
+
+		inTest.resolveInterruptedMoves(vault)
+		listings.runAll()
+
+		verify(dao).revertMove(eq(ID), any())
 	}
 
 	@Test
@@ -333,6 +555,24 @@ class DocumentMetadataCacheTest {
 		upload(base = 5_000)
 		inTest.markPendingUpload(path("a/x.txt"))
 		assertFalse(inTest.hasUploadInFlight(path("a/x.txt")))
+	}
+
+	@Test
+	fun `an upload hasn't ended until its end is recorded for the local copy, also once its file is synced`() {
+		givenUpload(remoteModified = 5_000)
+		writeTarget("x.txt")
+		var synced = false
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenAnswer { if (synced) entity("a/x.txt") else uploading() }
+		doAnswer { synced = true }.whenever(dao).markUploaded(any(), anyOrNull(), anyOrNull(), any())
+		var notEndedWhileRecorded: Boolean? = null
+
+		inTest.upload(path("a/x.txt"), localFile, { 5_000L }) { _, _, _, _ ->
+			notEndedWhileRecorded = inTest.hasUploadNotEnded(path("a/x.txt"))
+		}.result.get()
+
+		assertTrue(synced)
+		assertEquals(true, notEndedWhileRecorded)
+		assertFalse(inTest.hasUploadNotEnded(path("a/x.txt")))
 	}
 
 	@Test
@@ -532,10 +772,9 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
-	fun `a node moved again stays marked as moving until its last move is done`() {
-		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
-		whenever(dao.load(VAULT_ID, "b.txt")).thenReturn(null, entity("b.txt"))
-		givenMoved("a.txt", "c.txt")
+	@Timeout(10)
+	fun `a node moved again is moved on from where its earlier move left it once that is recorded`() {
+		givenMovableNode("a.txt")
 		val a: CloudFile = mock()
 		val b: CloudFile = mock()
 		val c: CloudFile = mock()
@@ -544,22 +783,120 @@ class DocumentMetadataCacheTest {
 		whenever(repository.file(root, "c.txt")).thenReturn(c)
 
 		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
-		inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		verify(dao, times(1)).move(any(), any(), any(), any(), any(), any())
 		listings.runAll()
 
+		second.get()
 		inOrder(repository, dao) {
 			verify(repository).move(a, b)
-			verify(dao).setSourcePath(ID, "b.txt")
+			verify(dao).clearSourcePath(ID)
+			verify(dao).move(VAULT_ID, "b.txt", "c.txt", "", "c.txt", "application/octet-stream")
 			verify(repository).move(b, c)
 			verify(dao).clearSourcePath(ID)
+		}
+		verify(dao, never()).setSourcePath(any(), any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a node moved three times before its first move is recorded is moved on in the order of the moves`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		val c: CloudFile = mock()
+		val d: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.file(root, "c.txt")).thenReturn(c)
+		whenever(repository.file(root, "d.txt")).thenReturn(d)
+
+		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		// the node is still at b.txt in the cache, its second move waits for the first one
+		val third = inTest.move(path("b.txt"), VaultPath(vault), "d.txt")
+		listings.runAll()
+
+		second.get()
+		third.get()
+		inOrder(repository, dao) {
+			verify(repository).move(a, b)
+			verify(dao).move(VAULT_ID, "b.txt", "c.txt", "", "c.txt", "application/octet-stream")
+			verify(repository).move(b, c)
+			verify(dao).move(VAULT_ID, "c.txt", "d.txt", "", "d.txt", "application/octet-stream")
+			verify(repository).move(c, d)
 		}
 	}
 
 	@Test
-	fun `a node moved again records the conflict name its first move got in the cloud`() {
-		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
-		whenever(dao.load(VAULT_ID, "b.txt")).thenReturn(null, entity("b.txt"))
-		givenMoved("a.txt", "c.txt")
+	@Timeout(10)
+	fun `a node whose earlier move the cloud rejected is moved on from where that left it`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		val c: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.file(root, "c.txt")).thenReturn(c)
+		whenever(repository.move(a, b)).thenThrow(NetworkConnectionException())
+
+		val first = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		listings.runAll()
+
+		assertThrows<ExecutionException> { first.get() }
+		second.get()
+		verify(repository).move(a, c)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move of a node that is gone once its earlier move is recorded is given up without reporting it`() {
+		givenMovableNode("a.txt")
+		whenever(repository.file(eq(root), any())).thenReturn(mock())
+		val failed = mutableListOf<Pair<VaultPath, Boolean>>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(path to userInitiated)
+			}
+		})
+
+		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt", userInitiated = true)
+		whenever(dao.loadVisibleById(ID)).thenReturn(null)
+		listings.runAll()
+
+		assertThrows<CancellationException> { second.get() }
+		assertEquals(emptyList<Pair<VaultPath, Boolean>>(), failed)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move that can't be started once its earlier move is recorded is reported`() {
+		givenMovableNode("a.txt")
+		whenever(repository.file(eq(root), any())).thenReturn(mock())
+		val failed = mutableListOf<Pair<VaultPath, Boolean>>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(path to userInitiated)
+			}
+		})
+
+		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt", userInitiated = true)
+		whenever(dao.loadVisibleById(ID)).thenThrow(IllegalStateException("The database is closed"))
+		listings.runAll()
+
+		assertThrows<ExecutionException> { second.get() }
+		assertEquals(listOf(path("c.txt") to true), failed.filter { (failedPath, _) -> failedPath == path("c.txt") })
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a node moved again is moved on from the conflict name its earlier move got in the cloud`() {
+		givenMovableNode("a.txt")
 		whenever(repository.file(eq(root), any())).thenReturn(mock())
 		val moved = cryptoFile("b.txt")
 		whenever(repository.move(anyOrNull<CloudFile>(), anyOrNull<CloudFile>())).thenThrow(CloudNodeAlreadyExistsException("b.txt")).thenReturn(moved)
@@ -568,7 +905,7 @@ class DocumentMetadataCacheTest {
 		inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
 		listings.runAll()
 
-		verify(dao).setSourcePath(eq(ID), argThat { matches(Regex("b \\([0-9A-F]{5}\\)\\.txt")) })
+		verify(dao).move(eq(VAULT_ID), argThat { matches(Regex("b \\([0-9A-F]{5}\\)\\.txt")) }, eq("c.txt"), eq(""), eq("c.txt"), any())
 	}
 
 	@Test
@@ -805,13 +1142,9 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
-	fun `a file that has never been in the cloud stays marked as moving until its last move in the cache is done`() {
-		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
-		whenever(dao.load(VAULT_ID, "b.txt")).thenReturn(null, entity("b.txt"))
-		whenever(dao.loadById(ID)).thenReturn(entity("c.txt").apply {
-			sourcePath = "a.txt"
-			status = DocumentMetadataEntity.STATUS_UPLOADING
-		})
+	@Timeout(10)
+	fun `a file that has never been in the cloud is moved again in the cache once its earlier move is recorded`() {
+		val node = givenMovableNode("a.txt", DocumentMetadataEntity.STATUS_UPLOADING)
 		whenever(repository.file(eq(root), any())).thenReturn(mock())
 
 		val first = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
@@ -820,10 +1153,9 @@ class DocumentMetadataCacheTest {
 
 		first.get()
 		second.get()
-		inOrder(dao) {
-			verify(dao).setSourcePath(ID, "b.txt")
-			verify(dao).clearSourcePath(ID)
-		}
+		assertEquals("c.txt", node().path)
+		assertNull(node().sourcePath)
+		verify(dao, never()).setSourcePath(any(), any())
 		verify(repository, never()).move(anyOrNull<CloudFile>(), anyOrNull<CloudFile>())
 	}
 
@@ -1564,6 +1896,21 @@ class DocumentMetadataCacheTest {
 	}
 
 	/**
+	 * A file moved from a/x.txt to b/x.txt with a pending upload, whose move the process ended during.
+	 */
+	private fun givenInterruptedMove(): DocumentMetadataEntity {
+		val moved = entity("b/x.txt").apply {
+			sourcePath = "a/x.txt"
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		}
+		whenever(dao.loadInterruptedChanges()).thenReturn(listOf(moved))
+		whenever(dao.hasPendingUploadInSubtree(VAULT_ID, "b/x.txt")).thenReturn(true)
+		whenever(dao.loadById(ID)).thenReturn(moved)
+		whenever(dao.loadPendingUploads(VAULT_ID)).thenReturn(listOf(moved))
+		return moved
+	}
+
+	/**
 	 * A file a/x.txt that can be moved to the folder b.
 	 */
 	private fun givenMovable() {
@@ -1590,6 +1937,32 @@ class DocumentMetadataCacheTest {
 		inTest.children(path(folder))
 		listings.runAll()
 		return listCalls
+	}
+
+	/**
+	 * Keeps the node with [ID] where the cache moves it, like the database would.
+	 */
+	private fun givenMovableNode(path: String, status: String = DocumentMetadataEntity.STATUS_SYNCED): () -> DocumentMetadataEntity {
+		var current = entity(path).apply { this.status = status }
+		whenever(dao.load(eq(VAULT_ID), any())).thenAnswer { invocation -> current.takeIf { it.path == invocation.getArgument(1) } }
+		whenever(dao.loadById(ID)).thenAnswer { current }
+		doAnswer { invocation ->
+			val source = current.sourcePath ?: invocation.getArgument<String>(1)
+			current = entity(invocation.getArgument(2)).apply {
+				this.status = status
+				sourcePath = source
+			}
+		}.whenever(dao).move(any(), any(), any(), any(), any(), any())
+		doAnswer { invocation ->
+			val source = current.sourcePath ?: invocation.getArgument<String>(5)
+			current = entity(invocation.getArgument(2)).apply {
+				this.status = status
+				sourcePath = source
+			}
+		}.whenever(dao).renamePending(any(), any(), any(), any(), any(), anyOrNull())
+		doAnswer { current = entity(current.path).apply { this.status = status } }.whenever(dao).clearSourcePath(ID)
+		doAnswer { current = entity(current.sourcePath ?: current.path).apply { this.status = status } }.whenever(dao).revertMove(eq(ID), any())
+		return { current }
 	}
 
 	/**

@@ -9,7 +9,6 @@ import com.pcloud.sdk.ProgressListener
 import com.pcloud.sdk.RemoteFile
 import com.pcloud.sdk.UploadOptions
 import com.pcloud.sdk.internal.networking.APIHttpException
-import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.pcloud.PCloudApiError.isCloudNodeAlreadyExistsException
 import org.cryptomator.data.cloud.pcloud.PCloudApiError.isForbiddenException
 import org.cryptomator.data.cloud.pcloud.PCloudApiError.isNetworkConnectionException
@@ -33,10 +32,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
-import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
@@ -44,13 +39,10 @@ import kotlin.math.pow
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.source
-import timber.log.Timber
 
 internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClient, private val context: Context) {
 
 	private val root = RootPCloudFolder(cloud)
-	private val sharedPreferencesHandler: SharedPreferencesHandler
-	private var diskLruCache: DiskLruCache? = null
 
 	fun root(): PCloudFolder {
 		return root
@@ -227,41 +219,8 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 	}
 
 	@Throws(IOException::class, BackendException::class)
-	fun read(file: PCloudFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: PCloudFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
-		var cacheKey: String? = null
-		var cacheFile: File? = null
-		val remoteFile: RemoteFile
-		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			try {
-				remoteFile = client.loadFile(file.path).execute().asFile()
-				cacheKey = "${remoteFile.fileId()}${remoteFile.hash()}"
-			} catch (ex: ApiError) {
-				handleApiError(ex, file.name)
-			}
-			cacheFile = diskLruCache?.let { it[cacheKey] }
-		}
-		if (sharedPreferencesHandler.useLruCache() && cacheFile != null) {
-			try {
-				retrieveFromLruCache(cacheFile, data)
-			} catch (e: IOException) {
-				Timber.tag("PCloudImpl").w(e, "Error while retrieving content from Cache, get from web request")
-				writeToData(file, data, encryptedTmpFile, cacheKey, progressAware)
-			}
-		} else {
-			writeToData(file, data, encryptedTmpFile, cacheKey, progressAware)
-		}
-		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
-	}
-
-	@Throws(IOException::class, BackendException::class)
-	private fun writeToData(
-		file: PCloudFile,  //
-		data: OutputStream,  //
-		encryptedTmpFile: File?,  //
-		cacheKey: String?,  //
-		progressAware: ProgressAware<DownloadState>
-	) {
 		val listener = ProgressListener { done: Long, total: Long ->
 			progressAware.onProgress( //
 				Progress.progress(DownloadState.download(file)) //
@@ -282,16 +241,7 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 		} catch (ex: ApiError) {
 			handleApiError(ex, file.name)
 		}
-
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("PCloudImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("PCloudImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
-		}
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
 	}
 
 	private fun readFile(filePath: String, sink: DataSink, listener: ProgressListener) {
@@ -380,18 +330,6 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 		}
 	}
 
-	private fun createLruCache(cacheSize: Int): Boolean {
-		if (diskLruCache == null) {
-			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.PCLOUD), cacheSize.toLong())
-			} catch (e: IOException) {
-				Timber.tag("PCloudImpl").e(e, "Failed to setup LRU cache")
-				return false
-			}
-		}
-		return true
-	}
-
 	@Throws(BackendException::class)
 	private fun handleApiError(ex: ApiError, name: String) {
 		handleApiError(ex, null, name)
@@ -435,7 +373,6 @@ internal class PCloudImpl(private val cloud: PCloud, private val client: ApiClie
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 
 	companion object {

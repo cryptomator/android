@@ -362,7 +362,7 @@ abstract class CryptoImplDecorator(
 	private fun readToTmpFile(cryptoFile: CryptoFile, file: CloudFile, progressAware: ProgressAware<DownloadState>): File {
 		val encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
 		FileOutputStream(encryptedTmpFile).use { encryptedData ->
-			cloudContentRepository.read(file, encryptedTmpFile, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
+			cloudContentRepository.read(file, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
 			return encryptedTmpFile
 		}
 	}
@@ -394,7 +394,7 @@ abstract class CryptoImplDecorator(
 		folder.dirFile?.let {
 			try {
 				ByteArrayOutputStream().use { out ->
-					cloudContentRepository.read(it, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+					cloudContentRepository.read(it, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 					if (dirfileIsEmpty(out)) {
 						throw EmptyDirFileException(folder.name, folder.dirFile.path)
 					}

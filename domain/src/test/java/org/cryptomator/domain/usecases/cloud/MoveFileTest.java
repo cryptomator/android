@@ -75,6 +75,7 @@ public class MoveFileTest {
 		return new MoveFiles(cloudContentRepository, //
 				Mockito.mock(VaultDocumentRepository.class), //
 				sourceFile, //
-				parent);
+				parent, //
+				null);
 	}
 }

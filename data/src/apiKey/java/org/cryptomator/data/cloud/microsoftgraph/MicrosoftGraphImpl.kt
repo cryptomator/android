@@ -13,7 +13,6 @@ import com.microsoft.graph.options.QueryOption
 import com.microsoft.graph.requests.DriveRequestBuilder
 import com.microsoft.graph.requests.GraphServiceClient
 import com.microsoft.graph.tasks.LargeFileUploadTask
-import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.folder
 import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.from
 import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudNodeFactory.getDriveId
@@ -34,10 +33,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
-import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.time.OffsetDateTime
@@ -46,12 +41,8 @@ import java.util.Date
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 import okhttp3.Request
-import timber.log.Timber
 
 internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, private val client: GraphServiceClient<Request>, private val idCache: MicrosoftGraphIdCache, private val context: Context) {
-
-	private val sharedPreferencesHandler: SharedPreferencesHandler
-	private var diskLruCache: DiskLruCache? = null
 
 	private fun drive(driveId: String?): DriveRequestBuilder {
 		return if (driveId == null) client.me().drive() else client.drives(driveId)
@@ -321,29 +312,9 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 	}
 
 	@Throws(BackendException::class, IOException::class)
-	fun read(file: MicrosoftGraphFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: MicrosoftGraphFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
-		var cacheKey: String? = null
-		var cacheFile: File? = null
 		val nodeInfo = requireNodeInfo(file)
-		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			cacheKey = nodeInfo.id + nodeInfo.getcTag()
-			cacheFile = diskLruCache?.let { it[cacheKey] }
-		}
-		if (sharedPreferencesHandler.useLruCache() && cacheFile != null) {
-			try {
-				retrieveFromLruCache(cacheFile, data)
-			} catch (e: IOException) {
-				Timber.tag("MicrosoftGraphImpl").w(e, "Error while retrieving content from Cache, get from web request")
-				writeToData(file, nodeInfo, data, encryptedTmpFile, cacheKey, progressAware)
-			}
-		} else {
-			writeToData(file, nodeInfo, data, encryptedTmpFile, cacheKey, progressAware)
-		}
-	}
-
-	@Throws(IOException::class)
-	private fun writeToData(file: MicrosoftGraphFile, nodeInfo: MicrosoftGraphIdCache.NodeInfo, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
 		val request = drive(nodeInfo.driveId).items(nodeInfo.id).content().buildRequest()
 		request.get()?.use { inputStream ->
 			object : TransferredBytesAwareOutputStream(data) {
@@ -352,28 +323,7 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 				}
 			}.use { out -> CopyStream.copyStreamToStream(inputStream, out) }
 		}
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("MicrosoftGraphImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("MicrosoftGraphImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
-		}
 		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
-	}
-
-	private fun createLruCache(cacheSize: Int): Boolean {
-		if (diskLruCache == null) {
-			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.MICROSOFT_GRAPH), cacheSize.toLong())
-			} catch (e: IOException) {
-				Timber.tag("MicrosoftGraphImpl").e(e, "Failed to setup LRU cache")
-				return false
-			}
-		}
-		return true
 	}
 
 	@Throws(NoSuchCloudFileException::class)
@@ -404,7 +354,7 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 	}
 
 	private fun <T : MicrosoftGraphNode> cacheNodeInfo(node: T, item: DriveItem): T {
-		idCache.add(node.path, MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag))
+		idCache.add(node.path, MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item)))
 		return node
 	}
 
@@ -426,7 +376,7 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 
 	private fun loadRootNodeInfo(): MicrosoftGraphIdCache.NodeInfo {
 		return drive(cloud.driveId()).root().buildRequest().get()?.let { rootItem ->
-			MicrosoftGraphIdCache.NodeInfo(getId(rootItem), getDriveId(rootItem), true, rootItem.cTag)
+			MicrosoftGraphIdCache.NodeInfo(getId(rootItem), getDriveId(rootItem), true)
 		} ?: throw FatalBackendException("Failed to load root item, item is null")
 	}
 
@@ -440,7 +390,7 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 			return if (item == null) {
 				null
 			} else {
-				MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item), item.cTag)
+				MicrosoftGraphIdCache.NodeInfo(getId(item), getDriveId(item), isFolder(item))
 			}
 		} ?: throw ParentFolderIsNullException(node.name)
 	}
@@ -467,6 +417,5 @@ internal class MicrosoftGraphImpl(private val cloud: MicrosoftGraphCloud, privat
 		if (cloud.accessToken() == null) {
 			throw NoAuthenticationProvidedException(cloud)
 		}
-		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

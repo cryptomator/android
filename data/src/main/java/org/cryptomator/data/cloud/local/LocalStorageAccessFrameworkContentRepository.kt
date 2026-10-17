@@ -11,7 +11,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.file.MimeTypes
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
@@ -87,7 +86,7 @@ class LocalStorageAccessFrameworkContentRepository(context: Context, mimeTypes: 
 	}
 
 	@Throws(BackendException::class)
-	override fun read(file: LocalStorageAccessFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	override fun read(file: LocalStorageAccessFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		try {
 			if (file.documentId == null) {
 				throw NoSuchCloudFileException(file.name)

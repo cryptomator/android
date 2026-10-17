@@ -5,23 +5,23 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.widget.Toast
-import androidx.core.net.toFile
-import org.cryptomator.data.cloud.crypto.CryptoFolder
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.Vault
+import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NoDirFileException
 import org.cryptomator.domain.exception.SymLinkException
-import org.cryptomator.domain.usecases.CalculateFileHashUseCase
+import org.cryptomator.domain.repository.VaultDocumentListener
+import org.cryptomator.domain.repository.VaultDocumentRepository
+import org.cryptomator.domain.repository.VaultListing
 import org.cryptomator.domain.usecases.CloudFolderRecursiveListing
 import org.cryptomator.domain.usecases.CloudNodeRecursiveListing
-import org.cryptomator.domain.usecases.CopyDataUseCase
 import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.PrepareDownloadFilesUseCase
@@ -30,14 +30,19 @@ import org.cryptomator.domain.usecases.cloud.CreateFolderUseCase
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadState
+import org.cryptomator.domain.usecases.cloud.EndExternalEditingUseCase
+import org.cryptomator.domain.usecases.cloud.EnsureVaultThumbnailsUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListRecursiveUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
+import org.cryptomator.domain.usecases.cloud.ListVaultFolderUseCase
 import org.cryptomator.domain.usecases.cloud.MoveFilesUseCase
 import org.cryptomator.domain.usecases.cloud.MoveFoldersUseCase
+import org.cryptomator.domain.usecases.cloud.OpenVaultFilesUseCase
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
 import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
 import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
+import org.cryptomator.domain.usecases.cloud.StartExternalEditingUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.UploadState
@@ -47,6 +52,7 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.documentUri
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.BrowseFilesIntent
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
@@ -67,10 +73,10 @@ import org.cryptomator.presentation.model.mappers.ProgressModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressStateModelMapper
 import org.cryptomator.presentation.service.OpenWritableFileNotification
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
+import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
 import org.cryptomator.presentation.ui.dialog.FileNameDialog
 import org.cryptomator.presentation.util.ContentResolverUtil
-import org.cryptomator.presentation.util.DownloadFileUtil
 import org.cryptomator.presentation.util.FileNameBlacklist
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.FolderNameBlacklist
@@ -85,9 +91,7 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.io.Serializable
 import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -102,7 +106,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val uploadFilesUseCase: UploadFilesUseCase,  //
 	private val renameFileUseCase: RenameFileUseCase,  //
 	private val renameFolderUseCase: RenameFolderUseCase,  //
-	private val copyDataUseCase: CopyDataUseCase,  //
 	private val assertUnlockedUseCase: AssertUnlockedUseCase,  //
 	private val fileUtil: FileUtil,  //
 	private val fileNameBlacklist: FileNameBlacklist,  //
@@ -111,9 +114,14 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val moveFoldersUseCase: MoveFoldersUseCase,  //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
-	private val calculateFileHashUseCase: CalculateFileHashUseCase, //
 	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
 	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase, //
+	private val openVaultFilesUseCase: OpenVaultFilesUseCase, //
+	private val startExternalEditingUseCase: StartExternalEditingUseCase, //
+	private val endExternalEditingUseCase: EndExternalEditingUseCase, //
+	private val listVaultFolderUseCase: ListVaultFolderUseCase, //
+	private val ensureVaultThumbnailsUseCase: EnsureVaultThumbnailsUseCase, //
+	private val vaultDocumentRepository: VaultDocumentRepository, //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val addExistingVaultWorkflow: AddExistingVaultWorkflow,  //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
@@ -126,7 +134,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val progressStateModelMapper: ProgressStateModelMapper,  //
 	private val progressModelMapper: ProgressModelMapper,  //
 	private val shareFileHelper: ShareFileHelper,  //
-	private val downloadFileUtil: DownloadFileUtil,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val licenseEnforcer: LicenseEnforcer, //
 	exceptionMappings: ExceptionHandlers
@@ -139,8 +146,24 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private var resumedAfterAuthentication = false
 
-	private var resumingUploads = false
-	private var vaultToResumeUploadsOf: Vault? = null
+	/**
+	 * The vaults to resume the uploads of, each with the files to retry, or `null` for all.
+	 */
+	private val uploadResumes = SerialRequests<List<Pair<Vault, List<CloudFile>?>>>({ waiting, next -> waiting + next }, ::resumeUploadsNow)
+
+	private var vaultListener: VaultDocumentListener? = null
+
+	/**
+	 * Whether to list the folder from the cloud right away.
+	 */
+	private val vaultFolderListings = SerialRequests<Boolean>({ waiting, next -> waiting || next }, ::listVaultFolderNow)
+
+	/**
+	 * The failed listing that has been shown last, so that listing the folder again doesn't show it again.
+	 */
+	private var shownListingFailure: Throwable? = null
+
+	private val thumbnailRequests = SerialRequests<List<CloudFileModel>>({ _, latest -> latest }, ::ensureThumbnailsNow)
 
 	@InjectIntent
 	lateinit var intent: BrowseFilesIntent
@@ -155,20 +178,25 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@JvmField
 	@InstanceState
-	var openedCloudFile: CloudFileModel? = null
-
-	@JvmField
-	@InstanceState
-	var openedCloudFileMd5: ByteArray? = null
+	var finishWhenEditingEnds = false
 
 	@JvmField
 	var openWritableFileNotification: OpenWritableFileNotification? = null
+
+	private var isStartingExternalEditing = false
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
 	}
 
+	/**
+	 * Shows what changed in the vault meanwhile, and keeps showing its changes until paused. It is also called when the
+	 * window gets the focus back, without a pause before.
+	 */
 	override fun resumed() {
+		if (activity().isFinishing) {
+			return
+		}
 		val vault = view?.folder?.vault()
 		if (vault != null) {
 			assertUnlockedUseCase //
@@ -176,10 +204,74 @@ class BrowseFilesPresenter @Inject constructor( //
 				.run(DefaultResultHandler())
 		}
 		setRefreshOnBackPressEnabled(enableRefreshOnBackpressSupplier.setInAction(false))
+		// the listener keeps the list up to date while the window only lost the focus
+		if (vaultListener == null) {
+			vaultListener = vaultDocumentChanges.also(vaultDocumentRepository::addListener)
+			displayedVaultFolder()?.let { listVaultFolder(forceRefresh = false) }
+		}
+	}
+
+	override fun paused() {
+		vaultListener?.let(vaultDocumentRepository::removeListener)
+		vaultListener = null
+	}
+
+	private val vaultDocumentChanges = object : VaultDocumentListener {
+		override fun onChanged(folder: VaultPath) {
+			onUiThread {
+				if (folder == displayedVaultPath()) {
+					listVaultFolder(forceRefresh = false)
+				}
+			}
+		}
+
+		/**
+		 * The browser showed the change already, so a dialog names what failed and passes the reason on.
+		 */
+		override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+			if (userInitiated) {
+				onUiThread {
+					if (path.vault.id == displayedVaultPath()?.vault?.id) {
+						view?.showDialog(ChangeFailedDialog.newInstance(path.name))
+						showError(error)
+					}
+				}
+			}
+		}
+
+		override fun onUploadProgress(path: VaultPath, progress: Progress<UploadState>) {
+			onUiThread {
+				if (path.parent == displayedVaultPath()) {
+					view?.renderedCloudNodes()?.find { it is CloudFileModel && it.name == path.name }?.let { file ->
+						view?.showProgress(file, progressModelMapper.toModel(progress))
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Runs [block] on the UI thread, unless the presenter is paused by then.
+	 */
+	private fun onUiThread(block: () -> Unit) {
+		activity().runOnUiThread {
+			if (!isPaused) {
+				block()
+			}
+		}
+	}
+
+	private fun displayedVaultFolder(): CloudFolderModel? {
+		return view?.folder?.takeIf { it.vault() != null }
+	}
+
+	private fun displayedVaultPath(): VaultPath? {
+		return displayedVaultFolder()?.let { vaultDocumentRepository.pathOf(it.toCloudNode()) }
 	}
 
 	fun onWindowFocusChanged(hasFocus: Boolean) {
-		if (hasFocus) {
+		// the focus may come back before the resume, which then catches up
+		if (hasFocus && !isPaused) {
 			resumed()
 		}
 	}
@@ -192,38 +284,112 @@ class BrowseFilesPresenter @Inject constructor( //
 		view?.showLoading(true)
 		getCloudList(folder)
 		view?.updateTitle(folder)
-		folder.vault()?.let { resumeUploads(it.toVault()) }
+		folder.vault()?.let { resumeUploads(it.toVault(), null) }
 	}
 
 	/**
-	 * Retries the uploads that failed or were interrupted, so that they don't wait until the vault is opened in Files. The
-	 * last request made while uploads are being resumed is carried out afterwards.
+	 * Retries the uploads that failed or were interrupted, so that they don't wait until the vault is opened in Files.
+	 * With [files], only those are retried, since the user asked for it. Requests made while uploads are being resumed are
+	 * carried out afterwards.
 	 */
-	private fun resumeUploads(vault: Vault) {
-		if (resumingUploads) {
-			vaultToResumeUploadsOf = vault
-			return
-		}
-		resumingUploads = true
+	private fun resumeUploads(vault: Vault, files: List<CloudFile>?) {
+		uploadResumes.request(listOf(vault to files))
+	}
+
+	private fun resumeUploadsNow(requests: List<Pair<Vault, List<CloudFile>?>>, done: () -> Unit) {
+		val (vault, files) = requests.first()
 		resumeVaultUploadsUseCase //
 			.withVault(vault) //
+			.andFiles(files) //
 			.run(object : DefaultResultHandler<Void?>() {
 				override fun onFinished() {
-					resumingUploads = false
-					vaultToResumeUploadsOf?.let {
-						vaultToResumeUploadsOf = null
-						resumeUploads(it)
+					if (requests.size > 1) {
+						resumeUploadsNow(requests.drop(1), done)
+					} else {
+						done()
 					}
+				}
+			})
+	}
+
+	fun onRetryUploadClicked(cloudFile: CloudFileModel) {
+		view?.folder?.vault()?.let { resumeUploads(it.toVault(), listOf(cloudFile.toCloudNode())) }
+	}
+
+	/**
+	 * Asks for the thumbnails of [files] without waiting for them; they are shown once they are done. While thumbnails
+	 * are asked for, only the latest request made meanwhile is carried out afterwards.
+	 */
+	fun onThumbnailsMissing(files: List<CloudFileModel>) {
+		thumbnailRequests.request(files)
+	}
+
+	private fun ensureThumbnailsNow(files: List<CloudFileModel>, done: () -> Unit) {
+		ensureVaultThumbnailsUseCase //
+			.withFiles(files.map { it.toCloudNode() }) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onFinished() {
+					done()
 				}
 			})
 	}
 
 	fun onRefreshTriggered(cloudModel: CloudFolderModel) {
 		view?.showLoading(true)
-		getCloudList(cloudModel)
+		if (cloudModel.vault() != null) {
+			listVaultFolder(forceRefresh = true)
+		} else {
+			getCloudList(cloudModel)
+		}
+	}
+
+	/**
+	 * Lists the displayed vault folder from the cache, which lists it from the cloud in the background if that is due.
+	 * Only one listing runs at a time; a listing asked for meanwhile follows it, and lists the folder displayed by then.
+	 * [forceRefresh] lists the folder from the cloud right away and reports a failure also if the cache has an earlier
+	 * listing.
+	 */
+	private fun listVaultFolder(forceRefresh: Boolean) {
+		vaultFolderListings.request(forceRefresh)
+	}
+
+	private fun listVaultFolderNow(forceRefresh: Boolean, done: () -> Unit) {
+		val folder = displayedVaultFolder() ?: return done()
+		listVaultFolderUseCase //
+			.withFolder(folder.toCloudNode()) //
+			.andForceRefresh(forceRefresh) //
+			.run(object : DefaultResultHandler<VaultListing>() {
+				override fun onSuccess(listing: VaultListing) {
+					if (displayedVaultFolder() != folder) {
+						return
+					}
+					showCloudNodesCollectionInView(listing.nodes)
+					view?.showLoading(listing.isLoading)
+					val failure = listing.error
+					if (failure != null && failure !== shownListingFailure) {
+						shownListingFailure = failure
+						onListingFailed(failure, folder)
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					if (displayedVaultFolder() == folder) {
+						view?.showLoading(false)
+						onListingFailed(e, folder)
+					}
+				}
+
+				override fun onFinished() {
+					done()
+				}
+			})
 	}
 
 	private fun getCloudList(cloudFolderModel: CloudFolderModel) {
+		if (cloudFolderModel.vault() != null) {
+			listVaultFolder(forceRefresh = false)
+			return
+		}
 		getCloudListUseCase //
 			.withFolder(cloudFolderModel.toCloudNode()) //
 			.run(object : DefaultResultHandler<List<CloudNode>>() {
@@ -238,34 +404,36 @@ class BrowseFilesPresenter @Inject constructor( //
 
 				override fun onError(e: Throwable) {
 					view?.showLoading(false)
-					when {
-						authenticationExceptionHandler.handleAuthenticationException(this@BrowseFilesPresenter, e, ActivityResultCallbacks.getCloudListAfterAuthentication(cloudFolderModel)) -> {
-							resumedAfterAuthentication = true
-							return
-						}
-						e is EmptyDirFileException -> {
-							view?.showNoDirFileOrEmptyDialog(e.dirName, e.filePath)
-						}
-						e is SymLinkException -> {
-							view?.showSymLinkDialog()
-						}
-						e is NoDirFileException -> {
-							view?.showNoDirFileOrEmptyDialog(e.cryptoFolderName, e.cloudFolderPath)
-						}
-						else -> {
-							super.onError(e)
-						}
-					}
+					onListingFailed(e, cloudFolderModel)
 				}
 			})
+	}
+
+	private fun onListingFailed(e: Throwable, cloudFolderModel: CloudFolderModel) {
+		when {
+			authenticationExceptionHandler.handleAuthenticationException(this@BrowseFilesPresenter, e, ActivityResultCallbacks.getCloudListAfterAuthentication(cloudFolderModel)) -> {
+				resumedAfterAuthentication = true
+			}
+			e is EmptyDirFileException -> {
+				view?.showNoDirFileOrEmptyDialog(e.dirName, e.filePath)
+			}
+			e is SymLinkException -> {
+				view?.showSymLinkDialog()
+			}
+			e is NoDirFileException -> {
+				view?.showNoDirFileOrEmptyDialog(e.cryptoFolderName, e.cloudFolderPath)
+			}
+			else -> {
+				showError(e)
+			}
+		}
 	}
 
 	@Callback(dispatchResultOkOnly = false)
 	fun getCloudListAfterAuthentication(result: ActivityResult, cloudFolderModel: CloudFolderModel) {
 		if (result.isResultOk) {
 			val cloudModel = result.getSingleResult(CloudModel::class.java)
-			val cloudNode = cloudFolderModel.toCloudNode()
-			if (cloudNode is CryptoFolder) {
+			if (cloudFolderModel.vault() != null) {
 				updatedDecryptedCloudFor(Vault.aCopyOf(cloudFolderModel.vault()!!.toVault()).withCloud(cloudModel.toCloud()).build(), cloudFolderModel)
 			} else {
 				updatePlaintextCloud(cloudFolderModel, cloudModel)
@@ -291,7 +459,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				override fun onSuccess(cloud: Cloud) {
 					val folder = cloudFolderModelMapper.toModel(cloudFolderModel.toCloudNode().withCloud(cloud)!!)
 					view?.updateActiveFolderDueToAuthenticationProblem(folder)
-					getCloudList(folder)
+					listVaultFolder(forceRefresh = true)
 				}
 
 				override fun onFinished() {
@@ -304,34 +472,14 @@ class BrowseFilesPresenter @Inject constructor( //
 		createFolderUseCase //
 			.withParent(cloudFolder.toCloudNode()) //
 			.andFolderName(folderName) //
+			.andOptimistic(cloudFolder.vault() != null) //
 			.run(object : DefaultResultHandler<CloudFolder>() {
-				override fun onSuccess(cloudFolder: CloudFolder) {
-					view?.addOrUpdateCloudNode(cloudFolderModelMapper.toModel(cloudFolder))
+				// null if an optimistically created folder is gone by now
+				override fun onSuccess(cloudFolder: CloudFolder?) {
+					cloudFolder?.let { view?.addOrUpdateCloudNode(cloudFolderModelMapper.toModel(it)) }
 					view?.closeDialog()
 				}
 			})
-	}
-
-	private fun copyFile(downloadFiles: List<DownloadFile>) {
-		downloadFiles.forEach { downloadFile ->
-			try {
-				val source = FileInputStream(fileUtil.fileFor(cloudFileModelMapper.toModel(downloadFile.downloadFile)))
-				copyDataUseCase //
-					.withSource(source) //
-					.andTarget(downloadFile.dataSink) //
-					.run(object : DefaultResultHandler<Void>() {
-						override fun onSuccess(t: Void?) {
-							view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-						}
-
-						override fun onFinished() {
-							source.close()
-						}
-					})
-			} catch (e: FileNotFoundException) {
-				showError(e)
-			}
-		}
 	}
 
 	private fun showCloudNodesCollectionInView(cloudNodes: List<CloudNode>) {
@@ -349,15 +497,15 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun readFiles(cloudFiles: List<CloudFileModel>) {
 		// TODO disable rotation
-		downloadFilesUseCase //
-			.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, cloudFiles)) //
-			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+		openVaultFilesUseCase //
+			.withFiles(cloudFiles.map { it.toCloudNode() }) //
+			.run(object : DefaultProgressAwareResultHandler<List<String>, DownloadState>() {
 				override fun onFinished() {
 					view?.closeDialog()
 				}
 
-				override fun onSuccess(files: List<CloudFile>) {
-					handleSuccessAfterReadingFiles(files, Intent.ACTION_SEND_MULTIPLE)
+				override fun onSuccess(documentIds: List<String>) {
+					handleSuccessAfterReadingFiles(cloudFiles, documentIds.map(::documentUri), Intent.ACTION_SEND_MULTIPLE)
 				}
 
 				override fun onError(e: Throwable) {
@@ -376,24 +524,24 @@ class BrowseFilesPresenter @Inject constructor( //
 				), 0
 			)
 		)
-		downloadFilesUseCase //
-			.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, cloudFiles)) //
-			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+		openVaultFilesUseCase //
+			.withFiles(cloudFiles.map { it.toCloudNode() }) //
+			.run(object : DefaultProgressAwareResultHandler<List<String>, DownloadState>() {
 				override fun onFinished() {
 					view?.hideProgress(cloudFiles)
 				}
 
 				override fun onProgress(progress: Progress<DownloadState>) {
 					if (!progress.isOverallComplete) {
-						view?.showProgress(
-							cloudFileModelMapper.toModel(progress.state().file()),  //
-							progressModelMapper.toModel(progress)
-						)
+						// the progress is about the file in the cloud while the rows show the vault's nodes as the cache
+						// knows them, so they are matched by path
+						val file = cloudFiles.firstOrNull { it.path == progress.state().file().path } ?: return
+						view?.showProgress(file, progressModelMapper.toModel(progress))
 					}
 				}
 
-				override fun onSuccess(files: List<CloudFile>) {
-					handleSuccessAfterReadingFiles(files, actionAfterDownload)
+				override fun onSuccess(documentIds: List<String>) {
+					handleSuccessAfterReadingFiles(cloudFiles, documentIds.map(::documentUri), actionAfterDownload)
 				}
 
 				override fun onError(e: Throwable) {
@@ -403,19 +551,19 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	private fun handleSuccessAfterReadingFiles(files: List<CloudFile>, actionAfterDownload: String) {
+	private fun handleSuccessAfterReadingFiles(files: List<CloudFileModel>, uris: List<Uri>, actionAfterDownload: String) {
 		try {
 			if (Intent.ACTION_VIEW == actionAfterDownload) {
-				viewFile(cloudFileModelMapper.toModel(files[0]))
+				viewFile(files[0], uris[0])
 			} else {
 				if (Intent.ACTION_SEND_MULTIPLE == actionAfterDownload) {
-					shareFiles(cloudFileModelMapper.toModels(files))
+					shareFiles(files, uris)
 				} else {
-					shareFileHelper.shareFile(this@BrowseFilesPresenter, cloudFileModelMapper.toModel(files[0]))
+					shareFileHelper.shareFile(this@BrowseFilesPresenter, uris[0], files[0].name)
 				}
 			}
 		} catch (e: ActivityNotFoundException) {
-			view?.showFileTypeNotSupportedDialog(cloudFileModelMapper.toModel(files[0]))
+			view?.showFileTypeNotSupportedDialog(files[0])
 		}
 	}
 
@@ -446,9 +594,11 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun uploadFiles(files: List<UploadFile>) {
 		uploadLocation?.let {
+			val inVault = it.vault() != null
 			uploadFilesUseCase //
 				.withParent(it.toCloudNode())
 				.andFiles(files) //
+				.andOptimistic(inVault) //
 				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
 					override fun onProgress(progress: Progress<UploadState>) {
 						view?.showProgress(progressModelMapper.toModel(progress))
@@ -458,8 +608,13 @@ class BrowseFilesPresenter @Inject constructor( //
 					}
 
 					override fun onSuccess(files: List<CloudFile>) {
-						files.forEach { file -> view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file)) }
-						onFileUploadCompleted()
+						// an upload into a vault has no dialog, its rows show up and show its progress once its folder is listed
+						if (inVault) {
+							uploadLocation = null
+						} else {
+							files.forEach { file -> view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file)) }
+							onFileUploadCompleted()
+						}
 					}
 
 					override fun onError(e: Throwable) {
@@ -488,6 +643,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		view?.showCloudNodes(ArrayList())
 	}
 
+	/**
+	 * A node of a vault is renamed in the list once its folder is listed again, which also covers a rename that has to
+	 * wait for an earlier move of the node.
+	 */
 	fun onRenameCloudNodePressed(cloudNodeModel: CloudNodeModel<*>, newCloudNodeName: String) {
 		if (cloudNodeModel is CloudFileModel) {
 			renameCloudFile(cloudNodeModel, newCloudNodeName)
@@ -497,24 +656,32 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun renameCloudFolder(cloudFolderModel: CloudFolderModel, newCloudFolderName: String) {
+		val inVault = cloudFolderModel.vault() != null
 		renameFolderUseCase //
 			.withFolder(cloudFolderModel.toCloudNode()) //
 			.andNewName(newCloudFolderName) //
+			.andOptimistic(inVault) //
 			.run(object : DefaultResultHandler<ResultRenamed<CloudFolder>>() {
 				override fun onSuccess(cloudFolderResultRenamed: ResultRenamed<CloudFolder>) {
-					view?.replaceRenamedCloudNode(cloudNodeModelMapper.toModel(cloudFolderResultRenamed))
+					if (!inVault) {
+						view?.replaceRenamedCloudNode(cloudNodeModelMapper.toModel(cloudFolderResultRenamed))
+					}
 					view?.closeDialog()
 				}
 			})
 	}
 
 	private fun renameCloudFile(cloudFileModel: CloudFileModel, newCloudFileName: String) {
+		val inVault = view?.folder?.vault() != null
 		renameFileUseCase //
 			.withFile(cloudFileModel.toCloudNode()) //
 			.andNewName(newCloudFileName) //
+			.andOptimistic(inVault) //
 			.run(object : DefaultResultHandler<ResultRenamed<CloudFile>>() {
 				override fun onSuccess(cloudFileResultRenamed: ResultRenamed<CloudFile>) {
-					view?.replaceRenamedCloudNode(cloudNodeModelMapper.toModel(cloudFileResultRenamed))
+					if (!inVault) {
+						view?.replaceRenamedCloudNode(cloudNodeModelMapper.toModel(cloudFileResultRenamed))
+					}
 					view?.closeDialog()
 				}
 			})
@@ -525,9 +692,13 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun deleteCloudNode(nodes: List<CloudNodeModel<*>>) {
-		view?.showProgress(nodes, ProgressModel(ProgressStateModel.DELETION))
+		val inVault = view?.folder?.vault() != null
+		if (!inVault) {
+			view?.showProgress(nodes, ProgressModel(ProgressStateModel.DELETION))
+		}
 		deleteNodesUseCase //
 			.withCloudNodes(cloudNodeModelMapper.fromModels(nodes)) //
+			.andOptimistic(inVault) //
 			.run(object : DefaultResultHandler<List<CloudNode>>() {
 				override fun onSuccess(cloudNodes: List<CloudNode>) {
 					view?.deleteCloudNodesFromAdapter(cloudNodeModelMapper.toModels(cloudNodes))
@@ -535,7 +706,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	private fun viewFile(cloudFile: CloudFileModel) {
+	private fun viewFile(cloudFile: CloudFileModel, uri: Uri) {
 		val lowerFileName = cloudFile.name.lowercase()
 		if (lowerFileName.endsWith(".txt") || lowerFileName.endsWith(".md") || lowerFileName.endsWith(".todo")) {
 			val intent = Intents.textEditorIntent()
@@ -543,7 +714,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				.withHubWriteAllowed(licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault()))
 				.build(this)
 			startIntent(intent)
-		} else if (!lowerFileName.endsWith(".gif") && isImageMediaType(cloudFile.name)) {
+		} else if (isPreviewImage(cloudFile)) {
 			val cloudFileNodes = previewCloudFileNodes
 			val imagePreviewStore = ImagePreviewFilesStore( //
 				cloudFileNodes,  //
@@ -554,165 +725,126 @@ class BrowseFilesPresenter @Inject constructor( //
 					.withWithImagePreviewFiles(fileUtil.storeImagePreviewFiles(imagePreviewStore))
 			)
 		} else {
-			viewExternalFile(cloudFile)
+			viewExternalFile(cloudFile, uri)
 		}
 	}
 
-	private fun isImageMediaType(filename: String): Boolean {
-		return (mimeTypes.fromFilename(filename) ?: MimeType.WILDCARD_MIME_TYPE).mediatype == "image"
+	private fun isPreviewImage(cloudFile: CloudFileModel): Boolean {
+		return !cloudFile.name.lowercase().endsWith(".gif") && mimeTypes.isImage(cloudFile.name)
 	}
 
-	private fun viewExternalFile(cloudFile: CloudFileModel) {
+	/**
+	 * The other app saves through the documents provider, which uploads each save.
+	 */
+	private fun viewExternalFile(cloudFile: CloudFileModel, uri: Uri) {
+		// one start runs at a time and the browser tracks one editor, so an open that finishes while another editor
+		// starts or is open is dropped
+		if (isStartingExternalEditing || uriToOpenedFile != null) {
+			return
+		}
+		isStartingExternalEditing = true
 		val viewFileIntent = Intent(Intent.ACTION_VIEW)
-		var openFileType = OpenFileType.DEFAULT
-		uriToOpenedFile = if (useMicrosoftWorkaround(cloudFile)) {
-			openFileType = OpenFileType.MICROSOFT_WORKAROUND
-			Uri.fromFile(fileUtil.getLegacyFileForMicrosoftWorkaround(cloudFile))
-		} else {
-			fileUtil.contentUriFor(cloudFile)
+		viewFileIntent.setDataAndType(uri, mimeTypes.fromFilename(cloudFile.name)?.toString())
+		var permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+		if (licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())) {
+			permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 		}
-		openedCloudFile = cloudFile
-		uriToOpenedFile?.let {
-			view?.showProgress(ProgressModel.GENERIC)
-			calculateFileHashUseCase //
-				.withUri(it) //
-				.run(object : DefaultResultHandler<ByteArray>() {
-					override fun onSuccess(hash: ByteArray) {
-						openedCloudFileMd5 = hash
-						viewFileIntent.setDataAndType(it, mimeTypes.fromFilename(cloudFile.name)?.toString())
-						var permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-						if (licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())) {
-							permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-						}
-						viewFileIntent.addFlags(permissionFlags)
-						if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-							openWritableFileNotification = OpenWritableFileNotification(context(), it)
-							openWritableFileNotification?.show()
-							val cryptomatorApp = activity().application as CryptomatorApp
-							cryptomatorApp.suspendLock()
-						}
-						try {
-							requestActivityResult(ActivityResultCallbacks.openFileFinished(openFileType), viewFileIntent)
-						} catch (e: ActivityNotFoundException) {
-							view?.showFileTypeNotSupportedDialog(cloudFile)
-						}
+		viewFileIntent.addFlags(permissionFlags)
+		// the editor is launched once the base is pinned, so that its saves are based on the version it opened
+		startExternalEditingUseCase //
+			.withDocumentId(DocumentsContract.getDocumentId(uri)) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onSuccess(result: Void?) {
+					// a browser that was left meanwhile has saved its state already, so a recreated one wouldn't
+					// know of this editor
+					if (isPaused || activity().isFinishing || activity().isDestroyed) {
+						unpinBase(uri)
+						return
 					}
+					uriToOpenedFile = uri
+					if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
+						openWritableFileNotification = OpenWritableFileNotification(context())
+						openWritableFileNotification?.show()
+						val cryptomatorApp = activity().application as CryptomatorApp
+						cryptomatorApp.suspendLock()
+					}
+					try {
+						requestActivityResult(ActivityResultCallbacks.openFileFinished(), viewFileIntent)
+					} catch (e: ActivityNotFoundException) {
+						endExternalEditing()
+						view?.showFileTypeNotSupportedDialog(cloudFile)
+					}
+				}
 
-					override fun onFinished() {
-						view?.showProgress(ProgressModel.COMPLETED)
-					}
-				})
+				override fun onError(e: Throwable) {
+					unpinBase(uri)
+					super.onError(e)
+				}
+
+				override fun onFinished() {
+					isStartingExternalEditing = false
+				}
+			})
+	}
+
+	/**
+	 * Called when the vaults have been locked, e.g. because the screen was turned off. An app that is editing a file can
+	 * keep saving it, and the browser stays until the app returns, so that editing ends then.
+	 *
+	 * @return whether the browser can be closed right away
+	 */
+	fun onVaultsLocked(): Boolean {
+		if (uriToOpenedFile == null) {
+			return true
 		}
-	}
-
-	enum class OpenFileType {
-		DEFAULT, MICROSOFT_WORKAROUND
-	}
-
-	private fun useMicrosoftWorkaround(cloudFile: CloudFileModel): Boolean {
-		return sharedPreferencesHandler.microsoftWorkaround()
-				&& cloudFile.name.contains(".")
-				&& microsoftExtensions().contains(cloudFile.name.substring(cloudFile.name.lastIndexOf(".") + 1, cloudFile.name.length))
-	}
-
-	private fun microsoftExtensions(): Array<out String> {
-		return context().resources.getStringArray(R.array.microsoft_extensions);
+		finishWhenEditingEnds = true
+		return false
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun openFileFinished(result: ActivityResult, openFileType: OpenFileType) {
-		try {
-			// necessary see https://community.cryptomator.org/t/android-tabelle-nach-upload-unlesbar/6550
-			Thread.sleep(500)
-		} catch (e: InterruptedException) {
-			Timber.tag("BrowseFilesPresenter").e(e, "Failed to sleep after resuming editing, necessary for google office apps")
+	fun openFileFinished(result: ActivityResult) {
+		endExternalEditing()
+	}
+
+	/**
+	 * The editor's result doesn't reach a browser that is closed, e.g. because it was left right after launching the
+	 * editor, so editing ends then. A browser that is only recreated gets the result.
+	 */
+	override fun destroyed() {
+		if (uriToOpenedFile != null && activity().isFinishing) {
+			endExternalEditing()
 		}
+	}
+
+	private fun endExternalEditing() {
 		if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
 			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.unSuspendLock()
 		}
 		hideWritableNotification()
 
-		context().revokeUriPermission(uriToOpenedFile, Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-		uriToOpenedFile?.let {
-			view?.showProgress(ProgressModel.GENERIC)
-			calculateFileHashUseCase //
-				.withUri(it) //
-				.run(object : DefaultResultHandler<ByteArray>() {
-					override fun onSuccess(hashAfterEdit: ByteArray) {
-						openedCloudFileMd5?.let { hashBeforeEdit ->
-							if (hashAfterEdit.contentEquals(hashBeforeEdit)) {
-								Timber.tag("BrowseFilesPresenter").i("Opened app finished, file not changed")
-								deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-							} else {
-								uploadChangedFile(openFileType)
-							}
-						} ?: deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-					}
-
-					override fun onFinished() {
-						view?.showProgress(ProgressModel.COMPLETED)
-					}
-
-					override fun onError(e: Throwable) {
-						if (e is FileNotFoundException) {
-							Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
-							Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
-						} else {
-							super.onError(e)
-						}
-					}
-				})
+		// the editor's access ends with its task; revoking it would also take the access other apps were given through Files
+		uriToOpenedFile?.let(::unpinBase)
+		uriToOpenedFile = null
+		if (finishWhenEditingEnds) {
+			finishWhenEditingEnds = false
+			activity().finish()
 		}
 	}
 
-	private fun uploadChangedFile(openFileType: OpenFileType) {
-		view?.showUploadDialog(1)
-		openedCloudFile?.let { openedCloudFile ->
-			openedCloudFile.parent?.let { openedCloudFilesParent ->
-				uriToOpenedFile?.let { uriToOpenedFile ->
-					uploadFilesUseCase //
-						.withParent(openedCloudFilesParent.toCloudNode()) //
-						.andFiles(listOf(createUploadFile(openedCloudFile.name, uriToOpenedFile, true))) //
-						.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, UploadState>() {
-							override fun onProgress(progress: Progress<UploadState>) {
-								view?.showProgress(progressModelMapper.toModel(progress))
-							}
-
-							override fun onSuccess(files: List<CloudFile>) {
-								files.forEach { file ->
-									view?.addOrUpdateCloudNode(cloudFileModelMapper.toModel(file))
-								}
-								deleteFileIfMicrosoftWorkaround(openFileType, uriToOpenedFile)
-								onFileUploadCompleted()
-							}
-
-							override fun onError(e: Throwable) {
-								onFileUploadError()
-								if (ExceptionUtil.contains(e, CloudNodeAlreadyExistsException::class.java)) {
-									ExceptionUtil.extract(e, CloudNodeAlreadyExistsException::class.java).get().message?.let {
-										onCloudNodeAlreadyExists(it)
-									} ?: super.onError(e)
-								} else {
-									super.onError(e)
-								}
-							}
-						})
-				}
-			}
-		}
-	}
-
-	private fun deleteFileIfMicrosoftWorkaround(openFileType: OpenFileType, uriToOpenedFile: Uri?) {
-		if (openFileType == OpenFileType.MICROSOFT_WORKAROUND) {
-			uriToOpenedFile?.toFile()?.delete()
-		}
+	/**
+	 * Ends what [StartExternalEditingUseCase] began for [uri]. Unlike [endExternalEditing], it leaves the notification and
+	 * lock suspension alone, which an open that didn't launch an editor never took.
+	 */
+	private fun unpinBase(uri: Uri) {
+		endExternalEditingUseCase //
+			.withDocumentId(DocumentsContract.getDocumentId(uri)) //
+			.run(DefaultResultHandler())
 	}
 
 	private fun hideWritableNotification() {
 		// openWritableFileNotification can not be made serializable because of this, can be null after Activity resumed
-		openWritableFileNotification?.hide() ?: OpenWritableFileNotification(context(), Uri.EMPTY).hide()
+		openWritableFileNotification?.hide() ?: OpenWritableFileNotification(context()).hide()
 	}
 
 	private val previewCloudFileNodes: ArrayList<CloudFileModel>
@@ -720,16 +852,14 @@ class BrowseFilesPresenter @Inject constructor( //
 			val previewCloudFiles = ArrayList<CloudFileModel>()
 			view?.renderedCloudNodes()
 				?.filterIsInstance<CloudFileModel>()
-				?.filterTo(previewCloudFiles) {
-					!it.name.endsWith(".gif") && isImageMediaType(it.name)
-				}
+				?.filterTo(previewCloudFiles, ::isPreviewImage)
 			return previewCloudFiles
 		}
 
-	private fun shareFiles(shareFiles: List<CloudFileModel>) {
+	private fun shareFiles(shareFiles: List<CloudFileModel>, uris: List<Uri>) {
 		val shareFilesIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
 		shareFilesIntent.type = combinedMimeType(shareFiles).toString()
-		shareFilesIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUtil.contentUrisFor(shareFiles))
+		shareFilesIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
 		shareFilesIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		startIntent(Intent.createChooser(shareFilesIntent, getString(R.string.screen_file_browser_share_intent_chooser_title)))
 		disableSelectionMode()
@@ -810,10 +940,14 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun moveCloudFile(targetFolder: CloudFolderModel, sourceFiles: List<CloudFileModel>) {
-		view?.showProgress(sourceFiles, ProgressModel(ProgressStateModel.MOVING))
+		val inVault = targetFolder.vault() != null
+		if (!inVault) {
+			view?.showProgress(sourceFiles, ProgressModel(ProgressStateModel.MOVING))
+		}
 		moveFilesUseCase //
 			.withParent(targetFolder.toCloudNode()) //
 			.andSourceFiles(cloudFileModelMapper.fromModels(sourceFiles)) //
+			.andOptimistic(inVault) //
 			.run(object : DefaultResultHandler<List<CloudFile>>() {
 				override fun onSuccess(cloudFiles: List<CloudFile>) {
 					view?.deleteCloudNodesFromAdapter(sourceFiles)
@@ -822,10 +956,14 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun moveCloudFolder(targetFolder: CloudFolderModel, sourceFolders: List<CloudFolderModel>) {
-		view?.showProgress(sourceFolders, ProgressModel(ProgressStateModel.MOVING))
+		val inVault = targetFolder.vault() != null
+		if (!inVault) {
+			view?.showProgress(sourceFolders, ProgressModel(ProgressStateModel.MOVING))
+		}
 		moveFoldersUseCase //
 			.withParent(targetFolder.toCloudNode()) //
 			.andSourceFolders(cloudFolderModelMapper.fromModels(sourceFolders)) //
+			.andOptimistic(inVault) //
 			.run(object : DefaultResultHandler<List<CloudFolder>>() {
 				override fun onSuccess(cloudFolder: List<CloudFolder>) {
 					view?.deleteCloudNodesFromAdapter(sourceFolders)
@@ -858,7 +996,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		if (nonReplacing.size + replacing.size == 0) {
 			return
 		}
-		view?.showUploadDialog(nonReplacing.size + replacing.size)
+		// an upload into a vault shows its progress on its row
+		if (uploadLocation?.vault() == null) {
+			view?.showUploadDialog(nonReplacing.size + replacing.size)
+		}
 		val filesReadyForUpload: MutableList<UploadFile> = ArrayList()
 		filesReadyForUpload.addAll(nonReplacing.values)
 		filesReadyForUpload.addAll(replacing.values)
@@ -931,26 +1072,26 @@ class BrowseFilesPresenter @Inject constructor( //
 		view?.navigateTo(cloudFolderModel)
 	}
 
-	fun onExportFileClicked(cloudFile: CloudFileModel, trigger: ExportOperation) {
-		exportFileToUserSelectedLocation(cloudFile, trigger)
+	fun onExportFileClicked(cloudFile: CloudFileModel) {
+		exportFileToUserSelectedLocation(cloudFile)
 	}
 
-	fun onExportNodesClicked(selectedCloudFiles: ArrayList<CloudNodeModel<*>>, trigger: ExportOperation) {
-		exportNodesToUserSelectedLocation(selectedCloudFiles, trigger)
+	fun onExportNodesClicked(selectedCloudFiles: ArrayList<CloudNodeModel<*>>) {
+		exportNodesToUserSelectedLocation(selectedCloudFiles)
 	}
 
-	private fun exportFileToUserSelectedLocation(fileToExport: CloudFileModel, exportOperation: ExportOperation) {
+	private fun exportFileToUserSelectedLocation(fileToExport: CloudFileModel) {
 		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
 		intent.putExtra(Intent.EXTRA_TITLE, fileToExport.name)
-		requestActivityResult(ActivityResultCallbacks.exportFileToUserSelectedLocation(fileToExport, exportOperation), intent)
+		requestActivityResult(ActivityResultCallbacks.exportFileToUserSelectedLocation(fileToExport), intent)
 	}
 
-	private fun exportNodesToUserSelectedLocation(nodesToExport: ArrayList<CloudNodeModel<*>>, exportOperation: ExportOperation) {
+	private fun exportNodesToUserSelectedLocation(nodesToExport: ArrayList<CloudNodeModel<*>>) {
 		try {
 			requestActivityResult( //
-				ActivityResultCallbacks.pickedLocalStorageLocationForBrowsingFiles(nodesToExport, exportOperation),  //
+				ActivityResultCallbacks.pickedLocalStorageLocationForBrowsingFiles(nodesToExport),  //
 				Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
 			)
 		} catch (exception: ActivityNotFoundException) {
@@ -968,8 +1109,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	@Callback
 	fun pickedLocalStorageLocationForBrowsingFiles(
 		result: ActivityResult,  //
-		nodesToExport: ArrayList<CloudNodeModel<*>>,  //
-		exportOperation: ExportOperation
+		nodesToExport: ArrayList<CloudNodeModel<*>>
 	) {
 		val pickedLocalStorageLocation = DocumentsContract.buildChildDocumentsUriUsingTree( //
 			Uri.parse(result.intent().data.toString()),  //
@@ -979,7 +1119,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		)
 		collectNodesToExport(
 			pickedLocalStorageLocation,  //
-			exportOperation,  //
 			nodesToExport
 		)
 		disableSelectionMode()
@@ -987,7 +1126,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private fun collectNodesToExport(
 		parentUri: Uri,  //
-		exportOperation: ExportOperation,  //
 		nodesToExport: List<CloudNodeModel<*>>
 	) {
 		val filesToExport: MutableList<CloudFileModel> = ArrayList()
@@ -999,11 +1137,11 @@ class BrowseFilesPresenter @Inject constructor( //
 				foldersForRecursiveDirListing.add(node as CloudFolderModel)
 			}
 		}
-		collectFolderContentForExport(parentUri, exportOperation, foldersForRecursiveDirListing, filesToExport)
+		collectFolderContentForExport(parentUri, foldersForRecursiveDirListing, filesToExport)
 	}
 
 	private fun collectFolderContentForExport(
-		parentUri: Uri, exportOperation: ExportOperation, folders: List<CloudFolderModel>,  //
+		parentUri: Uri, folders: List<CloudFolderModel>,  //
 		filesToExport: List<CloudFileModel>
 	) {
 		view?.showProgress(ProgressModel.GENERIC)
@@ -1016,12 +1154,12 @@ class BrowseFilesPresenter @Inject constructor( //
 
 				override fun onSuccess(cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
 					Timber.tag("BrowseFilesPresenter").d("cloud node recursive listing")
-					prepareExportingOf(parentUri, exportOperation, filesToExport, cloudNodeRecursiveListing)
+					prepareExportingOf(parentUri, filesToExport, cloudNodeRecursiveListing)
 				}
 			})
 	}
 
-	private fun prepareExportingOf(parentUri: Uri, exportOperation: ExportOperation, filesToExport: List<CloudFileModel>, cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
+	private fun prepareExportingOf(parentUri: Uri, filesToExport: List<CloudFileModel>, cloudNodeRecursiveListing: CloudNodeRecursiveListing) {
 		view?.showProgress(ProgressModel.GENERIC)
 		downloadFiles = ArrayList()
 		prepareDownloadFilesUseCase
@@ -1036,7 +1174,7 @@ class BrowseFilesPresenter @Inject constructor( //
 						view?.showMessage(R.string.screen_file_browser_nothing_to_export)
 						view?.closeDialog()
 					} else {
-						export(exportOperation, downloadFiles)
+						exportFile(downloadFiles)
 					}
 				}
 
@@ -1049,18 +1187,14 @@ class BrowseFilesPresenter @Inject constructor( //
 			})
 	}
 
-	private fun export(exportOperation: ExportOperation, downloadFiles: MutableList<DownloadFile>) {
-		exportOperation.export(this, downloadFiles)
-	}
-
 	@Callback
-	fun exportFileToUserSelectedLocation(result: ActivityResult, fileToExport: CloudFileModel, exportOperation: ExportOperation) {
+	fun exportFileToUserSelectedLocation(result: ActivityResult, fileToExport: CloudFileModel) {
 		try {
 			val downloadFile = DownloadFile.Builder() //
 				.setDownloadFile(fileToExport.toCloudNode()) //
 				.setDataSink(contentResolverUtil.openOutputStream(Uri.parse(result.intent().dataString))) //
 				.build()
-			exportOperation.export(this, listOf(downloadFile))
+			exportFile(listOf(downloadFile))
 		} catch (e: FileNotFoundException) {
 			showError(e)
 		}
@@ -1161,24 +1295,16 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onOpenWithTextFileClicked(textFile: CloudFileModel, newlyCreated: Boolean, internalEditor: Boolean) {
-		val decryptData = downloadFileUtil.createDecryptedDataFor(this, textFile)
-		downloadFilesUseCase //
-			.withDownloadFiles( //
-				listOf(
-					DownloadFile.Builder() //
-						.setDownloadFile(textFile.toCloudNode()) //
-						.setDataSink(decryptData) //
-						.build()
-				)
-			) //
-			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+		openVaultFilesUseCase //
+			.withFiles(listOf(textFile.toCloudNode())) //
+			.run(object : DefaultProgressAwareResultHandler<List<String>, DownloadState>() {
 				override fun onProgress(progress: Progress<DownloadState>) {
 					if (!newlyCreated) {
 						view?.showProgress(textFile, progressModelMapper.toModel(progress))
 					}
 				}
 
-				override fun onSuccess(files: List<CloudFile>) {
+				override fun onSuccess(documentIds: List<String>) {
 					if (!newlyCreated) {
 						view?.hideProgress(textFile)
 					}
@@ -1189,7 +1315,7 @@ class BrowseFilesPresenter @Inject constructor( //
 							.build(this@BrowseFilesPresenter)
 						startIntent(editorIntent)
 					} else {
-						viewExternalFile(textFile)
+						viewExternalFile(textFile, documentUri(documentIds[0]))
 					}
 				}
 
@@ -1256,10 +1382,10 @@ class BrowseFilesPresenter @Inject constructor( //
 		}
 	}
 
-	fun onExportFolderClicked(cloudFolder: CloudFolderModel, exportTriggeredByUser: ExportOperation) {
+	fun onExportFolderClicked(cloudFolder: CloudFolderModel) {
 		val nodes = ArrayList<CloudNodeModel<*>>()
 		nodes.add(cloudFolder)
-		onExportNodesClicked(nodes, exportTriggeredByUser)
+		onExportNodesClicked(nodes)
 	}
 
 	fun exportNodesCanceled() {
@@ -1269,12 +1395,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun invalidateOptionsMenu() {
 		activity().invalidateOptionsMenu()
-	}
-
-	interface ExportOperation : Serializable {
-
-		fun export(presenter: BrowseFilesPresenter, downloadFiles: List<DownloadFile>)
-
 	}
 
 	private val enableRefreshOnBackpressSupplier = RefreshSupplier()
@@ -1301,17 +1421,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	companion object {
 
 		const val OPEN_FILE_FINISHED = 12
-
-		val EXPORT_AFTER_APP_CHOOSER: ExportOperation = object : ExportOperation {
-			override fun export(presenter: BrowseFilesPresenter, downloadFiles: List<DownloadFile>) {
-				presenter.copyFile(downloadFiles)
-			}
-		}
-		val EXPORT_TRIGGERED_BY_USER: ExportOperation = object : ExportOperation {
-			override fun export(presenter: BrowseFilesPresenter, downloadFiles: List<DownloadFile>) {
-				presenter.exportFile(downloadFiles)
-			}
-		}
 	}
 
 	init {
@@ -1323,15 +1432,15 @@ class BrowseFilesPresenter @Inject constructor( //
 			uploadFilesUseCase,  //
 			renameFileUseCase,  //
 			renameFolderUseCase,  //
-			copyDataUseCase,  //
 			moveFilesUseCase,  //
 			moveFoldersUseCase, //
 			getDecryptedCloudForVaultUseCase, //
-			calculateFileHashUseCase, //
-			prepareDownloadFilesUseCase
+			prepareDownloadFilesUseCase, //
+			openVaultFilesUseCase
 		)
-		// resumeVaultUploadsUseCase is left running when navigating, since unsubscribing would skip onFinished and keep
-		// later uploads from being resumed
+		// listVaultFolderUseCase, ensureVaultThumbnailsUseCase and resumeVaultUploadsUseCase are left running when
+		// navigating, since unsubscribing would skip the onFinished their SerialRequests waits for.
+		// startExternalEditingUseCase is left running, too, since editing has to end also if the browser was left.
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
 }

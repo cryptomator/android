@@ -10,7 +10,6 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
-import java.io.File
 import java.io.OutputStream
 
 abstract class InterceptingCloudContentRepository<CloudType : Cloud, NodeType : CloudNode, DirType : CloudFolder, FileType : CloudFile> protected constructor(private val delegate: CloudContentRepository<CloudType, NodeType, DirType, FileType>) :
@@ -176,9 +175,9 @@ abstract class InterceptingCloudContentRepository<CloudType : Cloud, NodeType : 
 	}
 
 	@Throws(BackendException::class)
-	override fun read(file: FileType, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	override fun read(file: FileType, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		try {
-			delegate.read(file, encryptedTmpFile, data, progressAware)
+			delegate.read(file, data, progressAware)
 		} catch (e: BackendException) {
 			throwWrappedIfRequired(e)
 			throw e

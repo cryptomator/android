@@ -94,7 +94,7 @@ internal class CryptoImplVaultFormatPre7(
 	private fun inflate(shortFileName: String): String {
 		val metadataFile = metadataFile(shortFileName)
 		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(metadataFile, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 

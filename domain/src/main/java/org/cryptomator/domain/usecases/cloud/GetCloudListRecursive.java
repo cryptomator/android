@@ -5,6 +5,7 @@ import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.usecases.CloudFolderRecursiveListing;
 import org.cryptomator.domain.usecases.CloudNodeRecursiveListing;
 import org.cryptomator.generator.Parameter;
@@ -16,18 +17,24 @@ import java.util.List;
 class GetCloudListRecursive {
 
 	private final CloudContentRepository cloudContentRepository;
+	private final VaultDocumentRepository vaultDocumentRepository;
 	private final List<CloudFolder> folders;
 
 	GetCloudListRecursive(CloudContentRepository cloudContentRepository, //
+			VaultDocumentRepository vaultDocumentRepository, //
 			@Parameter List<CloudFolder> folders) {
 		this.cloudContentRepository = cloudContentRepository;
+		this.vaultDocumentRepository = vaultDocumentRepository;
 		this.folders = folders;
 	}
 
 	public CloudNodeRecursiveListing execute() throws BackendException {
 		CloudNodeRecursiveListing cloudNodeRecursiveListing = new CloudNodeRecursiveListing(folders.size());
 		for (CloudFolder folder : folders) {
-			cloudNodeRecursiveListing.addFolderContent(recursiveListing(new CloudFolderRecursiveListing(folder), folder));
+			// a folder from a vault's cache is resolved to the vault's folder in the cloud, which the recursive
+			// listing needs
+			CloudFolder listedFolder = vaultDocumentRepository.pathOf(folder) != null ? vaultDocumentRepository.resolve(folder) : folder;
+			cloudNodeRecursiveListing.addFolderContent(recursiveListing(new CloudFolderRecursiveListing(listedFolder), listedFolder));
 		}
 		return cloudNodeRecursiveListing;
 	}

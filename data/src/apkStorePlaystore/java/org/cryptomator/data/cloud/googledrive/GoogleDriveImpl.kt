@@ -6,8 +6,6 @@ import com.google.api.client.http.HttpResponseException
 import com.google.api.client.util.DateTime
 import com.google.api.services.drive.Drive
 import com.google.api.services.drive.model.File
-import com.google.api.services.drive.model.Revision
-import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.util.TransferredBytesAwareOutputStream
 import org.cryptomator.domain.GoogleDriveCloud
 import org.cryptomator.domain.exception.BackendException
@@ -21,22 +19,16 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
-import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
 import java.io.IOException
 import java.io.OutputStream
 import java.util.Date
-import timber.log.Timber
 
 internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCloud, idCache: GoogleDriveIdCache) {
 
 	private val idCache: GoogleDriveIdCache
 	private val context: Context
 	private val googleDriveCloud: GoogleDriveCloud
-	private val sharedPreferencesHandler: SharedPreferencesHandler
 	private val root: RootGoogleDriveFolder
-	private var diskLruCache: DiskLruCache? = null
 
 	private fun client(): Drive {
 		return GoogleDriveClientFactory.getInstance(googleDriveCloud.username(), context)
@@ -273,56 +265,8 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 	}
 
 	@Throws(IOException::class)
-	fun read(file: GoogleDriveFile, encryptedTmpFile: java.io.File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: GoogleDriveFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
-		var cacheKey: String? = null
-		var cacheFile: java.io.File? = null
-		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			cacheKey = file.driveId + getRevisionIdFor(file)
-			cacheFile = diskLruCache?.let { it[cacheKey] }
-		}
-		if (sharedPreferencesHandler.useLruCache() && cacheFile != null) {
-			try {
-				retrieveFromLruCache(cacheFile, data)
-			} catch (e: IOException) {
-				Timber.tag("GoogleDriveImpl").w(e, "Error while retrieving content from Cache, get from web request")
-				writeToDate(file, data, encryptedTmpFile, cacheKey, progressAware)
-			}
-		} else {
-			writeToDate(file, data, encryptedTmpFile, cacheKey, progressAware)
-		}
-		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
-	}
-
-	private fun getRevisionIdFor(file: GoogleDriveFile): String? {
-		val revisions: MutableList<Revision> = ArrayList()
-		var pageToken: String? = null
-		do {
-			val revisionList = client() //
-				.revisions() //
-				.list(file.driveId) //
-				.setPageToken(pageToken) //
-				.execute()
-			revisions.addAll(revisionList.revisions)
-			pageToken = revisionList.nextPageToken
-		} while (pageToken != null)
-		revisions.sortWith { revision1: Revision, revision2: Revision ->
-			val modified1 = revision1.modifiedTime.value
-			val modified2 = revision2.modifiedTime.value
-			modified1.compareTo(modified2).compareTo(0)
-		}
-		val revisionIndex = if (revisions.size > 0) revisions.size - 1 else 0
-		return revisions[revisionIndex].id
-	}
-
-	@Throws(IOException::class)
-	private fun writeToDate(
-		file: GoogleDriveFile,  //
-		data: OutputStream,  //
-		encryptedTmpFile: java.io.File?,  //
-		cacheKey: String?,  //
-		progressAware: ProgressAware<DownloadState>
-	) {
 		try {
 			object : TransferredBytesAwareOutputStream(data) {
 				override fun bytesTransferred(transferred: Long) {
@@ -343,27 +287,7 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		} catch (e: HttpResponseException) {
 			ignoreEmptyFileErrorAndRethrowOthers(e, file)
 		}
-		if (sharedPreferencesHandler.useLruCache() && encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("GoogleDriveImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("GoogleDriveImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
-		}
-	}
-
-	private fun createLruCache(cacheSize: Int): Boolean {
-		if (diskLruCache == null) {
-			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.GOOGLE_DRIVE), cacheSize.toLong())
-			} catch (e: IOException) {
-				Timber.tag("GoogleDriveImpl").e(e, "Failed to setup LRU cache")
-				return false
-			}
-		}
-		return true
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
 	}
 
 	/*
@@ -422,6 +346,5 @@ internal class GoogleDriveImpl(context: Context, googleDriveCloud: GoogleDriveCl
 		this.googleDriveCloud = googleDriveCloud
 		this.idCache = idCache
 		this.root = RootGoogleDriveFolder(googleDriveCloud)
-		sharedPreferencesHandler = SharedPreferencesHandler(context)
 	}
 }

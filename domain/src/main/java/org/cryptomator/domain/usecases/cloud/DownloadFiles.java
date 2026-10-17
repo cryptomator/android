@@ -1,8 +1,10 @@
 package org.cryptomator.domain.usecases.cloud;
 
 import org.cryptomator.domain.CloudFile;
+import org.cryptomator.domain.VaultPath;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.usecases.DownloadFile;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
@@ -17,11 +19,14 @@ import java.util.List;
 class DownloadFiles {
 
 	private final CloudContentRepository cloudContentRepository;
+	private final VaultDocumentRepository vaultDocumentRepository;
 	private final List<DownloadFile> downloadFiles;
 
 	public DownloadFiles(CloudContentRepository cloudContentRepository, //
+			VaultDocumentRepository vaultDocumentRepository, //
 			@Parameter List<DownloadFile> downloadFiles) {
 		this.cloudContentRepository = cloudContentRepository;
+		this.vaultDocumentRepository = vaultDocumentRepository;
 		this.downloadFiles = downloadFiles;
 	}
 
@@ -29,7 +34,12 @@ class DownloadFiles {
 		List<CloudFile> downloadedFiles = new ArrayList<>();
 		for (DownloadFile file : downloadFiles) {
 			try {
-				cloudContentRepository.read(file.getDownloadFile(), null, file.getDataSink(), progressAware);
+				VaultPath vaultFile = vaultDocumentRepository.pathOf(file.getDownloadFile());
+				if (vaultFile != null) {
+					vaultDocumentRepository.read(vaultFile, file.getDataSink(), progressAware);
+				} else {
+					cloudContentRepository.read(file.getDownloadFile(), file.getDataSink(), progressAware);
+				}
 				downloadedFiles.add(file.getDownloadFile());
 			} finally {
 				closeQuietly(file.getDataSink());
