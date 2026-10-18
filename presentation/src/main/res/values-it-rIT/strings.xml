@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">Rimuovi</string>
 	<string name="screen_vault_list_vault_creation_hint">Tocca qui per creare una nuova cassaforte</string>
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licenza perpetua è scontata del %1$d%% fino a %2$s</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Ignora</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
@@ -179,6 +180,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Scegli una posizione</string>
 	<string name="screen_cloud_connections_no_connections">Tocca qui per aggiungere posizioni</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nessuna unità disponibile.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Impossibile trovare il sito di SharePoint. Controlla l\'URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Il server non sembra essere compatibile con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nessun file manager trovato che supporta l\'apertura di cartelle</string>
 	<!-- ## screen: webdav settings -->
@@ -267,8 +270,10 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantieni le cassaforte sbloccate durante la modifica dei file</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Connessioni OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Collegamenti SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Collegamenti</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Posizione di archiviazione locale</string>
 	<string name="screen_cloud_settings_log_in_to">Accedi a</string>
@@ -411,6 +416,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credenziali di \'%1$s\' aggiornate</string>
 	<string name="dialog_pcloud_credentials_updated">Se hai intenzione di aggiungere un nuovo account pCloud, tocca questo url <a href="https://www.pcloud.com">www.pcloud. om</a>, esci dall\'account corrente e tocca di nuovo il \'+\' in questa app per creare una nuova connessione cloud.</string>
 	<string name="dialog_enter_sharepoint_url_title">Inserisci l\'URL di SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL del sito di SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Inserisci l\'indirizzo del tuo sito SharePoint, ad esempio https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Questo non è l\'indirizzo di un sito di SharePoint. Per favore inseriscilo come https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Seleziona unità</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Selezionare l\'unità SharePoint con cui si desidera lavorare.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Richiesta migrazione password della cassaforte</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A causa di miglioramenti di sicurezza, ti verrà chiesta l\'autenticazione biometrica due volte per ogni cassaforte per ri-crittografare la password della tua cassaforte. Questo è necessario per continuare a proteggere le password della tua cassaforte con la tecnologia più recente. Se non si desidera che ciò accada, le password memorizzate verranno rimosse.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
@@ -507,6 +517,9 @@
 	<string name="dialog_trial_expired_message">La tua prova gratuita è terminata. Puoi continuare in modalità sola lettura o sbloccare la versione completa.</string>
 	<string name="dialog_trial_expired_unlock">Sblocca la Versione Completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continua in modalità sola lettura</string>
+	<string name="dialog_license_lost_title">Inserisci di nuovo la Chiave di Licenza</string>
+	<string name="dialog_license_lost_message">Un precedente aggiornamento ha rimosso da questo dispositivo la chiave di licenza registrata a %1$s. Inseriscila di nuovo per ripristinare l\'accesso in scrittura. Fino ad allora, le tue casseforti sono in sola lettura.</string>
+	<string name="dialog_license_lost_reenter">Inserisci di nuovo la Chiave di Licenza</string>
 	<string name="dialog_license_lost_later">Dopo</string>
 	<string name="dialog_settings_update_check_interval_title">Aggiorna intervallo di controllo</string>
 	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
