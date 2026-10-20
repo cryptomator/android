@@ -465,6 +465,7 @@
 	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
 	<string name="dialog_trial_expired_title">Deneme Sona Erdi</string>
 	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
+	<string name="dialog_license_lost_later">Sonra</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>

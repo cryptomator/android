@@ -247,6 +247,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Ligações do SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Ligações WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">ligações pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Ligações Box</string>
 	<string name="screen_cloud_settings_s3_connections">Ligações S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local de armazenamento</string>
 	<string name="screen_cloud_settings_log_in_to">Iniciar sessão em</string>
@@ -479,6 +480,10 @@
 	<string name="screen_settings_manage_subscription">Gerir subscrição</string>
 	<string name="screen_settings_upgrade_to_lifetime">Atualizar para licença vitalícia</string>
 	<string name="dialog_trial_expired_unlock">Desbloqueie a versão completa</string>
+	<string name="dialog_license_lost_title">Introduza novamente a chave de licença</string>
+	<string name="dialog_license_lost_message">Uma atualização anterior removeu a chave de licença registada para %1$s deste dispositivo. Insira-a novamente para restaurar o acesso de escrita. Até lá, os seus cofres ficarão apenas para leitura.</string>
+	<string name="dialog_license_lost_reenter">Introduza novamente a chave de licença</string>
+	<string name="dialog_license_lost_later">Mais tarde</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalo de verificação de actualizações</string>
 	<string name="screen_settings_check_updates">Procurar actualizações</string>
 	<string name="screen_settings_last_check_updates">Última execução %1$s</string>

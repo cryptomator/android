@@ -273,6 +273,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint Verbindingen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV verbindingen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud verbindingen</string>
+	<string name="screen_cloud_settings_box_connections">Box verbindingen</string>
 	<string name="screen_cloud_settings_s3_connections">S3 verbindingen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale opslaglocaties</string>
 	<string name="screen_cloud_settings_log_in_to">Inloggen bij</string>
@@ -516,6 +517,10 @@
 	<string name="dialog_trial_expired_message">Je gratis proefperiode is beëindigd. Je kunt doorgaan in alleen-lezen modus of de volledige versie ontgrendelen.</string>
 	<string name="dialog_trial_expired_unlock">Volledige versie ontgrendelen</string>
 	<string name="dialog_trial_expired_continue_read_only">Ga verder in alleen-lezen modus</string>
+	<string name="dialog_license_lost_title">Voer licentiesleutel opnieuw in</string>
+	<string name="dialog_license_lost_message">Een eerdere update verwijderde de licentiesleutel die op %1$s van dit apparaat is geregistreerd. Voer deze opnieuw in om schrijftoegang te herstellen. Tot die tijd zijn je kluizen alleen-lezen.</string>
+	<string name="dialog_license_lost_reenter">Voer licentiesleutel opnieuw in</string>
+	<string name="dialog_license_lost_later">Later</string>
 	<string name="dialog_settings_update_check_interval_title">Update interval</string>
 	<string name="screen_settings_check_updates">Controleren op updates</string>
 	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>

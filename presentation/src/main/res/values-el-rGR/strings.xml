@@ -462,6 +462,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Διαχείριση Συνδρομής</string>
 	<string name="dialog_trial_expired_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
+	<string name="dialog_license_lost_later">Αργότερα</string>
 	<string name="dialog_settings_update_check_interval_title">Διάστημα ελέγχου ενημερώσεων</string>
 	<string name="screen_settings_check_updates">\'Έλεγχος για ενημερώσεις</string>
 	<string name="screen_settings_last_check_updates">Τελευταίος έλεγχος: %1$s</string>

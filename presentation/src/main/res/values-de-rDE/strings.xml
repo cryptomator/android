@@ -272,6 +272,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
+	<string name="screen_cloud_settings_box_connections">Box-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
@@ -515,6 +516,9 @@
 	<string name="dialog_trial_expired_message">Deine kostenlose Testversion ist abgelaufen. Du kannst im Nur-Lese-Modus fortfahren oder die Vollversion freischalten.</string>
 	<string name="dialog_trial_expired_unlock">Vollversion freischalten</string>
 	<string name="dialog_trial_expired_continue_read_only">Im Nur-Lese-Modus fortfahren</string>
+	<string name="dialog_license_lost_title">Eingabe des Lizenzschlüssels wiederholen</string>
+	<string name="dialog_license_lost_reenter">Eingabe des Lizenzschlüssels wiederholen</string>
+	<string name="dialog_license_lost_later">Später</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>

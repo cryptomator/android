@@ -437,6 +437,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Administrer abonnement</string>
 	<string name="dialog_trial_expired_unlock">Lås opp fullversjonen</string>
+	<string name="dialog_license_lost_later">Senere</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall for å se etter oppdateringer</string>
 	<string name="screen_settings_check_updates">Se etter oppdateringer</string>
 	<string name="screen_settings_last_check_updates">Sist kjørt %1$s</string>

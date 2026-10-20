@@ -260,6 +260,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">จัดการการสมัครสมาชิก</string>
 	<string name="dialog_trial_expired_unlock">ปลดล็อกเวอร์ชั่นเต็ม</string>
+	<string name="dialog_license_lost_later">ภายหลัง</string>
 	<string name="screen_settings_check_updates">ตรวจสอบการอัพเดท</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_instant">ทันที</string>

@@ -504,6 +504,10 @@
 	<string name="dialog_trial_expired_message">Vaša bezplatná skúšobná doba sa skončila. Môžete pokračovať v režime iba na čítanie alebo odomknúť plnú verziu.</string>
 	<string name="dialog_trial_expired_unlock">Odomknúť plnú verziu</string>
 	<string name="dialog_trial_expired_continue_read_only">Pokračovať v režime iba na čítanie</string>
+	<string name="dialog_license_lost_title">Znovu zadajte licenčný kľúč</string>
+	<string name="dialog_license_lost_message">Predchádzajúca aktualizácia odstránila licenčný kľúč registrovaný pre %1$s z tohto zariadenia. Znova ho zadajte, aby ste obnovili prístup na zápis. Dovtedy sú vaše trezory iba na čítanie.</string>
+	<string name="dialog_license_lost_reenter">Znovu zadajte licenčný kľúč</string>
+	<string name="dialog_license_lost_later">Neskôr</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizácii</string>
 	<string name="screen_settings_check_updates">Skontrolovať dostupnosť aktualizácií</string>
 	<string name="screen_settings_last_check_updates">Naposledy %1$s</string>

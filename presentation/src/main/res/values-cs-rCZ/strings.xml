@@ -437,6 +437,7 @@
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Spravovat předplatné</string>
 	<string name="dialog_trial_expired_unlock">Odemknout plnou verzi</string>
+	<string name="dialog_license_lost_later">Později</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizací</string>
 	<string name="screen_settings_check_updates">Zkontrolovat aktualizace</string>
 	<string name="screen_settings_last_check_updates">Poslední kontrola %1$s</string>

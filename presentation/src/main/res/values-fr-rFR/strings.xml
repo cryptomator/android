@@ -272,6 +272,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Connexions SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Connexions Box™</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
 	<string name="screen_cloud_settings_log_in_to">Se connecter à</string>
@@ -515,6 +516,10 @@
 	<string name="dialog_trial_expired_message">Votre essai gratuit est terminé. Vous pouvez continuer en mode lecture seule ou déverrouiller la version complète.</string>
 	<string name="dialog_trial_expired_unlock">Débloquer la version complète</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuer en mode lecture seule</string>
+	<string name="dialog_license_lost_title">Ressaisir la clé de licence</string>
+	<string name="dialog_license_lost_message">Une mise à jour précédente a supprimé la clé de licence enregistrée pour %1$s de cet appareil. Veuillez la saisir à nouveau pour restaurer l\'accès en écriture. Jusque-là, vos coffres sont en lecture seule.</string>
+	<string name="dialog_license_lost_reenter">Ressaisir la clé de licence</string>
+	<string name="dialog_license_lost_later">Plus tard</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>

@@ -124,6 +124,7 @@
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
 	<string name="screen_vault_list_vault_creation_hint">Koppintson ide egy új titkosított tároló létrehozásához</string>
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Az életre szóló licenc %1$d%% kedvezménnyel kapható %2$s-ig</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Elvet</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Titkosított tároló</string>
@@ -179,6 +180,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Válasszon helyt</string>
 	<string name="screen_cloud_connections_no_connections">Koppintson ide helyek hozzáadásához</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nincs elérhető meghajtó.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">A SharePoint-webhely nem található. Kérjük, ellenőrizze az URL-t.</string>
 	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nem találtunk fájlkezelőt, mely képes megnyitni könyvtárakat</string>
 	<!-- ## screen: webdav settings -->
@@ -267,8 +270,10 @@
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Fájlok szerkesztése közben tartsa feloldva a tárolókat</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive kapcsolatok</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint kapcsolatok</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV kapcsolat</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud kapcsolatok</string>
+	<string name="screen_cloud_settings_box_connections">Box kapcsolatok</string>
 	<string name="screen_cloud_settings_s3_connections">S3 kapcsolatok</string>
 	<string name="screen_cloud_settings_local_storage_locations">Helyi tárolóhelyek</string>
 	<string name="screen_cloud_settings_log_in_to">Bejelentkezés ide</string>
@@ -411,6 +416,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">A(z) „%1$s” hitelesítő adatai frissítve</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
 	<string name="dialog_enter_sharepoint_url_title">SharePoint URL megadása</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint-webhely URL</string>
+	<string name="dialog_enter_sharepoint_url_format">Írja be a SharePoint-webhely címét, pl.: https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Ez nem egy SharePoint-webhely címe. Kérjük, adjon meg egy ilyen formátumú címet: https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Válassza ki a meghajtót</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Válassza ki azt a SharePoint-meghajtót, amellyel dolgozni szeretne.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Tároló jelszó migráció szükséges</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden tároló esetében kétszer kérjük a biometrikus hitelesítést a tároló jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a tároló jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
@@ -507,6 +517,10 @@
 	<string name="dialog_trial_expired_message">Az ingyenes próbaidőszak lejárt. Folytathatja csak olvasási módban, vagy feloldhatja a teljes verziót.</string>
 	<string name="dialog_trial_expired_unlock">Teljes verzió feloldása</string>
 	<string name="dialog_trial_expired_continue_read_only">Folytatási csak olvasási módban</string>
+	<string name="dialog_license_lost_title">A licenckulcs újbóli megadása</string>
+	<string name="dialog_license_lost_message">Egy korábbi frissítés eltávolította a %1$s-hez regisztrált licenckulcsot erről az eszközről. Írja be újra a kulcsot az írási jogosultság visszaállításához. Addig a tárolói csak olvasásra alkalmasak.</string>
+	<string name="dialog_license_lost_reenter">A licenckulcs újbóli megadása</string>
+	<string name="dialog_license_lost_later">Később</string>
 	<string name="dialog_settings_update_check_interval_title">A frissítések ellenőrzési gyakorisága</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
 	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
