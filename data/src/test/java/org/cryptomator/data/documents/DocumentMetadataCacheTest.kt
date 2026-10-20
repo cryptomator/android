@@ -18,6 +18,7 @@ import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeIsFolderException
 import org.cryptomator.domain.exception.FatalBackendException
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.NotFoundException
@@ -47,6 +48,7 @@ import org.mockito.kotlin.isNull
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argThat
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doThrow
@@ -232,6 +234,188 @@ class DocumentMetadataCacheTest {
 		verify(dao, never()).discardPendingChange(any())
 		verify(dao, never()).markSynced(any())
 		assertFailsWith<NetworkConnectionException>(upload.result)
+	}
+
+	@Test
+	fun `a retry overwrites what a failed upload of the file wrote to the cloud instead of keeping it as a conflict`() {
+		val target = failedFirstUpload()
+		// the cloud took the failed upload, e.g. only its response got lost
+		val written = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(written)
+
+		upload(base = 5_000)
+
+		verify(repository, times(2)).write(eq(target), any(), any(), eq(true), any())
+		verify(dao, never()).store(any())
+		verify(dao).markUploaded(ID, 3, 9_000, GENERATION + 1)
+	}
+
+	@Test
+	fun `a retry keeps a change made elsewhere after a failed upload as a conflict`() {
+		failedFirstUpload()
+		val changed = remoteFile(8_000, localFile.length() + 11)
+		whenever(repository.metadata(any())).thenReturn(changed)
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		upload(base = 5_000)
+
+		verify(dao).store(argThat { path.matches(Regex("a/$CONFLICT_NAME")) })
+	}
+
+	@Test
+	fun `a retry overwrites what the first failed upload wrote also after a later retry failed again`() {
+		val target = failedFirstUpload(failures = 2)
+		val written = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(written)
+		upload(base = 5_000)
+
+		upload(base = 5_000)
+
+		verify(repository, times(3)).write(eq(target), any(), any(), eq(true), any())
+		verify(dao, never()).store(any())
+	}
+
+	@Test
+	fun `a retry that fails before it writes keeps recognising what the earlier failed upload wrote`() {
+		val target = failedFirstUpload()
+		doThrow(NetworkConnectionException()).whenever(repository).metadata(any())
+		upload(base = 5_000)
+		// the cloud took the first upload
+		val written = remoteFile(8_000, localFile.length())
+		doReturn(written).whenever(repository).metadata(any())
+
+		upload(base = 5_000)
+
+		verify(repository, times(2)).write(eq(target), any(), any(), eq(true), any())
+		verify(dao, never()).store(any())
+	}
+
+	@Test
+	fun `a retry of a new file overwrites what its failed upload wrote under its name instead of renaming it`() {
+		val target = failedFirstUpload(remoteModified = null, lastModified = null, base = null)
+		verify(repository).write(eq(target), any(), any(), eq(false), any())
+		val written = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(written)
+
+		upload(base = null)
+
+		verify(repository).write(eq(target), any(), any(), eq(true), any())
+	}
+
+	@Test
+	fun `a retry of a new file doesn't take a file of the same size that was in the cloud before its failed upload for its own`() {
+		val target = failedFirstUpload(remoteSize = localFile.length(), lastModified = null, base = null)
+
+		upload(base = null)
+
+		verify(repository, times(2)).write(eq(target), any(), any(), eq(false), any())
+		verify(repository, never()).write(any(), any(), any(), eq(true), any())
+	}
+
+	@Test
+	fun `a retry overwrites what a failed upload under the name it was renamed to wrote, instead of renaming it again`() {
+		givenUpload(remoteModified = null)
+		val taken = writeTarget("x.txt")
+		whenever(repository.write(eq(taken), any(), any(), any(), any())).thenThrow(CloudNodeAlreadyExistsException("x.txt"))
+		val renamedTarget: CloudFile = mock()
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(renamedTarget)
+		whenever(repository.write(eq(renamedTarget), any(), any(), any(), any())).thenThrow(NetworkConnectionException()).thenReturn(cryptoFile("a/x.txt", size = 3, modified = 9_000))
+		upload(base = 5_000)
+		val renamedPath = argumentCaptor<String>()
+		verify(dao).renamePending(eq(VAULT_ID), eq("a/x.txt"), renamedPath.capture(), any(), any(), isNull())
+		// the cloud took the failed upload under the new name, which the cache now lists the file under
+		val renamed = path(renamedPath.firstValue)
+		whenever(dao.load(VAULT_ID, renamed.path)).thenAnswer { dao.load(VAULT_ID, "a/x.txt") }
+		val renamedHandle: CloudFile = mock()
+		val written = remoteFile(8_000, localFile.length())
+		whenever(repository.file(root, renamed.name)).thenReturn(renamedHandle)
+		whenever(repository.metadata(renamedHandle)).thenReturn(written)
+
+		inTest.upload(renamed, localFile, { null }) { _, _, _, _ -> }
+
+		verify(repository).write(eq(renamedTarget), any(), any(), eq(true), any())
+	}
+
+	@Test
+	fun `a retry overwrites what an earlier failed upload wrote once it landed late, also if the file was saved again in between`() {
+		val firstSize = localFile.length()
+		val target = failedFirstUpload(failures = 2)
+		localFile.appendText(" saved again")
+		// the cloud still holds the first upload
+		upload(base = 5_000)
+		// and takes it now
+		val written = remoteFile(8_000, firstSize)
+		whenever(repository.metadata(any())).thenReturn(written)
+
+		upload(base = 5_000)
+
+		verify(repository, times(3)).write(eq(target), any(), any(), eq(true), any())
+		verify(dao, never()).store(any())
+	}
+
+	@Test
+	fun `an upload that succeeded ends the recognition of its failed attempts, so that a later change of the same size is a conflict`() {
+		failedFirstUpload()
+		val written = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(written)
+		upload(base = 5_000)
+		val changed = remoteFile(10_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(changed)
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		upload(base = 9_000)
+
+		verify(dao).store(argThat { path.matches(Regex("a/$CONFLICT_NAME")) })
+	}
+
+	@Test
+	fun `an abandoned upload ends the recognition of its failed attempts`() {
+		failedFirstUpload()
+		inTest.abandonUpload(path("a/x.txt"))
+		val changed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(any())).thenReturn(changed)
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		upload(base = 5_000)
+
+		verify(dao).store(argThat { path.matches(Regex("a/$CONFLICT_NAME")) })
+	}
+
+	@Test
+	fun `an upload of a local file is known from its scheduling until it has ended`() {
+		givenUpload(remoteModified = 5_400)
+		writeTarget("x.txt")
+		val uploadExecutor = QueueExecutor()
+		inTest = cache(CloudTaskScheduler(direct, uploadExecutor, direct))
+
+		val upload = upload(base = 5_000)
+		assertTrue(inTest.hasUploadOf(localFile))
+		assertFalse(inTest.hasUploadOf(File(localFile.parentFile, "other")))
+
+		uploadExecutor.runAll()
+		assertTrue(upload.result.isDone)
+		assertFalse(inTest.hasUploadOf(localFile))
+	}
+
+	@Test
+	fun `an upload that a vault lock interrupts stays pending without being recorded or reported as failed`() {
+		givenUpload(remoteModified = 5_400)
+		writeTarget("x.txt")
+		whenever(repository.metadata(any())).thenThrow(MissingCryptorException())
+		val failed = mutableListOf<Throwable>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(error)
+			}
+		})
+
+		val upload = inTest.upload(path("a/x.txt"), localFile, { 5_000 }, userInitiated = true) { _, _, _, _ -> }
+
+		assertFailsWith<CancellationException>(upload.result)
+		assertNull(inTest.uploadFailure(uploading()))
+		assertEquals(emptyList<Throwable>(), failed)
+		verify(dao, never()).markSynced(any())
 	}
 
 	@Test
@@ -988,6 +1172,22 @@ class DocumentMetadataCacheTest {
 		assertTrue(listings.isEmpty())
 		now += 30_000
 		assertTrue(inTest.children(path("a")).isLoading)
+	}
+
+	@Test
+	fun `a listing that ran after the vault was locked is no failed listing, isn't announced and is retried with the next listing`() {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR))
+		whenever(repository.list(root)).thenThrow(MissingCryptorException())
+		inTest.children(path("a"))
+		listings.runAll()
+		// a listing the announcement caused would refresh the folder again, over and over
+		assertEquals(emptyList<VaultPath>(), changedFolders)
+
+		val children = inTest.children(path("a"))
+
+		assertNull(children.error)
+		assertTrue(children.isLoading)
+		assertFalse(listings.isEmpty())
 	}
 
 	@Test
@@ -1905,14 +2105,35 @@ class DocumentMetadataCacheTest {
 		val cloudFile: CloudFile = mock()
 		whenever(repository.file(root, "x.txt")).thenReturn(cloudFile)
 		if (remoteModified != null) {
-			val remoteFile: CloudFile = mock {
-				on { modified } doReturn Date(remoteModified)
-				on { size } doReturn remoteSize
-			}
+			val remoteFile = remoteFile(remoteModified, remoteSize)
 			whenever(repository.metadata(cloudFile)).thenReturn(remoteFile)
 		}
 		val uploadedFile = cryptoFile("a/uploaded.txt", size = 3, modified = 9_000)
 		whenever(repository.write(any(), any(), any(), any(), any())).thenReturn(uploadedFile)
+	}
+
+	/**
+	 * Uploads a/x.txt based on [base], see [givenUpload], which fails before the cloud confirms it. The first [failures]
+	 * writes to the cloud fail, the next one succeeds.
+	 *
+	 * @return the cloud file the upload writes to
+	 */
+	private fun failedFirstUpload(failures: Int = 1, remoteModified: Long? = 5_400, remoteSize: Long = 7, lastModified: Long? = 5_000, base: Long? = 5_000): CloudFile {
+		givenUpload(remoteModified, remoteSize, lastModified)
+		val target = writeTarget("x.txt")
+		whenever(repository.write(any(), any(), any(), any(), any())).thenThrow(*Array(failures) { NetworkConnectionException() }).thenReturn(cryptoFile("a/x.txt", size = 3, modified = 9_000))
+		upload(base)
+		return target
+	}
+
+	/**
+	 * The metadata of a file in the cloud.
+	 */
+	private fun remoteFile(modified: Long, size: Long): CloudFile {
+		return mock {
+			on { this.modified } doReturn Date(modified)
+			on { this.size } doReturn size
+		}
 	}
 
 	private fun writeTarget(name: String, folder: CloudFolder = root): CloudFile {

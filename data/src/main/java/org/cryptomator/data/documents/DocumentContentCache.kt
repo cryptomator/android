@@ -40,8 +40,9 @@ private val LOG = Timber.named("DocumentContentCache")
  * until it is [released][release], so that it can't be deleted before it is opened or while it is written.
  *
  * A copy's cache entry points to the latest version of its file, written or downloaded. Whatever finishes an earlier
- * write, e.g. its upload, a writer closing it or canceling it, leaves a later copy alone. Only a writer whose copy was
- * replaced while it had it open, and whose replacement isn't waiting for its upload, takes the entry back, see
+ * write, e.g. its upload, a writer closing it or canceling it, leaves a later copy alone, apart from moving its base on,
+ * see [upload]. A writer's own copy, see [ownCopy], takes the entry over when its writer closes it. Only a writer whose
+ * copy was replaced while it had it open, and whose replacement isn't waiting for its upload, takes the entry back, see
  * [keepWrite].
  */
 class DocumentContentCache @JvmOverloads constructor(
@@ -80,9 +81,19 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	private val writers = HashMap<String, Writers>()
 
-	private class Writers(val documentId: Long?, var base: Long?) {
+	/**
+	 * [replaces] is the local name of the recorded copy that a copy of the writers' own was made from, and
+	 * [followsReplacedBase] whether the copy takes that copy's base once it is closed, see [ownCopy].
+	 */
+	private class Writers(val documentId: Long?, var base: Long?, val replaces: String?, val followsReplacedBase: Boolean) {
 
 		var open = 0
+
+		/**
+		 * Whether one of the writers saved the copy while others still had it open, and that save isn't in the cloud yet.
+		 * A writer that fails then keeps the copy, see [discard].
+		 */
+		var holdsSharedSave = false
 	}
 
 	/**
@@ -246,9 +257,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * A claimed copy of a file and the version in the cloud it is based on.
+	 * A claimed copy of a file and the version in the cloud it is based on. [replaces] and [followsReplacedBase] are set
+	 * for a writer's own copy, see [ownCopy].
 	 */
-	private class Copy(val file: File, val lastModified: Long?)
+	private class Copy(val file: File, val lastModified: Long?, val replaces: String? = null, val followsReplacedBase: Boolean = false)
 
 	private fun copy(path: VaultPath, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD): Copy {
 		val metadata = requireFile(metadataCache.requireCurrentDocument(path), path)
@@ -271,20 +283,41 @@ class DocumentContentCache @JvmOverloads constructor(
 
 	/**
 	 * Returns the local copy to write to. Its content is only fetched from the cloud if [keepContent] is set and the file
-	 * already exists there.
+	 * already exists there. While the recorded copy is shared, the writer gets a copy of its own, see [ownCopy]. A claim
+	 * the caller holds on the recorded copy, [claimedByCaller], doesn't count as someone else using it.
 	 */
-	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null): File {
+	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null, claimedByCaller: File? = null): File {
 		val metadata = requireFile(metadataCache.requireDocument(path), path)
 		val pinned = pinnedBase(path)
 		val downloaded = if (keepContent && !metadata.isCreating) pinned?.let { pinnedCopy(path, it, signal) } ?: copy(path, signal) else null
-		return withCopiesLocked {
-			val copy = downloaded ?: emptyCopy(path, pinned?.lastModified ?: metadata.lastModified)
-			writers.getOrPut(copy.file.name) { Writers(metadata.id, copy.lastModified) }.apply {
-				base = copy.lastModified
-				open++
+		val emptyBase = pinned?.lastModified ?: metadata.lastModified
+		// decided together with registering the writer, so that a writer whose file gets a save recorded meanwhile, e.g. an
+		// import, gets a copy of its own, too
+		val copy = try {
+			withCopiesLocked {
+				val copy = ownCopy(path, downloaded, claimedByCaller, emptyBase) ?: downloaded ?: emptyCopy(path, emptyBase)
+				writers.getOrPut(copy.file.name) { Writers(metadata.id, copy.lastModified, copy.replaces, copy.followsReplacedBase) }.apply {
+					base = copy.lastModified
+					open++
+				}
+				copy
 			}
-			copy.file
+		} catch (e: Exception) {
+			downloaded?.let { release(it.file) }
+			throw e
 		}
+		if (copy.replaces != null && downloaded != null) {
+			try {
+				downloaded.file.copyTo(copy.file, overwrite = true)
+			} catch (e: Exception) {
+				writerClosed(copy.file)
+				drop(copy.file)
+				throw e
+			} finally {
+				release(downloaded.file)
+			}
+		}
+		return copy.file
 	}
 
 	/**
@@ -294,6 +327,50 @@ class DocumentContentCache @JvmOverloads constructor(
 	private fun pinnedCopy(path: VaultPath, pinned: PinnedBase, signal: CancellationSignal?): Copy {
 		val recorded = localCopy(path)?.let(::claimIfPresent) ?: copy(path, signal).file
 		return Copy(recorded, pinned.lastModified)
+	}
+
+	/**
+	 * A copy of its own for a writer of [path] while the copy it would get is shared: it holds a save that waits for its
+	 * upload, or a reader uses it. That is [downloaded], the claimed copy with the content to keep, also if a later write
+	 * overtook it, else the recorded copy, see [emptyCopy]. The writer then changes neither what is uploaded nor what is
+	 * read, and a writer that fails leaves that copy as it was. Writers that have the copy open already change it, so
+	 * another writer shares it with them, like the writers of a local file. The own copy is created empty; the caller fills
+	 * it with the content of [downloaded], see [fileForWriting]. It takes the recorded copy's place once the writer closes
+	 * it, unless a later write replaced that meanwhile, see [keepWrite]. It is based on the version of [downloaded], or
+	 * [emptyBase] for a write from scratch, unless it follows the replaced copy's base: that of a save waiting for its
+	 * upload, which the upload moves on, or an external editor's pinned one. Null if the writer can write to the copy it got.
+	 * Unlike on iOS, where the system coordinates the writers of a file, writers here can open a file while an earlier
+	 * save of it waits for its upload. Called with the copies locked, see [withCopiesLocked].
+	 */
+	private fun ownCopy(path: VaultPath, downloaded: Copy?, claimedByCaller: File?, emptyBase: Long?): Copy? {
+		val recorded = localCopy(path)
+		val shared = downloaded?.file ?: recorded ?: return null
+		if (isOpenForWriting(shared)) {
+			return null
+		}
+		val ownClaims = listOfNotNull(downloaded?.file, claimedByCaller).count { it == shared }
+		val isRead = (inUse[shared.name] ?: 0) > ownClaims
+		val isUploaded = if (shared == recorded) metadataCache.isUploading(path) else metadataCache.hasUploadOf(shared)
+		if (!isRead && !isUploaded) {
+			return null
+		}
+		val own = claim(File(directory, UUID.randomUUID().toString()))
+		try {
+			own.createNewFile()
+		} catch (e: Exception) {
+			drop(own)
+			throw e
+		}
+		// the recorded copy's base as of now, which its upload may have moved on since it was claimed
+		val base = if (downloaded == null) emptyBase else if (shared == recorded) recordedBase(path) else downloaded.lastModified
+		return Copy(own, base, replaces = shared.name, followsReplacedBase = isUploaded || pinnedBase(path) != null)
+	}
+
+	/**
+	 * The version the writes of [path] are based on: the pinned base, else the one of the recorded copy.
+	 */
+	private fun recordedBase(path: VaultPath): Long? {
+		return pinnedBase(path)?.lastModified ?: dao.load(path.vault.id, path.path)?.lastModified
 	}
 
 	/**
@@ -318,26 +395,37 @@ class DocumentContentCache @JvmOverloads constructor(
 	/**
 	 * Handles a copy returned by [fileForWriting] being closed by its writer: a changed copy is uploaded to where
 	 * [currentPath] tells the file is now, or dropped if its writer failed. A writer that failed without changing the
-	 * copy, e.g. because its app ended, leaves it as it was, also an earlier write in it that waits for its upload.
+	 * copy, e.g. because its app ended, leaves it as it was, also an earlier write in it that waits for its upload. A
+	 * writer's own copy that did not take the recorded copy's place is dropped, see [ownCopy].
 	 */
 	fun closedForWriting(localFile: File, error: IOException?, changed: Boolean, currentPath: () -> VaultPath) {
 		if (error is ParcelFileDescriptor.FileDescriptorDetachedException) {
 			awaitDetachedWriter(localFile, currentPath)
 			return
 		}
+		val isOwnCopy = synchronized(inUse) { writers[localFile.name]?.replaces != null }
 		writerClosed(localFile)
 		try {
 			if (changed) {
 				withCopiesLocked {
 					if (error != null) {
-						discard(currentPath(), localFile)
+						// an own copy that took the recorded copy's place, e.g. while it was detached, may hold other writers'
+						// saves by now
+						if (!isOwnCopy || dao.loadByLocalName(localFile.name) != null) {
+							discard(currentPath(), localFile)
+						}
 					} else {
+						savedWhileShared(localFile)
 						uploadWrite(currentPath(), localFile)
 					}
 				}
 			}
 		} finally {
-			release(localFile)
+			if (isOwnCopy) {
+				dropUnrecorded(localFile)
+			} else {
+				release(localFile)
+			}
 		}
 	}
 
@@ -382,6 +470,7 @@ class DocumentContentCache @JvmOverloads constructor(
 		writerClosed(localFile)
 		try {
 			withCopiesLocked {
+				savedWhileShared(localFile)
 				uploadWrite(currentPath(), localFile)
 			}
 		} catch (e: Exception) {
@@ -392,11 +481,22 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
+	 * Marks a save of [localFile], made by a writer that just closed it, if other writers still have it open, see
+	 * [Writers.holdsSharedSave]. Called with the copies locked, see [withCopiesLocked].
+	 */
+	private fun savedWhileShared(localFile: File) {
+		if (isOpenForWriting(localFile)) {
+			writers[localFile.name]?.holdsSharedSave = true
+		}
+	}
+
+	/**
 	 * Called with the copies locked, see [withCopiesLocked].
 	 */
 	private fun uploadWrite(path: VaultPath, localFile: File) {
 		val kept = keepWrite(path, localFile)
-		// a save made while the vault is locked stays pending until the unlock resumes the vault's uploads
+		// a save made while the vault is locked stays pending until the first listing after the unlock resumes the
+		// vault's uploads, see resumeUploadsOnce
 		if (kept.vault.isUnlocked) {
 			upload(kept, localFile)
 		}
@@ -405,11 +505,12 @@ class DocumentContentCache @JvmOverloads constructor(
 	/**
 	 * Keeps what a writer wrote to [localFile], the copy it got for [path], as the copy of one file, which is marked as
 	 * waiting for its upload, and returns where that file is. A copy that is recorded for a file already, e.g. because it
-	 * became a conflict copy meanwhile, stays with it. A copy that was replaced while the writer had it open becomes the
-	 * copy of [path] again, based on the version it was opened with, so that its content is kept until it has been
-	 * uploaded. If the replacement is a write that is still waiting for its upload, the writer's content becomes a
-	 * conflict copy next to it instead, so that neither write is lost. Called with the copies locked, see
-	 * [withCopiesLocked].
+	 * became a conflict copy meanwhile, stays with it. A writer's own copy takes the place of the copy it was made from,
+	 * with that copy's base, as long as no other write replaced that one meanwhile, see [ownCopy]. A copy that was
+	 * replaced while the writer had it open becomes the copy of [path] again, based on the version it was opened with, so
+	 * that its content is kept until it has been uploaded. If the replacement is a write that is still waiting for its
+	 * upload, the writer's content becomes a conflict copy next to it instead, so that neither write is lost. Called with
+	 * the copies locked, see [withCopiesLocked].
 	 */
 	private fun keepWrite(path: VaultPath, localFile: File): VaultPath {
 		if (isPinned(path)) {
@@ -426,6 +527,14 @@ class DocumentContentCache @JvmOverloads constructor(
 				pinnedBase(recorded)?.let { store(recorded, localFile, it.lastModified) }
 			}
 			return recorded
+		}
+		val replaced = writers[localFile.name]?.replaces?.let { File(directory, it) }
+		if (replaced != null && isRegisteredCopy(path, replaced)) {
+			metadataCache.markPendingUpload(path)
+			val writer = writers[localFile.name]
+			store(path, localFile, if (writer?.followsReplacedBase == true) recordedBase(path) else writer?.base)
+			deleteIfUnrecorded(replaced)
+			return path
 		}
 		return if (metadataCache.isUploading(path)) {
 			LOG.i("A later write of ${metadataCache.logId(path)} is waiting for its upload, keeping this one as a conflict copy")
@@ -471,24 +580,49 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * Uploads the local copy of [path]. If the file changed in the cloud since the version the copy is based on, the
 	 * copy is uploaded next to it as a conflict copy and becomes the conflict copy's local copy. It stays the copy of
 	 * [path] instead if it has been written again or is open for writing, or if the conflict copy has been written
-	 * meanwhile. The next upload of [path] is then a conflict copy, too. A copy that is still open for writing stays pending after its upload, so that what its writer writes afterwards is
-	 * kept if the process ends before the writer closes it.
+	 * meanwhile. The next upload of [path] is then a conflict copy, too. A copy that is still open for writing stays
+	 * pending after its upload, so that what its writer writes afterwards is kept if the process ends before the writer
+	 * closes it. If a later write, e.g. a writer's own copy, replaced [localFile] during the upload and waits for its own
+	 * upload, the upload moves that write's base on, unless it went to a conflict copy. A [localFile] that is no longer
+	 * recorded is deleted once the upload has ended, see [keepWrite].
 	 */
 	fun upload(path: VaultPath, localFile: File, progressAware: ProgressAware<UploadState> = ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, modifiedDate: Long? = null, userInitiated: Boolean = false): DocumentMetadataCache.Upload {
-		val baseLastModified = { current: VaultPath -> dao.load(current.vault.id, current.path)?.lastModified }
+		var base: Long? = null
+		val baseLastModified = { current: VaultPath -> dao.load(current.vault.id, current.path)?.lastModified.also { base = it } }
 		return withCopiesLocked {
 			metadataCache.upload(path, localFile, baseLastModified, progressAware, modifiedDate, userInitiated) { current, uploadedPath, lastModified, isLatestWrite ->
 				withCopiesLocked {
-					val recorded = recordedPath(current, localFile) ?: return@withCopiesLocked
+					val recorded = recordedPath(current, localFile)
+					if (recorded == null) {
+						// a later write that replaced this copy during the upload, e.g. a writer's own copy, was made on top of it, see
+						// keepWrite. Unlike a download recorded meanwhile, it waits for its upload.
+						if (uploadedPath == current && metadataCache.isUploading(current) && dao.load(current.vault.id, current.path)?.lastModified == base) {
+							recordUploadedBase(current, localFile, lastModified)
+						}
+						return@withCopiesLocked
+					}
 					if (uploadedPath == current) {
-						dao.updateLastModified(recorded.vault.id, recorded.path, lastModified)
-						movePinnedBase(recorded, localFile, lastModified)
+						recordUploadedBase(recorded, localFile, lastModified)
 					} else if (isLatestWrite && !metadataCache.isUploading(recorded) && !isOpenForWriting(localFile) && localCopy(uploadedPath) == null) {
 						dao.delete(recorded.vault.id, recorded.path)
 						store(uploadedPath, localFile, lastModified)
 					}
+					// the writers' shared save is in the cloud, as the file or as its conflict copy, unless a writer saved again
+					// since the upload's end was recorded, which isLatestWrite doesn't tell
+					if (isLatestWrite && !metadataCache.isUploading(recorded)) {
+						writers[localFile.name]?.holdsSharedSave = false
+					}
 					if (isOpenForWriting(localFile) && !metadataCache.isUploading(recorded)) {
 						metadataCache.markPendingUpload(recorded)
+					}
+				}
+			}.also { upload ->
+				upload.result.whenComplete { _, _ ->
+					try {
+						// a copy that a writer's own copy replaced while it was uploaded, see keepWrite
+						deleteIfUnrecorded(localFile)
+					} catch (e: Exception) {
+						LOG.e(e, "Deleting the replaced copy ${localFile.name} after its upload failed")
 					}
 				}
 			}
@@ -525,14 +659,33 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Gives up a claim on [staging] and deletes it, unless it was recorded as a copy before the import failed, e.g. when
-	 * starting its upload failed. It is then a pending upload, which is resumed.
+	 * Records the version an upload of [uploaded] put at [path] as the base of [path]'s recorded copy.
 	 */
-	private fun dropUnrecorded(staging: File) {
+	private fun recordUploadedBase(path: VaultPath, uploaded: File, lastModified: Long?) {
+		dao.updateLastModified(path.vault.id, path.path, lastModified)
+		movePinnedBase(path, uploaded, lastModified)
+	}
+
+	/**
+	 * Gives up a claim on [file] and deletes it, see [deleteIfUnrecorded].
+	 */
+	private fun dropUnrecorded(file: File) {
 		synchronized(inUse) {
-			release(staging)
-			if (dao.loadByLocalName(staging.name) == null) {
-				deleteUnlessInUse(staging)
+			release(file)
+			deleteIfUnrecorded(file)
+		}
+	}
+
+	/**
+	 * Deletes [file] unless it is in use, recorded as a copy, or an upload of it hasn't ended. A recorded one is e.g. an
+	 * import that was recorded before it failed, which is then a pending upload that is resumed, or a writer's own copy
+	 * that took the recorded copy's place. One that is uploaded is e.g. the copy an own copy replaced, which the end of its
+	 * upload deletes, see [upload].
+	 */
+	private fun deleteIfUnrecorded(file: File) {
+		synchronized(inUse) {
+			if (dao.loadByLocalName(file.name) == null && !metadataCache.hasUploadOf(file)) {
+				deleteUnlessInUse(file)
 			}
 		}
 	}
@@ -548,7 +701,7 @@ class DocumentContentCache @JvmOverloads constructor(
 			metadataCache.markPendingUpload(path)
 			val previous = dao.load(path.vault.id, path.path)
 			store(path, staging, if (target.isNew) null else metadata.lastModified)
-			previous?.let { deleteUnlessInUse(File(directory, it.localName)) }
+			previous?.let { deleteIfUnrecorded(File(directory, it.localName)) }
 			upload(path, staging, progressAware, modifiedDate, userInitiated)
 		}
 	}
@@ -603,19 +756,30 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Drops [localFile], the local copy of [path], after a failed write, together with the upload it was waiting for,
-	 * unless someone other than the failed writer still uses it or a later write replaced it.
+	 * Drops [localFile], the local copy of [path] or wherever its file went since, e.g. a conflict copy, after a failed
+	 * write, together with the upload it was waiting for, unless another writer still has it open, it holds another
+	 * writer's save that isn't in the cloud yet, see [Writers.holdsSharedSave], or a later write replaced it. A copy kept
+	 * for another writer's save is uploaded again with what the failed writer wrote, like a local file that several
+	 * programs write. A reader that still has a dropped copy open keeps reading it, but the copy is no longer taken for the
+	 * file; it is deleted with the next eviction then, see [evict].
 	 */
 	fun discard(path: VaultPath, localFile: File) {
 		withCopiesLocked {
-			if (!isRegisteredCopy(path, localFile)) {
+			val recorded = recordedPath(path, localFile)
+			if (recorded == null) {
 				LOG.w("Not dropping the copy of ${metadataCache.logId(path)} after a failed write, it has been replaced")
-			} else if ((inUse[localFile.name] ?: 0) > 1) {
-				LOG.w("Not dropping the copy of ${metadataCache.logId(path)} after a failed write, it is still in use")
+			} else if (isOpenForWriting(localFile)) {
+				LOG.w("Not dropping the copy of ${metadataCache.logId(recorded)} after a failed write, another writer has it open")
+			} else if (writers[localFile.name]?.holdsSharedSave == true) {
+				LOG.w("Not dropping the copy of ${metadataCache.logId(recorded)} after a failed write, it holds another writer's save")
+				uploadWrite(recorded, localFile)
 			} else {
-				dao.delete(path.vault.id, path.path)
-				deleteCopy(localFile)
-				metadataCache.abandonUpload(path)
+				dao.delete(recorded.vault.id, recorded.path)
+				// the failed writer's own claim is given up right after
+				if ((inUse[localFile.name] ?: 0) <= 1) {
+					deleteCopy(localFile)
+				}
+				metadataCache.abandonUpload(recorded)
 			}
 		}
 	}
@@ -661,13 +825,22 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Like [resumeUploads], but only the first call per vault and process does so. Files lists a folder again whenever
-	 * an upload into it fails, which would retry the upload over and over again.
+	 * Like [resumeUploads], but only the first call per vault after a vault was locked or unlocked does so, see
+	 * [forgetResumedUploads]. Files lists a folder again whenever an upload into it fails, which would retry the upload
+	 * over and over again.
 	 */
 	fun resumeUploadsOnce(vault: Vault) {
 		if (resumedVaults.add(vault.id)) {
 			resumeUploads(vault)
 		}
+	}
+
+	/**
+	 * Lets the next [resumeUploadsOnce] of each vault resume its uploads again. Called whenever a vault was locked or
+	 * unlocked, so that the unlock resumes the uploads that failed because the vault was locked.
+	 */
+	fun forgetResumedUploads() {
+		resumedVaults.clear()
 	}
 
 	/**
@@ -692,10 +865,13 @@ class DocumentContentCache @JvmOverloads constructor(
 		return directory.listFiles()?.sumOf { it.length() } ?: 0L
 	}
 
+	/**
+	 * Spares a copy that a writer's own copy replaced while its upload hasn't ended, see [keepWrite].
+	 */
 	private fun deleteUnrecorded() {
 		withCopiesLocked {
 			val localNames = dao.loadLocalNames().toSet()
-			directory.listFiles()?.filter { it.name !in localNames && it.name !in inUse }?.forEach(::deleteCopy)
+			directory.listFiles()?.filter { it.name !in localNames && it.name !in inUse && !metadataCache.hasUploadOf(it) }?.forEach(::deleteCopy)
 		}
 	}
 

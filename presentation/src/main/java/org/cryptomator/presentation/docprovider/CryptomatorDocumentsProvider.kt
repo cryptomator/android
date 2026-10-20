@@ -36,6 +36,7 @@ import org.cryptomator.presentation.presenter.ContextHolder
 import org.cryptomator.presentation.util.FileNameValidator
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.named
+import java.io.File
 import java.io.FileNotFoundException
 import timber.log.Timber
 
@@ -58,6 +59,8 @@ private val SUPPORTED_DOCUMENT_COLUMNS: Array<String> = arrayOf(
 	Document.COLUMN_FLAGS,
 	Document.COLUMN_SIZE,
 	Document.COLUMN_LAST_MODIFIED,
+	//Optional
+	Document.COLUMN_SUMMARY,
 )
 
 private val LOG = Timber.named("CryptomatorDocumentsProvider")
@@ -165,10 +168,19 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val cursor = MatrixCursor(projection, children.documents.size)
 		cursor.setNotificationUriForId(context!!.contentResolver, directoryDocumentId)
 		val error = children.error
-		if (children.isLoading) {
-			cursor.extras = Bundle().apply { putBoolean(EXTRA_LOADING, true) }
+		val extras = if (children.isLoading) {
+			Bundle().apply { putBoolean(EXTRA_LOADING, true) }
 		} else if (error != null) {
-			cursor.extras = errorExtras(error)
+			errorExtras(error)
+		} else {
+			Bundle()
+		}
+		// Files shows no summary of a document, but this message at the top of the folder, like the error badge of iOS
+		if (children.documents.any { metadataCache.uploadFailure(it) != null }) {
+			extras.putString(EXTRA_INFO, context!!.getString(R.string.documents_provider_upload_failed_in_folder))
+		}
+		if (!extras.isEmpty) {
+			cursor.extras = extras
 		}
 
 		children.documents.forEach { metadata ->
@@ -184,6 +196,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		add(Document.COLUMN_FLAGS, documentFlags(vault, metadata.isFolder) or thumbnailFlag(metadata))
 		add(Document.COLUMN_SIZE, metadata.size)
 		add(Document.COLUMN_LAST_MODIFIED, metadata.lastModified)
+		// like the error badge of iOS; a refresh retries the uploads, see refresh()
+		add(Document.COLUMN_SUMMARY, metadataCache.uploadFailure(metadata)?.let { context?.getString(R.string.documents_provider_upload_failed) })
 	}
 
 	override fun queryDocument(documentId: String?, projection: Array<String>?): Cursor {
@@ -344,16 +358,24 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
 				val localFile = pinnedFile ?: contentCache.file(path, signal)
 				try {
-					return ParcelFileDescriptor.open(localFile, accessMode)
-				} finally {
+					// kept in use until the reader closes the file, so that a writer gets a copy of its own meanwhile, see
+					// DocumentContentCache.fileForWriting. A reader that detached the file descriptor, e.g. for native code,
+					// closes it unnoticed, so its copy stays in use until the process ends.
+					return ParcelFileDescriptor.open(localFile, accessMode, closeHandler) { e ->
+						if (e !is ParcelFileDescriptor.FileDescriptorDetachedException) {
+							contentCache.release(localFile)
+						}
+					}
+				} catch (e: Exception) {
 					contentCache.release(localFile)
+					throw e
 				}
 			}
 			try {
 				if (!isWritable(path.vault)) {
 					throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
 				}
-				return openForWriting(documentId, path, accessMode, signal)
+				return openForWriting(documentId, path, accessMode, signal, pinnedFile)
 			} finally {
 				pinnedFile?.let(contentCache::release)
 			}
@@ -366,16 +388,19 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	/**
-	 * The document can be renamed or moved while it is open, so it is looked up again when it is closed.
+	 * The document can be renamed or moved while it is open, so it is looked up again when it is closed. [pinnedFile] is
+	 * the copy [openDocument] claimed because the vault is locked, which doesn't make it a copy someone else uses.
 	 */
-	private fun openForWriting(documentId: String, path: VaultPath, accessMode: Int, signal: CancellationSignal?): ParcelFileDescriptor {
+	private fun openForWriting(documentId: String, path: VaultPath, accessMode: Int, signal: CancellationSignal?, pinnedFile: File?): ParcelFileDescriptor {
 		val truncate = (accessMode and ParcelFileDescriptor.MODE_TRUNCATE) != 0
-		val localFile = contentCache.fileForWriting(path, keepContent = !truncate, signal)
+		val localFile = contentCache.fileForWriting(path, keepContent = !truncate, signal, claimedByCaller = pinnedFile)
 		val lengthBefore = localFile.length()
 		val lastModifiedBefore = localFile.lastModified()
 		try {
 			return ParcelFileDescriptor.open(localFile, accessMode, closeHandler) { e ->
-				if (e != null) {
+				if (e is ParcelFileDescriptor.FileDescriptorDetachedException) {
+					LOG.i("The writer of $documentId detached the file descriptor, saving once it closes the file")
+				} else if (e != null) {
 					LOG.e(e, "Writing $documentId failed")
 				}
 				try {
@@ -386,7 +411,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				}
 			}
 		} catch (e: Exception) {
-			contentCache.release(localFile)
+			// the writer never got the file, also not a copy of its own
+			contentCache.closedForWriting(localFile, null, changed = false) { path }
 			throw e
 		}
 	}
@@ -520,6 +546,15 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		@JvmStatic
 		fun evictCopies() {
 			appComponent.documentContentCache().evict()
+		}
+
+		/**
+		 * Lets the next listing of each unlocked vault resume its unfinished uploads, e.g. those that failed because the
+		 * vault was locked. Called whenever a vault was locked or unlocked.
+		 */
+		@JvmStatic
+		fun resumeUploadsOnNextListing() {
+			appComponent.documentContentCache().forgetResumedUploads()
 		}
 
 		/**

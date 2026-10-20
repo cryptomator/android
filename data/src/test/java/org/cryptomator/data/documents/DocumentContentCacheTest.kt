@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
@@ -79,10 +80,16 @@ class DocumentContentCacheTest {
 	private val metadataCache: DocumentMetadataCache = mock()
 	private val now = TimeUnit.DAYS.toMillis(100)
 
+	/**
+	 * The results of the uploads [runningUpload] started, in order.
+	 */
+	private val uploadResults = mutableListOf<CompletableFuture<VaultDocumentChangeResult<CloudFile>>>()
+
 	@BeforeEach
 	fun setup() {
 		whenever(metadataCache.parentFolder(any())).thenReturn(root)
 		whenever(metadataCache.withChangesPaused(any<() -> Any?>())).thenAnswer { it.getArgument<() -> Any?>(0)() }
+		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenAnswer { runningUpload() }
 	}
 
 	@Test
@@ -359,7 +366,6 @@ class DocumentContentCacheTest {
 		val stored = givenStoredCopies()
 		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_CREATING)
 		givenImportTarget("x.txt", isNew = false, lastModified = 5_000)
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))
 		val cache = cache()
 		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
@@ -431,6 +437,25 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a writer whose download a pending write overtook saves it as a conflict copy, leaving the later write in place`() {
+		givenDocument(lastModified = 5_000)
+		val stored = givenStoredCopies()
+		givenCloudContent("cloud") {
+			stored["x.txt"] = cachedFile("imported", lastModified = 9_000)
+			whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		}
+		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))
+		val cache = cache()
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		written.writeText("edited")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals("imported", stored.getValue("x.txt").localName)
+		assertEquals(written.name, stored.getValue("x (1A2B3).txt").localName)
+	}
+
+	@Test
 	fun `a pending upload that can't be resumed doesn't keep the others from being resumed`() {
 		val copyX = copy("copy-x", "x")
 		val copyY = copy("copy-y", "y")
@@ -467,12 +492,7 @@ class DocumentContentCacheTest {
 
 	@Test
 	fun `the provider resumes pending uploads once per vault`() {
-		val copy = copy("copy", "local changes")
-		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
-		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy"))
-		val pendingUploads = listOf(vaultPath("x.txt"))
-		whenever(metadataCache.pendingUploads(vault)).thenReturn(pendingUploads)
-		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		val copy = givenPendingUploadToResume()
 		val cache = cache()
 
 		cache.resumeUploadsOnce(vault)
@@ -482,9 +502,20 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `the provider resumes pending uploads again after a vault was locked or unlocked`() {
+		val copy = givenPendingUploadToResume()
+		val cache = cache()
+
+		cache.resumeUploadsOnce(vault)
+		cache.forgetResumedUploads()
+		cache.resumeUploadsOnce(vault)
+
+		verify(metadataCache, times(2)).upload(eq(vaultPath("x.txt")), eq(copy), any(), any(), anyOrNull(), any(), any())
+	}
+
+	@Test
 	fun `an imported file is recorded before it is uploaded, so that it is kept and resumed after a restart`() {
 		givenImportTarget("x.txt", isNew = true)
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		val cache = cache()
 
 		cache.importFile(VaultPath(vault), "x.txt", replace = false, requireListing = true, progressAware = mock(), modifiedDate = 4_000) { it.write("imported".toByteArray()) }
@@ -584,7 +615,6 @@ class DocumentContentCacheTest {
 		whenever(dao.loadLocalNames()).thenReturn(listOf("earlier"))
 		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("earlier", lastModified = 3_000))
 		givenImportTarget("x.txt", isNew = false, lastModified = 5_000)
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		val cache = cache()
 
 		cache.importFile(VaultPath(vault), "x.txt", replace = true, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("replacement".toByteArray()) }
@@ -598,9 +628,22 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a replacing import keeps the copy it replaces while that copy is uploaded`() {
+		val earlier = copy("earlier", "earlier write")
+		whenever(dao.loadLocalNames()).thenReturn(listOf("earlier"))
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("earlier", lastModified = 3_000))
+		givenImportTarget("x.txt", isNew = false, lastModified = 5_000)
+		whenever(metadataCache.hasUploadOf(earlier)).thenReturn(true)
+		val cache = cache()
+
+		cache.importFile(VaultPath(vault), "x.txt", replace = true, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("replacement".toByteArray()) }
+
+		assertTrue(earlier.exists())
+	}
+
+	@Test
 	fun `an import follows its file if it is renamed while the content is copied`() {
 		givenImportTarget("x.txt", isNew = false, lastModified = 5_000, currentPath = "renamed.txt")
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		val cache = cache()
 
 		cache.importFile(VaultPath(vault), "x.txt", replace = true, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("replacement".toByteArray()) }
@@ -745,6 +788,181 @@ class DocumentContentCacheTest {
 		assertTrue(copy.exists())
 		verify(dao, never()).delete(any(), any())
 		verify(metadataCache, never()).abandonUpload(any())
+	}
+
+	@Test
+	fun `a failed write is dropped also while a reader that opened it afterwards still has it, which keeps reading it`() {
+		val copy = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals(copy, cache.file(vaultPath("x.txt")))
+
+		cache.closedForWriting(written, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao).delete(VAULT_ID, "x.txt")
+		verify(metadataCache).abandonUpload(vaultPath("x.txt"))
+		assertTrue(copy.exists())
+	}
+
+	@Test
+	fun `a failed write is kept while another writer has the copy open`() {
+		val copy = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+		val failed = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		val other = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals(failed, other)
+
+		cache.closedForWriting(failed, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao, never()).delete(any(), any())
+		verify(metadataCache, never()).abandonUpload(any())
+		assertTrue(copy.exists())
+	}
+
+	@Test
+	fun `a failed write keeps another writer's save in the copy they share until that save is in the cloud`() {
+		val copy = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+		val failing = sharedCopySavedByAnotherWriter(cache)
+
+		cache.closedForWriting(failing, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao, never()).delete(any(), any())
+		verify(metadataCache, never()).abandonUpload(any())
+		assertEquals("saved", copy.readText())
+		// uploaded again, with what the failed writer wrote while the save was uploaded
+		verify(metadataCache, times(2)).upload(eq(vaultPath("x.txt")), eq(copy), any(), any(), anyOrNull(), any(), any())
+	}
+
+	@Test
+	fun `a failed write keeps another writer's save that was made after an earlier save's upload, but before its end was recorded`() {
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+		val failing = sharedCopySavedByAnotherWriter(cache)
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(failing), any(), any(), anyOrNull(), any(), onUploaded.capture())
+		// the save waits for its upload again, while the upload's end tells it was the latest write when it was recorded
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		onUploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
+
+		cache.closedForWriting(failing, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao, never()).delete(any(), any())
+		verify(metadataCache, never()).abandonUpload(any())
+	}
+
+	@Test
+	fun `a failed write drops the copy it shared where it is now, e g a conflict copy, once the other writer's save is in the cloud`() {
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val stored = givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))
+		val cache = cache()
+		val saving = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		val failing = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		// an import replaces the file meanwhile, so the save becomes a conflict copy
+		stored["x.txt"] = cachedFile("imported", lastModified = 5_000)
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		saving.writeText("saved")
+		cache.closedForWriting(saving, null, changed = true) { vaultPath("x.txt") }
+		assertEquals(saving.name, stored.getValue("x (1A2B3).txt").localName)
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x (1A2B3).txt")), eq(saving), any(), any(), anyOrNull(), any(), onUploaded.capture())
+		onUploaded.firstValue.onUploaded(vaultPath("x (1A2B3).txt"), vaultPath("x (1A2B3).txt"), 6_000L, true)
+
+		cache.closedForWriting(failing, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao).delete(VAULT_ID, "x (1A2B3).txt")
+		verify(metadataCache).abandonUpload(vaultPath("x (1A2B3).txt"))
+		assertEquals("imported", stored.getValue("x.txt").localName)
+	}
+
+	@Test
+	fun `a failed write drops the copy it shared once the other writer's save is in the cloud`() {
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+		val failing = sharedCopySavedByAnotherWriter(cache)
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(failing), any(), any(), anyOrNull(), any(), onUploaded.capture())
+		onUploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
+
+		cache.closedForWriting(failing, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao).delete(VAULT_ID, "x.txt")
+		verify(metadataCache).abandonUpload(vaultPath("x.txt"))
+	}
+
+	@Test
+	fun `a failed write drops a detached writer's own copy it shared once that copy's save is in the cloud`() {
+		val stored = givenPendingSave()
+		var onClose: (() -> Unit)? = null
+		val cache = cache(watchClose = { _, closed -> AutoCloseable {}.also { onClose = closed } })
+		val detached = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		detached.writeText("detached save")
+		cache.closedForWriting(detached, ParcelFileDescriptor.FileDescriptorDetachedException(), changed = true) { vaultPath("x.txt") }
+		// it took the earlier save's place right away, so the next writer shares it
+		assertEquals(detached.name, stored.getValue("x.txt").localName)
+		val sharing = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals(detached, sharing)
+		requireNotNull(onClose)()
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(detached), any(), any(), anyOrNull(), any(), onUploaded.capture())
+		// the upload's end marks the file synced
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(false)
+		onUploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
+
+		cache.closedForWriting(sharing, IOException("writer died"), changed = true) { vaultPath("x.txt") }
+
+		verify(dao).delete(VAULT_ID, "x.txt")
+		verify(metadataCache).abandonUpload(vaultPath("x.txt"))
+	}
+
+	@Test
+	fun `a writer whose own copy can't be created leaves the copy it would have been made from unclaimed`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val copy = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		val read = cache.file(vaultPath("x.txt"))
+		assumeTrue(directory.setWritable(false) && !directory.canWrite())
+		try {
+			assertThrows<IOException> { cache.fileForWriting(vaultPath("x.txt"), keepContent = true) }
+		} finally {
+			directory.setWritable(true)
+		}
+
+		cache.release(read)
+
+		assertEquals(copy, cache.fileForWriting(vaultPath("x.txt"), keepContent = true))
+	}
+
+	@Test
+	fun `a writer from scratch whose copy a reader has is based on the cloud's current version`() {
+		val stored = givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val read = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		assertEquals(read, cache.file(vaultPath("x.txt")))
+		// a listing found a change made elsewhere meanwhile
+		givenDocument(lastModified = 9_000)
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		assertNotEquals(read, written)
+		written.writeText("overwritten")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(9_000L, stored.getValue("x.txt").lastModified)
 	}
 
 	@Test
@@ -919,7 +1137,6 @@ class DocumentContentCacheTest {
 		copy("copy", "content")
 		givenDocument(lastModified = 5_000)
 		givenImportTarget("x.txt", isNew = false, lastModified = 5_000)
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"), vaultPath("x (4C5D6).txt"))
 		val cache = cache()
 		val first = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
@@ -973,8 +1190,9 @@ class DocumentContentCacheTest {
 		copy("copy", "content")
 		givenDocument(lastModified = 5_000)
 		val cache = cache()
-		val read = cache.file(vaultPath("x.txt"))
+		// the writer opens the copy before the reader, so both use the recorded copy
 		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		val read = cache.file(vaultPath("x.txt"))
 		cache.release(read)
 		cache.upload(vaultPath("x.txt"), written)
 		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
@@ -1057,7 +1275,6 @@ class DocumentContentCacheTest {
 	fun `an uploaded import's copy can be evicted`() {
 		val stored = givenStoredCopies()
 		givenImportTarget("x.txt", isNew = true)
-		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenReturn(mock())
 		val cache = cache()
 		cache.importFile(VaultPath(vault), "x.txt", replace = false, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("imported".toByteArray()) }
 		val imported = File(directory, stored.getValue("x.txt").localName)
@@ -1209,6 +1426,279 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a writer that fails while an earlier save waits for its upload leaves that save as it was`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		written.writeText("partly written")
+		cache.closedForWriting(written, IOException("Remote side is dead"), changed = true) { vaultPath("x.txt") }
+
+		assertNotEquals(pending, written)
+		assertEquals("earlier save", pending.readText())
+		assertEquals("pending", stored.getValue("x.txt").localName)
+		assertFalse(written.exists())
+		verify(metadataCache, never()).abandonUpload(any())
+	}
+
+	@Test
+	fun `a writer's own copy takes the place of the copy with the earlier save once it is closed`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals("earlier save", written.readText())
+		written.writeText("later save")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(5_000L, stored.getValue("x.txt").lastModified)
+		verify(metadataCache).markPendingUpload(vaultPath("x.txt"))
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(written), any(), any(), anyOrNull(), any(), any())
+		assertFalse(pending.exists())
+	}
+
+	@Test
+	fun `an upload of an earlier save that ends after a writer's own copy replaced it moves that copy's base on`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+		val (written, onUploaded) = replacedByOwnCopyWhileUploading(cache)
+		assertTrue(pending.exists())
+
+		onUploaded.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, false)
+		uploadEnded(pending)
+
+		verify(dao).updateLastModified(VAULT_ID, "x.txt", 6_000L)
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertFalse(pending.exists())
+	}
+
+	@Test
+	fun `an upload of an earlier save that went to a conflict copy leaves the base of the writer's own copy that replaced it`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+		val (written, onUploaded) = replacedByOwnCopyWhileUploading(cache)
+
+		onUploaded.onUploaded(vaultPath("x.txt"), vaultPath("x (1A2B3).txt"), 6_000L, false)
+		uploadEnded(pending)
+
+		verify(dao, never()).updateLastModified(any(), any(), anyOrNull())
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(5_000L, stored.getValue("x.txt").lastModified)
+	}
+
+	@Test
+	fun `a writer's own copy takes the base the upload of the save it replaces moved on while it was open`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+		cache.upload(vaultPath("x.txt"), pending)
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(pending), any(), any(), anyOrNull(), any(), onUploaded.capture())
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+
+		onUploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
+		written.writeText("later save")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(6_000L, stored.getValue("x.txt").lastModified)
+	}
+
+	@Test
+	fun `a writer's own copy takes the base an upload moved on after the writer claimed the copy it is made from`() {
+		val stored = givenPendingSave()
+		val cache = cache()
+		val read = cache.file(vaultPath("x.txt"))
+		// the earlier save's upload ends between claiming its copy for the writer and handing out the writer's own copy
+		whenever(metadataCache.withChangesPaused(any<() -> Any?>())).thenAnswer {
+			stored.getValue("x.txt").lastModified = 6_000L
+			whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(false)
+			it.getArgument<() -> Any?>(0)()
+		}
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertNotEquals(read, written)
+		written.writeText("edited")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(6_000L, stored.getValue("x.txt").lastModified)
+	}
+
+	@Test
+	fun `an upload's end doesn't move the base of a download recorded during the upload`() {
+		val stored = givenStoredCopies(cachedFile("pending", lastModified = 5_000))
+		val pending = copy("pending", "earlier save")
+		val cache = cache()
+		cache.upload(vaultPath("x.txt"), pending)
+		val base = argumentCaptor<(VaultPath) -> Long?>()
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(pending), base.capture(), any(), anyOrNull(), any(), onUploaded.capture())
+		assertEquals(5_000L, base.firstValue(vaultPath("x.txt")))
+		// e.g. a failed writer dropped the save, and a reader downloaded the version the upload replaces
+		stored["x.txt"] = cachedFile("downloaded", lastModified = 5_000)
+
+		onUploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
+
+		verify(dao, never()).updateLastModified(any(), any(), anyOrNull())
+	}
+
+	@Test
+	fun `an upload's end keeps its copy while the copy is recorded, also if the upload failed, and deletes it otherwise`() {
+		givenStoredCopies(cachedFile("copy"))
+		val copy = copy("copy", "local changes")
+		val cache = cache()
+		// e.g. copies a writer's own copy replaced, see keepWrite
+		val replaced = copy("replaced", "earlier save")
+		val failed = copy("failed", "earlier save")
+		cache.upload(vaultPath("x.txt"), copy)
+		cache.upload(vaultPath("x.txt"), copy)
+		cache.upload(vaultPath("x.txt"), replaced)
+		cache.upload(vaultPath("x.txt"), failed)
+
+		uploadResults[0].complete(null)
+		uploadResults[1].completeExceptionally(IOException("Remote side is dead"))
+		uploadResults[2].complete(null)
+		uploadResults[3].completeExceptionally(IOException("Remote side is dead"))
+
+		assertTrue(copy.exists())
+		assertFalse(replaced.exists())
+		assertFalse(failed.exists())
+	}
+
+	@Test
+	fun `a writer that opens a copy another writer has open shares it, also once an earlier save of it waits for its upload`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		val first = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		// e.g. a third writer saved the copy and closed it
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+
+		val second = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+
+		assertEquals(first, second)
+	}
+
+	@Test
+	fun `a writer whose earlier save a later write overtook while it is uploaded gets a copy of its own and saves it as a conflict copy`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		whenever(metadataCache.hasUploadOf(pending)).thenReturn(true)
+		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))
+		val cache = cache()
+		// an import records its save between the writer's claim on the earlier save and handing out a copy
+		whenever(metadataCache.withChangesPaused(any<() -> Any?>())).thenAnswer {
+			stored["x.txt"] = cachedFile("imported", lastModified = 5_000)
+			it.getArgument<() -> Any?>(0)()
+		}
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertNotEquals(pending, written)
+		written.writeText("edited")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals("earlier save", pending.readText())
+		assertEquals("imported", stored.getValue("x.txt").localName)
+		assertEquals(written.name, stored.getValue("x (1A2B3).txt").localName)
+	}
+
+	@Test
+	fun `a writer's own copy that can't be filled is dropped and leaves the copy it was made from unclaimed`() {
+		val stored = givenPendingSave()
+		val pending = File(directory, "pending")
+		val cache = cache()
+		assumeTrue(pending.setReadable(false) && !pending.canRead())
+
+		assertThrows<IOException> { cache.fileForWriting(vaultPath("x.txt"), keepContent = true) }
+
+		pending.setReadable(true)
+		assertEquals(listOf("pending"), directory.list()?.toList())
+		stored.clear()
+		cache.evict()
+		assertFalse(pending.exists())
+	}
+
+	@Test
+	fun `clearing the cache keeps a replaced copy until its upload has ended`() {
+		givenStoredCopies()
+		val cache = cache()
+		val replaced = copy("replaced", "earlier save")
+		whenever(metadataCache.hasUploadOf(replaced)).thenReturn(true)
+
+		cache.evictAll()
+		assertTrue(replaced.exists())
+
+		whenever(metadataCache.hasUploadOf(replaced)).thenReturn(false)
+		cache.evictAll()
+		assertFalse(replaced.exists())
+	}
+
+	@Test
+	fun `a writer that opens a copy a reader has gets a copy of its own, which takes the copy's place once it is closed`() {
+		val stored = givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val read = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		assertEquals(read, cache.file(vaultPath("x.txt")))
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertNotEquals(read, written)
+		assertEquals("content", written.readText())
+		written.writeText("changed")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals("content", read.readText())
+		assertEquals(written.name, stored.getValue("x.txt").localName)
+		assertEquals(5_000L, stored.getValue("x.txt").lastModified)
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(written), any(), any(), anyOrNull(), any(), any())
+	}
+
+	@Test
+	fun `a writer's own copy whose earlier save another own copy replaced meanwhile is kept as a conflict copy`() {
+		val stored = givenPendingSave()
+		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))
+		val cache = cache()
+		val first = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		val second = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		assertNotEquals(first, second)
+		first.writeText("first save")
+		second.writeText("second save")
+
+		cache.closedForWriting(first, null, changed = true) { vaultPath("x.txt") }
+		cache.closedForWriting(second, null, changed = true) { vaultPath("x.txt") }
+
+		assertEquals(first.name, stored.getValue("x.txt").localName)
+		assertEquals(second.name, stored.getValue("x (1A2B3).txt").localName)
+		assertEquals("first save", first.readText())
+		assertEquals("second save", second.readText())
+	}
+
+	@Test
+	fun `a truncating writer gets a copy of its own if a save is recorded while it is being opened`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val copy = copy("copy", "imported save")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		// an import records its save between looking at the copy and handing it to the writer
+		whenever(metadataCache.withChangesPaused(any<() -> Any?>())).thenAnswer {
+			whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+			it.getArgument<() -> Any?>(0)()
+		}
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+
+		assertNotEquals(copy, written)
+		assertEquals("imported save", copy.readText())
+	}
+
+	@Test
 	fun `a detached writer's copy is uploaded once, also if the close is reported before its watch is kept and again later`() {
 		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_CREATING)
 		val stopped = mutableListOf<File>()
@@ -1324,7 +1814,8 @@ class DocumentContentCacheTest {
 		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(false)
 		cache.closedForWriting(written, mock<ParcelFileDescriptor.FileDescriptorDetachedException>(), changed = true) { vaultPath("x.txt") }
 
-		assertEquals(listOf(true, true), paused)
+		// the resumed upload, and the writer's own copy taking the pending copy's place: marked and recorded
+		assertEquals(listOf(true, true, true), paused)
 	}
 
 	/**
@@ -1347,7 +1838,7 @@ class DocumentContentCacheTest {
 		doAnswer { paused.add(depth.get() > 0) }.whenever(metadataCache).abandonUpload(any())
 		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenAnswer {
 			paused.add(depth.get() > 0)
-			mock<DocumentMetadataCache.Upload>()
+			runningUpload()
 		}
 		return paused
 	}
@@ -1387,7 +1878,7 @@ class DocumentContentCacheTest {
 		copy("copy", "earlier write")
 		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
 		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy"))
-		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_UPLOADING)
+		givenDocument(lastModified = 5_000)
 		val cache = cache()
 		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
 		cache.upload(vaultPath("x.txt"), written)
@@ -1411,7 +1902,7 @@ class DocumentContentCacheTest {
 		copy("copy", "earlier write")
 		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
 		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy"))
-		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_UPLOADING)
+		givenDocument(lastModified = 5_000)
 		val cache = cache()
 		val first = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
 		val second = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
@@ -1434,7 +1925,7 @@ class DocumentContentCacheTest {
 		copy("copy", "earlier write")
 		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
 		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy"))
-		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_UPLOADING)
+		givenDocument(lastModified = 5_000)
 		val cache = cache()
 		val read = cache.file(vaultPath("x.txt"))
 		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
@@ -1643,11 +2134,13 @@ class DocumentContentCacheTest {
 		val locked = VaultPath(Vault.aCopyOf(vault).withUnlocked(false).build(), "x.txt")
 
 		val opened = requireNotNull(cache.pinnedFile(locked))
-		val written = cache.fileForWriting(locked, keepContent = true)
+		val written = cache.fileForWriting(locked, keepContent = true, claimedByCaller = opened)
 		cache.release(opened)
 		written.writeText("edited while locked")
 		cache.closedForWriting(written, null, changed = true) { locked }
 
+		// the claim made to open it doesn't count as a reader, so the editor writes to the recorded copy
+		assertEquals(opened, written)
 		verify(metadataCache).markPendingUpload(vaultPath("x.txt"))
 		verify(metadataCache, never()).upload(any(), any(), any(), any(), anyOrNull(), any(), any())
 		verify(repository, never()).read(any(), any(), any())
@@ -1797,7 +2290,7 @@ class DocumentContentCacheTest {
 		val locked = VaultPath(Vault.aCopyOf(vault).withUnlocked(false).build(), "x.txt")
 
 		val opened = requireNotNull(cache.pinnedFile(locked))
-		val written = cache.fileForWriting(locked, keepContent = true)
+		val written = cache.fileForWriting(locked, keepContent = true, claimedByCaller = opened)
 		cache.release(opened)
 		written.writeText("edited while locked")
 		cache.closedForWriting(written, null, changed = true) { locked }
@@ -1823,13 +2316,46 @@ class DocumentContentCacheTest {
 		again.writeText("saved again")
 		cache.closedForWriting(again, null, changed = true) { vaultPath("x.txt") }
 		val uploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
-		verify(metadataCache, times(2)).upload(eq(vaultPath("x.txt")), eq(written), any(), any(), anyOrNull(), any(), uploaded.capture())
+		// the second save went to a copy of its own, since the first one waited for its upload
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(written), any(), any(), anyOrNull(), any(), uploaded.capture())
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(again), any(), any(), anyOrNull(), any(), uploaded.capture())
 
 		uploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, false)
 		uploaded.secondValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 7_000L, true)
-		cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		val third = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		cache.closedForWriting(third, null, changed = true) { vaultPath("x.txt") }
 
 		assertEquals(7_000L, stored.getValue("x.txt").lastModified)
+	}
+
+	@Test
+	fun `the upload of an external editor's save that a later save's own copy replaced moves the base its writes keep on`() {
+		val stored = givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		copy("copy", "opened content")
+		givenDocument(lastModified = 5_000)
+		givenDocumentId()
+		val cache = cache()
+		cache.openForExternalEditor()
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		written.writeText("saved")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+		val base = argumentCaptor<(VaultPath) -> Long?>()
+		val uploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(written), base.capture(), any(), anyOrNull(), any(), uploaded.capture())
+		// the upload has started
+		assertEquals(5_000L, base.firstValue(vaultPath("x.txt")))
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		whenever(metadataCache.hasUploadOf(written)).thenReturn(true)
+		val again = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		again.writeText("saved again")
+		cache.closedForWriting(again, null, changed = true) { vaultPath("x.txt") }
+
+		uploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, false)
+		val third = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		cache.closedForWriting(third, null, changed = true) { vaultPath("x.txt") }
+
+		verify(dao).updateLastModified(VAULT_ID, "x.txt", 6_000L)
+		assertEquals(6_000L, stored.getValue("x.txt").lastModified)
 	}
 
 	@Test
@@ -1852,7 +2378,8 @@ class DocumentContentCacheTest {
 
 		cache.openForExternalEditor()
 		uploaded.firstValue.onUploaded(vaultPath("x.txt"), vaultPath("x.txt"), 6_000L, true)
-		cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		val reopened = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		cache.closedForWriting(reopened, null, changed = true) { vaultPath("x.txt") }
 
 		assertEquals(6_000L, stored.getValue("x.txt").lastModified)
 	}
@@ -1904,7 +2431,9 @@ class DocumentContentCacheTest {
 
 		cache.pinBase("1:7")
 		requireNotNull(ending).join()
-		cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		// the copy waits for its upload, so the writer gets a copy of its own, which takes the base once it's closed
+		val reopened = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		cache.closedForWriting(reopened, null, changed = true) { vaultPath("x.txt") }
 
 		assertEquals(6_000L, stored.getValue("x.txt").lastModified)
 	}
@@ -2028,6 +2557,80 @@ class DocumentContentCacheTest {
 		return callback.firstValue
 	}
 
+	/**
+	 * A save of x.txt in its recorded copy "pending", based on 5_000, that waits for its upload.
+	 *
+	 * @return the recorded copies by path, see [givenStoredCopies]
+	 */
+	private fun givenPendingSave(): MutableMap<String, CachedFileEntity> {
+		val stored = givenStoredCopies(cachedFile("pending", lastModified = 5_000))
+		copy("pending", "earlier save")
+		givenDocument(lastModified = 5_000, status = DocumentMetadataEntity.STATUS_UPLOADING)
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		return stored
+	}
+
+	/**
+	 * Starts the upload of the pending save, see [givenPendingSave], and lets a writer replace it with a later save in a
+	 * copy of its own meanwhile.
+	 *
+	 * @return the writer's copy and the upload's callback for its end
+	 */
+	private fun replacedByOwnCopyWhileUploading(cache: DocumentContentCache): Pair<File, DocumentMetadataCache.OnUploaded> {
+		val pending = File(directory, "pending")
+		cache.upload(vaultPath("x.txt"), pending)
+		val base = argumentCaptor<(VaultPath) -> Long?>()
+		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
+		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(pending), base.capture(), any(), anyOrNull(), any(), onUploaded.capture())
+		// the upload has started
+		assertEquals(5_000L, base.firstValue(vaultPath("x.txt")))
+		whenever(metadataCache.hasUploadOf(pending)).thenReturn(true)
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+		written.writeText("later save")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+		return written to onUploaded.firstValue
+	}
+
+	/**
+	 * Opens x.txt's recorded copy for two writers, the first of which saves "saved" and closes it while the other one still
+	 * has it open.
+	 *
+	 * @return the copy, still open for the other writer
+	 */
+	private fun sharedCopySavedByAnotherWriter(cache: DocumentContentCache): File {
+		val saving = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		val other = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals(saving, other)
+		saving.writeText("saved")
+		cache.closedForWriting(saving, null, changed = true) { vaultPath("x.txt") }
+		return other
+	}
+
+	/**
+	 * Ends the first upload [runningUpload] started, which the metadata cache then no longer counts, like it does.
+	 */
+	private fun uploadEnded(localFile: File) {
+		whenever(metadataCache.hasUploadOf(localFile)).thenReturn(false)
+		uploadResults.first().complete(null)
+	}
+
+	/**
+	 * A copy of x.txt with a pending upload that isn't running.
+	 */
+	private fun givenPendingUploadToResume(): File {
+		val copy = copy("copy", "local changes")
+		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy"))
+		whenever(metadataCache.pendingUploads(vault)).thenReturn(listOf(vaultPath("x.txt")))
+		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
+		return copy
+	}
+
+	private fun runningUpload(): DocumentMetadataCache.Upload {
+		val result = CompletableFuture<VaultDocumentChangeResult<CloudFile>>().also(uploadResults::add)
+		return mock { on { this.result } doReturn result }
+	}
+
 	private fun upload(localFile: File, current: DocumentMetadataEntity?): DocumentMetadataCache.Upload {
 		val result = CompletableFuture<VaultDocumentChangeResult<CloudFile>>()
 		return mock {
@@ -2101,6 +2704,7 @@ class DocumentContentCacheTest {
 	private fun givenStoredCopies(vararg copies: CachedFileEntity): MutableMap<String, CachedFileEntity> {
 		val stored = copies.associateBy { it.path }.toMutableMap()
 		doAnswer { it.getArgument<CachedFileEntity>(0).let { entity -> stored[entity.path] = entity } }.whenever(dao).store(any())
+		doAnswer { stored[it.getArgument(1)]?.lastModified = it.getArgument(2) }.whenever(dao).updateLastModified(any(), any(), anyOrNull())
 		whenever(dao.load(eq(VAULT_ID), any())).thenAnswer { stored[it.getArgument(1)] }
 		whenever(dao.loadByLocalName(any())).thenAnswer { invocation -> stored.values.find { it.localName == invocation.getArgument(0) } }
 		whenever(dao.loadLocalNames()).thenAnswer { stored.values.map { it.localName } }

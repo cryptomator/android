@@ -487,6 +487,8 @@
 	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
 	<string name="action_progress_moving">Moving&#8230;</string>
 	<string name="screen_file_browser_upload_failed">Upload failed. Tap to retry.</string>
+	<string name="documents_provider_upload_failed">Upload failed. Pull down to retry.</string>
+	<string name="documents_provider_upload_failed_in_folder">An upload in this folder failed. Pull down to retry.</string>
 	<string name="dialog_lock_vault">Lock</string>
 
 	<string name="dialog_accept_ssl_certificate_title">Invalid SSL certificate</string>

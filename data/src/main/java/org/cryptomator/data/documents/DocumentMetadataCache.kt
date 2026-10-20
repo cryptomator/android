@@ -16,6 +16,7 @@ import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeIsFolderException
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.NotFoundException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
@@ -154,6 +155,19 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private val uploadFailures = ConcurrentHashMap<Long, UploadFailure>()
 
 	private class UploadFailure(val generation: Long, val cause: Throwable)
+
+	/**
+	 * The uploads that failed or were stopped once they could have written to the cloud, by node id, until an upload of the
+	 * file succeeds. The cloud may have taken such an upload anyway, e.g. if only its response got lost, see
+	 * [isUnconfirmedUpload]. Kept in memory only.
+	 */
+	private val unconfirmedUploads = ConcurrentHashMap<Long, UnconfirmedUpload>()
+
+	/**
+	 * Uploads of one of [sizes] bytes each to [cloudPath], where the cloud file had been modified at [cloudModified] before
+	 * the first of them.
+	 */
+	private data class UnconfirmedUpload(val cloudPath: VaultPath, val sizes: Set<Long>, val cloudModified: Long?)
 
 	/**
 	 * Called with a vault whenever a listing settled an interrupted move in it, outside of any lock.
@@ -566,7 +580,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * marked as uploading, so that its upload is resumed if the cloud rejects the deletion.
 	 *
 	 * [baseLastModified] tells which version in the cloud the local copy is based on, and defaults to the cached
-	 * modification date. If the file changed in the cloud since, the local copy is uploaded as a conflict copy. A file
+	 * modification date. If the file changed in the cloud since, the local copy is uploaded as a conflict copy, unless the
+	 * change is what an earlier upload of the file wrote although it failed, see [isUnconfirmedUpload]. A file
 	 * not based on any version in the cloud is never uploaded over an existing one, but renamed like a new file whose
 	 * name is taken.
 	 *
@@ -636,6 +651,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	private fun abandonUpload(metadata: DocumentMetadataEntity) {
+		unconfirmedUploads.remove(metadata.id)
 		if (metadata.isNeverInCloud) {
 			dao.deleteSubtree(metadata.vaultId, metadata.path)
 		} else {
@@ -696,6 +712,13 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 */
 	fun hasUploads(): Boolean {
 		return uploads.isNotEmpty()
+	}
+
+	/**
+	 * Whether an upload of [localFile] has been scheduled and hasn't ended yet, also one that a later write superseded.
+	 */
+	fun hasUploadOf(localFile: File): Boolean {
+		return uploads.any { it.localFile == localFile }
 	}
 
 	fun hasUploadInFlight(path: VaultPath): Boolean {
@@ -779,22 +802,46 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			upload.progressAware.onProgress(progress)
 			listenerProgress.onProgress(progress)
 		}
+		var attempt: UnconfirmedUpload? = null
 		try {
 			val cloudPath = upload.cloudPath
 			val remoteFile = contentRepository.metadata(contentRepository.file(parentFolder(cloudPath), cloudPath.name))
 			val base = baseLastModified(current) ?: metadata.lastModified
-			val result = if (remoteFile == null || base == null) {
-				retryingNameCollisions(upload.id, cloudPath) { uploadTo(upload, it, replace = false, progressAware) }
-			} else if (isSameSecond(remoteFile.modified?.time, base)) {
+			val earlier = unconfirmedUploads[upload.id]?.takeIf { it.cloudPath == cloudPath }
+			// also over what an earlier upload of this file wrote, which is no change made elsewhere
+			val ownUpload = earlier != null && isUnconfirmedUpload(earlier, remoteFile)
+			val replace = remoteFile != null && (ownUpload || base != null && isSameSecond(remoteFile.modified?.time, base))
+			val size = upload.localFile.length()
+			// the earlier attempts may still land while the cloud is as it was before them, e.g. if the cloud held them
+			val stillLanding = earlier?.takeIf { ownUpload || remoteFile?.modified?.time == it.cloudModified }
+			val attemptAt = { target: VaultPath ->
+				if (target == cloudPath && stillLanding != null) {
+					stillLanding.copy(sizes = stillLanding.sizes + size)
+				} else {
+					// a name the cloud had no file at, see retryingNameCollisions
+					UnconfirmedUpload(target, setOf(size), if (target == cloudPath) remoteFile?.modified?.time else null)
+				}
+			}
+			val result = if (replace) {
+				attempt = attemptAt(cloudPath)
 				uploadTo(upload, cloudPath, replace = true, progressAware)
+			} else if (remoteFile == null || base == null) {
+				retryingNameCollisions(upload.id, cloudPath) { target ->
+					attempt = attemptAt(target)
+					uploadTo(upload, target, replace = false, progressAware)
+				}
 			} else {
 				uploadConflictCopy(upload, cloudPath, current, remoteFile, progressAware)
 			}
+			unconfirmedUploads.remove(upload.id)
 			uploads.remove(upload)
 			upload.result.complete(result)
 		} catch (e: Exception) {
+			attempt?.let { unconfirmedUploads[upload.id] = it }
 			uploads.remove(upload)
-			if (upload.isStopped) {
+			if (upload.isStopped || e is MissingCryptorException) {
+				// an upload that runs after its vault was locked finds no cryptor. It stays pending without counting as failed and
+				// is resumed after the next unlock, like one the lock interrupted while encrypting, whose failure that resume clears.
 				LOG.i("Uploading ${documentId(metadata)} was stopped")
 				upload.result.completeExceptionally(CancellationException("Uploading ${documentId(metadata)} was stopped"))
 			} else {
@@ -812,6 +859,17 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 */
 	fun uploadFailure(metadata: DocumentMetadataEntity): Throwable? {
 		return uploadFailures[metadata.id]?.takeIf { metadata.isUploading && it.generation == metadata.uploadGeneration }?.cause
+	}
+
+	/**
+	 * Whether [remoteFile], the cloud file an upload goes to, is what [attempts], unconfirmed earlier uploads of the file to
+	 * the same path, wrote: it has the size of one of them and changed since the first of them started. Unlike a change
+	 * made elsewhere, it is uploaded over instead of being kept next to a conflict copy, see [unconfirmedUploads]. Another
+	 * device's change of the same size made meanwhile is overwritten then, as on iOS, which never checks for changes made
+	 * elsewhere before an upload.
+	 */
+	private fun isUnconfirmedUpload(attempts: UnconfirmedUpload, remoteFile: CloudFile?): Boolean {
+		return remoteFile != null && remoteFile.size in attempts.sizes && remoteFile.modified?.time != attempts.cloudModified
 	}
 
 	/**
@@ -1146,11 +1204,18 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			return
 		}
 		scheduler.read(folder) { enumerateNow(folder) }.whenComplete { _, e ->
-			if (e != null) {
-				LOG.w(unwrap(e), "Refreshing ${logId(folder)} failed")
-				failedListings[folder] = FailedListing(currentTimeMillis(), unwrap(e))
-			}
+			val cause = e?.let(::unwrap)
 			refreshing.remove(folder)
+			if (cause is MissingCryptorException) {
+				// the vault was locked before the listing ran; not a failed listing, so that the folder is listed right after the next
+				// unlock. Not announced either: a listing after the announcement would refresh the folder again, over and over
+				LOG.i("Refreshing ${logId(folder)} was skipped, the vault has been locked")
+				return@whenComplete
+			}
+			if (cause != null) {
+				LOG.w(cause, "Refreshing ${logId(folder)} failed")
+				failedListings[folder] = FailedListing(currentTimeMillis(), cause)
+			}
 			onChanged(folder)
 		}
 	}
