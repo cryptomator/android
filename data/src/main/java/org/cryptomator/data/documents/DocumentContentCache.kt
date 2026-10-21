@@ -284,7 +284,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	/**
 	 * Returns the local copy to write to. Its content is only fetched from the cloud if [keepContent] is set and the file
 	 * already exists there. While the recorded copy is shared, the writer gets a copy of its own, see [ownCopy]. A claim
-	 * the caller holds on the recorded copy, [claimedByCaller], doesn't count as someone else using it.
+	 * the caller holds on the recorded copy, [claimedByCaller], doesn't count as someone else using it. The copy's
+	 * modification date lies at least [CHANGE_DETECTION_MILLIS] in the past, so that any write changes it, also one that
+	 * keeps the length right after the copy was filled or downloaded. The caller tells from it whether the writer wrote
+	 * anything.
 	 */
 	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null, claimedByCaller: File? = null): File {
 		val metadata = requireFile(metadataCache.requireDocument(path), path)
@@ -316,6 +319,10 @@ class DocumentContentCache @JvmOverloads constructor(
 			} finally {
 				release(downloaded.file)
 			}
+		}
+		val writtenBefore = System.currentTimeMillis() - CHANGE_DETECTION_MILLIS
+		if (copy.file.lastModified() > writtenBefore && !copy.file.setLastModified(writtenBefore)) {
+			LOG.w("Failed to date back copy ${copy.file.name}, a write that keeps its length may go unnoticed")
 		}
 		return copy.file
 	}
@@ -1008,6 +1015,11 @@ class DocumentContentCache @JvmOverloads constructor(
 	companion object {
 
 		const val DIRECTORY_NAME = "documents-provider"
+
+		/**
+		 * Well above the modification date granularity of app-internal storage, where the copies are, see [fileForWriting].
+		 */
+		private const val CHANGE_DETECTION_MILLIS = 1_000L
 	}
 }
 

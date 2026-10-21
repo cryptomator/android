@@ -1661,6 +1661,34 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a copy written just before it is handed out for writing is dated back`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val read = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		// a reader has the copy, so the writer gets a copy of its own, filled just now
+		assertEquals(read, cache.file(vaultPath("x.txt")))
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+
+		assertNotEquals(read, written)
+		assertTrue(written.lastModified() <= System.currentTimeMillis() - 1_000)
+	}
+
+	@Test
+	fun `a copy written long before it is handed out for writing keeps its date`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val recorded = copy("copy", "content", lastModified = 5_000)
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+
+		assertEquals(recorded, written)
+		assertEquals(5_000L, written.lastModified())
+	}
+
+	@Test
 	fun `a writer's own copy whose earlier save another own copy replaced meanwhile is kept as a conflict copy`() {
 		val stored = givenPendingSave()
 		whenever(metadataCache.createConflictCopy(vaultPath("x.txt"))).thenReturn(vaultPath("x (1A2B3).txt"))

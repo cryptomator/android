@@ -395,6 +395,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		val truncate = (accessMode and ParcelFileDescriptor.MODE_TRUNCATE) != 0
 		val localFile = contentCache.fileForWriting(path, keepContent = !truncate, signal, claimedByCaller = pinnedFile)
 		val lengthBefore = localFile.length()
+		// dated back by fileForWriting, so that any write changes it
 		val lastModifiedBefore = localFile.lastModified()
 		try {
 			return ParcelFileDescriptor.open(localFile, accessMode, closeHandler) { e ->
