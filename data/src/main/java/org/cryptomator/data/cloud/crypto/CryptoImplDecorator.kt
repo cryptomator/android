@@ -327,8 +327,8 @@ abstract class CryptoImplDecorator(
 		val ciphertextFile = cryptoFile.cloudFile
 		try {
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
-			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
+				progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
 					DecryptingReadableByteChannel(readableByteChannel, cryptor(), true).use { decryptingReadableByteChannel ->
 						val buff = ByteBuffer.allocate(cryptor().fileContentCryptor().ciphertextChunkSize())
@@ -361,10 +361,15 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class, IOException::class)
 	private fun readToTmpFile(cryptoFile: CryptoFile, file: CloudFile, progressAware: ProgressAware<DownloadState>): File {
 		val encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
-		FileOutputStream(encryptedTmpFile).use { encryptedData ->
-			cloudContentRepository.read(file, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
-			return encryptedTmpFile
+		try {
+			FileOutputStream(encryptedTmpFile).use { encryptedData ->
+				cloudContentRepository.read(file, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
+			}
+		} catch (e: Exception) {
+			encryptedTmpFile.delete()
+			throw e
 		}
+		return encryptedTmpFile
 	}
 
 	@Throws(BackendException::class)

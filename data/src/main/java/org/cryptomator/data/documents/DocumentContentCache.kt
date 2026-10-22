@@ -428,11 +428,7 @@ class DocumentContentCache @JvmOverloads constructor(
 				}
 			}
 		} finally {
-			if (isOwnCopy) {
-				dropUnrecorded(localFile)
-			} else {
-				release(localFile)
-			}
+			release(localFile)
 		}
 	}
 
@@ -502,8 +498,8 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	private fun uploadWrite(path: VaultPath, localFile: File) {
 		val kept = keepWrite(path, localFile)
-		// a save made while the vault is locked stays pending until the first listing after the unlock resumes the
-		// vault's uploads, see resumeUploadsOnce
+		// a save made while the vault is locked stays pending until the vault's uploads are resumed after the unlock, see
+		// resumeUploadsOnce
 		if (kept.vault.isUnlocked) {
 			upload(kept, localFile)
 		}
@@ -571,7 +567,20 @@ class DocumentContentCache @JvmOverloads constructor(
 		}
 	}
 
+	/**
+	 * Gives up a claim on [file]. A copy that isn't recorded, e.g. one a writer's own copy replaced while a reader had it
+	 * open, is deleted with its last claim, see [deleteIfUnrecorded].
+	 */
 	fun release(file: File) {
+		synchronized(inUse) {
+			releaseClaim(file)
+			if (file.name !in inUse) {
+				deleteIfUnrecorded(file)
+			}
+		}
+	}
+
+	private fun releaseClaim(file: File) {
 		synchronized(inUse) {
 			val uses = inUse[file.name] ?: return
 			if (uses > 1) {
@@ -652,7 +661,7 @@ class DocumentContentCache @JvmOverloads constructor(
 			commitImport(target, path, staging, progressAware, modifiedDate, userInitiated)
 		} catch (e: Exception) {
 			try {
-				dropUnrecorded(staging)
+				release(staging)
 				if (target.isNew) {
 					dropUnwritten(folder.vault, target)
 				}
@@ -671,16 +680,6 @@ class DocumentContentCache @JvmOverloads constructor(
 	private fun recordUploadedBase(path: VaultPath, uploaded: File, lastModified: Long?) {
 		dao.updateLastModified(path.vault.id, path.path, lastModified)
 		movePinnedBase(path, uploaded, lastModified)
-	}
-
-	/**
-	 * Gives up a claim on [file] and deletes it, see [deleteIfUnrecorded].
-	 */
-	private fun dropUnrecorded(file: File) {
-		synchronized(inUse) {
-			release(file)
-			deleteIfUnrecorded(file)
-		}
 	}
 
 	/**
@@ -726,9 +725,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Stops [upload] and drops what it would have uploaded: a file it added is removed, a replaced file goes back to its
-	 * version in the cloud. Nothing is dropped if the upload has ended or the file has been written again since. A file
-	 * open for writing is kept, so that the writer's save isn't lost.
+	 * Stops [upload] and drops what it would have uploaded: a file it added is removed from the cache, a replaced file goes
+	 * back to its version in the cloud. What the upload may already have put into the cloud stays, see
+	 * [DocumentMetadataCache.abandonUpload]. Nothing is dropped if the upload has ended or the file has been written again
+	 * since. A file open for writing is kept, so that the writer's save isn't lost.
 	 */
 	fun cancel(upload: DocumentMetadataCache.Upload) {
 		if (upload.result.isDone) {
@@ -768,7 +768,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * writer's save that isn't in the cloud yet, see [Writers.holdsSharedSave], or a later write replaced it. A copy kept
 	 * for another writer's save is uploaded again with what the failed writer wrote, like a local file that several
 	 * programs write. A reader that still has a dropped copy open keeps reading it, but the copy is no longer taken for the
-	 * file; it is deleted with the next eviction then, see [evict].
+	 * file; it is deleted once the reader releases it, see [release].
 	 */
 	fun discard(path: VaultPath, localFile: File) {
 		withCopiesLocked {
@@ -922,7 +922,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	private fun drop(file: File) {
-		release(file)
+		releaseClaim(file)
 		deleteUnlessInUse(file)
 	}
 

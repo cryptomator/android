@@ -19,7 +19,8 @@ class ResumeVaultUploads {
 	private final List<CloudFile> files;
 
 	/**
-	 * @param files the files whose uploads the user asked to retry, or `null` to resume all pending uploads of the vault
+	 * @param files the files whose uploads the user asked to retry, or `null` to resume all pending uploads of the vault, which
+	 * only the first such call after a vault was locked or unlocked does
 	 */
 	public ResumeVaultUploads(VaultDocumentRepository vaultDocumentRepository, @Parameter Vault vault, @Optional @Parameter List<CloudFile> files) {
 		this.vaultDocumentRepository = vaultDocumentRepository;
@@ -29,13 +30,13 @@ class ResumeVaultUploads {
 
 	public void execute() {
 		if (files == null) {
-			vaultDocumentRepository.resumeUploads(vault, null, false);
+			vaultDocumentRepository.resumeUploadsOnce(vault);
 		} else {
 			List<VaultPath> paths = new ArrayList<>();
 			for (CloudFile file : files) {
 				paths.add(vaultDocumentRepository.pathOf(file));
 			}
-			vaultDocumentRepository.resumeUploads(vault, paths, true);
+			vaultDocumentRepository.retryUploads(vault, paths);
 		}
 	}
 }

@@ -97,10 +97,16 @@ interface VaultDocumentRepository {
 	fun endExternalEditing(documentId: String)
 
 	/**
-	 * Retries the uploads of [vault], or only those of [paths] if given, that failed or were interrupted and aren't
-	 * running.
+	 * Retries the uploads of [vault] that failed or were interrupted and aren't running. Only the first call for [vault]
+	 * after any vault was locked or unlocked does so; later ones do nothing until the next lock or unlock.
 	 */
-	fun resumeUploads(vault: Vault, paths: List<VaultPath>?, userInitiated: Boolean)
+	fun resumeUploadsOnce(vault: Vault)
+
+	/**
+	 * Retries the uploads of [paths] in [vault] that failed or were interrupted and aren't running, since the user asked
+	 * for it.
+	 */
+	fun retryUploads(vault: Vault, paths: List<VaultPath>)
 
 	/**
 	 * Makes previews of the images among [files] in the background, the most recently asked for first. The listeners are

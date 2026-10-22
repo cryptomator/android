@@ -550,11 +550,11 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 
 		/**
-		 * Lets the next listing of each unlocked vault resume its unfinished uploads, e.g. those that failed because the
-		 * vault was locked. Called whenever a vault was locked or unlocked.
+		 * Lets the unfinished uploads of each vault be resumed once more, e.g. those that failed because the vault was
+		 * locked. Called whenever a vault was locked or unlocked.
 		 */
 		@JvmStatic
-		fun resumeUploadsOnNextListing() {
+		fun forgetResumedUploads() {
 			appComponent.documentContentCache().forgetResumedUploads()
 		}
 

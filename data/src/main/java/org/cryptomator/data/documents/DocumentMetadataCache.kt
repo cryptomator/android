@@ -27,14 +27,19 @@ import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.ThrottlingProgressAware
 import org.cryptomator.domain.usecases.cloud.CancelAwareDataSource
+import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.EmptyDataSource
 import org.cryptomator.domain.usecases.cloud.FileBasedDataSource
+import org.cryptomator.domain.usecases.cloud.Flag
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
 import org.cryptomator.util.named
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.OutputStream
+import java.security.DigestOutputStream
+import java.security.MessageDigest
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.CancellationException
@@ -157,17 +162,19 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private class UploadFailure(val generation: Long, val cause: Throwable)
 
 	/**
-	 * The uploads that failed or were stopped once they could have written to the cloud, by node id, until an upload of the
-	 * file succeeds. The cloud may have taken such an upload anyway, e.g. if only its response got lost, see
-	 * [isUnconfirmedUpload]. Kept in memory only.
+	 * The uploads that failed or were stopped once they could have written to the cloud, by node id. The cloud may have
+	 * taken such an upload anyway, e.g. if only its response got lost, see [isUnconfirmedUpload]. An entry goes once an
+	 * upload of the file succeeds, the node is deleted or moved in the cache only, see [deleteUnconfirmedUpload], or its
+	 * pending upload is given up. Kept in memory only. After the process ended, a retried upload still recognises a landed
+	 * one by its content, see [hasSameContent], but a deletion doesn't.
 	 */
 	private val unconfirmedUploads = ConcurrentHashMap<Long, UnconfirmedUpload>()
 
 	/**
 	 * Uploads of one of [sizes] bytes each to [cloudPath], where the cloud file had been modified at [cloudModified] before
-	 * the first of them.
+	 * the first of them, and the [digests] of what they sent, see [Upload.sentDigest].
 	 */
-	private data class UnconfirmedUpload(val cloudPath: VaultPath, val sizes: Set<Long>, val cloudModified: Long?)
+	private data class UnconfirmedUpload(val cloudPath: VaultPath, val sizes: Set<Long>, val cloudModified: Long?, val digests: List<ByteArray> = emptyList())
 
 	/**
 	 * Called with a vault whenever a listing settled an interrupted move in it, outside of any lock.
@@ -425,8 +432,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 
 	/**
 	 * Unless [failIfTaken] is set, a name that is taken in the cache is changed to an unused one. A file that has never
-	 * been in the cloud, e.g. because its upload failed, is only moved in the cache. Its upload then goes to where it is
-	 * in the cache.
+	 * been in the cloud, e.g. because its upload failed, is only moved in the cache, and what an upload of it may have put
+	 * at its old path is deleted, see [deleteUnconfirmedUpload]. Its upload then goes to where it is in the cache.
 	 */
 	fun move(source: VaultPath, folder: VaultPath, name: String, failIfTaken: Boolean = false, userInitiated: Boolean = false): CompletableFuture<VaultDocumentChangeResult<CloudNode>> {
 		return move(source, folder, name, failIfTaken, userInitiated, isQueued = false)
@@ -463,6 +470,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 					// a node whose move has been undone meanwhile is no longer marked as moving
 					val node = dao.loadById(id)?.takeIf { it.sourcePath != null } ?: throw CancellationException("The move of ${documentId(source.vault.id, id)} has been undone")
 					if (node.isNeverInCloud) {
+						deleteUnconfirmedUpload(id)
 						val file = contentRepository.file(parentFolder(target), target.name)
 						recordChange(sourceFolder, folder) { markMoved(id, target) }
 						return@applyInBackground VaultDocumentChangeResult<CloudNode>(target, file)
@@ -523,7 +531,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	/**
 	 * Hides [path] and its descendants until the cloud has deleted it. Their running uploads are stopped. If the cloud
 	 * rejects the deletion, they come back as they were, and [Deletion.result] fails. A node that is already gone from
-	 * the cloud counts as deleted, a file that has never been in the cloud is only deleted in the cache.
+	 * the cloud counts as deleted. A file that has never been in the cloud is only deleted in the cache, except for what
+	 * an upload of it may have put there, see [deleteUnconfirmedUpload].
 	 */
 	fun delete(path: VaultPath, userInitiated: Boolean = false): Deletion {
 		synchronized(changeLock) {
@@ -539,8 +548,11 @@ class DocumentMetadataCache @JvmOverloads constructor(
 				// a change the deletion waited for failed and dropped the node
 				val node = dao.loadById(id)?.takeIf { it.pendingDelete == token }
 				if (node != null) {
-					if (!node.isNeverInCloud) {
+					if (node.isNeverInCloud) {
+						deleteUnconfirmedUpload(id)
+					} else {
 						deleteInCloud(path, metadata.isFolder, id)
+						unconfirmedUploads.remove(id)
 					}
 					recordChange(folder) { dao.loadById(id)?.let { dao.deleteSubtree(it.vaultId, it.path) } }
 				}
@@ -556,6 +568,41 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			LOG.i("${documentId(path.vault.id, id)} was already gone from the cloud")
 		} catch (e: NotFoundException) {
 			LOG.i("${documentId(path.vault.id, id)} was already gone from the cloud")
+		}
+	}
+
+	/**
+	 * Deletes what the unconfirmed uploads of the node [id] may have put into the cloud, see [unconfirmedUploads], when
+	 * the node is deleted or moved in the cache only because it has never been in the cloud as far as the cache knows. The
+	 * file at their path is deleted only if no other node has taken that name meanwhile, those uploads can have written
+	 * it, see [isUnconfirmedUpload], it holds what one of them sent, and it wasn't replaced while that was compared. A
+	 * file another device wrote with the same content can't be told apart and is deleted, too. A listing that ran
+	 * meanwhile may have taken the file for a node of its own, so its folder is listed again. Since the uploads may as
+	 * well not have landed, a failure here doesn't fail the change.
+	 */
+	private fun deleteUnconfirmedUpload(id: Long) {
+		val attempt = unconfirmedUploads.remove(id) ?: return
+		val cloudPath = attempt.cloudPath
+		if (dao.load(cloudPath.vault.id, cloudPath.path)?.let { it.id != id } == true) {
+			return
+		}
+		try {
+			val target = contentRepository.file(parentFolder(cloudPath), cloudPath.name)
+			val remoteFile = contentRepository.metadata(target)
+			if (!isUnconfirmedUpload(attempt, remoteFile) || !holdsOneOf(requireNotNull(remoteFile), attempt.digests) { false }) {
+				return
+			}
+			val current = contentRepository.metadata(target)
+			if (current == null || current.size != remoteFile.size || current.modified?.time != remoteFile.modified?.time) {
+				return
+			}
+			LOG.i("Deleting what an unconfirmed upload of ${documentId(cloudPath.vault.id, id)} put into the cloud")
+			contentRepository.delete(target)
+			val folder = requireNotNull(cloudPath.parent)
+			recordChange(folder) { dao.updateLastEnumeratedAt(folder.vault.id, folder.path, null) }
+			onChanged(folder)
+		} catch (e: Exception) {
+			LOG.w(e, "Deleting what an unconfirmed upload of ${documentId(cloudPath.vault.id, id)} may have put into the cloud failed")
 		}
 	}
 
@@ -581,9 +628,10 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 *
 	 * [baseLastModified] tells which version in the cloud the local copy is based on, and defaults to the cached
 	 * modification date. If the file changed in the cloud since, the local copy is uploaded as a conflict copy, unless the
-	 * change is what an earlier upload of the file wrote although it failed, see [isUnconfirmedUpload]. A file
-	 * not based on any version in the cloud is never uploaded over an existing one, but renamed like a new file whose
-	 * name is taken.
+	 * change is what an earlier upload of the file wrote although it failed, see [isUnconfirmedUpload]. A file not based on
+	 * any version in the cloud is never uploaded over an existing one, but renamed like a new file whose name is taken.
+	 * Instead of either, a cloud file that already holds the local copy's content is taken for its upload, see
+	 * [hasSameContent].
 	 *
 	 * [onUploaded] receives where the file is in the cache and where the uploaded content is in the cache, which is the
 	 * file itself or its conflict copy. It also tells whether the uploaded copy is still the latest write of the file.
@@ -630,7 +678,9 @@ class DocumentMetadataCache @JvmOverloads constructor(
 
 	/**
 	 * Gives up the pending upload of [path], whose local copy is gone, and marks its folder for listing again. A file that
-	 * has never been in the cloud is dropped.
+	 * has never been in the cloud is dropped from the cache. What an upload of it may have put into the cloud stays,
+	 * unlike on [delete]: giving up an upload is no request to delete anything there, e.g. the same file another device
+	 * uploaded meanwhile.
 	 */
 	fun abandonUpload(path: VaultPath) {
 		synchronized(changeLock) {
@@ -760,6 +810,13 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		internal var isStopped = false
 			private set
 
+		/**
+		 * The digest of what this upload's latest write to the cloud read from [localFile], or null if that write stopped
+		 * before the end, see [DigestingDataSource]. It is taken while sending rather than from [localFile] afterwards,
+		 * since a writer may have changed the copy meanwhile.
+		 */
+		internal var sentDigest: ByteArray? = null
+
 		val vault: Vault
 			get() = cloudPath.vault
 
@@ -825,6 +882,9 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			val result = if (replace) {
 				attempt = attemptAt(cloudPath)
 				uploadTo(upload, cloudPath, replace = true, progressAware)
+			} else if (remoteFile != null && hasSameContent(upload, remoteFile)) {
+				LOG.i("The cloud holds what the local copy of ${upload.documentId} holds, not uploading it")
+				recordUploaded(upload, cloudPath, remoteFile)
 			} else if (remoteFile == null || base == null) {
 				retryingNameCollisions(upload.id, cloudPath) { target ->
 					attempt = attemptAt(target)
@@ -837,7 +897,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			uploads.remove(upload)
 			upload.result.complete(result)
 		} catch (e: Exception) {
-			attempt?.let { unconfirmedUploads[upload.id] = it }
+			attempt?.let { unconfirmedUploads[upload.id] = it.copy(digests = it.digests + listOfNotNull(upload.sentDigest)) }
 			uploads.remove(upload)
 			if (upload.isStopped || e is MissingCryptorException) {
 				// an upload that runs after its vault was locked finds no cryptor. It stays pending without counting as failed and
@@ -866,10 +926,75 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * the same path, wrote: it has the size of one of them and changed since the first of them started. Unlike a change
 	 * made elsewhere, it is uploaded over instead of being kept next to a conflict copy, see [unconfirmedUploads]. Another
 	 * device's change of the same size made meanwhile is overwritten then, as on iOS, which never checks for changes made
-	 * elsewhere before an upload.
+	 * elsewhere before an upload. It tells what the attempts can have written, not that they did, so a deletion also
+	 * compares the content, see [deleteUnconfirmedUpload].
 	 */
 	private fun isUnconfirmedUpload(attempts: UnconfirmedUpload, remoteFile: CloudFile?): Boolean {
 		return remoteFile != null && remoteFile.size in attempts.sizes && remoteFile.modified?.time != attempts.cloudModified
+	}
+
+	/**
+	 * Whether [remoteFile] holds what the local copy of [upload] holds, e.g. because the cloud took an earlier upload
+	 * whose process ended before it learned so, which [unconfirmedUploads] can't tell then. A file that can't be read
+	 * counts as different, unless [upload] was stopped. From whether an upload follows the download, the cloud learns
+	 * whether the local copy equals the file at that path, which it may have put there itself. That is accepted, since it
+	 * learns nothing else about the content.
+	 */
+	private fun hasSameContent(upload: Upload, remoteFile: CloudFile): Boolean {
+		if (remoteFile.size != upload.localFile.length()) {
+			return false
+		}
+		return try {
+			holdsOneOf(remoteFile, listOf(digestOf(upload.localFile))) { upload.isStopped }
+		} catch (e: Exception) {
+			if (upload.isStopped) {
+				throw e
+			}
+			LOG.w(e, "Comparing the cloud file with the local copy of ${upload.documentId} failed")
+			false
+		}
+	}
+
+	/**
+	 * Whether [remoteFile] holds content with one of [digests]. Reading it ends with an
+	 * [org.cryptomator.domain.exception.CancellationException] once [cancelled] says so, also while the file is downloaded.
+	 */
+	private fun holdsOneOf(remoteFile: CloudFile, digests: List<ByteArray>, cancelled: Flag): Boolean {
+		if (digests.isEmpty()) {
+			return false
+		}
+		val digest = MessageDigest.getInstance(CONTENT_DIGEST)
+		val sink = CancelAwareOutputStream(cancelled)
+		contentRepository.read(remoteFile, DigestOutputStream(sink, digest), ProgressAware<DownloadState> { sink.throwIfCancelled() })
+		val remote = digest.digest()
+		return digests.any { MessageDigest.isEqual(it, remote) }
+	}
+
+	private fun digestOf(file: File): ByteArray {
+		val digest = MessageDigest.getInstance(CONTENT_DIGEST)
+		file.forEachBlock { buffer, read -> digest.update(buffer, 0, read) }
+		return digest.digest()
+	}
+
+	/**
+	 * Discards what is written to it, but ends the write with an [org.cryptomator.domain.exception.CancellationException]
+	 * once [cancelled] says so, like CancelAwareInputStream ends a read.
+	 */
+	private class CancelAwareOutputStream(private val cancelled: Flag) : OutputStream() {
+
+		override fun write(b: Int) {
+			throwIfCancelled()
+		}
+
+		override fun write(b: ByteArray, off: Int, len: Int) {
+			throwIfCancelled()
+		}
+
+		fun throwIfCancelled() {
+			if (cancelled.get()) {
+				throw org.cryptomator.domain.exception.CancellationException()
+			}
+		}
 	}
 
 	/**
@@ -885,7 +1010,14 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	private fun uploadTo(upload: Upload, cloudPath: VaultPath, replace: Boolean, progressAware: ProgressAware<UploadState>): VaultDocumentChangeResult<CloudFile> {
-		val uploadedFile = write(cloudPath, upload, replace, progressAware)
+		return recordUploaded(upload, cloudPath, write(cloudPath, upload, replace, progressAware))
+	}
+
+	/**
+	 * Records that [uploadedFile] at [cloudPath] holds the content of [upload] and reports it to [Upload.onUploaded],
+	 * unless the node is gone by then.
+	 */
+	private fun recordUploaded(upload: Upload, cloudPath: VaultPath, uploadedFile: CloudFile): VaultDocumentChangeResult<CloudFile> {
 		val uploaded = recordChange(requireNotNull(cloudPath.parent)) {
 			dao.loadById(upload.id)?.also { dao.markUploaded(upload.id, uploadedFile.size ?: upload.localFile.length(), uploadedFile.modified?.time, upload.generation) }
 		} ?: return VaultDocumentChangeResult(cloudPath, uploadedFile)
@@ -936,9 +1068,13 @@ class DocumentMetadataCache @JvmOverloads constructor(
 
 	private fun write(path: VaultPath, upload: Upload, replace: Boolean, progressAware: ProgressAware<UploadState>): CloudFile {
 		val size = upload.localFile.length()
-		val file = FileBasedDataSource.from(upload.localFile)
+		val file = DigestingDataSource(FileBasedDataSource.from(upload.localFile))
 		val data = CancelAwareDataSource.wrap(upload.modifiedDate?.let { DatedDataSource(file, Date(it)) } ?: file) { upload.isStopped }
-		return contentRepository.write(contentRepository.file(parentFolder(path), path.name, size), data, progressAware, replace, size)
+		try {
+			return contentRepository.write(contentRepository.file(parentFolder(path), path.name, size), data, progressAware, replace, size)
+		} finally {
+			upload.sentDigest = file.digestOfCompleteRead
+		}
 	}
 
 	/**

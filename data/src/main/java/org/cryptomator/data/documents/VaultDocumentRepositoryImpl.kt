@@ -182,8 +182,12 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 		contentCache.unpinBase(documentId)
 	}
 
-	override fun resumeUploads(vault: Vault, paths: List<VaultPath>?, userInitiated: Boolean) {
-		contentCache.resumeUploads(vault, paths, userInitiated)
+	override fun resumeUploadsOnce(vault: Vault) {
+		contentCache.resumeUploadsOnce(vault)
+	}
+
+	override fun retryUploads(vault: Vault, paths: List<VaultPath>) {
+		contentCache.resumeUploads(vault, paths, userInitiated = true)
 	}
 
 	override fun ensureThumbnails(files: List<CloudFile>) {

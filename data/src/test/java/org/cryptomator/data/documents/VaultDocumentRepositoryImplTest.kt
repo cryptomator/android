@@ -311,14 +311,22 @@ class VaultDocumentRepositoryImplTest {
 	}
 
 	@Test
-	fun `uploads are resumed and thumbnails asked for by path`() {
+	fun `uploads the user retries and thumbnails are asked for by path`() {
 		val file = CachedVaultFile(CachedVaultFolder(cryptoCloud, "/a"), "x.jpg", null, null, CachedVaultFile.Upload.NONE, null)
 
-		inTest.resumeUploads(vault, listOf(path("a/x.jpg")), userInitiated = true)
+		inTest.retryUploads(vault, listOf(path("a/x.jpg")))
 		inTest.ensureThumbnails(listOf(file))
 
 		verify(contentCache).resumeUploads(vault, listOf(path("a/x.jpg")), true)
 		verify(thumbnailGenerator).request(listOf(path("a/x.jpg")))
+	}
+
+	@Test
+	fun `resuming a vault's pending uploads is left to the content cache's resumeUploadsOnce`() {
+		inTest.resumeUploadsOnce(vault)
+
+		verify(contentCache).resumeUploadsOnce(vault)
+		verify(contentCache, never()).resumeUploads(any(), anyOrNull(), any())
 	}
 
 	private fun givenImport(result: CompletableFuture<VaultDocumentChangeResult<CloudFile>>): org.mockito.kotlin.KArgumentCaptor<(OutputStream) -> Unit> {

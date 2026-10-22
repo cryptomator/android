@@ -158,14 +158,14 @@ class VaultDocumentChangesTest {
 	}
 
 	@Test
-	fun `an upload the user retries reports its failure, a resume of all uploads doesn't`() {
+	fun `files the user retries are retried by path, without files the vault's uploads are resumed once`() {
 		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 
 		ResumeVaultUploads(vaultDocumentRepository, vault, listOf(file)).execute()
 		ResumeVaultUploads(vaultDocumentRepository, vault, null).execute()
 
-		verify(vaultDocumentRepository).resumeUploads(vault, listOf(VaultPath(vault, "x.txt")), true)
-		verify(vaultDocumentRepository).resumeUploads(vault, null, false)
+		verify(vaultDocumentRepository).retryUploads(vault, listOf(VaultPath(vault, "x.txt")))
+		verify(vaultDocumentRepository).resumeUploadsOnce(vault)
 	}
 
 	private fun <T> change(cachedNode: T? = null, awaited: () -> VaultDocumentChangeResult<T>): VaultDocumentChange<T> {

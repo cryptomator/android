@@ -387,7 +387,7 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `a download doesn't replace a write that was recorded while it ran`() {
+	fun `a download doesn't replace a write that was recorded while it ran, and is deleted once its reader released it`() {
 		givenDocument(lastModified = 9_000)
 		val stored = givenStoredCopies()
 		givenCloudContent("cloud") { stored["x.txt"] = cachedFile("written", lastModified = 5_000) }
@@ -398,7 +398,6 @@ class DocumentContentCacheTest {
 		assertEquals("cloud", downloaded.readText())
 		assertEquals("written", stored.getValue("x.txt").localName)
 		cache.release(downloaded)
-		cache.evictAll()
 		assertFalse(downloaded.exists())
 	}
 
@@ -516,6 +515,7 @@ class DocumentContentCacheTest {
 	@Test
 	fun `an imported file is recorded before it is uploaded, so that it is kept and resumed after a restart`() {
 		givenImportTarget("x.txt", isNew = true)
+		givenStoredCopies()
 		val cache = cache()
 
 		cache.importFile(VaultPath(vault), "x.txt", replace = false, requireListing = true, progressAware = mock(), modifiedDate = 4_000) { it.write("imported".toByteArray()) }
@@ -1661,6 +1661,36 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a copy replaced by a writer's own copy is deleted once its reader released it`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val read = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		assertEquals(read, cache.file(vaultPath("x.txt")))
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		written.writeText("changed")
+		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
+		assertTrue(read.exists())
+
+		cache.release(read)
+
+		assertFalse(read.exists())
+		assertTrue(written.exists())
+	}
+
+	@Test
+	fun `a recorded copy is kept once its reader released it`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		val read = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+
+		cache.release(cache.file(vaultPath("x.txt")))
+
+		assertTrue(read.exists())
+	}
+
+	@Test
 	fun `a copy written just before it is handed out for writing is dated back`() {
 		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
 		val read = copy("copy", "content")
@@ -2047,7 +2077,6 @@ class DocumentContentCacheTest {
 		assertNull(stored["x.txt"])
 		assertTrue(read.exists())
 		cache.release(read)
-		cache.evictAll()
 		assertFalse(read.exists())
 	}
 

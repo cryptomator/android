@@ -29,6 +29,7 @@ import org.cryptomator.domain.repository.VaultDocumentListener
 import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
+import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.file.MimeTypes
@@ -43,6 +44,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.assertThrows
+import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.isNull
 import org.mockito.kotlin.any
@@ -62,6 +64,7 @@ import org.mockito.kotlin.whenever
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.io.OutputStream
 import java.util.Date
 import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
@@ -121,10 +124,13 @@ class DocumentMetadataCacheTest {
 
 	@Test
 	fun `an upload keeps a cloud file that changed since the local copy was made and uploads a conflict copy`() {
+		localFile.writeText("local-content")
 		givenUpload(remoteModified = 7_000, remoteSize = 11)
 		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
 
 		upload(base = 5_000)
+
+		verify(repository, never()).read(any(), any(), any())
 
 		verify(repository, never()).write(any(), any(), any(), eq(true), any())
 		verify(repository).write(any(), any(), any(), eq(false), any())
@@ -132,6 +138,94 @@ class DocumentMetadataCacheTest {
 		verify(dao).markUploaded(ID, 11, 7_000, GENERATION)
 		assertEquals(path("a/x.txt"), uploads.single().first)
 		assertTrue(uploads.single().second.path.matches(Regex("a/$CONFLICT_NAME")))
+	}
+
+	@Test
+	fun `an upload to a cloud file that changed to the local copy's content records it instead of uploading a conflict copy`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length())
+		givenCloudContent("local-content")
+
+		upload(base = 5_000)
+
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).store(any())
+		verify(dao).markUploaded(ID, localFile.length(), 7_000, GENERATION)
+		assertEquals(listOf(Triple(path("a/x.txt"), path("a/x.txt"), 7_000L)), uploads)
+	}
+
+	@Test
+	fun `an upload of a new file whose name the cloud holds with the same content records it instead of renaming it`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length(), lastModified = null)
+		givenCloudContent("local-content")
+
+		upload(base = null)
+
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).renamePending(any(), any(), any(), any(), any(), anyOrNull())
+		verify(dao).markUploaded(ID, localFile.length(), 7_000, GENERATION)
+	}
+
+	@Test
+	fun `a stopped upload ends its comparison while the cloud file is downloaded`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length())
+		whenever(repository.read(any(), any(), any())).thenAnswer {
+			whenever(dao.loadById(ID)).thenReturn(uploading().apply { pendingDelete = 1 })
+			inTest.delete(path("a/x.txt"))
+			// the backend reports the download's progress before any decrypted content reaches the stream
+			it.getArgument<ProgressAware<DownloadState>>(2).onProgress(Progress.started(DownloadState.download(it.getArgument(0))))
+		}
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		val upload = upload(base = 5_000)
+
+		assertFailsWith<CancellationException>(upload.result)
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).store(any())
+	}
+
+	@Test
+	fun `a stopped upload ends its comparison while the cloud file's content is read`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length())
+		whenever(repository.read(any(), any(), any())).thenAnswer {
+			whenever(dao.loadById(ID)).thenReturn(uploading().apply { pendingDelete = 1 })
+			inTest.delete(path("a/x.txt"))
+			it.getArgument<OutputStream>(1).write("local-content".toByteArray())
+		}
+
+		val upload = upload(base = 5_000)
+
+		assertFailsWith<CancellationException>(upload.result)
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).markUploaded(any(), anyOrNull(), anyOrNull(), any())
+	}
+
+	@Test
+	fun `an upload to a cloud file that changed to other content of the same size uploads a conflict copy`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length())
+		givenCloudContent("other-content")
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		upload(base = 5_000)
+
+		verify(repository).write(any(), any(), any(), eq(false), any())
+		verify(dao).store(argThat { path.matches(Regex("a/$CONFLICT_NAME")) })
+	}
+
+	@Test
+	fun `an upload to a changed cloud file that can't be read for comparing uploads a conflict copy`() {
+		localFile.writeText("local-content")
+		givenUpload(remoteModified = 7_000, remoteSize = localFile.length())
+		whenever(repository.read(any(), any(), any())).thenThrow(NetworkConnectionException())
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
+
+		upload(base = 5_000)
+
+		verify(dao).store(argThat { path.matches(Regex("a/$CONFLICT_NAME")) })
 	}
 
 	@Test
@@ -303,7 +397,9 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
-	fun `a retry of a new file doesn't take a file of the same size that was in the cloud before its failed upload for its own`() {
+	fun `a retry of a new file doesn't take a file of the same size but other content that was in the cloud before its failed upload for its own`() {
+		localFile.writeText("local-content")
+		givenCloudContent("other-content")
 		val target = failedFirstUpload(remoteSize = localFile.length(), lastModified = null, base = null)
 
 		upload(base = null)
@@ -354,13 +450,15 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
-	fun `an upload that succeeded ends the recognition of its failed attempts, so that a later change of the same size is a conflict`() {
+	fun `an upload that succeeded ends the recognition of its failed attempts, so that a later change of the same size but other content is a conflict`() {
+		localFile.writeText("local-content")
 		failedFirstUpload()
 		val written = remoteFile(8_000, localFile.length())
 		whenever(repository.metadata(any())).thenReturn(written)
 		upload(base = 5_000)
 		val changed = remoteFile(10_000, localFile.length())
 		whenever(repository.metadata(any())).thenReturn(changed)
+		givenCloudContent("x".repeat(localFile.length().toInt()))
 		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
 
 		upload(base = 9_000)
@@ -370,10 +468,12 @@ class DocumentMetadataCacheTest {
 
 	@Test
 	fun `an abandoned upload ends the recognition of its failed attempts`() {
+		localFile.writeText("local-content")
 		failedFirstUpload()
 		inTest.abandonUpload(path("a/x.txt"))
 		val changed = remoteFile(8_000, localFile.length())
 		whenever(repository.metadata(any())).thenReturn(changed)
+		givenCloudContent("x".repeat(localFile.length().toInt()))
 		whenever(repository.file(eq(root), argThat { matches(CONFLICT_NAME) }, any())).thenReturn(mock())
 
 		upload(base = 5_000)
@@ -887,6 +987,216 @@ class DocumentMetadataCacheTest {
 		listings.runAll()
 		deletion.get().result.get()
 		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped deletes what the upload put into the cloud anyway`() {
+		val file = stoppedFirstUpload()
+		// the cloud took the upload although its response got lost
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository).delete(file)
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+		// a listing that ran meanwhile may have taken the file for a node of its own
+		verify(dao).updateLastEnumeratedAt(VAULT_ID, "a", null)
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped leaves a cloud file alone that was replaced while it was compared`() {
+		val file = stoppedFirstUpload()
+		val landed = remoteFile(8_000, localFile.length())
+		val replaced = remoteFile(9_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed, replaced)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository).read(eq(landed), any(), any())
+		verify(repository, never()).delete(any<CloudFile>())
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped deletes what the upload sent, not what its copy holds since`() {
+		val file = stoppedFirstUpload(changedAfterSend = "xyz")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository).delete(file)
+	}
+
+	@Test
+	fun `deleting a file after several failed uploads deletes what the first of them put into the cloud`() {
+		localFile.writeText("new")
+		failedFirstUpload(failures = 2, remoteModified = null, lastModified = null, base = null)
+		localFile.writeText("two")
+		upload(base = null)
+		val file = repository.file(root, "x.txt")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("new")
+		whenever(dao.loadById(ID)).thenReturn(uploading().apply { pendingDelete = 1 })
+
+		inTest.delete(path("a/x.txt"))
+		listings.runAll()
+
+		verify(repository).delete(file)
+	}
+
+	@Test
+	fun `deleting a file after several failed uploads deletes what the latest of them put into the cloud`() {
+		localFile.writeText("new")
+		failedFirstUpload(failures = 2, remoteModified = null, lastModified = null, base = null)
+		localFile.writeText("two")
+		upload(base = null)
+		val file = repository.file(root, "x.txt")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("two")
+		whenever(dao.loadById(ID)).thenReturn(uploading().apply { pendingDelete = 1 })
+
+		inTest.delete(path("a/x.txt"))
+		listings.runAll()
+
+		verify(repository).delete(file)
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped leaves a cloud file with other content alone`() {
+		val file = stoppedFirstUpload()
+		// another device put a file of the same size there
+		val other = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(other)
+		givenCloudContent("xyz")
+
+		listings.runAll()
+
+		verify(repository).read(eq(other), any(), any())
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped before it was sent leaves the cloud file alone`() {
+		val file = stoppedFirstUpload(sendIncomplete = true)
+		val landed = remoteFile(8_000, 3)
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		// the upload asked before it started, the cleanup asks again
+		verify(repository, times(2)).metadata(file)
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped leaves a cloud file the upload can't have written alone`() {
+		val file = stoppedFirstUpload()
+		val other = remoteFile(8_000, localFile.length() + 11)
+		whenever(repository.metadata(file)).thenReturn(other)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped leaves a cloud file alone that was there before the upload`() {
+		stoppedFirstUpload(remoteModified = 5_400)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `deleting a file renamed during its stopped first upload leaves the node that took its old name alone`() {
+		val file = stoppedFirstUpload(deleteAs = "a/y.txt")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		val newNode = entity("a/x.txt").apply { id = ID + 1 }
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(newNode)
+		givenCloudContent("new")
+
+		listings.runAll()
+
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/y.txt")
+	}
+
+	@Test
+	fun `deleting a file whose first upload it stopped succeeds although the cloud can't be reached`() {
+		stoppedFirstUpload()
+		whenever(repository.metadata(any())).thenThrow(NetworkConnectionException())
+
+		listings.runAll()
+
+		verify(repository, never()).delete(any<CloudFile>())
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+	}
+
+	@Test
+	fun `moving a file that has never been in the cloud deletes what its failed upload put into the cloud only once`() {
+		localFile.writeText("new")
+		failedFirstUpload(remoteModified = null, lastModified = null, base = null)
+		val file = repository.file(root, "x.txt")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("new")
+		val target: CloudFile = mock()
+		whenever(repository.file(eq(root), eq("y.txt"))).thenReturn(target)
+
+		val move = inTest.move(path("a/x.txt"), VaultPath(vault), "y.txt")
+		val moved = entity("y.txt").apply {
+			sourcePath = "a/x.txt"
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		}
+		whenever(dao.loadById(ID)).thenReturn(moved)
+		listings.runAll()
+
+		move.get()
+		verify(repository).delete(file)
+		verify(repository, never()).move(anyOrNull<CloudFile>(), anyOrNull<CloudFile>())
+		verify(dao).clearSourcePath(ID)
+
+		// deleting the file afterwards doesn't delete again what the move handled
+		whenever(dao.load(VAULT_ID, "y.txt")).thenReturn(moved)
+		whenever(dao.loadById(ID)).thenReturn(entity("y.txt").apply {
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+			pendingDelete = 1
+		})
+		inTest.delete(path("y.txt"))
+		listings.runAll()
+
+		verify(repository, times(1)).delete(any<CloudFile>())
+	}
+
+	@Test
+	fun `abandoning the upload of a file that has never been in the cloud leaves what the upload put there`() {
+		localFile.writeText("local-content")
+		failedFirstUpload(remoteModified = null, lastModified = null, base = null)
+		val file = repository.file(root, "x.txt")
+		val landed = remoteFile(8_000, localFile.length())
+		whenever(repository.metadata(file)).thenReturn(landed)
+		givenCloudContent("local-content")
+
+		inTest.abandonUpload(path("a/x.txt"))
+		listings.runAll()
+
+		verify(dao).deleteSubtree(VAULT_ID, "a/x.txt")
+		verify(repository, never()).delete(any<CloudFile>())
 	}
 
 	@Test
@@ -2121,9 +2431,52 @@ class DocumentMetadataCacheTest {
 	private fun failedFirstUpload(failures: Int = 1, remoteModified: Long? = 5_400, remoteSize: Long = 7, lastModified: Long? = 5_000, base: Long? = 5_000): CloudFile {
 		givenUpload(remoteModified, remoteSize, lastModified)
 		val target = writeTarget("x.txt")
-		whenever(repository.write(any(), any(), any(), any(), any())).thenThrow(*Array(failures) { NetworkConnectionException() }).thenReturn(cryptoFile("a/x.txt", size = 3, modified = 9_000))
+		var failuresLeft = failures
+		whenever(repository.write(any(), any(), any(), any(), any())).thenAnswer {
+			it.readData()
+			if (failuresLeft-- > 0) throw NetworkConnectionException() else cryptoFile("a/x.txt", size = 3, modified = 9_000)
+		}
 		upload(base)
 		return target
+	}
+
+	/**
+	 * Stops the first upload of a/x.txt, a file that has never been in the cloud, by deleting the file while it is
+	 * uploaded. By then the file is at [deleteAs] in the cache. The upload's unconfirmed attempt is recorded, and the
+	 * deletion waits in [listings]. With [remoteModified], the cloud holds another file of the same size at a/x.txt. With
+	 * [sendIncomplete], the upload stops before it read the local copy to its end. With [changedAfterSend], the local copy
+	 * is written again after the upload read it.
+	 *
+	 * @return the file at a/x.txt in the cloud
+	 */
+	private fun stoppedFirstUpload(deleteAs: String = "a/x.txt", remoteModified: Long? = null, sendIncomplete: Boolean = false, changedAfterSend: String? = null): CloudFile {
+		localFile.writeText("new")
+		givenUpload(remoteModified, remoteSize = localFile.length(), lastModified = null)
+		writeTarget("x.txt")
+		val file = repository.file(root, "x.txt")
+		whenever(repository.write(any(), any(), any(), any(), any())).thenAnswer {
+			val renamed = { uploading().apply { path = deleteAs; name = deleteAs.substringAfterLast('/') } }
+			val visible = renamed()
+			val deleting = renamed().apply { pendingDelete = 1 }
+			whenever(dao.load(VAULT_ID, deleteAs)).thenReturn(visible)
+			whenever(dao.loadById(ID)).thenReturn(deleting)
+			// the body is sent, then the deletion stops the upload while it waits for the response
+			if (!sendIncomplete) {
+				it.readData()
+			}
+			changedAfterSend?.let { content -> localFile.writeText(content) }
+			inTest.delete(path(deleteAs))
+			throw org.cryptomator.domain.exception.CancellationException()
+		}
+		upload(base = null)
+		return file
+	}
+
+	/**
+	 * Reads the data source of a write to its end, like the cloud does when it encrypts and uploads it.
+	 */
+	private fun InvocationOnMock.readData() {
+		getArgument<DataSource>(1).open(mock())?.use { it.readBytes() }
 	}
 
 	/**
@@ -2134,6 +2487,10 @@ class DocumentMetadataCacheTest {
 			on { this.modified } doReturn Date(modified)
 			on { this.size } doReturn size
 		}
+	}
+
+	private fun givenCloudContent(content: String) {
+		whenever(repository.read(any(), any(), any())).thenAnswer { it.getArgument<OutputStream>(1).write(content.toByteArray()) }
 	}
 
 	private fun writeTarget(name: String, folder: CloudFolder = root): CloudFile {

@@ -145,7 +145,7 @@ public class CryptorsService extends Service {
 		if (unlocked == 0) {
 			CryptomatorDocumentsProvider.evictCopies();
 		}
-		CryptomatorDocumentsProvider.resumeUploadsOnNextListing();
+		CryptomatorDocumentsProvider.forgetResumedUploads();
 		notification.setUnlockedCount(unlocked);
 		notification.update();
 		signalVaultsUnlockedAndInBackgroundIfRequired();
