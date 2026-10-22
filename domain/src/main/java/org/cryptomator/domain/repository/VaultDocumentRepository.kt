@@ -36,16 +36,11 @@ interface VaultDocumentRepository {
 	 * The children of [folder] as the cache knows them, as [CachedVaultFile][org.cryptomator.domain.CachedVaultFile]s and
 	 * [CachedVaultFolder][org.cryptomator.domain.CachedVaultFolder]s. A folder whose listing is due is listed from the
 	 * cloud in the background, and the listeners are told once it is done. With [forceRefresh], it is listed right away,
-	 * and a failure is thrown.
+	 * and a failure is thrown, unless the listing only kept being overtaken by changes to the folder, which the cache
+	 * holds already.
 	 */
 	@Throws(BackendException::class)
 	fun list(folder: CloudFolder, forceRefresh: Boolean): VaultListing
-
-	/**
-	 * The folder of the vault's decrypted view in the cloud at [folder]'s path, for working with the cloud directly.
-	 */
-	@Throws(BackendException::class)
-	fun resolve(folder: CloudFolder): CloudFolder
 
 	@Throws(BackendException::class)
 	fun createFolder(folder: VaultPath, name: String, userInitiated: Boolean): VaultDocumentChange<CloudFolder>

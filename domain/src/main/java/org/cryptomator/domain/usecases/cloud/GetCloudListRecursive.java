@@ -31,16 +31,13 @@ class GetCloudListRecursive {
 	public CloudNodeRecursiveListing execute() throws BackendException {
 		CloudNodeRecursiveListing cloudNodeRecursiveListing = new CloudNodeRecursiveListing(folders.size());
 		for (CloudFolder folder : folders) {
-			// a folder from a vault's cache is resolved to the vault's folder in the cloud, which the recursive
-			// listing needs
-			CloudFolder listedFolder = vaultDocumentRepository.pathOf(folder) != null ? vaultDocumentRepository.resolve(folder) : folder;
-			cloudNodeRecursiveListing.addFolderContent(recursiveListing(new CloudFolderRecursiveListing(listedFolder), listedFolder));
+			cloudNodeRecursiveListing.addFolderContent(recursiveListing(new CloudFolderRecursiveListing(folder), folder));
 		}
 		return cloudNodeRecursiveListing;
 	}
 
 	private CloudFolderRecursiveListing recursiveListing(CloudFolderRecursiveListing cloudFolderRecursiveListing, CloudFolder folder) throws BackendException {
-		List<CloudNode> children = cloudContentRepository.list(folder);
+		List<CloudNode> children = list(folder);
 		for (CloudNode child : children) {
 			if (child instanceof CloudFolder) {
 				cloudFolderRecursiveListing.addFolders(//
@@ -51,6 +48,17 @@ class GetCloudListRecursive {
 			}
 		}
 		return cloudFolderRecursiveListing;
+	}
+
+	/**
+	 * A folder of a vault is listed through the vault's cache, so that files whose upload is still pending or has failed
+	 * are included, as the file browser shows them.
+	 */
+	private List<CloudNode> list(CloudFolder folder) throws BackendException {
+		if (vaultDocumentRepository.pathOf(folder) != null) {
+			return vaultDocumentRepository.list(folder, true).getNodes();
+		}
+		return cloudContentRepository.list(folder);
 	}
 
 }

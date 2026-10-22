@@ -53,7 +53,8 @@ class NodeRowsTest {
 
 	@Test
 	fun `a changed upload state or thumbnail changes the row`() {
-		assertNotSame(file(upload = CachedVaultFile.Upload.PENDING), rowNode(file(upload = CachedVaultFile.Upload.PENDING), file(upload = CachedVaultFile.Upload.FAILED)))
+		val pending = file(upload = CachedVaultFile.Upload.PENDING)
+		assertNotSame(pending, rowNode(pending, file(upload = CachedVaultFile.Upload.FAILED)))
 		val old = file()
 		assertNotSame(old, rowNode(old, file(thumbnail = File("thumbnail.jpg"))))
 	}

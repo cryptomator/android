@@ -2191,6 +2191,25 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
+	fun `a forced listing that keeps being overtaken by changes to the folder is done, the cache holds the changes`() {
+		val inTest = cache(CloudTaskScheduler(direct, direct, direct))
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(repository.folder(root, "new")).thenReturn(mock())
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR))
+		var listCalls = 0
+		whenever(repository.list(root)).thenAnswer {
+			listCalls++
+			inTest.create(path("b"), "new", isFolder = true)
+			listOf(cryptoFile("b/listed.txt"))
+		}
+
+		inTest.listNow(path("b"))
+
+		assertEquals(3, listCalls)
+		verify(dao, never()).storeChildren(any(), any())
+	}
+
+	@Test
 	fun `a new file's upload is based on the version its creation left in the cloud`() {
 		givenUpload(remoteModified = 5_400, lastModified = 5_000)
 		val target = writeTarget("x.txt")

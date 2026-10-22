@@ -86,10 +86,6 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 		return node(parent, metadata)
 	}
 
-	override fun resolve(folder: CloudFolder): CloudFolder = cacheExceptions {
-		metadataCache.cloudFolder(requireNotNull(pathOf(folder)) { "Not inside a vault" })
-	}
-
 	private fun node(parent: CachedVaultFolder, metadata: DocumentMetadataEntity): CloudNode {
 		if (metadata.isFolder) {
 			return CachedVaultFolder(parent.cloud, "${parent.path}/${metadata.name}")

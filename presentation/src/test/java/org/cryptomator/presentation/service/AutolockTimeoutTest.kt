@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 class AutolockTimeoutTest {
 
@@ -19,6 +21,8 @@ class AutolockTimeoutTest {
 
 		assertTrue(inTest.isDisabled)
 		assertFalse(inTest.expired())
+		assertEquals(0, inTest.timeRemaining())
+		assertEquals(0L, inTest.configuredTimeout())
 	}
 
 	@Test
@@ -52,6 +56,43 @@ class AutolockTimeoutTest {
 		now += 3_600_000
 
 		assertFalse(inTest.expired())
+		assertEquals(0, inTest.timeRemaining())
 		assertEquals(0L, inTest.configuredTimeout())
+	}
+
+	// the autolock worker checks the timeout while the app changes it, so each check works on what it read first
+
+	@Test
+	fun `the app coming to the foreground during a check doesn't expire the timeout`() {
+		val timeout = timeout { inTest.setAppIsActive(true) }
+		inTest.setAppIsActive(false)
+		inTest.setLockTimeout(timeout)
+		now += 120_000
+
+		assertFalse(inTest.expired())
+	}
+
+	@Test
+	fun `the timeout turned off during a check doesn't fail the check`() {
+		val timeout = timeout { inTest.setLockTimeout(LockTimeout.NEVER) }
+		inTest.setAppIsActive(false)
+		inTest.setLockTimeout(timeout)
+		now += 120_000
+
+		assertEquals(60_000L, inTest.configuredTimeout())
+		assertEquals(0L, inTest.configuredTimeout())
+	}
+
+	/**
+	 * A one-minute timeout whose first use in a check runs [duringCheck], like another thread changing the settings.
+	 */
+	private fun timeout(duringCheck: () -> Unit): LockTimeout {
+		val timeout: LockTimeout = mock()
+		whenever(timeout.durationMillis).thenReturn(60_000L)
+		whenever(timeout.isDisabled).thenAnswer {
+			duringCheck()
+			false
+		}
+		return timeout
 	}
 }

@@ -41,22 +41,33 @@ class AutolockTimeout {
 		this.lockTimeout = lockTimeout;
 	}
 
+	// the fields are read once per call: the autolock worker polls while the app changes them, and asking a disabled
+	// timeout for its duration throws
+
 	public boolean expired() {
-		return !isDisabled() && timeRemaining() <= 0;
+		LockTimeout timeout = lockTimeout;
+		return !isDisabled(timeout) && remaining(timeout) <= 0;
 	}
 
 	public int timeRemaining() {
-		if (isDisabled()) {
-			return 0;
-		}
-		return (int) (lastUsed + configuredTimeout() - currentTimeMillis.getAsLong());
+		LockTimeout timeout = lockTimeout;
+		return isDisabled(timeout) ? 0 : remaining(timeout);
 	}
 
 	public long configuredTimeout() {
-		return isDisabled() ? 0 : lockTimeout.getDurationMillis();
+		LockTimeout timeout = lockTimeout;
+		return isDisabled(timeout) ? 0 : timeout.getDurationMillis();
 	}
 
 	public boolean isDisabled() {
-		return appIsActive || lockTimeout.isDisabled();
+		return isDisabled(lockTimeout);
+	}
+
+	private boolean isDisabled(LockTimeout timeout) {
+		return appIsActive || timeout.isDisabled();
+	}
+
+	private int remaining(LockTimeout timeout) {
+		return (int) (lastUsed + timeout.getDurationMillis() - currentTimeMillis.getAsLong());
 	}
 }

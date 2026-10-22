@@ -259,11 +259,16 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Lists [folder] from the cloud now and fails if that fails.
+	 * Lists [folder] from the cloud now and fails if that fails. A listing that keeps being overtaken by changes to
+	 * [folder] counts as done, since the cache holds those changes already, see [enumerateNow].
 	 */
 	fun listNow(folder: VaultPath) {
 		ensureFolder(folder)
-		enumerate(folder)
+		try {
+			enumerate(folder)
+		} catch (e: FolderKeptChangingException) {
+			LOG.i("${logId(folder)} kept changing while it was listed, the cache holds the changes")
+		}
 	}
 
 	/**
@@ -1395,7 +1400,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 		events.onChanged(folder)
 	}
 
-	internal fun cloudFolder(folder: VaultPath): CloudFolder {
+	private fun cloudFolder(folder: VaultPath): CloudFolder {
 		val cloud = cloudRepository.decryptedViewOf(folder.vault)
 		//resolve() can't return the root: "/" resolves to a child with an empty name
 		return if (folder.isRoot) contentRepository.root(cloud) else contentRepository.resolve(cloud, "/${folder.path}")
