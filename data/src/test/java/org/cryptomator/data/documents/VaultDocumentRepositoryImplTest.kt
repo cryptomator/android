@@ -64,8 +64,9 @@ class VaultDocumentRepositoryImplTest {
 	private val thumbnailGenerator: ThumbnailGenerator = mock()
 	private val events = VaultDocumentEvents()
 	private val cloudRepository: CloudRepository = mock()
+	private val background = ArrayDeque<Runnable>()
 	private val cryptoCloud: CryptoCloud = mock { on { vault } doReturn vault }
-	private val inTest = VaultDocumentRepositoryImpl(context, { cachesCreated++; metadataCache }, { cachesCreated++; contentCache }, { thumbnailStore }, { thumbnailGenerator }, events, cloudRepository)
+	private val inTest = VaultDocumentRepositoryImpl(context, { cachesCreated++; metadataCache }, { cachesCreated++; contentCache }, { thumbnailStore }, { thumbnailGenerator }, events, cloudRepository, CloudTaskScheduler({ background.addLast(it) }, { it.run() }, { it.run() }))
 
 	@Test
 	fun `nodes of a vault are found by their cleartext path, other nodes are not in a vault`() {
@@ -308,6 +309,17 @@ class VaultDocumentRepositoryImplTest {
 
 		verify(contentCache).evictAll()
 		assertEquals(3_400L, inTest.cacheSize())
+	}
+
+	@Test
+	fun `the copies are evicted in the background, where a failure is only logged`() {
+		whenever(contentCache.evict()).thenThrow(IllegalStateException("disk full"))
+
+		inTest.evictCopies()
+
+		assertEquals(0, cachesCreated)
+		background.removeFirst().run()
+		verify(contentCache).evict()
 	}
 
 	@Test

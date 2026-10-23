@@ -76,7 +76,7 @@ class ThumbnailGeneratorTest {
 		val metadata = givenImage("a.jpg", id = 1)
 		val changed = mutableListOf<VaultPath>()
 		events.addListener { changed.add(it) }
-		val store = store(mock { on { loadById(1) } doReturn metadata })
+		val store = store(mock { on { loadByIds(any()) } doReturn listOf(metadata) })
 
 		generator(store) { JPEG }.request(listOf(path("a.jpg")))
 		runPending()

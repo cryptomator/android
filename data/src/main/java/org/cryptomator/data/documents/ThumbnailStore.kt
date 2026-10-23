@@ -64,7 +64,10 @@ class ThumbnailStore @JvmOverloads constructor(
 	 */
 	fun evict() {
 		synchronized(lock) {
-			directory.listFiles()?.filterNot { isCurrent(it) && it.name.endsWith(".jpg") }?.forEach(::delete)
+			val files = directory.listFiles() ?: return
+			val current = files.mapNotNull(::metadataId).distinct().chunked(MAX_QUERY_VARIABLES).flatMap(metadataDao::loadByIds) //
+				.mapNotNullTo(HashSet()) { metadata -> version(metadata)?.let { file(metadata, it).name } }
+			files.filterNot { it.name in current }.forEach(::delete)
 		}
 	}
 
@@ -88,13 +91,11 @@ class ThumbnailStore @JvmOverloads constructor(
 		return directory.listFiles()?.sumOf { it.length() } ?: 0L
 	}
 
-	private fun isCurrent(file: File): Boolean {
-		val parts = file.name.removeSuffix(".jpg").split('_', limit = 3)
-		if (parts.size != 3) {
-			return false
-		}
-		val metadata = parts[1].toLongOrNull()?.let(metadataDao::loadById) ?: return false
-		return metadata.vaultId.toString() == parts[0] && version(metadata) == parts[2]
+	/**
+	 * The node ID in a thumbnail's name, which is `<vault ID>_<node ID>_<version>.jpg`.
+	 */
+	private fun metadataId(file: File): Long? {
+		return file.name.split('_', limit = 3).getOrNull(1)?.toLongOrNull()
 	}
 
 	private fun file(metadata: DocumentMetadataEntity, version: String): File {
@@ -110,5 +111,10 @@ class ThumbnailStore @JvmOverloads constructor(
 	companion object {
 
 		const val DIRECTORY_NAME = "thumbnails"
+
+		/**
+		 * What SQLite accepts in one statement on the oldest supported Android version.
+		 */
+		private const val MAX_QUERY_VARIABLES = 999
 	}
 }

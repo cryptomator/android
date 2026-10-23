@@ -36,7 +36,6 @@ import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
-import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -393,7 +392,6 @@ class VaultListPresenter @Inject constructor( //
 			.run(object : DefaultResultHandler<Long>() {
 				override fun onSuccess(vaultId: Long) {
 					view?.deleteVaultFromAdapter(vaultId)
-					CryptomatorDocumentsProvider.evictCopies()
 				}
 			})
 	}

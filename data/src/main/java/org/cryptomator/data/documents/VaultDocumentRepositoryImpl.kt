@@ -25,6 +25,7 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
+import org.cryptomator.util.named
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.OutputStream
@@ -33,6 +34,9 @@ import java.util.concurrent.CompletableFuture
 import javax.inject.Inject
 import javax.inject.Singleton
 import dagger.Lazy
+import timber.log.Timber
+
+private val LOG = Timber.named("VaultDocumentRepository")
 
 /**
  * The caches are created on first use rather than when the repository is injected at the start of the app, since
@@ -46,7 +50,8 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 	private val lazyThumbnailStore: Lazy<ThumbnailStore>,
 	private val lazyThumbnailGenerator: Lazy<ThumbnailGenerator>,
 	private val events: VaultDocumentEvents,
-	private val cloudRepository: CloudRepository
+	private val cloudRepository: CloudRepository,
+	private val scheduler: CloudTaskScheduler
 ) : VaultDocumentRepository {
 
 	private val metadataCache: DocumentMetadataCache
@@ -192,6 +197,20 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 
 	override fun clearCache() {
 		contentCache.evictAll()
+	}
+
+	/**
+	 * Runs in the background, which also creates the caches if they don't exist yet, so that callers on the main thread,
+	 * e.g. locking all vaults, don't wait for the sweep.
+	 */
+	override fun evictCopies() {
+		scheduler.unordered.execute {
+			try {
+				contentCache.evict()
+			} catch (e: Exception) {
+				LOG.e(e, "Evicting the copies failed")
+			}
+		}
 	}
 
 	override fun cacheSize(): Long {

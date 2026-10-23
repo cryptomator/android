@@ -25,7 +25,6 @@ import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
-import java.io.FileNotFoundException
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -57,21 +56,18 @@ class ImagePreviewPresenter @Inject constructor( //
 
 	@Callback
 	fun exportImageToUserSelectedLocation(result: ActivityResult, image: CloudFileModel) {
-		try {
-			val downloadFile = DownloadFile.Builder() //
-				.setDownloadFile(image.toCloudNode()) //
-				.setDataSink(contentResolverUtil.openOutputStream(Uri.parse(result.intent()?.dataString))) //
-				.build()
-			downloadFilesUseCase //
-				.withDownloadFiles(listOf(downloadFile)) //
-				.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
-					override fun onSuccess(files: List<CloudFile>) {
-						view?.showMessage(R.string.screen_file_browser_msg_file_exported)
-					}
-				})
-		} catch (e: FileNotFoundException) {
-			showError(e)
-		}
+		val target = Uri.parse(result.intent()?.dataString)
+		val downloadFile = DownloadFile.Builder() //
+			.setDownloadFile(image.toCloudNode()) //
+			.setDataSink { contentResolverUtil.openOutputStream(target) } //
+			.build()
+		downloadFilesUseCase //
+			.withDownloadFiles(listOf(downloadFile)) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+				override fun onSuccess(files: List<CloudFile>) {
+					view?.showMessage(R.string.screen_file_browser_msg_file_exported)
+				}
+			})
 	}
 
 	fun onShareImageClicked(image: CloudFileModel, uri: Uri) {

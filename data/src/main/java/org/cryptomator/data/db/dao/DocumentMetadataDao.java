@@ -40,6 +40,9 @@ public interface DocumentMetadataDao {
 	@Query("SELECT * FROM DOCUMENT_METADATA_ENTITY WHERE _id = :id")
 	DocumentMetadataEntity loadById(long id);
 
+	@Query("SELECT * FROM DOCUMENT_METADATA_ENTITY WHERE _id IN (:ids)")
+	List<DocumentMetadataEntity> loadByIds(List<Long> ids);
+
 	@Query("SELECT * FROM DOCUMENT_METADATA_ENTITY WHERE VAULT_ID = :vaultId AND PATH = :path AND " + IS_VISIBLE)
 	DocumentMetadataEntity loadVisible(long vaultId, String path);
 

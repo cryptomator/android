@@ -735,7 +735,8 @@ class DocumentContentCache @JvmOverloads constructor(
 			return
 		}
 		upload.stop()
-		upload.result.whenComplete { _, e ->
+		// not inline on the caller, e.g. the main thread, if the upload ended meanwhile
+		upload.result.whenCompleteAsync({ _, e ->
 			if (e != null) {
 				try {
 					discardCanceled(upload)
@@ -743,7 +744,7 @@ class DocumentContentCache @JvmOverloads constructor(
 					LOG.e(discardFailure, "Dropping the canceled upload of ${upload.documentId} failed")
 				}
 			}
-		}
+		}, scheduler.unordered)
 	}
 
 	private fun discardCanceled(upload: DocumentMetadataCache.Upload) {

@@ -47,7 +47,6 @@ import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
-import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.UnlockVaultIntent
 import org.cryptomator.presentation.model.CloudModel
@@ -645,7 +644,6 @@ class UnlockVaultPresenter @Inject constructor(
 			.withVault(vault) //
 			.run(object : DefaultResultHandler<Long>() {
 				override fun onSuccess(vaultId: Long) {
-					CryptomatorDocumentsProvider.evictCopies()
 					finishWithResult(null)
 				}
 			})

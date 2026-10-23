@@ -141,6 +141,10 @@ public class CryptorsService extends Service {
 		stopCryptorsService();
 	}
 
+	/**
+	 * Called only when vaults were unlocked or locked, see {@link Cryptors.Default#setOnChangeListener}, so that e.g.
+	 * the screen going off with no vault unlocked doesn't create the documents caches on the main thread.
+	 */
 	private void onUnlockCountChanged(int unlocked) {
 		if (unlocked == 0) {
 			CryptomatorDocumentsProvider.evictCopies();
@@ -251,7 +255,8 @@ public class CryptorsService extends Service {
 			} else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction()) && //
 					sharedPreferencesHandler.lockOnScreenOff() && //
 					!lockSuspended) {
-				if (sharedPreferencesHandler.lockGracefully() && transfersRunning()) {
+				// transfers need an unlocked vault, so with none the documents caches aren't asked, which would create them here
+				if (sharedPreferencesHandler.lockGracefully() && !cryptors.isEmpty() && transfersRunning()) {
 					Timber.tag("CryptorsService").i("ScreenLock received, locking once the running transfers have finished");
 					screenOffLockPending = true;
 					signalVaultsUnlockedAndInBackgroundIfRequired();

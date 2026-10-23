@@ -10,7 +10,11 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
+import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.File
 
@@ -77,9 +81,7 @@ class ThumbnailStoreTest {
 		store.put(changed, requireNotNull(store.version(changed)), JPEG)
 		val gone = synced(lastModified = 5_000, id = 10)
 		store.put(gone, requireNotNull(store.version(gone)), JPEG)
-		whenever(metadataDao.loadById(7)).thenReturn(current)
-		whenever(metadataDao.loadById(8)).thenReturn(beingDeleted)
-		whenever(metadataDao.loadById(9)).thenReturn(synced(lastModified = 9_000, id = 9))
+		metadataIs(current, beingDeleted, synced(lastModified = 9_000, id = 9))
 
 		store.evict()
 
@@ -89,16 +91,44 @@ class ThumbnailStoreTest {
 	@Test
 	fun `current thumbnails are kept however old and many they are`() {
 		val store = store()
-		(7L..9L).forEach { id ->
-			val metadata = synced(lastModified = 5_000, id = id)
-			whenever(metadataDao.loadById(id)).thenReturn(metadata)
-			store.put(metadata, requireNotNull(store.version(metadata)), JPEG)
-			File(thumbnails, "1_${id}_m5.jpg").setLastModified(id * 1_000)
-		}
+		val metadata = (7L..9L).map { id -> synced(lastModified = 5_000, id = id) }
+		metadata.forEach { store.put(it, requireNotNull(store.version(it)), JPEG) }
+		metadata.forEach { File(thumbnails, "1_${it.id}_m5.jpg").setLastModified(it.id * 1_000) }
+		metadataIs(*metadata.toTypedArray())
 
 		store.evict()
 
 		assertEquals(setOf("1_7_m5.jpg", "1_8_m5.jpg", "1_9_m5.jpg"), thumbnails.list()!!.toSet())
+		verify(metadataDao).loadByIds(any())
+	}
+
+	@Test
+	fun `the nodes of many thumbnails are looked up in batches that SQLite accepts on old Android versions`() {
+		val store = store()
+		val metadata = (1L..1_000L).map { id -> synced(lastModified = 5_000, id = id) }
+		metadata.forEach { store.put(it, requireNotNull(store.version(it)), JPEG) }
+		metadataIs(*metadata.toTypedArray())
+
+		store.evict()
+
+		assertEquals(1_000, thumbnails.list()!!.size)
+		val lookups = argumentCaptor<List<Long>>()
+		verify(metadataDao, times(2)).loadByIds(lookups.capture())
+		assertEquals(listOf(999, 1), lookups.allValues.map { it.size })
+	}
+
+	@Test
+	fun `files that aren't current thumbnails, e g one a killed process left half written, are deleted`() {
+		val store = store()
+		val current = synced(lastModified = 5_000)
+		store.put(current, requireNotNull(store.version(current)), JPEG)
+		File(thumbnails, "1_7_m5.jpg.tmp").writeBytes(JPEG)
+		File(thumbnails, "stray").writeBytes(JPEG)
+		metadataIs(current)
+
+		store.evict()
+
+		assertEquals(setOf("1_7_m5.jpg"), thumbnails.list()!!.toSet())
 	}
 
 	@Test
@@ -125,6 +155,19 @@ class ThumbnailStoreTest {
 
 	private fun store(): ThumbnailStore {
 		return ThumbnailStore(thumbnails, metadataDao, cachedFileDao, copies)
+	}
+
+	/**
+	 * The nodes the cache holds, looked up by their IDs. Like SQLite on the oldest supported Android version, a query takes
+	 * at most 999 of them.
+	 */
+	private fun metadataIs(vararg metadata: DocumentMetadataEntity) {
+		val byId = metadata.associateBy { it.id }
+		whenever(metadataDao.loadByIds(any())).thenAnswer { invocation ->
+			val ids = invocation.getArgument<List<Long>>(0)
+			require(ids.size <= 999) { "too many SQL variables" }
+			ids.mapNotNull(byId::get)
+		}
 	}
 
 	private fun synced(lastModified: Long, id: Long = 7): DocumentMetadataEntity {

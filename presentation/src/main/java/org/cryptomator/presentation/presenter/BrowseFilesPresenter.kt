@@ -92,7 +92,6 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
-import java.io.FileNotFoundException
 import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -1195,15 +1194,12 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@Callback
 	fun exportFileToUserSelectedLocation(result: ActivityResult, fileToExport: CloudFileModel) {
-		try {
-			val downloadFile = DownloadFile.Builder() //
-				.setDownloadFile(fileToExport.toCloudNode()) //
-				.setDataSink(contentResolverUtil.openOutputStream(Uri.parse(result.intent().dataString))) //
-				.build()
-			exportFile(listOf(downloadFile))
-		} catch (e: FileNotFoundException) {
-			showError(e)
-		}
+		val target = Uri.parse(result.intent().dataString)
+		val downloadFile = DownloadFile.Builder() //
+			.setDownloadFile(fileToExport.toCloudNode()) //
+			.setDataSink { contentResolverUtil.openOutputStream(target) } //
+			.build()
+		exportFile(listOf(downloadFile))
 	}
 
 	fun onUploadFilesClicked(folder: CloudFolderModel) {

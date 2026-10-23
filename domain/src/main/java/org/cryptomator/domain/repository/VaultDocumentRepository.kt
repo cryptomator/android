@@ -116,6 +116,12 @@ interface VaultDocumentRepository {
 	fun clearCache()
 
 	/**
+	 * Deletes the local copies that belong to no cached file anymore, e.g. those of a removed vault, and the thumbnails
+	 * of nodes that are gone or whose content changed, in the background. Copies with a pending upload or in use are kept.
+	 */
+	fun evictCopies()
+
+	/**
 	 * The size in bytes of the local copies and thumbnails.
 	 */
 	fun cacheSize(): Long

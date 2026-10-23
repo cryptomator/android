@@ -26,6 +26,7 @@ import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.repository.VaultDocumentListener
+import org.cryptomator.domain.repository.VaultDocumentRepository
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
@@ -282,7 +283,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	private fun queryVaultDocument(documentPath: VaultPath, actualProjection: Array<String>): Cursor {
 		require(!documentPath.isRoot)
 
-		val metadata = metadataCache.requireDocument(documentPath)
+		// from the cache only: the document ID was resolved from it, and a query must not wait for the cloud
+		val metadata = metadataCache.requireCachedDocument(documentPath)
 
 		return singleRowCursor(actualProjection) {
 			addDocument(documentPath.vault, metadata)
@@ -295,7 +297,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	 * unlock.
 	 */
 	private fun queryPinnedDocument(documentPath: VaultPath, actualProjection: Array<String>): Cursor {
-		val metadata = metadataCache.cachedDocument(documentPath) ?: throw FileNotFoundException("Unknown document: ${metadataCache.logId(documentPath)}")
+		val metadata = metadataCache.requireCachedDocument(documentPath)
 		return singleRowCursor(actualProjection) {
 			addDocument(documentPath.vault, metadata)
 			add(Document.COLUMN_FLAGS, if (isWritable(documentPath.vault)) Document.FLAG_SUPPORTS_WRITE else 0)
@@ -327,7 +329,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(documentId)
 
 		val path = unlockedPath(documentId)
-		val metadata = metadataCache.cachedDocument(path) ?: throw FileNotFoundException("Unknown document: $documentId")
+		val metadata = metadataCache.requireCachedDocument(path)
 		val thumbnail = storedThumbnail(path, metadata, thumbnailStore, thumbnailGenerator)
 		return AssetFileDescriptor(ParcelFileDescriptor.open(thumbnail, ParcelFileDescriptor.MODE_READ_ONLY), 0, thumbnail.length())
 	}
@@ -542,11 +544,12 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 
 		/**
-		 * Deletes the decrypted copies of removed vaults and the outdated thumbnails.
+		 * Deletes the decrypted copies of removed vaults and the outdated thumbnails in the background, see
+		 * [VaultDocumentRepository.evictCopies].
 		 */
 		@JvmStatic
 		fun evictCopies() {
-			appComponent.documentContentCache().evict()
+			appComponent.vaultDocumentRepository().evictCopies()
 		}
 
 		/**

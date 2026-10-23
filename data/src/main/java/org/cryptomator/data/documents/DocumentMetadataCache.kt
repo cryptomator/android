@@ -453,7 +453,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			prepareFolder(folder, requireListing = false)
 		}
 		synchronized(changeLock) {
-			val metadata = requireVisible(source)
+			val metadata = requireCachedDocument(source)
 			val earlierMove = latestMoves[requireNotNull(metadata.id)]
 			if (!isQueued && earlierMove != null && !earlierMove.isDone) {
 				return moveAfter(earlierMove, requireNotNull(metadata.id), source.vault, folder, name, failIfTaken, userInitiated)
@@ -541,7 +541,7 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 */
 	fun delete(path: VaultPath, userInitiated: Boolean = false): Deletion {
 		synchronized(changeLock) {
-			val metadata = requireVisible(path)
+			val metadata = requireCachedDocument(path)
 			val descendantIds = dao.loadDescendantIds(path.vault.id, path.path).map { documentId(path.vault.id, it) }
 			val token = deleteTokens.incrementAndGet()
 			dao.markPendingDelete(path.vault.id, path.path, token)
@@ -1149,17 +1149,18 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Like [requireDocument], but never lists anything, so that it can be called while changes are made.
+	 * Like [requireDocument], but never lists anything, so that it can be called while changes are made or where waiting
+	 * for the cloud is not allowed.
 	 */
-	private fun requireVisible(path: VaultPath): DocumentMetadataEntity {
+	fun requireCachedDocument(path: VaultPath): DocumentMetadataEntity {
 		return loadVisible(path) ?: throw FileNotFoundException("Unknown document: ${logId(path)}")
 	}
 
 	/**
-	 * Like [requireVisible] for a folder.
+	 * Like [requireCachedDocument] for a folder.
 	 */
 	private fun requireFolder(folder: VaultPath) {
-		require(folder.isRoot || requireVisible(folder).isFolder) { "Not a folder: ${logId(folder)}" }
+		require(folder.isRoot || requireCachedDocument(folder).isFolder) { "Not a folder: ${logId(folder)}" }
 	}
 
 	/**

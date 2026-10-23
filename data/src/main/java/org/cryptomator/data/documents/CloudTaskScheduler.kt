@@ -20,6 +20,13 @@ class CloudTaskScheduler(
 	private val downloadExecutor: Executor = Executors.newFixedThreadPool(MAX_PARALLEL_TRANSFERS)
 ) {
 
+	/**
+	 * The executor of the reads and writes, for work that needs no order, e.g. a callback that mustn't run on the thread
+	 * that registers it.
+	 */
+	val unordered: Executor
+		get() = defaultExecutor
+
 	private val pendingReads = HashMap<VaultPath, MutableSet<CompletableFuture<*>>>()
 	private val pendingWrites = HashMap<VaultPath, MutableSet<CompletableFuture<*>>>()
 

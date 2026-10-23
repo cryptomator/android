@@ -119,24 +119,34 @@ abstract class Cryptors internal constructor() {
 			cryptors[updated] = cryptor
 		}
 
+		/**
+		 * The listener runs only when vaults were added or removed.
+		 */
 		fun setOnChangeListener(onChangeListener: Runnable) {
 			this.onChangeListener = onChangeListener
 		}
 
 		fun putAll(cryptors: Map<Vault, Cryptor>) {
+			val before = this.cryptors.size
 			this.cryptors.putAll(cryptors)
-			onChangeListener.run()
+			if (this.cryptors.size != before) {
+				onChangeListener.run()
+			}
 		}
 
 		fun destroyAll() {
+			var destroyed = false
 			while (!isEmpty()) {
 				val cryptorIterator = cryptors.values.iterator()
 				while (cryptorIterator.hasNext()) {
 					cryptorIterator.next().destroy()
 					cryptorIterator.remove()
+					destroyed = true
 				}
 			}
-			onChangeListener.run()
+			if (destroyed) {
+				onChangeListener.run()
+			}
 		}
 	}
 }

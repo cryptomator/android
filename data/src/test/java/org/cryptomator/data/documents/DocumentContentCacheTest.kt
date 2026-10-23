@@ -679,6 +679,28 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a canceled import is dropped in the background, not by whoever ends or cancels its upload`() {
+		val imported = copy("imported", "imported")
+		whenever(dao.loadLocalNames()).thenReturn(listOf("imported"))
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("imported"))
+		val background = ArrayDeque<Runnable>()
+		val direct = Executor { it.run() }
+		val cache = DocumentContentCache(dao, metadataCache, CloudTaskScheduler({ background.addLast(it) }, direct, direct), repository, directory, null) { _, _ -> AutoCloseable {} }
+		val import = upload(localFile = imported, current = DocumentMetadataEntity().apply { path = "x.txt" })
+
+		cache.cancel(import)
+		import.result.completeExceptionally(CancellationException())
+
+		verify(dao, never()).delete(any(), any())
+		assertTrue(imported.exists())
+		while (background.isNotEmpty()) {
+			background.removeFirst().run()
+		}
+		verify(dao).delete(VAULT_ID, "x.txt")
+		assertFalse(imported.exists())
+	}
+
+	@Test
 	fun `canceling an import whose upload is done does nothing`() {
 		val cache = cache()
 		val done = upload(localFile = copy("imported", "imported"), current = DocumentMetadataEntity().apply { path = "x.txt" })
