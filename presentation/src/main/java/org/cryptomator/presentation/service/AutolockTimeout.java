@@ -1,5 +1,7 @@
 package org.cryptomator.presentation.service;
 
+import android.os.SystemClock;
+
 import org.cryptomator.util.LockTimeout;
 
 import java.util.function.LongSupplier;
@@ -7,22 +9,23 @@ import java.util.function.LongSupplier;
 /**
  * Tells when the vaults lock after not being used for the configured timeout, like on iOS. They are in use while the
  * app is in the foreground, and whenever another app uses them through the documents provider, see {@link #used()}.
+ * The timeout runs on the monotonic clock, so that setting the time back doesn't keep the vaults unlocked.
  */
 class AutolockTimeout {
 
-	private final LongSupplier currentTimeMillis;
+	private final LongSupplier elapsedRealtime;
 
 	private volatile boolean appIsActive = true;
 	private volatile long lastUsed;
 	private volatile LockTimeout lockTimeout = LockTimeout.ONE_MINUTE;
 
 	AutolockTimeout() {
-		this(System::currentTimeMillis);
+		this(SystemClock::elapsedRealtime);
 	}
 
-	AutolockTimeout(LongSupplier currentTimeMillis) {
-		this.currentTimeMillis = currentTimeMillis;
-		this.lastUsed = currentTimeMillis.getAsLong();
+	AutolockTimeout(LongSupplier elapsedRealtime) {
+		this.elapsedRealtime = elapsedRealtime;
+		this.lastUsed = elapsedRealtime.getAsLong();
 	}
 
 	public void setAppIsActive(boolean appIsActive) {
@@ -34,7 +37,7 @@ class AutolockTimeout {
 	 * Starts the timeout over, e.g. because another app used a vault or a transfer is running.
 	 */
 	public void used() {
-		lastUsed = currentTimeMillis.getAsLong();
+		lastUsed = elapsedRealtime.getAsLong();
 	}
 
 	public void setLockTimeout(LockTimeout lockTimeout) {
@@ -49,9 +52,12 @@ class AutolockTimeout {
 		return !isDisabled(timeout) && remaining(timeout) <= 0;
 	}
 
+	/**
+	 * Milliseconds until the vaults lock, 0 when overdue or disabled.
+	 */
 	public int timeRemaining() {
 		LockTimeout timeout = lockTimeout;
-		return isDisabled(timeout) ? 0 : remaining(timeout);
+		return isDisabled(timeout) ? 0 : (int) Math.max(0, remaining(timeout));
 	}
 
 	public long configuredTimeout() {
@@ -67,7 +73,7 @@ class AutolockTimeout {
 		return appIsActive || timeout.isDisabled();
 	}
 
-	private int remaining(LockTimeout timeout) {
-		return (int) (lastUsed + timeout.getDurationMillis() - currentTimeMillis.getAsLong());
+	private long remaining(LockTimeout timeout) {
+		return lastUsed + timeout.getDurationMillis() - elapsedRealtime.getAsLong();
 	}
 }

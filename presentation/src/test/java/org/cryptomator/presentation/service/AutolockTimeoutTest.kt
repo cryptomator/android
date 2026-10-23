@@ -50,6 +50,15 @@ class AutolockTimeoutTest {
 	}
 
 	@Test
+	fun `a timeout that is overdue by weeks still expires`() {
+		inTest.setAppIsActive(false)
+		now += 30L * 24 * 3_600_000
+
+		assertTrue(inTest.expired())
+		assertEquals(0, inTest.timeRemaining())
+	}
+
+	@Test
 	fun `the vaults never lock with the timeout turned off`() {
 		inTest.setAppIsActive(false)
 		inTest.setLockTimeout(LockTimeout.NEVER)
@@ -81,6 +90,17 @@ class AutolockTimeoutTest {
 
 		assertEquals(60_000L, inTest.configuredTimeout())
 		assertEquals(0L, inTest.configuredTimeout())
+	}
+
+	@Test
+	fun `the timeout turned off during a check doesn't fail the remaining time`() {
+		val timeout = timeout { inTest.setLockTimeout(LockTimeout.NEVER) }
+		inTest.setAppIsActive(false)
+		inTest.setLockTimeout(timeout)
+		now += 30_000
+
+		assertEquals(30_000, inTest.timeRemaining())
+		assertEquals(0, inTest.timeRemaining())
 	}
 
 	/**
