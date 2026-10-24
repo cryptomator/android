@@ -221,8 +221,24 @@ abstract class CryptoImplDecorator(
 	}
 
 	@Throws(BackendException::class)
-	private fun exists(file: CryptoFile): Boolean {
+	protected open fun exists(file: CryptoFile): Boolean {
 		return cloudContentRepository.exists(file.cloudFile)
+	}
+
+	@Throws(BackendException::class)
+	open fun metadata(file: CryptoFile): CryptoFile? {
+		return cloudContentRepository.metadata(file.cloudFile)?.let { file(file, it, cleartextSize(it)) }
+	}
+
+	protected fun cleartextSize(cloudFile: CloudFile): Long? {
+		return cloudFile.size?.let {
+			val ciphertextSizeWithoutHeader = it - cryptor().fileHeaderCryptor().headerSize()
+			if (ciphertextSizeWithoutHeader >= 0) {
+				cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
+			} else {
+				null
+			}
+		}
 	}
 
 	@Throws(BackendException::class)
@@ -311,8 +327,8 @@ abstract class CryptoImplDecorator(
 		val ciphertextFile = cryptoFile.cloudFile
 		try {
 			val encryptedTmpFile = readToTmpFile(cryptoFile, ciphertextFile, progressAware)
-			progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 			try {
+				progressAware.onProgress(Progress.started(DownloadState.decryption(cryptoFile)))
 				Channels.newChannel(FileInputStream(encryptedTmpFile)).use { readableByteChannel ->
 					DecryptingReadableByteChannel(readableByteChannel, cryptor(), true).use { decryptingReadableByteChannel ->
 						val buff = ByteBuffer.allocate(cryptor().fileContentCryptor().ciphertextChunkSize())
@@ -345,10 +361,15 @@ abstract class CryptoImplDecorator(
 	@Throws(BackendException::class, IOException::class)
 	private fun readToTmpFile(cryptoFile: CryptoFile, file: CloudFile, progressAware: ProgressAware<DownloadState>): File {
 		val encryptedTmpFile = File.createTempFile(UUID.randomUUID().toString(), ".crypto", internalCache)
-		FileOutputStream(encryptedTmpFile).use { encryptedData ->
-			cloudContentRepository.read(file, encryptedTmpFile, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
-			return encryptedTmpFile
+		try {
+			FileOutputStream(encryptedTmpFile).use { encryptedData ->
+				cloudContentRepository.read(file, encryptedData, DownloadFileReplacingProgressAware(cryptoFile, progressAware))
+			}
+		} catch (e: Exception) {
+			encryptedTmpFile.delete()
+			throw e
 		}
+		return encryptedTmpFile
 	}
 
 	@Throws(BackendException::class)
@@ -378,7 +399,7 @@ abstract class CryptoImplDecorator(
 		folder.dirFile?.let {
 			try {
 				ByteArrayOutputStream().use { out ->
-					cloudContentRepository.read(it, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+					cloudContentRepository.read(it, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 					if (dirfileIsEmpty(out)) {
 						throw EmptyDirFileException(folder.name, folder.dirFile.path)
 					}

@@ -56,7 +56,7 @@ public class CryptoCloudFactory {
 	private byte[] readConfigFileData(CloudFolder location) throws BackendException {
 		ByteArrayOutputStream data = new ByteArrayOutputStream();
 		CloudFile vaultFile = cloudContentRepository.file(location, VAULT_FILE_NAME);
-		cloudContentRepository.read(vaultFile, null, data, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD);
+		cloudContentRepository.read(vaultFile, data, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD);
 		return data.toByteArray();
 	}
 

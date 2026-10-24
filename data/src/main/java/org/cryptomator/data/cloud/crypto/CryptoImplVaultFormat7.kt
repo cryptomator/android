@@ -102,7 +102,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun inflate(cloudNode: CloudNode): String {
 		val metadataFile = metadataFile(cloudNode)
 		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(metadataFile, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 
@@ -205,28 +205,11 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	@Throws(BackendException::class)
 	private fun cloudNodeFromName(cloudNode: CloudNode, cryptoFolder: CryptoFolder, cleartextName: String, longNameFile: CloudFile?, dirFile: CloudFile?): CryptoNode? {
 		if (cloudNode is CloudFile) {
-			val cleartextSize = cloudNode.size?.let {
-				val ciphertextSizeWithoutHeader = it - cryptor().fileHeaderCryptor().headerSize()
-				if (ciphertextSizeWithoutHeader >= 0) {
-					cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-				} else {
-					null
-				}
-			}
-			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize)
+			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize(cloudNode))
 		} else if (cloudNode is CloudFolder) {
 			return if (longNameFile != null) {
 				// long file
-				val cleartextSize = longNameFile.size?.let {
-					val ciphertextSizeWithoutHeader: Long = it - cryptor().fileHeaderCryptor().headerSize()
-					if (ciphertextSizeWithoutHeader >= 0) {
-						cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-					} else {
-						null
-					}
-				}
-
-				file(cryptoFolder, cleartextName, longNameFile, cleartextSize)
+				file(cryptoFolder, cleartextName, longNameFile, cleartextSize(longNameFile))
 			} else {
 				// folder
 				if (dirFile != null) {
@@ -290,7 +273,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun loadContentsOfDirFile(file: CloudFile): ByteArray {
 		try {
 			ByteArrayOutputStream().use { out ->
-				cloudContentRepository.read(file, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+				cloudContentRepository.read(file, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 				if (dirfileIsEmpty(out)) {
 					throw EmptyDirFileException(file.parent.name, file.path)
 				}
@@ -380,19 +363,18 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFile, target: CryptoFile): CryptoFile {
-		return if (source.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
+		val sourceDirFolder = longFileDirFolder(source)
+		return if (sourceDirFolder != null) {
+			val sourceFile = cloudContentRepository.file(sourceDirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
 			val targetDirFolder = cloudContentRepository.folder(target.cloudFile.parent, target.cloudFile.name)
 			val cryptoFile: CryptoFile = if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
 				assertCryptoLongDirFileAlreadyExists(targetDirFolder)
-				moveLongFileToLongFile(source, target, targetDirFolder)
+				moveLongFileToLongFile(sourceFile, target, targetDirFolder)
 			} else {
 				assertCryptoFileAlreadyExists(target)
-				moveLongFileToShortFile(source, target)
+				moveLongFileToShortFile(sourceFile, target)
 			}
-			source.cloudFile.parent.parent?.let {
-				val sourceDirFolder = cloudContentRepository.folder(it, source.cloudFile.parent.name)
-				cloudContentRepository.delete(sourceDirFolder)
-			}
+			cloudContentRepository.delete(sourceDirFolder)
 			cryptoFile
 		} else {
 			if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
@@ -407,17 +389,13 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	}
 
 	@Throws(BackendException::class)
-	private fun moveLongFileToLongFile(source: CryptoFile, target: CryptoFile, targetDirFolder: CloudFolder): CryptoFile {
-		requireNotNull(source.cloudFile.parent)
-		val sourceFile = cloudContentRepository.file(source.cloudFile.parent, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+	private fun moveLongFileToLongFile(sourceFile: CloudFile, target: CryptoFile, targetDirFolder: CloudFolder): CryptoFile {
 		val movedFile = cloudContentRepository.move(sourceFile, cloudContentRepository.file(targetDirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT))
 		return file(target, movedFile, movedFile.size)
 	}
 
 	@Throws(BackendException::class)
-	private fun moveLongFileToShortFile(source: CryptoFile, target: CryptoFile): CryptoFile {
-		requireNotNull(source.cloudFile.parent)
-		val sourceFile = cloudContentRepository.file(source.cloudFile.parent, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+	private fun moveLongFileToShortFile(sourceFile: CloudFile, target: CryptoFile): CryptoFile {
 		val movedFile = cloudContentRepository.move(sourceFile, target.cloudFile)
 		return file(target, movedFile, movedFile.size)
 	}
@@ -444,11 +422,40 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			cloudContentRepository.delete(node.dirFile.parent)
 			evictFromCache(node)
 		} else if (node is CryptoFile) {
-			if (node.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
-				cloudContentRepository.delete(node.cloudFile.parent)
-			} else {
-				cloudContentRepository.delete(node.cloudFile)
-			}
+			cloudContentRepository.delete(longFileDirFolder(node) ?: node.cloudFile)
+		}
+	}
+
+	/**
+	 * A file whose name is shortened is the contents file inside its .c9s folder.
+	 */
+	@Throws(BackendException::class)
+	override fun exists(file: CryptoFile): Boolean {
+		val dirFolder = longFileDirFolder(file) ?: return super.exists(file)
+		return cloudContentRepository.exists(cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT))
+	}
+
+	/**
+	 * Like [exists].
+	 */
+	@Throws(BackendException::class)
+	override fun metadata(file: CryptoFile): CryptoFile? {
+		val dirFolder = longFileDirFolder(file) ?: return super.metadata(file)
+		val contentsFile = cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+		return cloudContentRepository.metadata(contentsFile)?.let { file(file, it, cleartextSize(it)) }
+	}
+
+	/**
+	 * The .c9s folder of a file whose name is shortened. [file] is either the contents file inside it, as a listing
+	 * returns it, or the folder itself, as `file(parent, name)` returns it. `null` for a file whose name isn't shortened.
+	 */
+	@Throws(BackendException::class)
+	private fun longFileDirFolder(file: CryptoFile): CloudFolder? {
+		val cloudFile = file.cloudFile
+		return when {
+			cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT) -> cloudFile.parent
+			cloudFile.name.endsWith(LONG_NODE_FILE_EXT) -> cloudContentRepository.folder(cloudFile.parent, cloudFile.name)
+			else -> null
 		}
 	}
 

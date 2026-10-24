@@ -125,9 +125,15 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	override fun onResume() {
 		super.onResume()
 
+		// one receiver, also after several resumes
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).unregisterReceiver(it)
+		}
 		finishActivityDueToScreenLockEventReceiver = object : BroadcastReceiver() {
 			override fun onReceive(context: Context, intent: Intent) {
-				finish()
+				if (browseFilesPresenter.onVaultsLocked()) {
+					finish()
+				}
 			}
 		}.also { LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED)) }
 	}
@@ -211,10 +217,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 			true
 		}
 		R.id.action_export_items -> {
-			browseFilesPresenter.onExportNodesClicked( //
-				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>, //
-				BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER
-			)
+			browseFilesPresenter.onExportNodesClicked(browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>)
 			true
 		}
 		R.id.action_share_items -> {
@@ -341,11 +344,11 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onExportFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onExportFileClicked(cloudFile, BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER)
+		browseFilesPresenter.onExportFileClicked(cloudFile)
 	}
 
 	override fun onExportFileAfterAppChooserClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onExportFileClicked(cloudFile, BrowseFilesPresenter.EXPORT_AFTER_APP_CHOOSER)
+		browseFilesPresenter.onExportFileClicked(cloudFile)
 	}
 
 	override fun onExportCancelled() {
@@ -370,7 +373,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onExportFolderClicked(cloudFolderModel: CloudFolderModel) {
-		browseFilesPresenter.onExportFolderClicked(cloudFolderModel, BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER)
+		browseFilesPresenter.onExportFolderClicked(cloudFolderModel)
 	}
 
 	override fun onReplaceCanceled() {

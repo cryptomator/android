@@ -8,22 +8,16 @@ import com.burgstaller.okhttp.basic.BasicAuthenticator
 import com.burgstaller.okhttp.digest.CachingAuthenticator
 import com.burgstaller.okhttp.digest.Credentials
 import com.burgstaller.okhttp.digest.DigestAuthenticator
-import com.google.common.net.HttpHeaders
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
 import org.cryptomator.data.util.NetworkTimeout
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
-import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
 import org.cryptomator.util.crypto.FatalCryptoException
-import org.cryptomator.util.file.LruFileCacheUtil
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
 import okhttp3.Authenticator
-import okhttp3.Cache
-import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -46,7 +40,7 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 
 	companion object {
 
-		private fun httpClientFor(webDavCloud: WebDavCloud, context: Context, useLruCache: Boolean, lruCacheSize: Int): OkHttpClient {
+		private fun httpClientFor(webDavCloud: WebDavCloud, context: Context): OkHttpClient {
 			val authCache: Map<String, CachingAuthenticator> = ConcurrentHashMap()
 
 			val builder = OkHttpClient() //
@@ -60,13 +54,6 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 				.addInterceptor(AuthenticationCacheInterceptor(authCache))
 				.addInterceptor(UserAgentInterceptor())
 
-			if (useLruCache) {
-				val cache = Cache(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.WEBDAV), lruCacheSize.toLong())
-				builder.cache(cache) //
-					.addNetworkInterceptor(provideCacheInterceptor()) //
-					.addInterceptor(provideOfflineCacheInterceptor())
-			}
-
 			val trustManager = if (usingWebDavWithSelfSignedCertificate(webDavCloud)) {
 				val pinningTrustManager = PinningTrustManager(webDavCloud.certificate())
 				builder.hostnameVerifier(pinningTrustManager.hostnameVerifier())
@@ -77,33 +64,6 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 			builder.sslSocketFactory(SSLSocketFactories.from(trustManager), trustManager)
 
 			return builder.build()
-		}
-
-		private fun provideOfflineCacheInterceptor(): Interceptor {
-			return Interceptor { chain: Interceptor.Chain ->
-				var request = chain.request()
-				val cacheControl = CacheControl.Builder() //
-					.maxAge(0, TimeUnit.DAYS) //
-					.build()
-				request = request.newBuilder() //
-					.cacheControl(cacheControl) //
-					.build()
-				chain.proceed(request)
-			}
-		}
-
-		private fun provideCacheInterceptor(): Interceptor {
-			return Interceptor { chain: Interceptor.Chain ->
-				val response = chain.proceed(chain.request())
-				val cacheControl = CacheControl.Builder() //
-					.maxAge(0, TimeUnit.DAYS) //
-					.build()
-				response.newBuilder() //
-					.removeHeader("Pragma") //
-					.removeHeader("Cache-Control") //
-					.header(HttpHeaders.CACHE_CONTROL, cacheControl.toString()) //
-					.build()
-			}
 		}
 
 		private fun httpAuthenticator(context: Context, webDavCloud: WebDavCloud, authCache: Map<String, CachingAuthenticator>): Authenticator {
@@ -155,7 +115,6 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 	}
 
 	init {
-		val sharedPreferencesHandler = SharedPreferencesHandler(context)
-		webDavRedirectHandler = WebDavRedirectHandler(httpClientFor(cloud, context, sharedPreferencesHandler.useLruCache(), sharedPreferencesHandler.lruCacheSize()))
+		webDavRedirectHandler = WebDavRedirectHandler(httpClientFor(cloud, context))
 	}
 }

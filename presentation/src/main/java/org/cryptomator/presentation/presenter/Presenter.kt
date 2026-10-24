@@ -56,6 +56,7 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	fun pause() {
 		logLifecycle("pause")
 		isPaused = true
+		paused()
 	}
 
 	fun finishWithResult(result: Serializable?) {
@@ -127,6 +128,8 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	}
 
 	open fun resumed() {}
+
+	open fun paused() {}
 
 	fun destroy() {
 		logLifecycle("destroy")

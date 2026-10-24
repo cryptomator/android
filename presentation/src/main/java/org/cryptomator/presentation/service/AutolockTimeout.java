@@ -1,59 +1,79 @@
 package org.cryptomator.presentation.service;
 
+import android.os.SystemClock;
+
 import org.cryptomator.util.LockTimeout;
 
-import static java.lang.System.currentTimeMillis;
+import java.util.function.LongSupplier;
 
+/**
+ * Tells when the vaults lock after not being used for the configured timeout, like on iOS. They are in use while the
+ * app is in the foreground, and whenever another app uses them through the documents provider, see {@link #used()}.
+ * The timeout runs on the monotonic clock, so that setting the time back doesn't keep the vaults unlocked.
+ */
 class AutolockTimeout {
 
-	private static final long APP_IS_ACTIVE = -1L;
+	private final LongSupplier elapsedRealtime;
 
-	private volatile long appInactiveSince = APP_IS_ACTIVE;
-	private LockTimeout lockTimeout = LockTimeout.ONE_MINUTE;
+	private volatile boolean appIsActive = true;
+	private volatile long lastUsed;
+	private volatile LockTimeout lockTimeout = LockTimeout.ONE_MINUTE;
 
-	private long configuredTimeout = 0;
-	private long timeOfAutolock;
+	AutolockTimeout() {
+		this(SystemClock::elapsedRealtime);
+	}
+
+	AutolockTimeout(LongSupplier elapsedRealtime) {
+		this.elapsedRealtime = elapsedRealtime;
+		this.lastUsed = elapsedRealtime.getAsLong();
+	}
 
 	public void setAppIsActive(boolean appIsActive) {
-		if (appIsActive) {
-			appInactiveSince = APP_IS_ACTIVE;
-		} else {
-			appInactiveSince = currentTimeMillis();
-		}
-		recompute();
+		this.appIsActive = appIsActive;
+		used();
+	}
+
+	/**
+	 * Starts the timeout over, e.g. because another app used a vault or a transfer is running.
+	 */
+	public void used() {
+		lastUsed = elapsedRealtime.getAsLong();
 	}
 
 	public void setLockTimeout(LockTimeout lockTimeout) {
 		this.lockTimeout = lockTimeout;
-		recompute();
 	}
+
+	// the fields are read once per call: the autolock worker polls while the app changes them, and asking a disabled
+	// timeout for its duration throws
 
 	public boolean expired() {
-		return !isDisabled() && timeOfAutolock <= currentTimeMillis();
+		LockTimeout timeout = lockTimeout;
+		return !isDisabled(timeout) && remaining(timeout) <= 0;
 	}
 
+	/**
+	 * Milliseconds until the vaults lock, 0 when overdue or disabled.
+	 */
 	public int timeRemaining() {
-		if (appInactiveSince == APP_IS_ACTIVE) {
-			return 0;
-		}
-		return (int) (timeOfAutolock - currentTimeMillis());
+		LockTimeout timeout = lockTimeout;
+		return isDisabled(timeout) ? 0 : (int) Math.max(0, remaining(timeout));
 	}
 
 	public long configuredTimeout() {
-		return configuredTimeout;
-	}
-
-	private void recompute() {
-		if (isDisabled()) {
-			configuredTimeout = 0;
-			timeOfAutolock = 0L;
-		} else {
-			configuredTimeout = lockTimeout.getDurationMillis();
-			timeOfAutolock = appInactiveSince + configuredTimeout;
-		}
+		LockTimeout timeout = lockTimeout;
+		return isDisabled(timeout) ? 0 : timeout.getDurationMillis();
 	}
 
 	public boolean isDisabled() {
-		return appInactiveSince == APP_IS_ACTIVE || lockTimeout.isDisabled();
+		return isDisabled(lockTimeout);
+	}
+
+	private boolean isDisabled(LockTimeout timeout) {
+		return appIsActive || timeout.isDisabled();
+	}
+
+	private long remaining(LockTimeout timeout) {
+		return lastUsed + timeout.getDurationMillis() - elapsedRealtime.getAsLong();
 	}
 }

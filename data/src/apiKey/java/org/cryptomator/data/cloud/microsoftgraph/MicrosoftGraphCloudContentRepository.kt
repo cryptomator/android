@@ -18,7 +18,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.net.SocketTimeoutException
@@ -83,6 +82,11 @@ internal class MicrosoftGraphCloudContentRepository(private val cloud: Microsoft
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: MicrosoftGraphFile): MicrosoftGraphFile? {
+			return microsoftGraphImpl.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: MicrosoftGraphFolder): List<MicrosoftGraphNode> {
 			return microsoftGraphImpl.list(folder)
 		}
@@ -115,9 +119,9 @@ internal class MicrosoftGraphCloudContentRepository(private val cloud: Microsoft
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: MicrosoftGraphFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: MicrosoftGraphFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
-				microsoftGraphImpl.read(file, encryptedTmpFile, data, progressAware)
+				microsoftGraphImpl.read(file, data, progressAware)
 			} catch (e: IOException) {
 				when {
 					ExceptionUtil.contains(e, NoSuchCloudFileException::class.java) -> {

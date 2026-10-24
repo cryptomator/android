@@ -143,10 +143,10 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.file(testDir1, "dir.c9r")).thenReturn(testDir1DirFile)
 		whenever(cloudContentRepository.exists(testDir1DirFile)).thenReturn(true)
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dirId1.toByteArray()), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(cryptoFolder1.dirFile!!), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(cryptoFolder1.dirFile!!), any(), any())
 		whenever<List<*>>(cloudContentRepository.list(aaFolder)).thenReturn(rootItems)
 		whenever(dirIdCache.put(eq(root), any())).thenReturn(DirIdInfo("", aaFolder))
 	}
@@ -198,10 +198,10 @@ class CryptoImplVaultFormat7Test {
 		val cryptoFolder3 = CryptoFolder(cryptoFolder1, dir3Name, "/Directory 1/$dir3Name", testDir3DirFile)
 
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream("dir3-id".toByteArray()), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(cryptoFolder3.dirFile!!), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(cryptoFolder3.dirFile!!), any(), any())
 
 		/*
 		 * │ ├─ Directory 3x250
@@ -222,10 +222,10 @@ class CryptoImplVaultFormat7Test {
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), dir4Name, "dir3-id".toByteArray())).thenReturn(dir4Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base64Url(), dir4Cipher, "dir3-id".toByteArray())).thenReturn(dir4Name)
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dir4Cipher.toByteArray(charset("UTF-8"))), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(testDir4NameFile), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(testDir4NameFile), any(), any())
 
 		val dir4Files: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
@@ -247,10 +247,10 @@ class CryptoImplVaultFormat7Test {
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), file5Name, "dir3-id".toByteArray())).thenReturn(file5Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base64Url(), file5Cipher, "dir3-id".toByteArray())).thenReturn(file5Name)
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file5Cipher.toByteArray(charset("UTF-8"))), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(testFile5NameFile), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(testFile5NameFile), any(), any())
 
 		val dir5Files: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
@@ -293,10 +293,10 @@ class CryptoImplVaultFormat7Test {
 		whenever(fileContentCryptor.decryptChunk(eq(StandardCharsets.UTF_8.encode("TOPSECRET!")), any(), eq(header), any()))
 			.then { StandardCharsets.UTF_8.encode("geheim!!") }
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(cryptoFile1.cloudFile), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(cryptoFile1.cloudFile), any(), any())
 
 		val outputStream = ByteArrayOutputStream(1000)
 		inTest.read(cryptoFile1, outputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
@@ -327,10 +327,10 @@ class CryptoImplVaultFormat7Test {
 		val cryptoFile15 = CryptoFile(root, file3Name, "/$file3Name", null, testFile3ContentFile)
 
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(cryptoFile15.cloudFile), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(cryptoFile15.cloudFile), any(), any())
 
 		val outputStream = ByteArrayOutputStream(1000)
 		inTest.read(cryptoFile15, outputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
@@ -711,6 +711,19 @@ class CryptoImplVaultFormat7Test {
 	}
 
 	@Test
+	@DisplayName("delete(\"/Long file\") deletes the folder of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testDeleteLongFileGivenAsItsFolder() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+
+		inTest.delete(CryptoFile(root, "Long file", "/Long file", null, shortenedFile))
+
+		Mockito.verify(cloudContentRepository).delete(shortenedFolder)
+	}
+
+	@Test
 	@DisplayName("delete(\"/Directory 1/Directory 2/\")")
 	@Throws(BackendException::class)
 	fun testDeleteSingleShortFolder() {
@@ -727,10 +740,10 @@ class CryptoImplVaultFormat7Test {
 		val cryptoFolder2 = CryptoFolder(cryptoFolder1, "Directory 2", "/Directory 1/Directory 2", testDir2DirFile)
 
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dirId2.toByteArray()), out)
 			null
-		}.whenever(cloudContentRepository).read(eq(cryptoFolder2.dirFile!!), any(), any(), any())
+		}.whenever(cloudContentRepository).read(eq(cryptoFolder2.dirFile!!), any(), any())
 
 		val dir1Items: ArrayList<CloudNode> = object : ArrayList<CloudNode>() {
 			init {
@@ -989,6 +1002,74 @@ class CryptoImplVaultFormat7Test {
 	}
 
 	@Test
+	@DisplayName("move(\"/Long file\", \"/File 4\") moves the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testMoveLongFileGivenAsItsFolderToShortFile() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		val testFile4 = TestFile(aaFolder, "file4.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file4.c9r", null, null)
+		val tmpFileExistFolder = TestFolder(aaFolder, testFile4.name, testFile4.path)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.move(contentsFile, testFile4)).thenReturn(testFile4)
+		whenever(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "File 4", dirIdRoot.toByteArray())).thenReturn("file4")
+		whenever(cloudContentRepository.folder(aaFolder, testFile4.name)).thenReturn(tmpFileExistFolder)
+		whenever(cloudContentRepository.file(tmpFileExistFolder, "dir.c9r")).thenReturn(TestFile(tmpFileExistFolder, "dir.c9r", tmpFileExistFolder.path + "/dir.c9r", null, null))
+
+		inTest.move(CryptoFile(root, "Long file", "/Long file", null, shortenedFile), CryptoFile(root, "File 4", "/File 4", null, testFile4))
+
+		Mockito.verify(cloudContentRepository).move(contentsFile, testFile4)
+		Mockito.verify(cloudContentRepository).delete(shortenedFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).move(eq(shortenedFile), any<CloudFile>())
+	}
+
+	@Test
+	@DisplayName("exists(\"/Long file\") checks the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testExistsLongFileGivenAsItsFolder() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		// the folder of a name that is only reserved, e.g. by a move that didn't reach the cloud
+		whenever(cloudContentRepository.exists(shortenedFile)).thenReturn(true)
+		whenever(cloudContentRepository.exists(shortenedFolder)).thenReturn(true)
+		whenever(cloudContentRepository.exists(contentsFile)).thenReturn(false)
+
+		Assertions.assertFalse(inTest.exists(CryptoFile(root, "Long file", "/Long file", null, shortenedFile)))
+	}
+
+	@Test
+	@DisplayName("exists(\"/Long file\") finds the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testExistsLongFileGivenAsItsFolderWithContents() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.exists(contentsFile)).thenReturn(true)
+
+		Assertions.assertTrue(inTest.exists(CryptoFile(root, "Long file", "/Long file", null, shortenedFile)))
+	}
+
+	@Test
+	@DisplayName("exists(\"/File 4\") checks the file of a name that isn't shortened")
+	@Throws(BackendException::class)
+	fun testExistsShortFile() {
+		val testFile4 = TestFile(aaFolder, "file4.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file4.c9r", null, null)
+		val testFile5 = TestFile(aaFolder, "file5.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file5.c9r", null, null)
+		whenever(cloudContentRepository.exists(testFile4)).thenReturn(true)
+		whenever(cloudContentRepository.exists(testFile5)).thenReturn(false)
+
+		Assertions.assertTrue(inTest.exists(CryptoFile(root, "File 4", "/File 4", null, testFile4)))
+		Assertions.assertFalse(inTest.exists(CryptoFile(root, "File 5", "/File 5", null, testFile5)))
+	}
+
+	@Test
 	@DisplayName("move(\"/Directory 1\", \"/Directory 15\")")
 	@Throws(BackendException::class)
 	fun testMoveShortFolderToNewShortFolder() {
@@ -1134,5 +1215,60 @@ class CryptoImplVaultFormat7Test {
 		Mockito.verify(cloudContentRepository).create(testDir3)
 		Mockito.verify(cloudContentRepository).move(testDir15DirFile, cryptoFolder3.dirFile!!)
 		Mockito.verify(cloudContentRepository).delete(testDir15)
+	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") reports the cleartext size of the cloud file")
+	@Throws(BackendException::class)
+	fun testMetadataOfFile() {
+		val cloudFile = TestFile(aaFolder, "file1.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file1.c9r", 1088L, null)
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(cloudFile)
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+		whenever(fileContentCryptor.cleartextSize(1000L)).thenReturn(900L)
+
+		val result = inTest.metadata(cryptoFile1)
+
+		MatcherAssert.assertThat(result?.cloudFile, CoreMatchers.`is`(cloudFile))
+		MatcherAssert.assertThat(result?.size, CoreMatchers.`is`(900L))
+	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") is null if the file is gone")
+	@Throws(BackendException::class)
+	fun testMetadataOfMissingFile() {
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(null)
+
+		MatcherAssert.assertThat(inTest.metadata(cryptoFile1), CoreMatchers.nullValue())
+	}
+
+	@Test
+	@DisplayName("metadata(\"/File 1\") reports no size for a file shorter than the header")
+	@Throws(BackendException::class)
+	fun testMetadataOfTruncatedFile() {
+		whenever(cloudContentRepository.metadata(cryptoFile1.cloudFile)).thenReturn(TestFile(aaFolder, "file1.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file1.c9r", 10L, null))
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+
+		MatcherAssert.assertThat(inTest.metadata(cryptoFile1)?.size, CoreMatchers.nullValue())
+	}
+
+	@Test
+	@DisplayName("metadata(\"/Long file\") looks up the contents file of a shortened name")
+	@Throws(BackendException::class)
+	fun testMetadataOfFileWithShortenedName() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		val storedContentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", 1088L, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.metadata(contentsFile)).thenReturn(storedContentsFile)
+		whenever(fileHeaderCryptor.headerSize()).thenReturn(88)
+		whenever(fileContentCryptor.cleartextSize(1000L)).thenReturn(900L)
+
+		val result = inTest.metadata(CryptoFile(root, "Long file", "/Long file", null, shortenedFile))
+
+		MatcherAssert.assertThat(result?.cloudFile, CoreMatchers.`is`(storedContentsFile))
+		MatcherAssert.assertThat(result?.size, CoreMatchers.`is`(900L))
+		Mockito.verify(cloudContentRepository, Mockito.never()).metadata(shortenedFile)
 	}
 }

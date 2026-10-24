@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.activity
 
-import android.net.Uri
 import android.view.View.GONE
 import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -40,8 +39,8 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 
 	lateinit var imagePreviewFiles: ArrayList<ImagePreviewFile>
 
-	private val currentImageUri: Uri?
-		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)].uri
+	private val currentImagePreviewFile: ImagePreviewFile
+		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)]
 
 	private val pageChangeListener = object : ViewPager.SimpleOnPageChangeListener() {
 
@@ -55,16 +54,16 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 			val imagePreviewFileStore = presenter.getImagePreviewFileStore(imagePreviewIntent.withImagePreviewFiles())
 
 			val index = imagePreviewFileStore.index
-			imagePreviewFiles = presenter.getImagePreviewFiles(imagePreviewFileStore, index)
+			imagePreviewFiles = presenter.getImagePreviewFiles(imagePreviewFileStore)
 
 			binding.deleteImage.setOnClickListener {
-				presenter.onDeleteImageClicked(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)])
+				presenter.onDeleteImageClicked(currentImagePreviewFile)
 			}
 			binding.exportImage.setOnClickListener {
-				currentImageUri?.let { presenter.exportImageToUserSelectedLocation(it) }
+				presenter.exportImageToUserSelectedLocation(currentImagePreviewFile.cloudFileModel)
 			}
 			binding.shareImage.setOnClickListener {
-				currentImageUri?.let { presenter.onShareImageClicked(it) }
+				currentImagePreviewFile.let { image -> image.uri?.let { presenter.onShareImageClicked(image.cloudFileModel, it) } }
 			}
 
 			setupViewPager(index)
@@ -166,6 +165,7 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 	}
 
 	override fun showImagePreview(imagePreviewFile: ImagePreviewFile) {
+		imagePreviewFiles.find { it.cloudFileModel == imagePreviewFile.cloudFileModel }?.uri = imagePreviewFile.uri
 		fragmentFor(imagePreviewFile)?.showAndUpdateImage(imagePreviewFile)
 	}
 

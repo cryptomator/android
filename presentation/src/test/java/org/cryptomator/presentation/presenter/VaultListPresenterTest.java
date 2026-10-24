@@ -22,7 +22,6 @@ import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.licensing.LicenseEnforcer;
 import org.cryptomator.presentation.model.VaultModel;
@@ -107,7 +106,6 @@ public class VaultListPresenterTest {
 	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
-	private UpdateVaultParameterIfChangedRemotelyUseCase updateVaultParameterIfChangedRemotelyUseCase = Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase.class);
 	private ListCBCEncryptedPasswordVaultsUseCase listCBCEncryptedPasswordVaultsUseCase = Mockito.mock(ListCBCEncryptedPasswordVaultsUseCase.class);
 	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
 	private SaveVaultsUseCase saveVaultsUseCase = Mockito.mock(SaveVaultsUseCase.class);
@@ -134,7 +132,6 @@ public class VaultListPresenterTest {
 				moveVaultPositionUseCase, //
 				updateCheckUseCase, //
 				updateUseCase, //
-				updateVaultParameterIfChangedRemotelyUseCase, //
 				listCBCEncryptedPasswordVaultsUseCase, //
 				removeStoredVaultPasswordsUseCase, //
 				saveVaultsUseCase, //

@@ -3,6 +3,7 @@ package org.cryptomator.domain.usecases.cloud;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +72,9 @@ public class MoveFolderTest {
 
 	private MoveFolders testCandidate(List<CloudFolder> sourceFolder) {
 		return new MoveFolders(cloudContentRepository, //
+				Mockito.mock(VaultDocumentRepository.class), //
 				sourceFolder, //
-				parent);
+				parent, //
+				null);
 	}
 }

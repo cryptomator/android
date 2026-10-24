@@ -15,7 +15,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
@@ -100,6 +99,15 @@ internal class PCloudContentRepository(private val cloud: PCloud, client: ApiCli
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: PCloudFile): PCloudFile? {
+			return try {
+				cloud.metadata(file)
+			} catch (e: IOException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: PCloudFolder): List<PCloudNode> {
 			return try {
 				cloud.list(folder)
@@ -145,9 +153,9 @@ internal class PCloudContentRepository(private val cloud: PCloud, client: ApiCli
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: PCloudFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: PCloudFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
-				cloud.read(file, encryptedTmpFile, data, progressAware)
+				cloud.read(file, data, progressAware)
 			} catch (e: IOException) {
 				throw FatalBackendException(e)
 			}
