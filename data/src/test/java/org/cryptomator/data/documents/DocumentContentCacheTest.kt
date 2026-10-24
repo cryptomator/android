@@ -270,6 +270,18 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `an upload as a conflict copy keeps the copy recorded as open for writing`() {
+		val copy = copy("copy", "local changes")
+		val onUploaded = captureUploadCallback(copy)
+		// recorded again when the process started, see keepInterruptedWrites
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy").apply { localModifiedWhenOpened = 1_000 })
+
+		onUploaded.onUploaded(vaultPath("x.txt"), vaultPath("x (1A2B3).txt"), 9_000L, true)
+
+		verify(dao).markOpenedForWriting("copy", 1_000)
+	}
+
+	@Test
 	fun `an upload as a conflict copy leaves a copy that has been written again since with its file`() {
 		val copy = copy("copy", "local changes")
 		val onUploaded = captureUploadCallback(copy)
@@ -370,9 +382,12 @@ class DocumentContentCacheTest {
 		val cache = cache()
 		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
 		written.writeText("writer")
+		assertNotNull(stored.getValue("x.txt").localModifiedWhenOpened)
 
 		cache.importFile(VaultPath(vault), "x.txt", replace = true, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("import".toByteArray()) }
 		val imported = stored.getValue("x.txt").localName
+		// the import isn't open for writing, only the writer's copy it replaced
+		assertNull(stored.getValue("x.txt").localModifiedWhenOpened)
 		whenever(metadataCache.isUploading(vaultPath("x.txt"))).thenReturn(true)
 		assertTrue(written.exists())
 		cache.closedForWriting(written, null, changed = true) { vaultPath("x.txt") }
@@ -934,9 +949,12 @@ class DocumentContentCacheTest {
 		cache.closedForWriting(detached, ParcelFileDescriptor.FileDescriptorDetachedException(), changed = true) { vaultPath("x.txt") }
 		// it took the earlier save's place right away, so the next writer shares it
 		assertEquals(detached.name, stored.getValue("x.txt").localName)
+		assertNotNull(stored.getValue("x.txt").localModifiedWhenOpened)
 		val sharing = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
 		assertEquals(detached, sharing)
 		requireNotNull(onClose)()
+		// the other writer still has it open
+		assertNotNull(stored.getValue("x.txt").localModifiedWhenOpened)
 		val onUploaded = argumentCaptor<DocumentMetadataCache.OnUploaded>()
 		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(detached), any(), any(), anyOrNull(), any(), onUploaded.capture())
 		// the upload's end marks the file synced
@@ -1011,7 +1029,7 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `the uploads a rejected deletion stopped are resumed`() {
+	fun `the uploads a rejected deletion held back are resumed`() {
 		val result = CompletableFuture<Unit>()
 		whenever(metadataCache.delete(vaultPath("a"), false)).thenReturn(DocumentMetadataCache.Deletion(emptyList(), result))
 		val cache = cache()
@@ -1021,6 +1039,89 @@ class DocumentContentCacheTest {
 		result.completeExceptionally(IOException("offline"))
 
 		verify(metadataCache).pendingUploads(vault)
+	}
+
+	@Test
+	fun `a copy that was written after the process ended while a writer had it open is uploaded and stays recorded as open`() {
+		copy("copy", "written on", lastModified = now)
+		whenever(dao.loadOpenedForWriting()).thenReturn(listOf(cachedFile("copy").apply { localModifiedWhenOpened = now - 1_000 }))
+
+		cache()
+
+		// marked first, so that the write isn't lost if the process ends in between, and its writer may still be writing
+		inOrder(metadataCache, dao) {
+			verify(metadataCache).markInterruptedWritePending(VAULT_ID, "x.txt")
+			verify(dao).markClosedForWriting("copy")
+			verify(dao).markOpenedForWriting("copy", now)
+		}
+	}
+
+	@Test
+	fun `a copy that a writer had open when the process ended but didn't write isn't uploaded`() {
+		copy("copy", "unchanged", lastModified = now - 1_000)
+		whenever(dao.loadOpenedForWriting()).thenReturn(listOf(cachedFile("copy").apply { localModifiedWhenOpened = now - 1_000 }))
+
+		cache()
+
+		verify(metadataCache, never()).markInterruptedWritePending(any(), any())
+		verify(dao).markClosedForWriting("copy")
+		verify(dao, never()).markOpenedForWriting(any(), any())
+	}
+
+	@Test
+	fun `a copy recorded as open for writing that is gone after the process ended isn't uploaded`() {
+		whenever(dao.loadOpenedForWriting()).thenReturn(listOf(cachedFile("copy").apply { localModifiedWhenOpened = now - 1_000 }))
+
+		cache()
+
+		verify(metadataCache, never()).markInterruptedWritePending(any(), any())
+		verify(dao).markClosedForWriting("copy")
+	}
+
+	@Test
+	fun `a copy is recorded as open for writing until its writer closed it`() {
+		val copy = copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		whenever(dao.loadLocalNames()).thenReturn(listOf("copy"))
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(cachedFile("copy", lastModified = 5_000))
+		val cache = cache()
+
+		val written = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		verify(dao).markOpenedForWriting("copy", copy.lastModified())
+		verify(dao, never()).markClosedForWriting(any())
+		cache.closedForWriting(written, null, changed = false) { vaultPath("x.txt") }
+
+		verify(dao).markClosedForWriting("copy")
+	}
+
+	@Test
+	fun `a copy stays recorded as open for writing until its last writer closed it`() {
+		givenStoredCopies(cachedFile("copy", lastModified = 5_000))
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+		val first = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		val second = cache.fileForWriting(vaultPath("x.txt"), keepContent = true)
+		assertEquals(first, second)
+
+		cache.closedForWriting(first, null, changed = true) { vaultPath("x.txt") }
+		verify(dao, never()).markClosedForWriting(any())
+		cache.closedForWriting(second, null, changed = true) { vaultPath("x.txt") }
+
+		verify(dao).markClosedForWriting("copy")
+	}
+
+	@Test
+	fun `a copy recorded as open for writing stays recorded so when it is stored again`() {
+		val stored = givenStoredCopies(cachedFile("copy", lastModified = 5_000).apply { localModifiedWhenOpened = 1_000 })
+		copy("copy", "content")
+		givenDocument(lastModified = 5_000)
+		val cache = cache()
+
+		// a writer that writes from scratch gets the recorded copy, which is stored again with its base
+		cache.fileForWriting(vaultPath("x.txt"), keepContent = false)
+
+		assertEquals(1_000L, stored["x.txt"]?.localModifiedWhenOpened)
 	}
 
 	@Test
@@ -1075,8 +1176,10 @@ class DocumentContentCacheTest {
 		verify(metadataCache, never()).abandonUpload(any())
 		cache.evictAll()
 		assertTrue(written.exists())
+		verify(dao, never()).markClosedForWriting(any())
 		closeWatches.getValue(written)()
 		verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(written), any(), any(), anyOrNull(), any(), any())
+		verify(dao).markClosedForWriting(written.name)
 		assertTrue(closeWatches.isEmpty())
 		cache.evictAll()
 		assertFalse(written.exists())
@@ -2787,6 +2890,10 @@ class DocumentContentCacheTest {
 		whenever(dao.load(eq(VAULT_ID), any())).thenAnswer { stored[it.getArgument(1)] }
 		whenever(dao.loadByLocalName(any())).thenAnswer { invocation -> stored.values.find { it.localName == invocation.getArgument(0) } }
 		whenever(dao.loadLocalNames()).thenAnswer { stored.values.map { it.localName } }
+		doAnswer { invocation ->
+			stored.values.filter { it.localName == invocation.getArgument(0) }.forEach { it.localModifiedWhenOpened = it.localModifiedWhenOpened ?: invocation.getArgument<Long>(1) }
+		}.whenever(dao).markOpenedForWriting(any(), any())
+		doAnswer { invocation -> stored.values.filter { it.localName == invocation.getArgument(0) }.forEach { it.localModifiedWhenOpened = null } }.whenever(dao).markClosedForWriting(any())
 		return stored
 	}
 

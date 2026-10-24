@@ -221,7 +221,7 @@ abstract class CryptoImplDecorator(
 	}
 
 	@Throws(BackendException::class)
-	private fun exists(file: CryptoFile): Boolean {
+	protected open fun exists(file: CryptoFile): Boolean {
 		return cloudContentRepository.exists(file.cloudFile)
 	}
 

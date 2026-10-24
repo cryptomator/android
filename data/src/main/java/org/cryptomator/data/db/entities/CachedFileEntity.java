@@ -7,7 +7,10 @@ import androidx.room.ForeignKey;
 
 /**
  * Decrypted local copy of a file, stored under {@code LOCAL_NAME}. {@code LAST_MODIFIED} is the cloud modification date
- * of the version the copy is based on, which tells whether the copy is still current. The row follows its
+ * of the version the copy is based on, which tells whether the copy is still current. While writers have the copy open,
+ * also one whose file descriptor outlived the process, {@code LOCAL_MODIFIED_WHEN_OPENED} is its local modification date
+ * from when the first of them opened it, or from the start that found it written. A different date after a restart
+ * tells that a writer wrote to the copy. The row follows its
  * {@link DocumentMetadataEntity} when that is moved and is dropped with it. The local file is not deleted with the row,
  * so files without a row have to be cleaned up separately.
  */
@@ -34,6 +37,9 @@ public class CachedFileEntity {
 
 	@ColumnInfo(name = "LAST_MODIFIED")
 	private Long lastModified;
+
+	@ColumnInfo(name = "LOCAL_MODIFIED_WHEN_OPENED")
+	private Long localModifiedWhenOpened;
 
 	public long getVaultId() {
 		return vaultId;
@@ -67,5 +73,13 @@ public class CachedFileEntity {
 
 	public void setLastModified(Long lastModified) {
 		this.lastModified = lastModified;
+	}
+
+	public Long getLocalModifiedWhenOpened() {
+		return localModifiedWhenOpened;
+	}
+
+	public void setLocalModifiedWhenOpened(Long localModifiedWhenOpened) {
+		this.localModifiedWhenOpened = localModifiedWhenOpened;
 	}
 }

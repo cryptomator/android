@@ -711,6 +711,19 @@ class CryptoImplVaultFormat7Test {
 	}
 
 	@Test
+	@DisplayName("delete(\"/Long file\") deletes the folder of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testDeleteLongFileGivenAsItsFolder() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+
+		inTest.delete(CryptoFile(root, "Long file", "/Long file", null, shortenedFile))
+
+		Mockito.verify(cloudContentRepository).delete(shortenedFolder)
+	}
+
+	@Test
 	@DisplayName("delete(\"/Directory 1/Directory 2/\")")
 	@Throws(BackendException::class)
 	fun testDeleteSingleShortFolder() {
@@ -986,6 +999,74 @@ class CryptoImplVaultFormat7Test {
 
 		Mockito.verify(cloudContentRepository).delete(testDir4)
 		Mockito.verify(cloudContentRepository).move(testFile4ContentFile, testFile4)
+	}
+
+	@Test
+	@DisplayName("move(\"/Long file\", \"/File 4\") moves the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testMoveLongFileGivenAsItsFolderToShortFile() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		val testFile4 = TestFile(aaFolder, "file4.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file4.c9r", null, null)
+		val tmpFileExistFolder = TestFolder(aaFolder, testFile4.name, testFile4.path)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.move(contentsFile, testFile4)).thenReturn(testFile4)
+		whenever(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "File 4", dirIdRoot.toByteArray())).thenReturn("file4")
+		whenever(cloudContentRepository.folder(aaFolder, testFile4.name)).thenReturn(tmpFileExistFolder)
+		whenever(cloudContentRepository.file(tmpFileExistFolder, "dir.c9r")).thenReturn(TestFile(tmpFileExistFolder, "dir.c9r", tmpFileExistFolder.path + "/dir.c9r", null, null))
+
+		inTest.move(CryptoFile(root, "Long file", "/Long file", null, shortenedFile), CryptoFile(root, "File 4", "/File 4", null, testFile4))
+
+		Mockito.verify(cloudContentRepository).move(contentsFile, testFile4)
+		Mockito.verify(cloudContentRepository).delete(shortenedFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).move(eq(shortenedFile), any<CloudFile>())
+	}
+
+	@Test
+	@DisplayName("exists(\"/Long file\") checks the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testExistsLongFileGivenAsItsFolder() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		// the folder of a name that is only reserved, e.g. by a move that didn't reach the cloud
+		whenever(cloudContentRepository.exists(shortenedFile)).thenReturn(true)
+		whenever(cloudContentRepository.exists(shortenedFolder)).thenReturn(true)
+		whenever(cloudContentRepository.exists(contentsFile)).thenReturn(false)
+
+		Assertions.assertFalse(inTest.exists(CryptoFile(root, "Long file", "/Long file", null, shortenedFile)))
+	}
+
+	@Test
+	@DisplayName("exists(\"/Long file\") finds the contents file of a shortened name given as its folder")
+	@Throws(BackendException::class)
+	fun testExistsLongFileGivenAsItsFolderWithContents() {
+		val shortenedFile = TestFile(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s", null, null)
+		val shortenedFolder = TestFolder(aaFolder, "long.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s")
+		val contentsFile = TestFile(shortenedFolder, "contents.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/long.c9s/contents.c9r", null, null)
+		whenever(cloudContentRepository.folder(aaFolder, "long.c9s")).thenReturn(shortenedFolder)
+		whenever(cloudContentRepository.file(shortenedFolder, "contents.c9r")).thenReturn(contentsFile)
+		whenever(cloudContentRepository.exists(contentsFile)).thenReturn(true)
+
+		Assertions.assertTrue(inTest.exists(CryptoFile(root, "Long file", "/Long file", null, shortenedFile)))
+	}
+
+	@Test
+	@DisplayName("exists(\"/File 4\") checks the file of a name that isn't shortened")
+	@Throws(BackendException::class)
+	fun testExistsShortFile() {
+		val testFile4 = TestFile(aaFolder, "file4.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file4.c9r", null, null)
+		val testFile5 = TestFile(aaFolder, "file5.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/file5.c9r", null, null)
+		whenever(cloudContentRepository.exists(testFile4)).thenReturn(true)
+		whenever(cloudContentRepository.exists(testFile5)).thenReturn(false)
+
+		Assertions.assertTrue(inTest.exists(CryptoFile(root, "File 4", "/File 4", null, testFile4)))
+		Assertions.assertFalse(inTest.exists(CryptoFile(root, "File 5", "/File 5", null, testFile5)))
 	}
 
 	@Test

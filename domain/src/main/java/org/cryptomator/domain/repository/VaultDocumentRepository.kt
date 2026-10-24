@@ -52,8 +52,8 @@ interface VaultDocumentRepository {
 	fun move(path: VaultPath, folder: VaultPath, userInitiated: Boolean): VaultDocumentChange<CloudNode>
 
 	/**
-	 * Stops a running upload of a deleted file, but keeps its local copy until the cloud has accepted the deletion, so
-	 * that a rejected deletion brings the file back as it was.
+	 * Lets a running upload of a deleted file end and deletes what it uploaded, too. The local copy is kept until the cloud
+	 * has accepted the deletion, so that a rejected deletion brings the file back as it was.
 	 */
 	@Throws(BackendException::class)
 	fun delete(path: VaultPath, userInitiated: Boolean): VaultDocumentChange<Unit>

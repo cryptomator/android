@@ -79,6 +79,19 @@ class DocumentMetadataDaoTest {
 	}
 
 	@Test
+	fun storingAFileWhereAFolderWasKeepsTheFolderIfAWriterHasACopyInItOpen() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		cachedFileDao.store(cachedFile("a/x.txt", "local-x"))
+		cachedFileDao.markOpenedForWriting("local-x", 5000)
+
+		dao.store(file("a"))
+
+		Assert.assertThat(dao.load(VAULT_ID, "a")?.isFolder, CoreMatchers.`is`(true))
+		Assert.assertThat(dao.load(VAULT_ID, "a/x.txt")?.path, CoreMatchers.`is`("a/x.txt"))
+	}
+
+	@Test
 	fun movingAFolderMovesItsSubtreeAndReplacesWhatWasCachedAtTheTarget() {
 		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("b")))
 		dao.storeChildren(folder("a", 1000), listOf(folder("a/sub")))
@@ -308,6 +321,106 @@ class DocumentMetadataDaoTest {
 
 		Assert.assertThat(dao.loadVisible(VAULT_ID, "a.txt"), CoreMatchers.nullValue())
 		Assert.assertThat(dao.load(VAULT_ID, "a.txt")?.pendingDelete, CoreMatchers.`is`(1L))
+	}
+
+	@Test
+	fun aListingDoesNotAddANodeWhereItsRunningMoveTakesIt() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("b"), folder("c")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		dao.move(VAULT_ID, "a/x.txt", "b/x.txt", "b", "x.txt", "text/plain")
+		dao.move(VAULT_ID, "b/x.txt", "c/x.txt", "c", "x.txt", "text/plain")
+		// the first move has reached the cloud, but isn't recorded yet
+		dao.setMoveTargetPath(dao.load(VAULT_ID, "c/x.txt")!!.id!!, "b/x.txt")
+
+		dao.storeChildren(folder("b", 2000), listOf(file("b/x.txt")))
+
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "b")), CoreMatchers.`is`(emptySet()))
+	}
+
+	@Test
+	fun noLongerMovingDropsWhereTheRunningMoveWent() {
+		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
+		dao.move(VAULT_ID, "a.txt", "b.txt", "", "b.txt", "text/plain")
+		val id = dao.load(VAULT_ID, "b.txt")!!.id!!
+		dao.setMoveTargetPath(id, "b.txt")
+
+		dao.clearSourcePath(id)
+
+		Assert.assertThat(dao.loadById(id)?.moveTargetPath, CoreMatchers.nullValue())
+	}
+
+	@Test
+	fun discardingAPendingMoveAlsoMarksTheFolderItsRunningMoveWentToForListing() {
+		dao.storeChildren(folder("", 1000), listOf(folder("a"), folder("b"), folder("c")))
+		dao.storeChildren(folder("a", 1000), listOf(file("a/x.txt")))
+		dao.storeChildren(folder("b", 1000), listOf())
+		dao.storeChildren(folder("c", 1000), listOf())
+		dao.move(VAULT_ID, "a/x.txt", "b/x.txt", "b", "x.txt", "text/plain")
+		dao.move(VAULT_ID, "b/x.txt", "c/x.txt", "c", "x.txt", "text/plain")
+		dao.setMoveTargetPath(dao.load(VAULT_ID, "c/x.txt")!!.id!!, "b/x.txt")
+
+		dao.loadInterruptedChanges().forEach(dao::discardPendingChange)
+
+		Assert.assertThat(dao.load(VAULT_ID, "a")?.lastEnumeratedAt, CoreMatchers.nullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "b")?.lastEnumeratedAt, CoreMatchers.nullValue())
+		Assert.assertThat(dao.load(VAULT_ID, "c")?.lastEnumeratedAt, CoreMatchers.nullValue())
+	}
+
+	@Test
+	fun aCreationWhoseCopyAWriterHadOpenIsKeptWhenItIsDiscarded() {
+		dao.storeChildren(folder("", 1000), listOf())
+		dao.insert(file("new.txt").apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		cachedFileDao.store(cachedFile("new.txt", "local-new"))
+		cachedFileDao.markOpenedForWriting("local-new", 5000)
+
+		Assert.assertThat(dao.hasPendingWriteInSubtree(VAULT_ID, "new.txt"), CoreMatchers.`is`(true))
+		dao.loadInterruptedChanges().forEach(dao::discardPendingChange)
+
+		Assert.assertThat(dao.load(VAULT_ID, "new.txt")?.isCreating, CoreMatchers.`is`(false))
+		Assert.assertThat(cachedFileDao.load(VAULT_ID, "new.txt")?.localName, CoreMatchers.`is`("local-new"))
+	}
+
+	@Test
+	fun aPendingWriteIsACopyOpenForWritingInTheSubtreeOfTheVault() {
+		dao.storeChildren(folder("", 1000), listOf(folder("b"), folder("bx")))
+		dao.storeChildren(folder("b", 1000), listOf(file("b/x.txt"), file("b/y.txt")))
+		dao.storeChildren(folder("bx", 1000), listOf(file("bx/z.txt")))
+		cachedFileDao.store(cachedFile("b/y.txt", "local-y"))
+		cachedFileDao.store(cachedFile("bx/z.txt", "local-z"))
+		cachedFileDao.markOpenedForWriting("local-z", 5000)
+
+		Assert.assertThat(dao.hasPendingWriteInSubtree(VAULT_ID, "b"), CoreMatchers.`is`(false))
+		cachedFileDao.markOpenedForWriting("local-y", 5000)
+		Assert.assertThat(dao.hasPendingWriteInSubtree(VAULT_ID, "b"), CoreMatchers.`is`(true))
+		dao.storeChildren(folder("", 1000, OTHER_VAULT_ID), listOf(folder("c", vaultId = OTHER_VAULT_ID)))
+		dao.storeChildren(folder("c", 1000, OTHER_VAULT_ID), listOf(file("c/w.txt", OTHER_VAULT_ID)))
+		cachedFileDao.store(cachedFile("c/w.txt", "local-w").apply { vaultId = OTHER_VAULT_ID })
+		cachedFileDao.markOpenedForWriting("local-w", 5000)
+		Assert.assertThat(dao.hasPendingWriteInSubtree(VAULT_ID, "c"), CoreMatchers.`is`(false))
+	}
+
+	@Test
+	fun aListingKeepsAFileWhoseCopyAWriterHasOpen() {
+		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
+		cachedFileDao.store(cachedFile("a.txt", "local-a"))
+		cachedFileDao.markOpenedForWriting("local-a", 5000)
+
+		dao.storeChildren(folder("", 2000), listOf())
+
+		Assert.assertThat(paths(dao.loadChildren(VAULT_ID, "")), CoreMatchers.`is`(setOf("a.txt")))
+	}
+
+	@Test
+	fun aCopyStaysRecordedAsOpenedWhenItWasFirstOpenedUntilItIsClosed() {
+		dao.storeChildren(folder("", 1000), listOf(file("a.txt")))
+		cachedFileDao.store(cachedFile("a.txt", "local-a"))
+
+		cachedFileDao.markOpenedForWriting("local-a", 5000)
+		cachedFileDao.markOpenedForWriting("local-a", 6000)
+
+		Assert.assertThat(cachedFileDao.loadOpenedForWriting().map { it.localModifiedWhenOpened }, CoreMatchers.`is`(listOf(5000L)))
+		cachedFileDao.markClosedForWriting("local-a")
+		Assert.assertThat(cachedFileDao.loadOpenedForWriting(), CoreMatchers.`is`(emptyList()))
 	}
 
 	@Test

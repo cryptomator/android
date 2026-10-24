@@ -33,8 +33,8 @@ private fun hasSameContent(old: CloudNodeModel<*>, node: CloudNodeModel<*>): Boo
 }
 
 /**
- * Whether [progress] is that of an upload, which, unlike other progress, leaves the row usable, so that the upload can
- * be stopped by deleting the file.
+ * Whether [progress] is that of an upload, which, unlike other progress, leaves the row usable, so that the file can be
+ * deleted meanwhile.
  */
 internal fun isUploadProgress(progress: ProgressModel): Boolean {
 	val state = progress.state()

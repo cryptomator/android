@@ -32,6 +32,7 @@ internal class Upgrade15To16 @Inject constructor() : DatabaseUpgrade(15, 16) {
 			.optionalInt("LAST_ENUMERATED_AT") //
 			.requiredText("STATUS") //
 			.optionalText("SOURCE_PATH") //
+			.optionalText("MOVE_TARGET_PATH") //
 			.requiredInt("UPLOAD_GENERATION") //
 			.optionalInt("PENDING_DELETE") //
 			.foreignKey("VAULT_ID", "VAULT_ENTITY", ForeignKeyBehaviour.ON_DELETE_CASCADE) //
@@ -62,6 +63,7 @@ internal class Upgrade15To16 @Inject constructor() : DatabaseUpgrade(15, 16) {
 			.requiredText("PATH") //
 			.requiredText("LOCAL_NAME") //
 			.optionalInt("LAST_MODIFIED") //
+			.optionalInt("LOCAL_MODIFIED_WHEN_OPENED") //
 			.primaryKey("VAULT_ID", "PATH") //
 			.foreignKey(arrayOf("VAULT_ID", "PATH"), "DOCUMENT_METADATA_ENTITY", arrayOf("VAULT_ID", "PATH"), ForeignKeyBehaviour.ON_UPDATE_CASCADE, ForeignKeyBehaviour.ON_DELETE_CASCADE) //
 			.executeOn(db)

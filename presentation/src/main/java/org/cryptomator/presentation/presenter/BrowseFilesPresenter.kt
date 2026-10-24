@@ -645,8 +645,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	/**
-	 * A node of a vault is renamed in the list once its folder is listed again, which also covers a rename that has to
-	 * wait for an earlier move of the node.
+	 * A node of a vault is renamed in the list once its folder is listed again.
 	 */
 	fun onRenameCloudNodePressed(cloudNodeModel: CloudNodeModel<*>, newCloudNodeName: String) {
 		if (cloudNodeModel is CloudFileModel) {

@@ -127,6 +127,7 @@ class DocumentContentCache @JvmOverloads constructor(
 	init {
 		directory.mkdirs()
 		metadataCache.abandonUploadsWithoutLocalCopy()
+		keepInterruptedWrites()
 		metadataCache.onInterruptedMovesResolved = { vault -> resumeUploads(vault) }
 		metadataCache.isOpenForWriting = { id -> synchronized(inUse) { writers.values.any { it.documentId == id && it.open > 0 } } }
 		evict()
@@ -287,7 +288,9 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * the caller holds on the recorded copy, [claimedByCaller], doesn't count as someone else using it. The copy's
 	 * modification date lies at least [CHANGE_DETECTION_MILLIS] in the past, so that any write changes it, also one that
 	 * keeps the length right after the copy was filled or downloaded. The caller tells from it whether the writer wrote
-	 * anything.
+	 * anything. The copy's date is stored with the recorded copy as well, see [CachedFileEntity], so that a write is
+	 * noticed even if the process ends before the writer closes the copy, see [keepInterruptedWrites]. A writer's own
+	 * copy, see [ownCopy], gets its date stored only once it takes the recorded copy's place.
 	 */
 	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null, claimedByCaller: File? = null): File {
 		val metadata = requireFile(metadataCache.requireDocument(path), path)
@@ -324,7 +327,35 @@ class DocumentContentCache @JvmOverloads constructor(
 		if (copy.file.lastModified() > writtenBefore && !copy.file.setLastModified(writtenBefore)) {
 			LOG.w("Failed to date back copy ${copy.file.name}, a write that keeps its length may go unnoticed")
 		}
+		try {
+			dao.markOpenedForWriting(copy.file.name, copy.file.lastModified())
+		} catch (e: Exception) {
+			LOG.w(e, "Failed to record that copy ${copy.file.name} is open for writing, a write the process ends during may go unnoticed")
+		}
 		return copy.file
+	}
+
+	/**
+	 * Keeps what writers wrote to copies they still had open when the process ended as pending writes, e.g. writes
+	 * through a file descriptor that outlived the process. They are uploaded once the vault's uploads are resumed. A
+	 * written copy stays recorded as open for writing, with its current date, since its writer may still be writing. The
+	 * next start then notices those writes, too.
+	 */
+	private fun keepInterruptedWrites() {
+		dao.loadOpenedForWriting().forEach { cached ->
+			val copy = File(directory, cached.localName)
+			val written = copy.exists() && copy.lastModified() != cached.localModifiedWhenOpened
+			if (written) {
+				LOG.i("Copy ${cached.localName} was written while the process wasn't running, uploading it")
+				metadataCache.markInterruptedWritePending(cached.vaultId, cached.path)
+			}
+			// cleared only after the write is marked, so that it isn't lost if the process ends in between. Cleared before the
+			// copy is recorded again, since recording keeps an existing date.
+			dao.markClosedForWriting(cached.localName)
+			if (written) {
+				dao.markOpenedForWriting(cached.localName, copy.lastModified())
+			}
+		}
 	}
 
 	/**
@@ -403,7 +434,8 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * Handles a copy returned by [fileForWriting] being closed by its writer: a changed copy is uploaded to where
 	 * [currentPath] tells the file is now, or dropped if its writer failed. A writer that failed without changing the
 	 * copy, e.g. because its app ended, leaves it as it was, also an earlier write in it that waits for its upload. A
-	 * writer's own copy that did not take the recorded copy's place is dropped, see [ownCopy].
+	 * writer's own copy that did not take the recorded copy's place is dropped, see [ownCopy]. Once its last writer closed
+	 * it and its write has been handled, the copy is no longer recorded as open for writing, see [recordClosedForWriting].
 	 */
 	fun closedForWriting(localFile: File, error: IOException?, changed: Boolean, currentPath: () -> VaultPath) {
 		if (error is ParcelFileDescriptor.FileDescriptorDetachedException) {
@@ -427,6 +459,7 @@ class DocumentContentCache @JvmOverloads constructor(
 					}
 				}
 			}
+			recordClosedForWriting(localFile)
 		} finally {
 			release(localFile)
 		}
@@ -476,6 +509,7 @@ class DocumentContentCache @JvmOverloads constructor(
 				savedWhileShared(localFile)
 				uploadWrite(currentPath(), localFile)
 			}
+			recordClosedForWriting(localFile)
 		} catch (e: Exception) {
 			LOG.e(e, "Uploading the copy ${localFile.name} written through a detached file descriptor failed")
 		} finally {
@@ -568,6 +602,18 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
+	 * Called once what a writer wrote to [localFile] has been handled, kept or dropped, so that a failure leaves the copy
+	 * recorded for [keepInterruptedWrites].
+	 */
+	private fun recordClosedForWriting(localFile: File) {
+		synchronized(inUse) {
+			if (!isOpenForWriting(localFile)) {
+				dao.markClosedForWriting(localFile.name)
+			}
+		}
+	}
+
+	/**
 	 * Gives up a claim on [file]. A copy that isn't recorded, e.g. one a writer's own copy replaced while a reader had it
 	 * open, is deleted with its last claim, see [deleteIfUnrecorded].
 	 */
@@ -620,8 +666,12 @@ class DocumentContentCache @JvmOverloads constructor(
 					if (uploadedPath == current) {
 						recordUploadedBase(recorded, localFile, lastModified)
 					} else if (isLatestWrite && !metadataCache.isUploading(recorded) && !isOpenForWriting(localFile) && localCopy(uploadedPath) == null) {
+						// recorded as open for writing although no writer here has it open, e.g. one whose file descriptor outlived the
+						// previous process, see keepInterruptedWrites
+						val openedForWriting = dao.load(recorded.vault.id, recorded.path)?.localModifiedWhenOpened
 						dao.delete(recorded.vault.id, recorded.path)
 						store(uploadedPath, localFile, lastModified)
+						openedForWriting?.let { dao.markOpenedForWriting(localFile.name, it) }
 					}
 					// the writers' shared save is in the cloud, as the file or as its conflict copy, unless a writer saved again
 					// since the upload's end was recorded, which isLatestWrite doesn't tell
@@ -794,7 +844,7 @@ class DocumentContentCache @JvmOverloads constructor(
 
 	/**
 	 * Hides [path] until the cloud has deleted it, see [DocumentMetadataCache.delete]. If the cloud rejects it, the pending
-	 * uploads of the vault are resumed, among them those the deletion stopped.
+	 * uploads of the vault are resumed, among them those that didn't run while the deletion was pending.
 	 */
 	fun delete(path: VaultPath, userInitiated: Boolean = false): DocumentMetadataCache.Deletion {
 		val documentId = metadataCache.documentId(path)
@@ -963,12 +1013,18 @@ class DocumentContentCache @JvmOverloads constructor(
 		}
 	}
 
+	/**
+	 * A copy recorded as open for writing stays recorded so when it is stored again, see [fileForWriting]. A writer's own
+	 * copy that takes the recorded copy's place while other writers still have it open is recorded as open, too.
+	 */
 	private fun store(path: VaultPath, localFile: File, lastModified: Long?) {
+		val openedForWriting = dao.load(path.vault.id, path.path)?.takeIf { it.localName == localFile.name }?.localModifiedWhenOpened
 		dao.store(CachedFileEntity().apply {
 			vaultId = path.vault.id
 			this.path = path.path
 			localName = localFile.name
 			this.lastModified = lastModified
+			localModifiedWhenOpened = openedForWriting ?: localFile.lastModified().takeIf { isOpenForWriting(localFile) }
 		})
 	}
 

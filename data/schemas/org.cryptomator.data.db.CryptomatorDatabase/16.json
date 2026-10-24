@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 16,
-    "identityHash": "4e864d5b5188ed87fc48f43d345454fa",
+    "identityHash": "eb855f2b3771ca1f677aa1127623925b",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
@@ -214,7 +214,7 @@
       },
       {
         "tableName": "DOCUMENT_METADATA_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `VAULT_ID` INTEGER NOT NULL, `PATH` TEXT NOT NULL, `PARENT_PATH` TEXT, `NAME` TEXT NOT NULL, `MIME_TYPE` TEXT NOT NULL, `SIZE` INTEGER, `LAST_MODIFIED` INTEGER, `LAST_ENUMERATED_AT` INTEGER, `STATUS` TEXT NOT NULL, `SOURCE_PATH` TEXT, `UPLOAD_GENERATION` INTEGER NOT NULL, `PENDING_DELETE` INTEGER, FOREIGN KEY(`VAULT_ID`) REFERENCES `VAULT_ENTITY`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `VAULT_ID` INTEGER NOT NULL, `PATH` TEXT NOT NULL, `PARENT_PATH` TEXT, `NAME` TEXT NOT NULL, `MIME_TYPE` TEXT NOT NULL, `SIZE` INTEGER, `LAST_MODIFIED` INTEGER, `LAST_ENUMERATED_AT` INTEGER, `STATUS` TEXT NOT NULL, `SOURCE_PATH` TEXT, `MOVE_TARGET_PATH` TEXT, `UPLOAD_GENERATION` INTEGER NOT NULL, `PENDING_DELETE` INTEGER, FOREIGN KEY(`VAULT_ID`) REFERENCES `VAULT_ENTITY`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -274,6 +274,11 @@
           {
             "fieldPath": "sourcePath",
             "columnName": "SOURCE_PATH",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "moveTargetPath",
+            "columnName": "MOVE_TARGET_PATH",
             "affinity": "TEXT"
           },
           {
@@ -342,7 +347,7 @@
       },
       {
         "tableName": "CACHED_FILE_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`VAULT_ID` INTEGER NOT NULL, `PATH` TEXT NOT NULL, `LOCAL_NAME` TEXT NOT NULL, `LAST_MODIFIED` INTEGER, PRIMARY KEY(`VAULT_ID`, `PATH`), FOREIGN KEY(`VAULT_ID`, `PATH`) REFERENCES `DOCUMENT_METADATA_ENTITY`(`VAULT_ID`, `PATH`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`VAULT_ID` INTEGER NOT NULL, `PATH` TEXT NOT NULL, `LOCAL_NAME` TEXT NOT NULL, `LAST_MODIFIED` INTEGER, `LOCAL_MODIFIED_WHEN_OPENED` INTEGER, PRIMARY KEY(`VAULT_ID`, `PATH`), FOREIGN KEY(`VAULT_ID`, `PATH`) REFERENCES `DOCUMENT_METADATA_ENTITY`(`VAULT_ID`, `PATH`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "vaultId",
@@ -365,6 +370,11 @@
           {
             "fieldPath": "lastModified",
             "columnName": "LAST_MODIFIED",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "localModifiedWhenOpened",
+            "columnName": "LOCAL_MODIFIED_WHEN_OPENED",
             "affinity": "INTEGER"
           }
         ],
@@ -394,7 +404,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4e864d5b5188ed87fc48f43d345454fa')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb855f2b3771ca1f677aa1127623925b')"
     ]
   }
 }

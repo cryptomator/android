@@ -18,8 +18,11 @@ import androidx.room.PrimaryKey;
  * to the cloud: a node being created, or a file whose local copy has been written and still has to be uploaded.
  * <p>
  * Independently of that, a {@code SOURCE_PATH} marks a node whose moves are pending and tells where they start in the
- * cloud. It isn't updated when a folder above the node is moved, so no request takes its path from it. It serves to
- * undo a rejected move, to keep listings from adding the node again where it was, and to recover after a restart.
+ * cloud. It isn't updated when a folder above the node is moved, so only two requests take their path from it: a move
+ * after an earlier move of the node went astray, and the deletion of a file whose first upload was running, see
+ * {@code DocumentMetadataCache}. It serves to undo a rejected move, to keep listings from adding the node again where
+ * it was, and to recover after a restart. While a move of the node runs in the cloud, {@code MOVE_TARGET_PATH} tells
+ * where it takes the node. That can be neither where the moves start nor where the node is in the cache.
  * <p>
  * A {@code PENDING_DELETE} marks a node being deleted. It holds the token of the deletion and hides the node and its
  * descendants until the deletion is done. They keep their status, so that a rejected deletion brings them back as they
@@ -91,6 +94,9 @@ public class DocumentMetadataEntity {
 
 	@ColumnInfo(name = "SOURCE_PATH")
 	private String sourcePath;
+
+	@ColumnInfo(name = "MOVE_TARGET_PATH")
+	private String moveTargetPath;
 
 	@ColumnInfo(name = "UPLOAD_GENERATION")
 	private long uploadGeneration;
@@ -212,6 +218,14 @@ public class DocumentMetadataEntity {
 
 	public void setSourcePath(String sourcePath) {
 		this.sourcePath = sourcePath;
+	}
+
+	public String getMoveTargetPath() {
+		return moveTargetPath;
+	}
+
+	public void setMoveTargetPath(String moveTargetPath) {
+		this.moveTargetPath = moveTargetPath;
 	}
 
 	public boolean hasPendingChange() {

@@ -20,9 +20,10 @@ import static org.cryptomator.data.db.entities.DocumentMetadataEntity.STATUS_UPL
  * Subtrees are matched with {@code substr} instead of {@code LIKE} so that {@code %} and {@code _} in cleartext
  * names need no escaping.
  * <p>
- * Pending uploads hold the only copy of changes that have not reached the cloud, so a subtree that contains one is
- * kept when it is dropped because of the cloud or a failed change. Only deleting it explicitly removes it. A subtree
- * being deleted is kept as well, so that it can come back if the cloud rejects the deletion.
+ * Pending writes, see {@link #hasPendingWriteInSubtree}, hold the only copy of changes that have not reached the cloud,
+ * so a subtree that contains one is kept when it is dropped because of the cloud or a failed change. Only deleting it
+ * explicitly removes it. A subtree being deleted is kept as well, so that it can come back if the cloud rejects the
+ * deletion.
  */
 @Dao
 public interface DocumentMetadataDao {
@@ -80,15 +81,29 @@ public interface DocumentMetadataDao {
 	/**
 	 * Whether a node that is being moved can still be at {@code path} in the cloud. That is the case if its
 	 * {@code SOURCE_PATH} is {@code path}, or if the node is in the folder {@code parentPath} of the cache and its
-	 * {@code SOURCE_PATH} ends with {@code name}, since a folder above it may have been moved meanwhile.
+	 * {@code SOURCE_PATH} ends with {@code name}, since {@code SOURCE_PATH} isn't updated when a folder above the node is
+	 * moved. It can also be there already if its running move goes to {@code path}.
 	 */
 	@Query("SELECT EXISTS(SELECT 1 FROM DOCUMENT_METADATA_ENTITY WHERE VAULT_ID = :vaultId AND SOURCE_PATH IS NOT NULL " //
-			+ "AND (SOURCE_PATH = :path OR (PARENT_PATH = :parentPath AND substr('/' || SOURCE_PATH, -length(:name) - 1) = '/' || :name)))")
+			+ "AND (SOURCE_PATH = :path OR MOVE_TARGET_PATH = :path OR (PARENT_PATH = :parentPath AND substr('/' || SOURCE_PATH, -length(:name) - 1) = '/' || :name)))")
 	boolean isPendingMoveSource(long vaultId, String path, String parentPath, String name);
 
 	@Query("SELECT EXISTS(SELECT 1 FROM DOCUMENT_METADATA_ENTITY WHERE VAULT_ID = :vaultId AND STATUS = '" + STATUS_UPLOADING + "' " //
 			+ "AND (PATH = :path OR substr(PATH, 1, length(:path) + 1) = :path || '/'))")
 	boolean hasPendingUploadInSubtree(long vaultId, String path);
+
+	/**
+	 * Whether a file in the subtree at {@code path} waits for its upload, or has a copy that is recorded as open for
+	 * writing, see {@link org.cryptomator.data.db.entities.CachedFileEntity}. Such a copy may hold a write that still has
+	 * to be uploaded, also one made after the process ended.
+	 */
+	default boolean hasPendingWriteInSubtree(long vaultId, String path) {
+		return hasPendingUploadInSubtree(vaultId, path) || hasCopyOpenedForWritingInSubtree(vaultId, path);
+	}
+
+	@Query("SELECT EXISTS(SELECT 1 FROM CACHED_FILE_ENTITY WHERE VAULT_ID = :vaultId AND LOCAL_MODIFIED_WHEN_OPENED IS NOT NULL " //
+			+ "AND (PATH = :path OR substr(PATH, 1, length(:path) + 1) = :path || '/'))")
+	boolean hasCopyOpenedForWritingInSubtree(long vaultId, String path);
 
 	@Query("SELECT EXISTS(SELECT 1 FROM DOCUMENT_METADATA_ENTITY WHERE VAULT_ID = :vaultId AND PENDING_DELETE IS NOT NULL " //
 			+ "AND (PATH = :path OR substr(PATH, 1, length(:path) + 1) = :path || '/'))")
@@ -118,6 +133,12 @@ public interface DocumentMetadataDao {
 	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET SOURCE_PATH = :cloudPath WHERE _id = :id")
 	void setSourcePath(long id, String cloudPath);
 
+	/**
+	 * Records {@code cloudPath} as where the node's running move takes it in the cloud, or that none runs if it's null.
+	 */
+	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET MOVE_TARGET_PATH = :cloudPath WHERE _id = :id")
+	void setMoveTargetPath(long id, String cloudPath);
+
 	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET STATUS = '" + STATUS_UPLOADING + "', UPLOAD_GENERATION = UPLOAD_GENERATION + 1 " //
 			+ "WHERE VAULT_ID = :vaultId AND PATH = :path")
 	void markUploading(long vaultId, String path);
@@ -146,7 +167,10 @@ public interface DocumentMetadataDao {
 	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET STATUS = '" + STATUS_SYNCED + "' WHERE _id = :id")
 	void markSynced(long id);
 
-	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET SOURCE_PATH = NULL WHERE _id = :id")
+	/**
+	 * Marks the node as no longer moving, which also drops where a running move of it went.
+	 */
+	@Query("UPDATE DOCUMENT_METADATA_ENTITY SET SOURCE_PATH = NULL, MOVE_TARGET_PATH = NULL WHERE _id = :id")
 	void clearSourcePath(long id);
 
 	/**
@@ -186,7 +210,7 @@ public interface DocumentMetadataDao {
 		if (existing.isFolder()) {
 			if (entity.isFolder()) {
 				entity.setLastEnumeratedAt(existing.getLastEnumeratedAt());
-			} else if (hasPendingUploadInSubtree(entity.getVaultId(), entity.getPath()) || hasPendingDeleteInSubtree(entity.getVaultId(), entity.getPath())) {
+			} else if (hasPendingWriteInSubtree(entity.getVaultId(), entity.getPath()) || hasPendingDeleteInSubtree(entity.getVaultId(), entity.getPath())) {
 				return;
 			} else {
 				deleteDescendants(entity.getVaultId(), entity.getPath());
@@ -199,7 +223,8 @@ public interface DocumentMetadataDao {
 	/**
 	 * Replaces the cached children of {@code folder} with {@code children} and records {@code folder}'s
 	 * {@code LAST_ENUMERATED_AT}. Child folders that are still present keep what is known about them, and children with
-	 * pending changes are kept. Nothing is stored if {@code folder} has been moved or deleted in the meantime.
+	 * pending changes or pending writes, see {@link #hasPendingWriteInSubtree}, are kept. Nothing is stored if
+	 * {@code folder} has been moved or deleted in the meantime.
 	 */
 	@Transaction
 	default void storeChildren(DocumentMetadataEntity folder, List<DocumentMetadataEntity> children) {
@@ -215,7 +240,7 @@ public interface DocumentMetadataDao {
 			listedPaths.add(child.getPath());
 		}
 		for (DocumentMetadataEntity cached : loadChildren(vaultId, folder.getPath())) {
-			if (!cached.hasPendingChange() && !listedPaths.contains(cached.getPath()) && !hasPendingUploadInSubtree(vaultId, cached.getPath()) && !hasPendingDeleteInSubtree(vaultId, cached.getPath())) {
+			if (!cached.hasPendingChange() && !listedPaths.contains(cached.getPath()) && !hasPendingWriteInSubtree(vaultId, cached.getPath()) && !hasPendingDeleteInSubtree(vaultId, cached.getPath())) {
 				deleteSubtree(vaultId, cached.getPath());
 			}
 		}
@@ -280,9 +305,10 @@ public interface DocumentMetadataDao {
 	}
 
 	/**
-	 * Drops a change that could not be applied to the cloud and marks the folders it touched for listing again. That
-	 * listing undoes a move, unless the moved subtree holds a pending upload, which stays where it was moved to. A node
-	 * being created is dropped right away.
+	 * Drops a change that could not be applied to the cloud and marks the folders it touched for listing again, also
+	 * where a running move may have taken the node. That listing undoes a move. A moved subtree that holds a pending
+	 * write, see {@link #hasPendingWriteInSubtree}, stays where it was moved to instead. A node being created is dropped
+	 * right away, unless it holds a pending write.
 	 */
 	@Transaction
 	default void discardPendingChange(DocumentMetadataEntity pending) {
@@ -291,8 +317,11 @@ public interface DocumentMetadataDao {
 			clearSourcePath(pending.getId());
 			updateLastEnumeratedAt(vaultId, parentPathOf(pending.getSourcePath()), null);
 		}
+		if (pending.getMoveTargetPath() != null) {
+			updateLastEnumeratedAt(vaultId, parentPathOf(pending.getMoveTargetPath()), null);
+		}
 		if (pending.isCreating()) {
-			if (hasPendingUploadInSubtree(vaultId, pending.getPath())) {
+			if (hasPendingWriteInSubtree(vaultId, pending.getPath())) {
 				markSynced(pending.getId());
 			} else {
 				deleteSubtree(vaultId, pending.getPath());

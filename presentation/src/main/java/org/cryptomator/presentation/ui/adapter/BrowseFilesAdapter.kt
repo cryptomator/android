@@ -246,7 +246,7 @@ constructor(
 
 		/**
 		 * A file whose upload failed is uploaded again when tapped. A waiting or running upload keeps the row's actions
-		 * usable, so that the file can be deleted, which also stops the upload.
+		 * usable, so that the file can be deleted meanwhile.
 		 */
 		private fun bindUploadIfPresent(file: CloudFileModel) {
 			when (file.upload) {
