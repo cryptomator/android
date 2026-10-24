@@ -506,22 +506,35 @@ class UnlockVaultPresenter @Inject constructor(
 	 * vault, just learns that the unlock succeeded.
 	 *
 	 * The vault's pending uploads are resumed now, among them the saves an external editor made while the vault was locked.
+	 * If storing fails, the vault is locked again so that the documents provider never serves it with outdated parameters.
 	 */
 	private fun finishWithUnlockedVault(cloud: Cloud) {
-		// not unsubscribed on destroy, since the screen closes right away while the uploads are being resumed
-		resumeVaultUploadsUseCase //
-			.withVault((cloud as CryptoCloud).vault) //
-			.run(DefaultResultHandler())
+		val vault = (cloud as CryptoCloud).vault
 		updateVaultParameterIfChangedRemotelyUseCase //
-			.withVault((cloud as CryptoCloud).vault) //
+			.withVault(vault) //
 			.run(object : DefaultResultHandler<Vault>() {
-				override fun onFinished() {
+				override fun onSuccess(storedVault: Vault) {
+					// not unsubscribed on destroy, since the screen closes right away while the uploads are being resumed
+					resumeVaultUploadsUseCase //
+						.withVault(vault) //
+						.run(DefaultResultHandler())
 					if (activity().callingActivity?.packageName == context().packageName) {
 						finishWithResult(cloud)
 					} else {
 						activity().setResult(Activity.RESULT_OK)
 						finish()
 					}
+				}
+
+				override fun onError(e: Throwable) {
+					lockVaultUseCase.withVault(vault).run(object : DefaultResultHandler<Vault>() {
+						override fun onFinished() {
+							showError(e)
+							if (view?.isShowingDialog(EnterPasswordDialog::class) == false) {
+								finishWithResult(null)
+							}
+						}
+					})
 				}
 			})
 	}
