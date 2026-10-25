@@ -20,6 +20,7 @@ import org.cryptomator.presentation.model.ImagePreviewFile
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.ui.activity.view.ImagePreviewView
+import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
 import org.cryptomator.presentation.util.ContentResolverUtil
 import org.cryptomator.presentation.util.FileUtil
@@ -45,6 +46,10 @@ class ImagePreviewPresenter @Inject constructor( //
 
 	@InstanceState
 	lateinit var pageIndexes: ArrayList<Int>
+
+	fun hasPageIndexes(): Boolean {
+		return ::pageIndexes.isInitialized
+	}
 
 	fun exportImageToUserSelectedLocation(image: CloudFileModel) {
 		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
@@ -78,12 +83,17 @@ class ImagePreviewPresenter @Inject constructor( //
 		view?.showDialog(ConfirmDeleteCloudNodeDialog.newInstance(listOf(imagePreviewFile.cloudFileModel)))
 	}
 
+	/**
+	 * Unlike the browser, the preview waits for the cloud, so that the page of an image goes only once its deletion is
+	 * done, and one the cloud rejects stays.
+	 */
 	fun onDeleteImageConfirmed(imagePreviewFile: ImagePreviewFile, index: Int) {
 		view?.showProgress(ProgressModel.GENERIC)
+		val image = imagePreviewFile.cloudFileModel
 		deleteNodesUseCase
-			.withCloudNodes(listOf(imagePreviewFile.cloudFileModel.toCloudNode()))
-			.run(object : ProgressCompletingResultHandler<List<CloudNode?>?>() {
-				override fun onFinished() {
+			.withCloudNodes(listOf(image.toCloudNode()))
+			.run(object : DefaultResultHandler<List<CloudNode?>?>() {
+				override fun onSuccess(result: List<CloudNode?>?) {
 					view?.showProgress(ProgressModel.COMPLETED)
 					view?.onImageDeleted(index)
 				}
@@ -91,6 +101,10 @@ class ImagePreviewPresenter @Inject constructor( //
 				override fun onError(e: Throwable) {
 					Timber.tag("ImagePreviewPresenter").e(e, "Failed to delete preview image")
 					view?.showProgress(ProgressModel.COMPLETED)
+					if (image.parent?.vault() != null) {
+						view?.showDialog(ChangeFailedDialog.newInstance(image.name))
+					}
+					showError(e)
 				}
 			})
 	}

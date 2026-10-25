@@ -10,6 +10,7 @@ import org.cryptomator.data.documents.ThumbnailGenerator
 import org.cryptomator.data.documents.ThumbnailStore
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import java.io.File
@@ -32,6 +33,18 @@ internal fun MatrixCursor.setNotificationUriForId(cr: ContentResolver, documentI
  */
 internal fun claimPinnedFileIfLocked(path: VaultPath, contentCache: DocumentContentCache, authenticationRequired: (Vault) -> Exception): File? {
 	return if (path.vault.isUnlocked) null else contentCache.pinnedFile(path) ?: throw authenticationRequired(path.vault)
+}
+
+/**
+ * Runs [request] of an unlocked [vault]. If the vault is locked meanwhile, it fails like a request of a locked vault, with
+ * the exception [authenticationRequired] makes, rather than with a [MissingCryptorException] the client can't receive.
+ */
+internal fun <T> whileUnlocked(vault: Vault, authenticationRequired: (Vault) -> Exception, request: () -> T): T {
+	try {
+		return request()
+	} catch (e: MissingCryptorException) {
+		throw authenticationRequired(vault)
+	}
 }
 
 /**

@@ -795,7 +795,7 @@ class DocumentContentCacheTest {
 			onCancel!!.onCancel()
 			openingFailure = opening.get(5, TimeUnit.SECONDS)
 			cache.evictAll()
-			scheduler.write(listOf(vaultPath("x.txt"))) { laterChangeRan.countDown() }
+			scheduler.write(listOf(vaultPath("x.txt"))) { CompletableFuture.completedFuture(laterChangeRan.countDown()) }
 			download = directory.listFiles()!!.single()
 			downloadKeptWhileRunning = download!!.exists()
 			laterChangeRanWhileRunning = laterChangeRan.count == 0L
@@ -2671,6 +2671,16 @@ class DocumentContentCacheTest {
 			verify(metadataCache).upload(eq(vaultPath("x.txt")), eq(File(directory, "x")), any(), any(), anyOrNull(), eq(true), any())
 		}
 		verify(metadataCache, never()).upload(eq(vaultPath("y.txt")), any(), any(), any(), anyOrNull(), any(), any())
+	}
+
+	@Test
+	fun `resuming the uploads also resumes the changes that found the vault locked`() {
+		whenever(metadataCache.pendingUploads(vault)).thenReturn(emptyList())
+		val cache = cache()
+
+		cache.resumeUploads(vault, listOf(vaultPath("x.txt")))
+
+		verify(metadataCache).resumeLockedChanges(vault)
 	}
 
 	@Test

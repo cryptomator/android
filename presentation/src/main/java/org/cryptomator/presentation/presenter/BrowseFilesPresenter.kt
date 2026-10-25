@@ -291,7 +291,8 @@ class BrowseFilesPresenter @Inject constructor( //
 	 * Resumes the uploads of [vault] that failed or were interrupted, so that they don't wait until the vault is opened in
 	 * Files. Only the first call per vault after a vault was locked or unlocked does so, see
 	 * [VaultDocumentRepository.resumeUploadsOnce]. With [files], only those are retried, each time the user asks for it.
-	 * Requests made while uploads are being resumed are carried out afterwards.
+	 * Whenever uploads are resumed, the changes that found the vault locked are applied again, too. Requests made while
+	 * uploads are being resumed are carried out afterwards.
 	 */
 	private fun resumeUploads(vault: Vault, files: List<CloudFile>?) {
 		uploadResumes.request(listOf(vault to files))

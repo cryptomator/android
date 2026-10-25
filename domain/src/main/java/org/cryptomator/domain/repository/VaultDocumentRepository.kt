@@ -92,14 +92,15 @@ interface VaultDocumentRepository {
 	fun endExternalEditing(documentId: String)
 
 	/**
-	 * Retries the uploads of [vault] that failed or were interrupted and aren't running. Only the first call for [vault]
-	 * after any vault was locked or unlocked does so; later ones do nothing until the next lock or unlock.
+	 * Retries the uploads of [vault] that failed or were interrupted and aren't running, and applies again the creates,
+	 * moves and deletes that found the vault locked. Only the first call for [vault] after any vault was locked or
+	 * unlocked does so; later ones do nothing until the next lock or unlock.
 	 */
 	fun resumeUploadsOnce(vault: Vault)
 
 	/**
 	 * Retries the uploads of [paths] in [vault] that failed or were interrupted and aren't running, since the user asked
-	 * for it.
+	 * for it. The creates, moves and deletes that found the vault locked are applied again, too.
 	 */
 	fun retryUploads(vault: Vault, paths: List<VaultPath>)
 
@@ -147,7 +148,8 @@ interface VaultDocumentChange<T> {
 	fun cachedNode(): T?
 
 	/**
-	 * Waits until the change has reached the cloud.
+	 * Waits until the change has reached the cloud. A create, move or delete that found its vault locked reaches it after
+	 * the next unlock.
 	 *
 	 * @throws BackendException why the cloud rejected the change. A rejected create, move or delete has been undone in
 	 * the cache, a rejected upload stays pending for a retry.

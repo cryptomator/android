@@ -865,10 +865,12 @@ class DocumentContentCache @JvmOverloads constructor(
 
 	/**
 	 * Retries the uploads of [vault] that did not finish and are not running, or only those of [paths] if given. The
-	 * uploads an interrupted move holds are retried once it is settled.
+	 * uploads an interrupted move holds are retried once it is settled. The creates, moves and deletes that found [vault]
+	 * locked are applied again, also if [paths] are given, see [DocumentMetadataCache.resumeLockedChanges].
 	 */
 	fun resumeUploads(vault: Vault, paths: List<VaultPath>? = null, userInitiated: Boolean = false) {
 		metadataCache.resolveInterruptedMoves(vault)
+		metadataCache.resumeLockedChanges(vault)
 		metadataCache.pendingUploads(vault).filter { paths == null || it in paths }.forEach { path ->
 			try {
 				withCopiesLocked {
@@ -895,7 +897,7 @@ class DocumentContentCache @JvmOverloads constructor(
 
 	/**
 	 * Lets the next [resumeUploadsOnce] of each vault resume its uploads again. Called whenever a vault was locked or
-	 * unlocked, so that the unlock resumes the uploads that failed because the vault was locked.
+	 * unlocked, so that the unlock resumes the uploads and changes that found the vault locked.
 	 */
 	fun forgetResumedUploads() {
 		resumedVaults.clear()

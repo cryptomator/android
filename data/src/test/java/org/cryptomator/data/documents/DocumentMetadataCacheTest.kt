@@ -44,6 +44,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.assertThrows
+import org.mockito.Mockito.mockingDetails
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.isNull
@@ -1438,6 +1439,32 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
+	@Timeout(10)
+	fun `moving a file that has never been in the cloud while its vault is locked deletes what its failed upload put into the cloud after the next unlock`() {
+		localFile.writeText("new")
+		failedFirstUpload(remoteModified = null, lastModified = null, base = null)
+		val file = repository.file(root, "x.txt")
+		whenever(repository.metadata(file)).thenThrow(MissingCryptorException()).thenReturn(remoteFile(8_000, localFile.length()))
+		givenCloudContent("new")
+		whenever(repository.file(eq(root), eq("y.txt"))).thenReturn(mock())
+
+		val move = inTest.move(path("a/x.txt"), VaultPath(vault), "y.txt")
+		whenever(dao.loadById(ID)).thenReturn(entity("y.txt").apply {
+			sourcePath = "a/x.txt"
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		})
+		listings.runAll()
+
+		assertFalse(move.isDone)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		move.get()
+		verify(repository).delete(file)
+	}
+
+	@Test
 	fun `abandoning the upload of a file that has never been in the cloud leaves what the upload put there`() {
 		localFile.writeText("local-content")
 		failedFirstUpload(remoteModified = null, lastModified = null, base = null)
@@ -2166,6 +2193,343 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
+	@Timeout(10)
+	fun `a move that finds its vault locked stays pending without reporting it and is made after the next unlock`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.move(a, b)).thenThrow(MissingCryptorException()).thenReturn(cryptoFile("b.txt"))
+		val failed = mutableListOf<VaultPath>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(path)
+			}
+		})
+
+		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		listings.runAll()
+
+		assertFalse(move.isDone)
+		verify(dao, never()).revertMove(any(), any())
+		assertEquals(emptyList<VaultPath>(), failed)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertEquals(path("b.txt"), move.get().path)
+		verify(repository, times(2)).move(a, b)
+		verify(dao).clearSourcePath(ID)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move that finds its vault locked after an earlier move of the node was rejected moves it on from there after the next unlock`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		val c: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.file(root, "c.txt")).thenReturn(c)
+		whenever(repository.move(a, b)).thenThrow(NetworkConnectionException())
+		whenever(repository.move(a, c)).thenThrow(MissingCryptorException()).thenReturn(cryptoFile("c.txt"))
+
+		inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		second.get()
+		verify(repository, times(2)).move(a, c)
+		verify(repository, never()).move(b, c)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a deletion that finds its vault locked keeps the node hidden and deletes it after the next unlock`() {
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(entity("x.txt"))
+		whenever(dao.loadById(ID)).thenReturn(entity("x.txt").apply { pendingDelete = 1 })
+		val file: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(file)
+		whenever(repository.delete(file)).thenThrow(MissingCryptorException()).thenAnswer { }
+
+		val deletion = inTest.delete(path("x.txt"))
+		listings.runAll()
+
+		assertFalse(deletion.result.isDone)
+		verify(dao, never()).clearPendingDelete(any(), any())
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		deletion.result.get()
+		verify(repository, times(2)).delete(file)
+		verify(dao).deleteSubtree(VAULT_ID, "x.txt")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `the later changes of a move that finds its vault locked wait for it until it is made after the next unlock`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		val c: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.file(root, "c.txt")).thenReturn(c)
+		val movedToB = cryptoFile("b.txt")
+		val movedToC = cryptoFile("c.txt")
+		whenever(repository.move(a, b)).thenThrow(MissingCryptorException()).thenReturn(movedToB)
+		whenever(repository.move(b, c)).thenReturn(movedToC)
+
+		val first = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		val second = inTest.move(path("b.txt"), VaultPath(vault), "c.txt")
+		listings.runAll()
+
+		assertFalse(second.isDone)
+		verify(repository, never()).move(b, c)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		first.get()
+		second.get()
+		inOrder(repository) {
+			verify(repository, times(2)).move(a, b)
+			verify(repository).move(b, c)
+		}
+		verify(dao).clearSourcePath(ID)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move that finds its vault locked and is rejected after the next unlock is undone and reported, also if reporting it fails`() {
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.move(a, b)).thenThrow(MissingCryptorException()).thenThrow(NetworkConnectionException())
+		val failed = mutableListOf<VaultPath>()
+		events.addListener(object : VaultDocumentListener {
+			override fun onChanged(folder: VaultPath) {}
+			override fun onChangeFailed(path: VaultPath, error: Throwable, userInitiated: Boolean) {
+				failed.add(path)
+				throw IllegalStateException("listener failed")
+			}
+		})
+
+		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertFailsWith<NetworkConnectionException>(move)
+		verify(dao).revertMove(eq(ID), any())
+		assertEquals(listOf(path("b.txt")), failed)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change that fails with an error after the next unlock ends and lets the later changes of its paths run`() {
+		val scheduler = CloudTaskScheduler(listings, direct, direct)
+		inTest = cache(scheduler)
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(entity("x.txt"))
+		whenever(dao.loadById(ID)).thenReturn(entity("x.txt").apply { pendingDelete = 1 })
+		val file: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(file)
+		whenever(repository.delete(file)).thenThrow(MissingCryptorException(), NoClassDefFoundError("missing"))
+
+		val deletion = inTest.delete(path("x.txt"))
+		listings.runAll()
+		val later = scheduler.write(listOf(path("x.txt"))) { CompletableFuture.completedFuture("later") }
+		listings.runAll()
+
+		assertFalse(later.isDone)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertFailsWith<NoClassDefFoundError>(deletion.result)
+		assertEquals("later", later.get())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move that finds its vault locked fails the reads waiting for it, and later reads wait for it after the unlock`() {
+		var locked = false
+		doAnswer { if (locked) throw MissingCryptorException() }.whenever(vaultRepository).assertUnlocked(any())
+		val scheduler = CloudTaskScheduler(listings, direct, direct)
+		inTest = cache(scheduler)
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		val moved = cryptoFile("b.txt")
+		whenever(repository.move(a, b)).thenThrow(MissingCryptorException()).thenReturn(moved)
+
+		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		var waitingReadRan = false
+		val waitingRead = scheduler.download(path("b.txt")) { waitingReadRan = true }
+		locked = true
+		listings.runAll()
+
+		assertFalse(move.isDone)
+		assertFailsWith<MissingCryptorException>(waitingRead)
+
+		locked = false
+		val laterRead = scheduler.download(path("b.txt")) { "later" }
+		listings.runAll()
+
+		assertFalse(laterRead.isDone)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		move.get()
+		assertEquals("later", laterRead.get())
+		assertFalse(waitingReadRan)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `the changes that found their vault locked are all made after the next unlock`() {
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(entity("x.txt"))
+		whenever(dao.loadById(ID)).thenReturn(entity("x.txt").apply { pendingDelete = 1 })
+		whenever(dao.load(VAULT_ID, "y.txt")).thenReturn(entity("y.txt").apply { id = ID + 1 })
+		whenever(dao.loadById(ID + 1)).thenReturn(entity("y.txt").apply {
+			id = ID + 1
+			pendingDelete = 2
+		})
+		val x: CloudFile = mock()
+		val y: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(x)
+		whenever(repository.file(root, "y.txt")).thenReturn(y)
+		whenever(repository.delete(x)).thenThrow(MissingCryptorException()).thenAnswer { }
+		whenever(repository.delete(y)).thenThrow(MissingCryptorException()).thenAnswer { }
+
+		val first = inTest.delete(path("x.txt"))
+		val second = inTest.delete(path("y.txt"))
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		first.result.get()
+		second.result.get()
+		verify(repository, times(2)).delete(x)
+		verify(repository, times(2)).delete(y)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change rejected after the next unlock is undone before the later changes of its paths run`() {
+		val scheduler = CloudTaskScheduler(direct, direct, direct)
+		inTest = cache(scheduler)
+		givenMovableNode("a.txt")
+		val a: CloudFile = mock()
+		val b: CloudFile = mock()
+		whenever(repository.file(root, "a.txt")).thenReturn(a)
+		whenever(repository.file(root, "b.txt")).thenReturn(b)
+		whenever(repository.move(a, b)).thenThrow(MissingCryptorException()).thenThrow(NetworkConnectionException())
+		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		var undoneBefore: Boolean? = null
+		val later = scheduler.write(listOf(path("b.txt"))) {
+			undoneBefore = mockingDetails(dao).invocations.any { it.method.name == "revertMove" }
+			CompletableFuture.completedFuture(Unit)
+		}
+
+		assertFalse(later.isDone)
+
+		inTest.resumeLockedChanges(vault)
+
+		assertFailsWith<NetworkConnectionException>(move)
+		later.get()
+		assertEquals(true, undoneBefore)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change that finds its vault locked is made once by the next resume of its vault and keeps waiting while it is still locked`() {
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(entity("x.txt"))
+		whenever(dao.loadById(ID)).thenReturn(entity("x.txt").apply { pendingDelete = 1 })
+		val file: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(file)
+		whenever(repository.delete(file)).thenThrow(MissingCryptorException(), MissingCryptorException()).thenAnswer { }
+		val otherVault = Vault.aCopyOf(vault).withId(VAULT_ID + 1).build()
+
+		val deletion = inTest.delete(path("x.txt"))
+		listings.runAll()
+		inTest.resumeLockedChanges(otherVault)
+		listings.runAll()
+
+		verify(repository, times(1)).delete(file)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertFalse(deletion.result.isDone)
+		verify(repository, times(2)).delete(file)
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		deletion.result.get()
+		verify(repository, times(3)).delete(file)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder that finds its vault locked stays pending and is created after the next unlock`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(dao.loadById(ID)).thenReturn(entity("new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val folder: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(folder)
+		whenever(repository.create(folder)).thenThrow(MissingCryptorException()).thenReturn(cryptoFolder("new"))
+
+		val creation = inTest.create(VaultPath(vault), "new", isFolder = true)
+		listings.runAll()
+
+		assertFalse(creation.result.isDone)
+		verify(dao, never()).discardPendingChange(any())
+
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertEquals(path("new"), creation.result.get().path)
+		verify(dao).markCreated(ID, null, null)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose name is taken in the cloud and that finds its vault locked is created at its conflict name after the next unlock`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		whenever(dao.loadById(ID)).thenReturn(entity("new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val taken: CloudFolder = mock()
+		val conflict: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(taken)
+		whenever(repository.create(taken)).thenThrow(CloudNodeAlreadyExistsException("new"))
+		whenever(repository.folder(eq(root), argThat { matches(CONFLICT_FOLDER_NAME) })).thenReturn(conflict)
+		whenever(repository.create(conflict)).thenThrow(MissingCryptorException()).thenReturn(cryptoFolder("new (1A2B3)"))
+
+		val creation = inTest.create(VaultPath(vault), "new", isFolder = true)
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertTrue(creation.result.get().path.path.matches(CONFLICT_FOLDER_NAME))
+		verify(repository).create(taken)
+		verify(repository, times(2)).create(conflict)
+		verify(dao).renamePending(eq(VAULT_ID), eq("new"), argThat { matches(CONFLICT_FOLDER_NAME) }, argThat { matches(CONFLICT_FOLDER_NAME) }, eq(Document.MIME_TYPE_DIR), isNull())
+	}
+
+	@Test
 	fun `a file that has never been in the cloud is only moved in the cache`() {
 		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
 		whenever(dao.loadById(ID)).thenReturn(entity("b.txt").apply {
@@ -2355,6 +2719,30 @@ class DocumentMetadataCacheTest {
 		listings.runAll()
 
 		assertTrue(move.get().path.path.matches(CONFLICT_TARGET_NAME))
+		verify(dao).renamePending(eq(VAULT_ID), eq("b.txt"), eq(move.get().path.path), eq(move.get().path.name), any(), isNull())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move whose name is taken in the cloud and that finds its vault locked goes to its conflict name after the next unlock`() {
+		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
+		givenMoved("a.txt", "b.txt")
+		val target: CloudFile = mock()
+		val conflict: CloudFile = mock()
+		whenever(repository.file(root, "b.txt")).thenReturn(target)
+		whenever(repository.file(eq(root), argThat { matches(CONFLICT_TARGET_NAME) })).thenReturn(conflict)
+		whenever(repository.move(anyOrNull<CloudFile>(), eq(target))).thenThrow(CloudNodeAlreadyExistsException("b.txt"))
+		val renamed = cryptoFile("renamed.txt")
+		whenever(repository.move(anyOrNull<CloudFile>(), eq(conflict))).thenThrow(MissingCryptorException()).thenReturn(renamed)
+
+		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
+		listings.runAll()
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		assertTrue(move.get().path.path.matches(CONFLICT_TARGET_NAME))
+		verify(repository).move(anyOrNull<CloudFile>(), eq(target))
+		verify(repository, times(2)).move(anyOrNull<CloudFile>(), eq(conflict))
 		verify(dao).renamePending(eq(VAULT_ID), eq("b.txt"), eq(move.get().path.path), eq(move.get().path.name), any(), isNull())
 	}
 

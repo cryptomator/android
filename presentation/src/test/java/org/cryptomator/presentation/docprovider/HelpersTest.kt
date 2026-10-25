@@ -7,6 +7,7 @@ import org.cryptomator.data.documents.ThumbnailStore
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
@@ -45,6 +46,21 @@ class HelpersTest {
 	@Test
 	fun `any other document of a locked vault requires an unlock`() {
 		assertThrows<IllegalStateException> { claimPinnedFileIfLocked(path(unlocked = false), contentCache) { IllegalStateException("locked") } }
+	}
+
+	@Test
+	fun `a request of a vault that is locked meanwhile requires an unlock`() {
+		val authenticationRequired = IllegalStateException("locked")
+
+		val thrown = assertThrows<IllegalStateException> { whileUnlocked(path(unlocked = true).vault, { authenticationRequired }) { throw MissingCryptorException() } }
+
+		assertSame(authenticationRequired, thrown)
+	}
+
+	@Test
+	fun `a request of an unlocked vault keeps its outcome`() {
+		assertSame(metadata, whileUnlocked(path(unlocked = true).vault, { IllegalStateException("locked") }) { metadata })
+		assertThrows<FileNotFoundException> { whileUnlocked(path(unlocked = true).vault, { IllegalStateException("locked") }) { throw FileNotFoundException() } }
 	}
 
 	@Test

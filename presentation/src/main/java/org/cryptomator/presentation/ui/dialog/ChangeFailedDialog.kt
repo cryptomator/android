@@ -8,8 +8,8 @@ import org.cryptomator.presentation.databinding.DialogChangeFailedBinding
 import org.cryptomator.presentation.ui.activity.ErrorDisplay
 
 /**
- * Tells that a change the browser already showed failed. The activity hands the reason to the shown dialog, possibly
- * before its view exists.
+ * Tells that a change of a vault failed. The activity hands the reason to the shown dialog, possibly before its view
+ * exists.
  */
 @Dialog
 class ChangeFailedDialog : BaseInformationalDialog<DialogChangeFailedBinding>(DialogChangeFailedBinding::inflate), ErrorDisplay {

@@ -20,7 +20,8 @@ class ResumeVaultUploads {
 
 	/**
 	 * @param files the files whose uploads the user asked to retry, or `null` to resume all pending uploads of the vault, which
-	 * only the first such call after a vault was locked or unlocked does
+	 * only the first such call after a vault was locked or unlocked does. Whenever uploads are resumed, the changes that
+	 * found the vault locked are applied again, too.
 	 */
 	public ResumeVaultUploads(VaultDocumentRepository vaultDocumentRepository, @Parameter Vault vault, @Optional @Parameter List<CloudFile> files) {
 		this.vaultDocumentRepository = vaultDocumentRepository;

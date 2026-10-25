@@ -358,7 +358,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 		try {
 			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
-				val localFile = pinnedFile ?: contentCache.file(path, signal)
+				val localFile = pinnedFile ?: whileUnlocked(path.vault, ::authenticationRequired) { contentCache.file(path, signal) }
 				try {
 					// kept in use until the reader closes the file, so that a writer gets a copy of its own meanwhile, see
 					// DocumentContentCache.fileForWriting. A reader that detached the file descriptor, e.g. for native code,
@@ -377,7 +377,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				if (!isWritable(path.vault)) {
 					throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
 				}
-				return openForWriting(documentId, path, accessMode, signal, pinnedFile)
+				return whileUnlocked(path.vault, ::authenticationRequired) { openForWriting(documentId, path, accessMode, signal, pinnedFile) }
 			} finally {
 				pinnedFile?.let(contentCache::release)
 			}
@@ -431,7 +431,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	/**
 	 * A refresh is asked for by the user, so unlike a listing, which Files also makes after each failed upload, it retries
-	 * the uploads every time.
+	 * the uploads and the changes that found the vault locked every time.
 	 */
 	override fun refresh(uri: Uri?, extras: Bundle?, cancellationSignal: CancellationSignal?): Boolean {
 		LOG.v("refresh($uri)")
@@ -553,8 +553,8 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		}
 
 		/**
-		 * Lets the unfinished uploads of each vault be resumed once more, e.g. those that failed because the vault was
-		 * locked. Called whenever a vault was locked or unlocked.
+		 * Lets the unfinished uploads of each vault and the changes that found it locked be resumed once more. Called
+		 * whenever a vault was locked or unlocked.
 		 */
 		@JvmStatic
 		fun forgetResumedUploads() {

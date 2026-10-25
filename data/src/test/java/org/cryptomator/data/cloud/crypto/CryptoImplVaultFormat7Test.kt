@@ -16,6 +16,7 @@ import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource.Companion.from
@@ -541,8 +542,15 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.file(testDir3, "dir.c9r")).thenReturn(testDir3DirFile)
 		whenever(cloudContentRepository.file(ddFolder, "dirid.c9r")).thenReturn(testDir3DirBackupFile)
 		whenever(dirIdCache.put(eq(cryptoFolder3), any())).thenReturn(DirIdInfo("dir3-id", ddFolder))
+		// the cryptor is gone once the cloud has been changed, so this only passes if the dir id backup is encrypted
+		// before that
+		var locked = false
+		inTest = CryptoImplVaultFormat7(context, { if (locked) throw MissingCryptorException() else cryptor }, cloudContentRepository, rootFolder, dirIdCache)
 		whenever(cloudContentRepository.create(lvl2Dir)).thenReturn(lvl2Dir)
-		whenever(cloudContentRepository.create(ddFolder)).thenReturn(ddFolder)
+		whenever(cloudContentRepository.create(ddFolder)).thenAnswer {
+			locked = true
+			ddFolder
+		}
 		whenever(cloudContentRepository.create(testDir3)).thenReturn(testDir3)
 		whenever(cloudContentRepository.write(eq(testDir3DirFile), any(), any(), eq(false), any())).thenReturn(testDir3DirFile)
 

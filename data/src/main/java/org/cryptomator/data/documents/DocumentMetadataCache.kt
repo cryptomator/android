@@ -79,8 +79,13 @@ private const val FIRST_WRITE_POLL_INTERVAL = 50L
  *
  * A create, move or delete that the cloud rejects is undone in the cache before the later requests of its paths run,
  * except a move that a later move of the node takes on from where the cloud still has it, see [move]. A rejected create
- * or move also marks the affected folders for listing again. A failed upload stays pending instead. A change that fails because its name is taken in the cloud is renamed and
- * retried. [events] are told about every folder whose children a change or a background listing changed.
+ * or move also marks the affected folders for listing again. A failed upload stays pending instead. A change that fails
+ * because its name is taken in the cloud is renamed and retried. [events] are told about every folder whose children a
+ * change or a background listing changed.
+ *
+ * A create, move or delete that found its vault locked stays pending, too, and runs again after the next unlock, see
+ * [resumeLockedChanges]. The later requests of its paths keep waiting for it. The reads of a locked vault fail
+ * meanwhile rather than wait, see [CloudTaskScheduler.isLocked].
  *
  * A node being deleted is hidden together with its descendants until the cloud has deleted it. They keep their pending
  * uploads and local copies meanwhile, so that they come back as they were if the cloud rejects the deletion.
@@ -145,6 +150,13 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	private val deleteTokens = AtomicLong()
 
 	/**
+	 * The creates, moves and deletes that found their vault locked, by vault id; guarded by [changeLock]. Each applies its
+	 * change again, see [resumeLockedChanges]. Kept in memory only. After the process ended, they are settled like the
+	 * other changes it ended during.
+	 */
+	private val lockedChanges = HashMap<Long, MutableList<() -> Unit>>()
+
+	/**
 	 * The moves the process ended during whose subtree holds a pending write, by node id; guarded by [changeLock].
 	 */
 	private val interruptedMoves = HashMap<Long, InterruptedMove>()
@@ -189,6 +201,14 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	var onInterruptedMovesResolved: ((Vault) -> Unit)? = null
 
 	init {
+		scheduler.isLocked = { vault ->
+			try {
+				vaultRepository.assertUnlocked(vault)
+				false
+			} catch (e: MissingCryptorException) {
+				true
+			}
+		}
 		dao.recoverPendingDeletes()
 		dao.loadInterruptedChanges().forEach { pending ->
 			if (pending.sourcePath != null && !pending.isCreating && dao.hasPendingWriteInSubtree(pending.vaultId, pending.path)) {
@@ -398,11 +418,14 @@ class DocumentMetadataCache @JvmOverloads constructor(
 				status = DocumentMetadataEntity.STATUS_CREATING
 			})
 			onChanged(folder)
+			// a create applied again after an unlock starts from the conflict name it got, see retryingNameCollisions
+			var cloudPath = path
 			val result = applyInBackground(path.vault, id, listOf(path), userInitiated) {
 				if (!isFolder && awaitFirstWrite(id)) {
 					throw CancellationException("${documentId(path.vault.id, id)} was written before it was created, the upload of the write creates it")
 				}
-				retryingNameCollisions(id, path) { current ->
+				retryingNameCollisions(id, cloudPath) { current ->
+					cloudPath = current
 					if (isFolder) {
 						val createdFolder = contentRepository.create(contentRepository.folder(parentFolder(current), current.name))
 						recordChange(folder) { dao.markCreated(id, null, null) }
@@ -478,7 +501,11 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			pendingMoves.getOrPut(id) { mutableListOf() }.add(source)
 			// the target last, which a failure is reported for
 			val paths = earlierSources + source + target
+			// a move applied again after an unlock goes to the conflict name it got, see retryingNameCollisions
+			var cloudTarget = target
 			return applyInBackground(source.vault, id, paths, userInitiated, undo = { undoMove(source.vault, id) }) {
+				var wasAstray = false
+				var vaultLocked = false
 				try {
 					// a node whose move has been undone meanwhile is no longer marked as moving
 					val node = dao.loadById(id)?.takeIf { it.sourcePath != null } ?: throw CancellationException("The move of ${documentId(source.vault.id, id)} has been undone")
@@ -488,7 +515,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 						recordChange(sourceFolder, folder) { markMoved(id, target, target) }
 						return@applyInBackground VaultDocumentChangeResult<CloudNode>(target, file)
 					}
-					val astraySource = if (synchronized(changeLock) { astrayMoves.remove(id) }) startOfAstrayMove(source.vault, id, requireNotNull(node.sourcePath)) else null
+					wasAstray = synchronized(changeLock) { astrayMoves.remove(id) }
+					val astraySource = if (wasAstray) startOfAstrayMove(source.vault, id, requireNotNull(node.sourcePath)) else null
 					if (astraySource == target) {
 						val unmoved = cloudNode(target, metadata.isFolder)
 						if (contentRepository.exists(unmoved)) {
@@ -498,7 +526,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 						}
 					}
 					val cloudSource = astraySource?.takeIf { it != target } ?: source
-					retryingNameCollisions(id, target, ownMoves = 1) { current ->
+					retryingNameCollisions(id, cloudTarget, ownMoves = 1) { current ->
+						cloudTarget = current
 						synchronized(changeLock) { dao.setMoveTargetPath(id, current.path) }
 						val moved = if (metadata.isFolder) {
 							contentRepository.move(contentRepository.folder(parentFolder(cloudSource), cloudSource.name), contentRepository.folder(parentFolder(current), current.name))
@@ -508,14 +537,23 @@ class DocumentMetadataCache @JvmOverloads constructor(
 						recordChange(sourceFolder, folder, requireNotNull(cloudSource.parent)) { markMoved(id, target, current) }
 						VaultDocumentChangeResult<CloudNode>(current, moved)
 					}
+				} catch (e: MissingCryptorException) {
+					// the move runs again after the next unlock and stays pending until then
+					vaultLocked = true
+					if (wasAstray) {
+						synchronized(changeLock) { astrayMoves.add(id) }
+					}
+					throw e
 				} finally {
 					synchronized(changeLock) {
 						dao.setMoveTargetPath(id, null)
-						val moves = requireNotNull(pendingMoves[id])
-						moves.remove(source)
-						if (moves.isEmpty()) {
-							pendingMoves.remove(id)
-							astrayMoves.remove(id)
+						if (!vaultLocked) {
+							val moves = requireNotNull(pendingMoves[id])
+							moves.remove(source)
+							if (moves.isEmpty()) {
+								pendingMoves.remove(id)
+								astrayMoves.remove(id)
+							}
 						}
 					}
 				}
@@ -601,7 +639,8 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	 * it, see [isUnconfirmedUpload], it holds what one of them sent, and it wasn't replaced while that was compared. A
 	 * file another device wrote with the same content can't be told apart and is deleted, too. A listing that ran
 	 * meanwhile may have taken the file for a node of its own, so its folder is listed again. Since the uploads may as
-	 * well not have landed, a failure here doesn't fail the change.
+	 * well not have landed, a failure here doesn't fail the change. A locked vault does, so that the change runs again
+	 * after the next unlock and retries this.
 	 */
 	private fun deleteUnconfirmedUpload(id: Long) {
 		val attempt = unconfirmedUploads.remove(id) ?: return
@@ -624,6 +663,9 @@ class DocumentMetadataCache @JvmOverloads constructor(
 			val folder = requireNotNull(cloudPath.parent)
 			recordChange(folder) { dao.updateLastEnumeratedAt(folder.vault.id, folder.path, null) }
 			onChanged(folder)
+		} catch (e: MissingCryptorException) {
+			unconfirmedUploads.putIfAbsent(id, attempt)
+			throw e
 		} catch (e: Exception) {
 			LOG.w(e, "Deleting what an unconfirmed upload of ${documentId(cloudPath.vault.id, id)} may have put into the cloud failed")
 		}
@@ -1325,38 +1367,60 @@ class DocumentMetadataCache @JvmOverloads constructor(
 	/**
 	 * Applies [cloudChange] to the cloud once the earlier changes of [paths] are done. If the cloud rejects it, the change
 	 * is undone in the cache with [undo] before the later changes of [paths] run, so that they find it undone. A change
-	 * that gives up with a [CancellationException], e.g. because an earlier change undid it, is left as it is.
+	 * that gives up with a [CancellationException], e.g. because an earlier change undid it, is left as it is. A change
+	 * that finds the vault locked stays pending in the cache and runs again after the next unlock, see
+	 * [resumeLockedChanges]. The later requests of [paths] keep waiting for it.
 	 *
 	 * @return the outcome of [cloudChange], ending once the change has been undone if the cloud rejected it
 	 */
 	private fun <T> applyInBackground(vault: Vault, id: Long, paths: List<VaultPath>, userInitiated: Boolean, undo: () -> Unit = { dao.loadById(id)?.let { discardPendingChange(vault, it) } }, cloudChange: () -> T): CompletableFuture<T> {
 		val result = CompletableFuture<T>()
-		scheduler.write(paths) {
+		fun attempt() {
 			try {
-				cloudChange()
+				result.complete(cloudChange())
+			} catch (e: MissingCryptorException) {
+				LOG.i("The change of ${documentId(vault.id, id)} waits for its vault to be unlocked")
+				synchronized(changeLock) {
+					lockedChanges.getOrPut(vault.id) { mutableListOf() }.add(::attempt)
+				}
+				scheduler.failWaitingReads(vault)
 			} catch (e: CancellationException) {
 				LOG.i("The change of ${documentId(vault.id, id)} was given up: ${e.message}")
-				throw e
+				result.completeExceptionally(e)
 			} catch (e: Exception) {
 				LOG.e(e, "Applying a change of ${documentId(vault.id, id)} to the cloud failed")
 				try {
-					synchronized(changeLock) {
-						undo()
+					try {
+						synchronized(changeLock) {
+							undo()
+						}
+					} catch (undoFailure: Exception) {
+						LOG.e(undoFailure, "Undoing the change of ${documentId(vault.id, id)} failed")
 					}
-				} catch (undoFailure: Exception) {
-					LOG.e(undoFailure, "Undoing the change of ${documentId(vault.id, id)} failed")
+					events.onChangeFailed(paths.last(), e, userInitiated)
+				} finally {
+					result.completeExceptionally(e)
 				}
-				events.onChangeFailed(paths.last(), e, userInitiated)
-				throw e
-			}
-		}.whenComplete { value, e ->
-			if (e == null) {
-				result.complete(value)
-			} else {
-				result.completeExceptionally(unwrap(e))
+			} catch (e: Throwable) {
+				LOG.e(e, "Applying a change of ${documentId(vault.id, id)} to the cloud failed")
+				result.completeExceptionally(e)
 			}
 		}
+		scheduler.write(paths) {
+			attempt()
+			result
+		}
 		return result
+	}
+
+	/**
+	 * Applies again the creates, moves and deletes that found [vault] locked, see [applyInBackground]. A change that finds
+	 * the vault still locked keeps waiting.
+	 */
+	fun resumeLockedChanges(vault: Vault) {
+		synchronized(changeLock) {
+			lockedChanges.remove(vault.id)?.forEach { change -> CompletableFuture.runAsync({ change() }, scheduler.unordered) }
+		}
 	}
 
 	/**

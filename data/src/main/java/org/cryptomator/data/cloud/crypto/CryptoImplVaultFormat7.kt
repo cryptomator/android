@@ -295,6 +295,9 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			shortName = true
 		}
 		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
+		val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
+		// encrypted first, so that a vault locked meanwhile fails the creation before it changes the cloud
+		val encryptedDirId = encryptedBackupDirId(dirId)
 		val createdCloudFolder = cloudContentRepository.create(dirIdInfo.cloudFolder)
 		var dirFolder = folder.dirFile.parent
 		var dirFile = folder.dirFile
@@ -302,26 +305,27 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			dirFolder = cloudContentRepository.create(dirFolder)
 			dirFile = cloudContentRepository.file(dirFolder, folder.dirFile.name)
 		}
-		val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
 		val createdDirFile = cloudContentRepository.write(dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
 		val result = folder(folder, createdDirFile)
 		addFolderToCache(result, dirIdInfo.withCloudFolder(createdCloudFolder))
-		silentlyUploadBackupDirIdFile(dirId, createdCloudFolder)
+		silentlyUploadBackupDirIdFile(encryptedDirId, createdCloudFolder)
 		return result
 	}
 
-	private fun silentlyUploadBackupDirIdFile(dirId: ByteArray, dirFolder: CloudFolder) {
+	private fun encryptedBackupDirId(dirId: ByteArray): ByteArray {
 		val data = ByteArrayOutputStream()
-
 		Channels.newChannel(data).use { channel ->
 			EncryptingWritableByteChannel(channel, cryptor()).use { encryptingChannel ->
 				encryptingChannel.write(ByteBuffer.wrap(dirId))
 			}
 		}
+		return data.toByteArray()
+	}
 
+	private fun silentlyUploadBackupDirIdFile(encryptedDirId: ByteArray, dirFolder: CloudFolder) {
 		try {
 			val dirIdBackupFile = cloudContentRepository.file(dirFolder, CryptoConstants.DIR_ID_FILE)
-			cloudContentRepository.write(dirIdBackupFile, from(data.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, data.size().toLong())
+			cloudContentRepository.write(dirIdBackupFile, from(encryptedDirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, encryptedDirId.size.toLong())
 		} catch (e: BackendException) {
 			Timber.tag("CryptoFs").e(e, "Failed to create DirIdBackupFile")
 		}

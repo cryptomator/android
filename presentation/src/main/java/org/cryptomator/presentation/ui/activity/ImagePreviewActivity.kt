@@ -67,7 +67,8 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 			}
 
 			setupViewPager(index)
-			setupToolbar(index)
+			// the store counts all images, so its index can be past the pages restored after the activity was recreated
+			setupToolbar(binding.viewPager.currentItem)
 			setupStatusBar()
 			toggleFullScreen()
 			attachSystemUiVisibilityChangeListener()
@@ -171,7 +172,7 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 
 	private fun fragmentFor(imagePreviewFile: ImagePreviewFile): ImagePreviewFragment? {
 		return supportFragmentManager.fragments
-			.map { it as ImagePreviewFragment }
+			.filterIsInstance<ImagePreviewFragment>()
 			.firstOrNull { it.imagePreviewFile() == imagePreviewFile }
 	}
 
@@ -221,7 +222,10 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 	inner class ImagePreviewSliderAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
 		init {
-			initPageIndexes()
+			// unless restored after the activity was recreated
+			if (!presenter.hasPageIndexes()) {
+				initPageIndexes()
+			}
 		}
 
 		override fun getItem(position: Int): Fragment {
@@ -238,8 +242,9 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 
 		// Delete a page at a `position`
 		fun deletePage(position: Int) {
-			// Remove the corresponding item in the data set
-			presenter.pageIndexes.removeAt(position)
+			// a copy, since the saved instance state may still hold the list, which has to match the pages the pager saved
+			// with it
+			presenter.pageIndexes = ArrayList(presenter.pageIndexes).apply { removeAt(position) }
 			// Notify the adapter that the data set is changed
 			notifyDataSetChanged()
 		}
