@@ -12,7 +12,15 @@ class AutolockTimeoutTest {
 
 	private var now = 1_000_000L
 
-	private val inTest = AutolockTimeout { now }.apply { setLockTimeout(LockTimeout.ONE_MINUTE) }
+	/**
+	 * Runs once on the next read of the clock, like the autolock worker checking while the app changes the timeout.
+	 */
+	private var duringClockRead: (() -> Unit)? = null
+
+	private val inTest = AutolockTimeout {
+		duringClockRead?.also { duringClockRead = null }?.invoke()
+		now
+	}.apply { setLockTimeout(LockTimeout.ONE_MINUTE) }
 
 	@Test
 	fun `the vaults don't lock while the app is in the foreground`() {
@@ -69,7 +77,7 @@ class AutolockTimeoutTest {
 		assertEquals(0L, inTest.configuredTimeout())
 	}
 
-	// the autolock worker checks the timeout while the app changes it, so each check works on what it read first
+	// the autolock worker checks the timeout while the app changes it
 
 	@Test
 	fun `the app coming to the foreground during a check doesn't expire the timeout`() {
@@ -78,6 +86,19 @@ class AutolockTimeoutTest {
 		inTest.setLockTimeout(timeout)
 		now += 120_000
 
+		assertFalse(inTest.expired())
+	}
+
+	@Test
+	fun `a check while the app goes to the background after a long time in the foreground doesn't expire the timeout`() {
+		inTest.setAppIsActive(true)
+		now += 120_000
+		var expiredDuringSwitch: Boolean? = null
+		duringClockRead = { expiredDuringSwitch = inTest.expired() }
+
+		inTest.setAppIsActive(false)
+
+		assertEquals(false, expiredDuringSwitch)
 		assertFalse(inTest.expired())
 	}
 

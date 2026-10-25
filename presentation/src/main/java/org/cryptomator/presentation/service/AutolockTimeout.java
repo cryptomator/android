@@ -29,8 +29,9 @@ class AutolockTimeout {
 	}
 
 	public void setAppIsActive(boolean appIsActive) {
-		this.appIsActive = appIsActive;
+		// started over first, so that a check seeing the app in the background never counts the time it was active
 		used();
+		this.appIsActive = appIsActive;
 	}
 
 	/**

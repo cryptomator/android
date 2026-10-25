@@ -83,7 +83,7 @@ public class CryptorsService extends Service {
 	private void waitUntilVaultsUnlockedAndInBackground() throws InterruptedException {
 		unlockedLock.lock();
 		try {
-			if (cryptors.isEmpty() || (autolockTimeout.isDisabled() && !screenOffLockPending)) {
+			while (cryptors.isEmpty() || (autolockTimeout.isDisabled() && !screenOffLockPending)) {
 				vaultsUnlockedAndInBackground.await();
 			}
 		} finally {
