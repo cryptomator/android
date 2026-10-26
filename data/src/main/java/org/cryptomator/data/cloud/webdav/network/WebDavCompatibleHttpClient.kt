@@ -10,6 +10,7 @@ import com.burgstaller.okhttp.digest.Credentials
 import com.burgstaller.okhttp.digest.DigestAuthenticator
 import com.google.common.net.HttpHeaders
 import org.cryptomator.data.cloud.okhttplogging.HttpLoggingInterceptor
+import org.cryptomator.data.util.LocalNetworkAccess
 import org.cryptomator.data.util.NetworkTimeout
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
@@ -55,6 +56,7 @@ internal class WebDavCompatibleHttpClient(cloud: WebDavCloud, context: Context) 
 				.readTimeout(NetworkTimeout.READ.timeout, NetworkTimeout.READ.unit) //
 				.writeTimeout(NetworkTimeout.WRITE.timeout, NetworkTimeout.WRITE.unit) //
 				.followRedirects(false) //
+				.addInterceptor(LocalNetworkAccess(context)) //
 				.addInterceptor(httpLoggingInterceptor(context)) //
 				.authenticator(httpAuthenticator(context, webDavCloud, authCache)) //
 				.addInterceptor(AuthenticationCacheInterceptor(authCache))

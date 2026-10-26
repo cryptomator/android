@@ -23,7 +23,6 @@ import org.cryptomator.domain.exception.FileRemovedDuringUploadException;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.exception.authentication.AuthenticationException;
-import org.cryptomator.domain.exception.authentication.WrongCredentialsException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.CancelAwareDataSource;
@@ -119,7 +118,7 @@ public class AutoUploadService extends Service {
 				} else if (wrappedStoragePermissionException(e)) {
 					notification.showPermissionNotGrantedNotification();
 				} else if (e instanceof AuthenticationException) {
-					notification.showWrongCredentialNotification((WrongCredentialsException) e);
+					notification.showWrongCredentialNotification((AuthenticationException) e);
 				} else {
 					notification.showGeneralErrorDuringUpload();
 				}

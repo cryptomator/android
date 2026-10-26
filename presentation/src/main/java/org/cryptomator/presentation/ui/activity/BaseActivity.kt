@@ -330,7 +330,8 @@ abstract class BaseActivity<VB : ViewBinding>(val bindingFactory: (LayoutInflate
 	internal open fun snackbarView(): android.view.View {
 		return activity().findViewById(R.id.locations_recycler_view)
 			?: activity().findViewById(R.id.rl_choose_cloud_service)
-			?: return activity().findViewById(R.id.coordinator_layout)
+			?: activity().findViewById(R.id.coordinator_layout)
+			?: activity().findViewById(android.R.id.content)
 	}
 
 	internal fun getCurrentFragment(fragmentContainer: Int): Fragment? = supportFragmentManager.findFragmentById(fragmentContainer)
