@@ -451,6 +451,7 @@
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
+	<string name="permission_snackbar_local_network">Для подключения к серверам в локальной сети Cryptomater нужен к ней доступ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
