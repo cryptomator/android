@@ -88,6 +88,7 @@
 	<string name="screen_vault_list_vault_action_delete">הסר</string>
 	<string name="screen_vault_list_vault_creation_hint">לחץ כאן ליצירת כספת חדשה</string>
 	<string name="screen_vault_list_change_password_successful">הסיסמא שונתה בהצלחה</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">שחרור</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">כספת</string>
 	<string name="screen_file_browser_create_new_vault_button_text">מקם כאן</string>
@@ -95,7 +96,6 @@
 	<plurals name="screen_file_browser_subtitle_move">
 		<item quantity="one">העברת %1$s אל</item>
 		<item quantity="two">העברת %2$d פריטים אל</item>
-		<item quantity="many">העברת %2$d פריטים אל</item>
 		<item quantity="other">העבר %2$d פריטים אל</item>
 	</plurals>
 	<string name="screen_file_browser_move_button_text">שנה מיקום</string>

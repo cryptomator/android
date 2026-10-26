@@ -1,33 +1,28 @@
 apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
-	ext.kotlin_version = '2.4.0'
+	ext.kotlin_version = '2.4.21'
 	repositories {
 		mavenCentral()
 		google()
 	}
 	dependencies {
 		// before upgrading AGP, check https://gitlab.com/fdroid/admin/-/issues/593
-		classpath 'com.android.tools.build:gradle:8.13.2'
-		classpath 'org.greenrobot:greendao-gradle-plugin:3.3.1'
+		classpath 'com.android.tools.build:gradle:9.4.1'
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-		classpath "de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1"
+		classpath "de.mannodermaus.gradle.plugins:android-junit5:2.0.1"
 	}
 }
 
 def getVersionCode = { ->
 	try {
-		def branchName = new ByteArrayOutputStream()
-		exec {
+		def branchName = providers.exec {
 			commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
-			standardOutput = branchName
-		}
-		def appBuild = new ByteArrayOutputStream()
-		exec {
-			commandLine 'git', 'rev-list', '--count', branchName.toString().trim()
-			standardOutput = appBuild
-		}
-		return Integer.parseInt(appBuild.toString().trim()) + 1958 // adding 1958 for legacy reasons
+		}.standardOutput.asText.get().trim()
+		def appBuild = providers.exec {
+			commandLine 'git', 'rev-list', '--count', branchName
+		}.standardOutput.asText.get().trim()
+		return Integer.parseInt(appBuild) + 1958 // adding 1958 for legacy reasons
 	}
 	catch (ignored) {
 		return -1
@@ -37,8 +32,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3132 // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '2.0.1'
+		androidVersionCode = 3163 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '2.1.0'
 	}
 	repositories {
 		mavenCentral()
@@ -50,7 +45,7 @@ allprojects {
 }
 
 task clean(type: Delete) {
-	delete rootProject.buildDir
+	delete rootProject.layout.buildDirectory
 }
 
 def getApiKey(key) {

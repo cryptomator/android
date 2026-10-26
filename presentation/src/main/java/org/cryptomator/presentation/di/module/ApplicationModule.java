@@ -3,11 +3,13 @@ package org.cryptomator.presentation.di.module;
 import android.content.Context;
 
 import org.cryptomator.presentation.CryptomatorApp;
+import org.cryptomator.presentation.service.ProductPricesCache;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import kotlin.Unit;
 
 @Module
 public class ApplicationModule {
@@ -22,5 +24,14 @@ public class ApplicationModule {
 	@Singleton
 	Context provideApplicationContext() {
 		return application;
+	}
+
+	@Provides
+	@Singleton
+	ProductPricesCache provideProductPricesCache() {
+		return new ProductPricesCache(callback -> {
+			application.queryProductDetails(callback);
+			return Unit.INSTANCE;
+		}, System::currentTimeMillis);
 	}
 }

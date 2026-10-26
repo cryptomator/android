@@ -13,6 +13,7 @@ import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.hub.HubAuthenticationFailedException
 import org.cryptomator.domain.exception.hub.HubDeviceAlreadyRegisteredForOtherUserException
 import org.cryptomator.domain.exception.hub.HubInvalidSetupCodeException
@@ -43,6 +44,7 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 	private val defaultExceptionHandler: ExceptionHandler = defaultExceptionHandler
 
 	private fun setupHandlers() {
+		staticHandler(LocalNetworkPermissionMissingException::class.java, R.string.permission_snackbar_local_network)
 		staticHandler(AuthenticationException::class.java, R.string.error_authentication_failed)
 		staticHandler(NetworkConnectionException::class.java, R.string.error_no_network_connection)
 		staticHandler(InvalidPassphraseException::class.java, R.string.error_invalid_passphrase)

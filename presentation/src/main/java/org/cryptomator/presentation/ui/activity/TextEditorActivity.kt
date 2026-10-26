@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
@@ -41,16 +42,23 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	override fun setupView() {
 		textEditorPresenter.setTextFile(textEditorIntent.textFile())
 		setupToolbar()
+		setupBackPressedCallback()
 	}
 
 	override fun createFragment(): Fragment = TextEditorFragment()
 
-	override fun onBackPressed() {
-		if (!hasWriteAccess()) {
-			super.onBackPressed()
-			return
+	private val backPressedCallback = object : OnBackPressedCallback(true) {
+		override fun handleOnBackPressed() {
+			if (!hasWriteAccess()) {
+				performBackPressed()
+				return
+			}
+			textEditorPresenter.onBackPressed()
 		}
-		textEditorPresenter.onBackPressed()
+	}
+
+	private fun setupBackPressedCallback() {
+		onBackPressedDispatcher.addCallback(this, backPressedCallback)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -120,7 +128,7 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	}
 
 	override fun performBackPressed() {
-		super.onBackPressed()
+		performDefaultBackPressed(backPressedCallback)
 	}
 
 	override fun showUnsavedChangesDialog() {

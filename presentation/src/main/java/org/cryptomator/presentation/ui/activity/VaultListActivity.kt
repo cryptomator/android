@@ -12,7 +12,6 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityLayoutObscureAwareBinding
-import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.Intents.browseFilesIntent
 import org.cryptomator.presentation.intent.Intents.settingsIntent
 import org.cryptomator.presentation.intent.VaultListIntent
@@ -22,6 +21,7 @@ import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.service.OpenWritableFileNotification
+import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.bottomsheet.AddVaultBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
@@ -160,6 +160,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListFragment().hideVaultCreationHint()
 	}
 
+	override fun showSalePromoBanner(salePromo: SalePromo) {
+		vaultListFragment().showSalePromoBanner(salePromo)
+	}
+
+	override fun hideSalePromoBanner() {
+		vaultListFragment().hideSalePromoBanner()
+	}
+
 	override fun deleteVaultFromAdapter(vaultId: Long) {
 		vaultListFragment().deleteVaultFromAdapter(vaultId)
 	}
@@ -217,7 +225,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	override fun onUnlockFullVersionClicked() {
-		Intents.licenseCheckIntent().startActivity(this)
+		vaultListPresenter.onUnlockFullVersionClicked()
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //

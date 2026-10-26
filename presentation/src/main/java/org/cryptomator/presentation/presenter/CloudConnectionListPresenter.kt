@@ -8,11 +8,15 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
+import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
+import org.cryptomator.domain.usecases.cloud.GetSharepointDrivesUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.domain.usecases.cloud.RemoveCloudUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultsUseCase
@@ -24,10 +28,14 @@ import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
+import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
+import org.cryptomator.presentation.ui.dialog.ChooseSharepointDriveDialog
+import org.cryptomator.presentation.ui.dialog.EnterSharepointUrlDialog
 import org.cryptomator.presentation.ui.dialog.PCloudCredentialsUpdatedDialog
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.util.ExceptionUtil
@@ -41,6 +49,7 @@ import timber.log.Timber
 class CloudConnectionListPresenter @Inject constructor( //
 	private val getCloudsUseCase: GetCloudsUseCase,  //
 	private val getUsernameUseCase: GetUsernameUseCase, //
+	private val getSharepointDrivesUseCase: GetSharepointDrivesUseCase, //
 	private val removeCloudUseCase: RemoveCloudUseCase,  //
 	private val addOrChangeCloudConnectionUseCase: AddOrChangeCloudConnectionUseCase,  //
 	private val getVaultListUseCase: GetVaultListUseCase,  //
@@ -50,6 +59,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 ) : Presenter<CloudConnectionListView>(exceptionMappings) {
 
 	private val selectedCloudType = AtomicReference<CloudTypeModel>()
+	private var pendingSharepointDrives: List<SharepointCloud>? = null
+
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {
 		this.selectedCloudType.set(selectedCloudType)
 	}
@@ -125,6 +136,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 	fun onAddConnectionClicked() {
 		when (selectedCloudType.get()) {
 			CloudTypeModel.ONEDRIVE -> addOnedriveCloud()
+			CloudTypeModel.SHAREPOINT -> view?.showDialog(EnterSharepointUrlDialog.newInstance())
 			CloudTypeModel.WEBDAV -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent())
 			CloudTypeModel.PCLOUD -> requestActivityResult(ActivityResultCallbacks.pCloudAuthenticationFinished(), Intents.authenticatePCloudIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
@@ -134,11 +146,13 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	private fun addOnedriveCloud() {
-		OnedriveAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
+		MicrosoftGraphAuthentication.getAuthenticatedOnedriveCloud(activity(), { cloud ->
 			saveOnedriveCloud(cloud)
-		}, { e ->
-			ExceptionUtil.extract(e, NetworkConnectionException::class.java).getOrNull()?.let { showError(it) } ?: showError(e)
-		})
+		}, ::showAuthenticationError)
+	}
+
+	private fun showAuthenticationError(e: FatalBackendException) {
+		ExceptionUtil.extract(e, NetworkConnectionException::class.java).getOrNull()?.let { showError(it) } ?: showError(e)
 	}
 
 	private fun saveOnedriveCloud(onedriveSkeleton: OnedriveCloud) {
@@ -161,6 +175,79 @@ class CloudConnectionListPresenter @Inject constructor( //
 					}?.let {
 						saveCloud(OnedriveCloud.aCopyOf(it as OnedriveCloud).withAccessToken(cloud.accessToken()).build())
 						Timber.tag("CloudConnListPresenter").i("OneDrive access token updated")
+					} ?: saveCloud(cloud)
+				}
+			})
+	}
+
+	fun onSharepointUrlEntered(siteUrl: String) {
+		MicrosoftGraphAuthentication.getAuthenticatedSharepointCloud(activity(), siteUrl, { cloud ->
+			loadSharepointDrives(cloud)
+		}, ::showAuthenticationError)
+	}
+
+	internal fun loadSharepointDrives(sharepointSkeleton: SharepointCloud) {
+		showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+		getSharepointDrivesUseCase //
+			.withCloud(sharepointSkeleton) //
+			.run(object : DefaultResultHandler<List<SharepointCloud>>() {
+				override fun onSuccess(drives: List<SharepointCloud>) {
+					// complete before showing the picker, since showProgress replaces any dialog that isn't ProgressAware
+					view?.showProgress(ProgressModel.COMPLETED)
+					if (isPaused) {
+						pendingSharepointDrives = drives
+					} else {
+						showSharepointDrives(drives)
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					view?.showProgress(ProgressModel.COMPLETED)
+					if (e is NoSuchCloudFileException) {
+						view?.showError(R.string.screen_cloud_connections_msg_sharepoint_site_not_found)
+					} else {
+						showError(e)
+					}
+				}
+			})
+	}
+
+	override fun resumed() {
+		pendingSharepointDrives?.let { drives ->
+			pendingSharepointDrives = null
+			showSharepointDrives(drives)
+		}
+	}
+
+	private fun showSharepointDrives(drives: List<SharepointCloud>) {
+		if (drives.isEmpty()) {
+			view?.showMessage(R.string.screen_cloud_connections_msg_no_sharepoint_drives)
+		} else {
+			view?.showDialog(ChooseSharepointDriveDialog.newInstance(ArrayList(drives)))
+		}
+	}
+
+	fun onSharepointDriveChosen(sharepointSkeleton: SharepointCloud) {
+		showProgress(ProgressModel(ProgressStateModel.AUTHENTICATION))
+		getUsernameUseCase //
+			.withCloud(sharepointSkeleton) //
+			.run(object : ProgressCompletingResultHandler<String>() {
+				override fun onSuccess(username: String) {
+					prepareForSavingSharepointCloud(SharepointCloud.aCopyOf(sharepointSkeleton).withUsername(username).build())
+				}
+			})
+	}
+
+	private fun prepareForSavingSharepointCloud(cloud: SharepointCloud) {
+		getCloudsUseCase //
+			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
+			.run(object : DefaultResultHandler<List<Cloud>>() {
+				override fun onSuccess(clouds: List<Cloud>) {
+					clouds.firstOrNull {
+						it.configurationMatches(cloud)
+					}?.let {
+						saveCloud(SharepointCloud.aCopyOf(it as SharepointCloud).withAccessToken(cloud.accessToken()).build())
+						Timber.tag("CloudConnListPresenter").i("SharePoint access token updated")
 					} ?: saveCloud(cloud)
 				}
 			})
@@ -300,6 +387,6 @@ class CloudConnectionListPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(getCloudsUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultsUseCase)
+		unsubscribeOnDestroy(getCloudsUseCase, getSharepointDrivesUseCase, removeCloudUseCase, addOrChangeCloudConnectionUseCase, getVaultListUseCase, deleteVaultsUseCase)
 	}
 }

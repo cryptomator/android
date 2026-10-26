@@ -73,6 +73,7 @@
 	<string name="screen_vault_list_vault_action_delete">Poista</string>
 	<string name="screen_vault_list_vault_creation_hint">Napauta tätä luodaksesi uuden holvin</string>
 	<string name="screen_vault_list_change_password_successful">Salasanan vaihto onnistui</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Ohita</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Holvi</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Valitse pääavain tai holvitiedosto</string>

@@ -1,39 +1,31 @@
 package org.cryptomator.data.db.entities;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Id;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-@Entity
-public class UpdateCheckEntity extends DatabaseEntity {
+@Entity(tableName = "UPDATE_CHECK_ENTITY")
+public class UpdateCheckEntity {
 
-	@Id
+	@PrimaryKey(autoGenerate = true)
+	@ColumnInfo(name = "_id")
 	private Long id;
 
+	@ColumnInfo(name = "RELEASE_NOTE")
 	private String releaseNote;
 
+	@ColumnInfo(name = "VERSION")
 	private String version;
 
+	@ColumnInfo(name = "URL_TO_APK")
 	private String urlToApk;
 
+	@ColumnInfo(name = "APK_SHA256")
 	private String apkSha256;
 
+	@ColumnInfo(name = "URL_TO_RELEASE_NOTE")
 	private String urlToReleaseNote;
 
-	public UpdateCheckEntity() {
-	}
-
-	@Generated(hash = 867488251)
-	public UpdateCheckEntity(Long id, String releaseNote, String version, String urlToApk, String apkSha256, String urlToReleaseNote) {
-		this.id = id;
-		this.releaseNote = releaseNote;
-		this.version = version;
-		this.urlToApk = urlToApk;
-		this.apkSha256 = apkSha256;
-		this.urlToReleaseNote = urlToReleaseNote;
-	}
-
-	@Override
 	public Long getId() {
 		return id;
 	}
@@ -42,8 +34,16 @@ public class UpdateCheckEntity extends DatabaseEntity {
 		this.id = id;
 	}
 
+	public String getReleaseNote() {
+		return releaseNote;
+	}
+
+	public void setReleaseNote(String releaseNote) {
+		this.releaseNote = releaseNote;
+	}
+
 	public String getVersion() {
-		return this.version;
+		return version;
 	}
 
 	public void setVersion(String version) {
@@ -51,34 +51,26 @@ public class UpdateCheckEntity extends DatabaseEntity {
 	}
 
 	public String getUrlToApk() {
-		return this.urlToApk;
+		return urlToApk;
 	}
 
 	public void setUrlToApk(String urlToApk) {
 		this.urlToApk = urlToApk;
 	}
 
-	public String getReleaseNote() {
-		return this.releaseNote;
-	}
-
-	public void setReleaseNote(String releaseNote) {
-		this.releaseNote = releaseNote;
-	}
-
-	public String getUrlToReleaseNote() {
-		return this.urlToReleaseNote;
-	}
-
-	public void setUrlToReleaseNote(String urlToReleaseNote) {
-		this.urlToReleaseNote = urlToReleaseNote;
-	}
-
 	public String getApkSha256() {
-		return this.apkSha256;
+		return apkSha256;
 	}
 
 	public void setApkSha256(String apkSha256) {
 		this.apkSha256 = apkSha256;
+	}
+
+	public String getUrlToReleaseNote() {
+		return urlToReleaseNote;
+	}
+
+	public void setUrlToReleaseNote(String urlToReleaseNote) {
+		this.urlToReleaseNote = urlToReleaseNote;
 	}
 }

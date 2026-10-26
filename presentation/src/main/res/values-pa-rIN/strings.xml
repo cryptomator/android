@@ -77,6 +77,7 @@
 	<string name="screen_vault_list_vault_action_delete">ਹਟਾਓ</string>
 	<string name="screen_vault_list_vault_creation_hint">ਨਵਾਂ ਵਾਲਟ ਬਣਾਉਣ ਲਈ ਇੱਥੇ ਛੂਹੋ</string>
 	<string name="screen_vault_list_change_password_successful">ਪਾਸਵਰਡ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਬਦਲਿਆ</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">ਖ਼ਾਰਜ</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">ਵਾਲਟ</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">ਮਾਸਟਰ-ਕੁੰਜੀ ਜਾਂ ਵਾਲਟ ਫਾਇਲ ਨੂੰ ਚੁਣੋ</string>

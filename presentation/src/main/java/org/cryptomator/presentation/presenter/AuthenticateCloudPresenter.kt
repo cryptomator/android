@@ -11,13 +11,16 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.DropboxCloud
 import org.cryptomator.domain.GoogleDriveCloud
+import org.cryptomator.domain.MicrosoftGraphCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
+import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
 import org.cryptomator.domain.exception.authentication.WebDavNotSupportedException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
@@ -26,6 +29,7 @@ import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
 import org.cryptomator.generator.Callback
+import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
@@ -42,6 +46,7 @@ import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
+import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -63,10 +68,14 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow
 ) : Presenter<AuthenticateCloudView>(exceptionHandlers) {
 
+	@JvmField
+	@InstanceState
+	var localNetworkPermissionRequested = false
+
 	private val strategies = arrayOf( //
 		DropboxAuthStrategy(),  //
 		GoogleDriveAuthStrategy(),  //
-		OnedriveAuthStrategy(),  //
+		MicrosoftGraphAuthStrategy(),  //
 		PCloudAuthStrategy(), //
 		WebDAVAuthStrategy(),  //
 		S3AuthStrategy(), //
@@ -81,7 +90,30 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		val cloud = view?.intent()?.cloud()
 		val error = view?.intent()?.error()
 		handleNetworkConnectionExceptionIfRequired(error)
+		if (cloud != null && error != null && ExceptionUtil.contains(error, LocalNetworkPermissionMissingException::class.java)) {
+			requestLocalNetworkPermissionOnce(cloud)
+			return
+		}
 		view?.intent()?.let { cloud?.let { cloud -> authStrategyFor(cloud).resumed(it) } }
+	}
+
+	private fun requestLocalNetworkPermissionOnce(cloud: CloudModel) {
+		// resumed() runs again once the permission dialog is closed
+		if (!localNetworkPermissionRequested) {
+			localNetworkPermissionRequested = true
+			requestLocalNetworkPermission(PermissionsResultCallbacks.authenticateCloudLocalNetworkPermissionResult(cloud))
+		}
+	}
+
+	@Callback
+	fun authenticateCloudLocalNetworkPermissionResult(result: PermissionsResult, cloud: CloudModel) {
+		if (result.granted()) {
+			succeedAuthenticationWith(cloud.toCloud())
+		} else {
+			// the snackbar explaining it would close together with this screen
+			view?.showMessage(R.string.permission_snackbar_local_network)
+			finish()
+		}
 	}
 
 	private fun handleNetworkConnectionExceptionIfRequired(error: AuthenticationException?) {
@@ -117,6 +149,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		return when (cloud.type()) {
 			CloudType.DROPBOX -> DropboxCloud.aCopyOf(cloud as DropboxCloud).withUsername(username).build()
 			CloudType.ONEDRIVE -> OnedriveCloud.aCopyOf(cloud as OnedriveCloud).withUsername(username).build()
+			CloudType.SHAREPOINT -> SharepointCloud.aCopyOf(cloud as SharepointCloud).withUsername(username).build()
 			else -> throw IllegalStateException("Cloud " + cloud.type() + " is not supported")
 		}
 	}
@@ -242,12 +275,12 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 	}
 
-	private inner class OnedriveAuthStrategy : AuthStrategy {
+	private inner class MicrosoftGraphAuthStrategy : AuthStrategy {
 
 		private var authenticationStarted = false
 
 		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.ONEDRIVE
+			return cloud.cloudType() == CloudTypeModel.ONEDRIVE || cloud.cloudType() == CloudTypeModel.SHAREPOINT
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
@@ -261,7 +294,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 			Toast.makeText(context(), R.string.notification_authenticating, Toast.LENGTH_SHORT).show()
 
-			OnedriveAuthentication.refreshOrCheckAuth(activity(), cloud.toCloud() as OnedriveCloud, { authenticatedCloud ->
+			MicrosoftGraphAuthentication.refreshOrCheckAuth(activity(), cloud.toCloud() as MicrosoftGraphCloud, { authenticatedCloud ->
 				getUsernameAndSuceedAuthentication(authenticatedCloud)
 			}, {
 				failAuthentication(cloud.name())
@@ -531,6 +564,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 
 		fun onedriveScopes(): Array<String> {
 			return arrayOf("User.Read", "Files.ReadWrite")
+		}
+
+		fun sharepointScopes(): Array<String> {
+			return arrayOf("User.Read", "Sites.ReadWrite.All")
 		}
 	}
 
