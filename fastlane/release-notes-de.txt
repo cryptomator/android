@@ -3,4 +3,7 @@
 - Verschieben von Ordnern in übergeordnete Ordner behoben
 - Nicht reagierende Oberfläche nach Zurück im Tresor-Entsperrdialog behoben
 - Fehlschlagende WebDAV-Uploads bei wiederverwendeten Verbindungen behoben, z. B. beim Speichern im integrierten Editor oder beim Hochladen großer Dateien
+- Verbindung zu WebDAV- und S3-Servern im lokalen Netzwerk unter Android 17 behoben
+- Unverschlüsselter Upload von Fotos beim erneuten Versuch des automatischen Foto-Uploads nach einer Neuanmeldung behoben
+- Absturz des automatischen Foto-Uploads behoben, wenn die Cloud eine Neuanmeldung erfordert
 - Übersetzungen und Abhängigkeiten aktualisiert
