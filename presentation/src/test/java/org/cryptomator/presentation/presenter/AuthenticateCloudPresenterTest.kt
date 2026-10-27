@@ -13,6 +13,7 @@ import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundExcep
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
+import org.cryptomator.domain.usecases.cloud.ReauthenticateBoxUseCase
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
@@ -138,6 +139,7 @@ class AuthenticateCloudPresenterTest {
 			addOrChangeCloudConnectionUseCase,
 			mock<GetCloudsUseCase>(),
 			mock<GetUsernameUseCase>(),
+			mock<ReauthenticateBoxUseCase>(),
 			mock<AddExistingVaultWorkflow>(),
 			mock<CreateNewVaultWorkflow>()
 		).also { it.view = view }
