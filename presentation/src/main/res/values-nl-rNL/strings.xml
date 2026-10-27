@@ -451,6 +451,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator heeft toegang tot opslag nodig om lokale kluizen te kunnen gebruiken</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator heeft toegang tot opslag nodig om automatisch uploaden van foto\'s te kunnen gebruiken</string>
 	<string name="permission_snackbar_notifications">Cryptomator heeft notificatie toegang nodig om een voorbeeld van de kluis status weer te geven</string>
+	<string name="permission_snackbar_local_network">Cryptomator heeft toegang tot het lokale netwerk nodig om verbinding te maken met servers in je lokale netwerk</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
