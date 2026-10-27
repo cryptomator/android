@@ -450,6 +450,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator에서 로컬 Vault에 접근하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator에서 자동으로 사진을 업로드하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_notifications">Cryptomator는 Vault 상태 표시 등의 이유로 알림 권한이 필요합니다</string>
+	<string name="permission_snackbar_local_network">Cryptomator가 로컬 네트워크의 서버에 연결하려면 로컬 네트워크 접근 권한이 필요합니다.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
