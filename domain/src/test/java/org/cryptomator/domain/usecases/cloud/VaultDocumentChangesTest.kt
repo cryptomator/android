@@ -38,7 +38,7 @@ class VaultDocumentChangesTest {
 	@Test
 	fun `a rename whose name is taken in the cloud returns the renamed node`() {
 		val renamed: CloudFile = mock()
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 		whenever(vaultDocumentRepository.rename(VaultPath(vault, "x.txt"), "y.txt", false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "y (1A2B3).txt"), renamed) })
 
 		val result = RenameFile(cloudContentRepository, vaultDocumentRepository, file, "y.txt", null).execute()
@@ -54,9 +54,9 @@ class VaultDocumentChangesTest {
 		val movedFile: CloudFile = mock()
 		val movedFolder: CloudFolder = mock()
 		val renamedFolder: CloudFolder = mock()
-		whenever(vaultDocumentRepository.pathOf(target)).thenReturn(VaultPath(vault, "b"))
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
-		whenever(vaultDocumentRepository.pathOf(folder)).thenReturn(VaultPath(vault, "a"))
+		whenever(vaultDocumentRepository.currentPathOf(target)).thenReturn(VaultPath(vault, "b"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(folder)).thenReturn(VaultPath(vault, "a"))
 		whenever(vaultDocumentRepository.move(VaultPath(vault, "x.txt"), VaultPath(vault, "b"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "b/x.txt"), movedFile) })
 		whenever(vaultDocumentRepository.move(VaultPath(vault, "a"), VaultPath(vault, "b"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "b/a"), movedFolder) })
 		whenever(vaultDocumentRepository.rename(VaultPath(vault, "a"), "c", false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "c"), renamedFolder) })
@@ -68,8 +68,38 @@ class VaultDocumentChangesTest {
 	}
 
 	@Test
+	fun `each node is moved to where the target is when its move starts, also if another app renamed it meanwhile`() {
+		val target: CloudFolder = mock()
+		val other: CloudFile = mock()
+		val movedFile: CloudFile = mock()
+		val movedOther: CloudFile = mock()
+		whenever(vaultDocumentRepository.currentPathOf(target)).thenReturn(VaultPath(vault, "b"), VaultPath(vault, "c"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(other)).thenReturn(VaultPath(vault, "y.txt"))
+		whenever(vaultDocumentRepository.move(VaultPath(vault, "x.txt"), VaultPath(vault, "b"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "b/x.txt"), movedFile) })
+		whenever(vaultDocumentRepository.move(VaultPath(vault, "y.txt"), VaultPath(vault, "c"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "c/y.txt"), movedOther) })
+
+		assertEquals(listOf(movedFile, movedOther), MoveFiles(cloudContentRepository, vaultDocumentRepository, listOf(file, other), target, null).execute())
+	}
+
+	@Test
+	fun `each folder is moved to where the target is when its move starts, also if another app renamed it meanwhile`() {
+		val target: CloudFolder = mock()
+		val other: CloudFolder = mock()
+		val movedFolder: CloudFolder = mock()
+		val movedOther: CloudFolder = mock()
+		whenever(vaultDocumentRepository.currentPathOf(target)).thenReturn(VaultPath(vault, "b"), VaultPath(vault, "c"))
+		whenever(vaultDocumentRepository.currentPathOf(folder)).thenReturn(VaultPath(vault, "a"))
+		whenever(vaultDocumentRepository.currentPathOf(other)).thenReturn(VaultPath(vault, "d"))
+		whenever(vaultDocumentRepository.move(VaultPath(vault, "a"), VaultPath(vault, "b"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "b/a"), movedFolder) })
+		whenever(vaultDocumentRepository.move(VaultPath(vault, "d"), VaultPath(vault, "c"), false)).thenReturn(change<CloudNode> { VaultDocumentChangeResult(VaultPath(vault, "c/d"), movedOther) })
+
+		assertEquals(listOf(movedFolder, movedOther), MoveFolders(cloudContentRepository, vaultDocumentRepository, listOf(folder, other), target, null).execute())
+	}
+
+	@Test
 	fun `a name taken in the vault fails the change`() {
-		whenever(vaultDocumentRepository.pathOf(folder)).thenReturn(VaultPath(vault))
+		whenever(vaultDocumentRepository.currentPathOf(folder)).thenReturn(VaultPath(vault))
 		whenever(vaultDocumentRepository.createFolder(VaultPath(vault), "new", false)).thenThrow(CloudNodeAlreadyExistsException("new"))
 
 		assertThrows<CloudNodeAlreadyExistsException> { CreateFolder(cloudContentRepository, vaultDocumentRepository, folder, "new", null).execute() }
@@ -77,7 +107,7 @@ class VaultDocumentChangesTest {
 
 	@Test
 	fun `a change waits for the cloud and fails if the cloud rejects it`() {
-		whenever(vaultDocumentRepository.pathOf(folder)).thenReturn(VaultPath(vault))
+		whenever(vaultDocumentRepository.currentPathOf(folder)).thenReturn(VaultPath(vault))
 		whenever(vaultDocumentRepository.createFolder(VaultPath(vault), "new", false)).thenReturn(change<CloudFolder> { throw NetworkConnectionException() })
 
 		assertThrows<NetworkConnectionException> { CreateFolder(cloudContentRepository, vaultDocumentRepository, folder, "new", null).execute() }
@@ -85,7 +115,7 @@ class VaultDocumentChangesTest {
 
 	@Test
 	fun `deleting a node that is gone counts as deleted`() {
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 		whenever(vaultDocumentRepository.delete(VaultPath(vault, "x.txt"), false)).thenThrow(NoSuchCloudFileException("x.txt"))
 
 		assertEquals(listOf(file), DeleteNodes(cloudContentRepository, vaultDocumentRepository, listOf<CloudNode>(file), null).execute())
@@ -96,7 +126,7 @@ class VaultDocumentChangesTest {
 	fun `files in a vault are read from their local copies`() {
 		val target: OutputStream = mock()
 		val progressAware: ProgressAware<DownloadState> = mock()
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 
 		val downloadFile = DownloadFile.Builder().setDownloadFile(file).setDataSink(target).build()
 		assertEquals(listOf(file), DownloadFiles(cloudContentRepository, vaultDocumentRepository, listOf(downloadFile)).execute(progressAware))
@@ -109,7 +139,7 @@ class VaultDocumentChangesTest {
 	@Test
 	fun `files are opened and external editing is started and ended by documentId`() {
 		val progressAware: ProgressAware<DownloadState> = mock()
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 		whenever(vaultDocumentRepository.open(VaultPath(vault, "x.txt"), progressAware)).thenReturn("1:2")
 
 		assertEquals(listOf("1:2"), OpenVaultFiles(vaultDocumentRepository, listOf(file)).execute(progressAware))
@@ -128,9 +158,9 @@ class VaultDocumentChangesTest {
 		val movedFile: CloudFile = mock()
 		val movedFolder: CloudFolder = mock()
 		val target: CloudFolder = mock()
-		whenever(vaultDocumentRepository.pathOf(folder)).thenReturn(VaultPath(vault, "a"))
-		whenever(vaultDocumentRepository.pathOf(target)).thenReturn(VaultPath(vault, "b"))
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(folder)).thenReturn(VaultPath(vault, "a"))
+		whenever(vaultDocumentRepository.currentPathOf(target)).thenReturn(VaultPath(vault, "b"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 		whenever(vaultDocumentRepository.createFolder(VaultPath(vault, "a"), "new", true)).thenReturn(change(created) { throw NetworkConnectionException() })
 		whenever(vaultDocumentRepository.rename(VaultPath(vault, "x.txt"), "y.txt", true)).thenReturn(change<CloudNode>(renamedFile) { throw NetworkConnectionException() })
 		whenever(vaultDocumentRepository.rename(VaultPath(vault, "a"), "c", true)).thenReturn(change<CloudNode>(renamedFolder) { throw NetworkConnectionException() })
@@ -150,8 +180,8 @@ class VaultDocumentChangesTest {
 	@Test
 	fun `an optimistic move of a node that is gone meanwhile has no result`() {
 		val target: CloudFolder = mock()
-		whenever(vaultDocumentRepository.pathOf(target)).thenReturn(VaultPath(vault, "b"))
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(target)).thenReturn(VaultPath(vault, "b"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 		whenever(vaultDocumentRepository.move(VaultPath(vault, "x.txt"), VaultPath(vault, "b"), true)).thenReturn(change<CloudNode> { throw NetworkConnectionException() })
 
 		assertEquals(emptyList<CloudFile>(), MoveFiles(cloudContentRepository, vaultDocumentRepository, listOf(file), target, true).execute())
@@ -159,7 +189,7 @@ class VaultDocumentChangesTest {
 
 	@Test
 	fun `files the user retries are retried by path, without files the vault's uploads are resumed once`() {
-		whenever(vaultDocumentRepository.pathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
+		whenever(vaultDocumentRepository.currentPathOf(file)).thenReturn(VaultPath(vault, "x.txt"))
 
 		ResumeVaultUploads(vaultDocumentRepository, vault, listOf(file)).execute()
 		ResumeVaultUploads(vaultDocumentRepository, vault, null).execute()

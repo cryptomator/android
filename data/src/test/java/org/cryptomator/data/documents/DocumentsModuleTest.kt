@@ -57,7 +57,9 @@ class DocumentsModuleTest {
 		assertEquals(listOf(folder), changedFolders)
 		assertTrue(File(noBackupFilesDir, DocumentContentCache.DIRECTORY_NAME).isDirectory)
 		whenever(metadataDao.load(1L, "a")).thenReturn(entity("a", android.provider.DocumentsContract.Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = System.currentTimeMillis() })
-		whenever(metadataDao.loadVisible(1L, "a/x.txt")).thenReturn(entity("a/x.txt", "text/plain"))
+		val file = entity("a/x.txt", "text/plain")
+		whenever(metadataDao.loadVisible(1L, "a/x.txt")).thenReturn(file)
+		whenever(metadataDao.loadVisibleById(7L)).thenReturn(file)
 		assertThrows<Exception> { contentCache.file(VaultPath(vault, "a/x.txt")) }
 		assertEquals(1, downloads)
 	}

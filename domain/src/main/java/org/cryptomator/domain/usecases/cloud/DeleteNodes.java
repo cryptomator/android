@@ -37,7 +37,7 @@ class DeleteNodes {
 	public List<CloudNode> execute() throws BackendException {
 		for (CloudNode cloudNode : cloudNodes) {
 			try {
-				VaultPath vaultNode = vaultDocumentRepository.pathOf(cloudNode);
+				VaultPath vaultNode = vaultDocumentRepository.currentPathOf(cloudNode);
 				if (vaultNode != null) {
 					VaultDocumentChange<Unit> change = vaultDocumentRepository.delete(vaultNode, optimistic);
 					if (!optimistic) {

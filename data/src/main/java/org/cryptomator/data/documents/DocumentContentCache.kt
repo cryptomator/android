@@ -243,7 +243,8 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * [hasAwaitedDownloads].
 	 */
 	fun downloadUnrecorded(path: VaultPath, target: File, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) {
-		scheduler.download(path) { read(path, target, progressAware) }.await()
+		val inCloud = metadataCache.readFromCloud(path)
+		scheduler.download(path) { read(path, inCloud(), target, progressAware) }.await()
 	}
 
 	fun hasAwaitedDownloads(): Boolean {
@@ -263,8 +264,9 @@ class DocumentContentCache @JvmOverloads constructor(
 	 */
 	private class Copy(val file: File, val lastModified: Long?, val replaces: String? = null, val followsReplacedBase: Boolean = false)
 
-	private fun copy(path: VaultPath, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD): Copy {
-		val metadata = requireFile(metadataCache.requireCurrentDocument(path), path)
+	private fun copy(requested: VaultPath, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState> = ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD): Copy {
+		val metadata = requireFile(metadataCache.requireCurrentDocument(requested), requested)
+		val path = VaultPath(requested.vault, metadata.path)
 		val cached = dao.load(path.vault.id, path.path)
 		if (cached != null && (metadata.isUploading || isSameSecond(cached.lastModified, metadata.lastModified))) {
 			claimIfPresent(File(directory, cached.localName))?.let { return Copy(it, cached.lastModified) }
@@ -273,9 +275,10 @@ class DocumentContentCache @JvmOverloads constructor(
 		val downloadedFile = claim(File(directory, UUID.randomUUID().toString()))
 		val downloaded = download(path, downloadedFile, signal, progressAware) ?: metadata.lastModified
 		withCopiesLocked {
+			val current = currentPath(path, metadata)
 			// a write recorded while downloading keeps its copy, also if it went to the cached one; the download is then only handed to the reader
-			if (localCopy(path) == outdated && !metadataCache.isUploading(path)) {
-				storeOrDrop(path, downloadedFile, downloaded)
+			if (current != null && localCopy(current) == outdated && !metadataCache.isUploading(current)) {
+				storeOrDrop(current, downloadedFile, downloaded)
 				outdated?.let(::deleteUnlessInUse)
 			}
 		}
@@ -293,15 +296,16 @@ class DocumentContentCache @JvmOverloads constructor(
 	 * copy, see [ownCopy], gets its date stored only once it takes the recorded copy's place.
 	 */
 	fun fileForWriting(path: VaultPath, keepContent: Boolean, signal: CancellationSignal? = null, claimedByCaller: File? = null): File {
-		val metadata = requireFile(metadataCache.requireDocument(path), path)
+		val metadata = requireFile(metadataCache.requireCachedDocument(path), path)
 		val pinned = pinnedBase(path)
 		val downloaded = if (keepContent && !metadata.isCreating) pinned?.let { pinnedCopy(path, it, signal) } ?: copy(path, signal) else null
-		val emptyBase = pinned?.lastModified ?: metadata.lastModified
 		// decided together with registering the writer, so that a writer whose file gets a save recorded meanwhile, e.g. an
 		// import, gets a copy of its own, too
 		val copy = try {
 			withCopiesLocked {
-				val copy = ownCopy(path, downloaded, claimedByCaller, emptyBase) ?: downloaded ?: emptyCopy(path, emptyBase)
+				val current = currentPath(path, metadata) ?: throw NoSuchCloudFileException(metadataCache.logId(path))
+				val emptyBase = pinnedBase(current)?.lastModified ?: metadata.lastModified
+				val copy = ownCopy(current, downloaded, claimedByCaller, emptyBase) ?: downloaded ?: emptyCopy(current, emptyBase)
 				writers.getOrPut(copy.file.name) { Writers(metadata.id, copy.lastModified, copy.replaces, copy.followsReplacedBase) }.apply {
 					base = copy.lastModified
 					open++
@@ -696,13 +700,14 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
-	 * Adds the file [name] to [folder], or replaces its content if [replace] is set. [write] writes the content to a new
+	 * Adds the file [name] to [requestedFolder] where the folder is once it was listed, see
+	 * [DocumentMetadataCache.prepareFolder], or replaces its content if [replace] is set. [write] writes the content to a new
 	 * local copy, which is then uploaded with [modifiedDate] as its modification date. A copy that could not be written
 	 * completely is dropped, together with the file if it was new; a replaced file keeps its previous copy then. The file
 	 * is followed if it is renamed or moved meanwhile.
 	 */
-	fun importFile(folder: VaultPath, name: String, replace: Boolean, requireListing: Boolean, userInitiated: Boolean = false, progressAware: ProgressAware<UploadState>, modifiedDate: Long?, write: (OutputStream) -> Unit): DocumentMetadataCache.Upload {
-		metadataCache.prepareFolder(folder, requireListing)
+	fun importFile(requestedFolder: VaultPath, name: String, replace: Boolean, requireListing: Boolean, userInitiated: Boolean = false, progressAware: ProgressAware<UploadState>, modifiedDate: Long?, write: (OutputStream) -> Unit): DocumentMetadataCache.Upload {
+		val folder = metadataCache.prepareFolder(requestedFolder, requireListing)
 		val path = folder.resolve(name)
 		val target = metadataCache.createFile(path, replace)
 		val staging = claim(File(directory, UUID.randomUUID().toString()))
@@ -987,6 +992,14 @@ class DocumentContentCache @JvmOverloads constructor(
 		}
 	}
 
+	/**
+	 * Where the file of [metadata], found at [path], is in the cache now, e.g. after a folder above it was renamed because
+	 * its name was taken in the cloud, or null if it is gone or being deleted. Called with the copies locked.
+	 */
+	private fun currentPath(path: VaultPath, metadata: DocumentMetadataEntity): VaultPath? {
+		return metadataCache.visibleDocument(requireNotNull(metadata.id))?.let { VaultPath(path.vault, it.path) }
+	}
+
 	private fun localCopy(path: VaultPath): File? {
 		return dao.load(path.vault.id, path.path)?.let { File(directory, it.localName) }
 	}
@@ -1039,9 +1052,10 @@ class DocumentContentCache @JvmOverloads constructor(
 	private fun download(path: VaultPath, localFile: File, signal: CancellationSignal?, progressAware: ProgressAware<DownloadState>): Long? {
 		awaitedDownloads.incrementAndGet()
 		try {
+			val inCloud = metadataCache.readFromCloud(path)
 			val transfer = scheduler.download(path) {
 				signal?.throwIfCanceled()
-				read(path, localFile, progressAware)
+				read(path, inCloud(), localFile, progressAware)
 			}
 			try {
 				return transfer.await(signal)
@@ -1057,10 +1071,13 @@ class DocumentContentCache @JvmOverloads constructor(
 	}
 
 	/**
+	 * Reads the file at [path] from where the cloud has it, [cloudPath], e.g. under a folder above it that was renamed
+	 * because its name was taken in the cloud.
+	 *
 	 * @return the modification date of the version that was read
 	 */
-	private fun read(path: VaultPath, target: File, progressAware: ProgressAware<DownloadState>): Long? {
-		val cloudFile = contentRepository.metadata(contentRepository.file(metadataCache.parentFolder(path), path.name)) ?: throw FileNotFoundException("${metadataCache.logId(path)} is gone from the cloud")
+	private fun read(path: VaultPath, cloudPath: VaultPath, target: File, progressAware: ProgressAware<DownloadState>): Long? {
+		val cloudFile = contentRepository.metadata(contentRepository.file(metadataCache.parentFolder(cloudPath), cloudPath.name)) ?: throw FileNotFoundException("${metadataCache.logId(path)} is gone from the cloud")
 		target.outputStream().use { contentRepository.read(cloudFile, it, progressAware) }
 		return cloudFile.modified?.time
 	}

@@ -11,6 +11,7 @@ import org.cryptomator.data.documents.ThumbnailStore
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.MissingCryptorException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import java.io.File
@@ -56,5 +57,32 @@ internal fun storedThumbnail(path: VaultPath, metadata: DocumentMetadataEntity, 
 	return store.thumbnail(metadata) ?: run {
 		generator.request(listOf(path))
 		throw FileNotFoundException("The thumbnail of ${metadata.vaultId}:${metadata.id} is being made")
+	}
+}
+
+/**
+ * Runs [block] with the path of [documentId], found with [resolve]. If [block] doesn't find the document because it was
+ * moved meanwhile, e.g. because a folder above it was renamed for a name taken in the cloud right after the path was
+ * looked up, it runs again where the document is then.
+ */
+internal fun <T> followingDocument(documentId: String, resolve: (String) -> VaultPath, block: (VaultPath) -> T): T {
+	var path = resolve(documentId)
+	while (true) {
+		try {
+			return block(path)
+		} catch (e: Exception) {
+			if (e !is FileNotFoundException && e !is NoSuchCloudFileException) {
+				throw e
+			}
+			val current = try {
+				resolve(documentId)
+			} catch (gone: FileNotFoundException) {
+				throw e
+			}
+			if (current == path) {
+				throw e
+			}
+			path = current
+		}
 	}
 }

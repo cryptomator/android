@@ -33,11 +33,20 @@ interface VaultDocumentRepository {
 	fun pathOf(node: CloudNode): VaultPath?
 
 	/**
+	 * Like [pathOf], but a [CachedVaultFolder][org.cryptomator.domain.CachedVaultFolder] or
+	 * [CachedVaultFile][org.cryptomator.domain.CachedVaultFile] that carries a documentId, or a file whose folder does, is
+	 * found where it is by now, e.g. after another app renamed it or a folder above it while it was shown. It looks the
+	 * node up in the cache, so it must not be called on the main thread.
+	 */
+	fun currentPathOf(node: CloudNode): VaultPath?
+
+	/**
 	 * The children of [folder] as the cache knows them, as [CachedVaultFile][org.cryptomator.domain.CachedVaultFile]s and
 	 * [CachedVaultFolder][org.cryptomator.domain.CachedVaultFolder]s. A folder whose listing is due is listed from the
 	 * cloud in the background, and the listeners are told once it is done. With [forceRefresh], it is listed right away,
 	 * and a failure is thrown, unless the listing only kept being overtaken by changes to the folder, which the cache
-	 * holds already.
+	 * holds already. A [CachedVaultFolder][org.cryptomator.domain.CachedVaultFolder] with a documentId is listed where it
+	 * is by now, also if it was renamed or moved since.
 	 */
 	@Throws(BackendException::class)
 	fun list(folder: CloudFolder, forceRefresh: Boolean): VaultListing
@@ -133,11 +142,12 @@ interface VaultDocumentRepository {
 }
 
 /**
+ * @param folder the listed folder where it is by now
  * @param isLoading whether the folder is being listed from the cloud
  * @param error why the folder could not be listed if the cache has no valid listing of it. An authentication the
  * listing needs is reported even if the cache has an earlier listing.
  */
-class VaultListing(val nodes: List<CloudNode>, val isLoading: Boolean, val error: Throwable?)
+class VaultListing(val folder: CloudFolder, val nodes: List<CloudNode>, val isLoading: Boolean, val error: Throwable?)
 
 interface VaultDocumentChange<T> {
 

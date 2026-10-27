@@ -240,6 +240,77 @@ class CloudTaskSchedulerTest {
 		assertEquals(listOf("first", "second", "third"), events)
 	}
 
+	@Test
+	fun `a request at or below a renamed path waits for the requests that were pending at or below its old path`() {
+		val release = CountDownLatch(1)
+		val earlierStarted = CountDownLatch(1)
+		write(listOf(path("a/x.txt"))) {
+			earlierStarted.countDown()
+			release.await()
+		}
+		assertTrue(earlierStarted.await(5, TimeUnit.SECONDS))
+		inTest.renamed(path("a"), path("b"))
+		val laterStarted = CountDownLatch(1)
+
+		inTest.upload(path("b/y.txt")) { laterStarted.countDown() }
+
+		assertFalse(laterStarted.await(200, TimeUnit.MILLISECONDS))
+		release.countDown()
+		assertTrue(laterStarted.await(5, TimeUnit.SECONDS))
+	}
+
+	@Test
+	fun `a change of a renamed path waits for the requests that were pending below its old path`() {
+		val release = CountDownLatch(1)
+		val earlierStarted = CountDownLatch(1)
+		write(listOf(path("a/x.txt"))) {
+			earlierStarted.countDown()
+			release.await()
+		}
+		assertTrue(earlierStarted.await(5, TimeUnit.SECONDS))
+		inTest.renamed(path("a"), path("b"))
+		val laterStarted = CountDownLatch(1)
+
+		write(listOf(path("b"))) { laterStarted.countDown() }
+
+		assertFalse(laterStarted.await(200, TimeUnit.MILLISECONDS))
+		release.countDown()
+		assertTrue(laterStarted.await(5, TimeUnit.SECONDS))
+	}
+
+	@Test
+	fun `a request below a path renamed twice waits for the requests that were pending below its first path`() {
+		val release = CountDownLatch(1)
+		val earlierStarted = CountDownLatch(1)
+		write(listOf(path("a/x.txt"))) {
+			earlierStarted.countDown()
+			release.await()
+		}
+		assertTrue(earlierStarted.await(5, TimeUnit.SECONDS))
+		inTest.renamed(path("a"), path("b"))
+		inTest.renamed(path("b"), path("c"))
+		val laterStarted = CountDownLatch(1)
+
+		inTest.upload(path("c/y.txt")) { laterStarted.countDown() }
+
+		assertFalse(laterStarted.await(200, TimeUnit.MILLISECONDS))
+		release.countDown()
+		assertTrue(laterStarted.await(5, TimeUnit.SECONDS))
+	}
+
+	@Test
+	fun `a request at a renamed path doesn't wait for requests made at its old path after the rename`() {
+		inTest.renamed(path("a"), path("b"))
+		val release = CountDownLatch(1)
+		write(listOf(path("a/x.txt"))) { release.await() }
+		val laterStarted = CountDownLatch(1)
+
+		inTest.upload(path("b/y.txt")) { laterStarted.countDown() }
+
+		assertTrue(laterStarted.await(5, TimeUnit.SECONDS))
+		release.countDown()
+	}
+
 	/**
 	 * [first] holds its slot until released; [second] must not start before that.
 	 */

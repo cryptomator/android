@@ -419,6 +419,29 @@ abstract class CryptoImplDecorator(
 		return out.size() == 0
 	}
 
+	/**
+	 * Creates the folder holding the content of the directory [dirIdInfo], see [creatingBelowSharedFolder].
+	 */
+	@Throws(BackendException::class)
+	fun createLvl2Dir(dirIdInfo: DirIdInfo): CloudFolder {
+		return creatingBelowSharedFolder {
+			cloudContentRepository.create(createDirIdInfoFor(dirIdInfo.id).cloudFolder)
+		}
+	}
+
+	/**
+	 * Runs [create], which creates a folder whose parent is shared with other folders, e.g. a directory's content folder,
+	 * one at a time, since creations running in parallel would each try to create a missing parent. [create] has to look
+	 * the folder up again, because a cloud that finds folders by ID would create a parent that was missing at an earlier
+	 * lookup once more, as a second folder of the same name.
+	 */
+	@Throws(BackendException::class)
+	protected fun <T> creatingBelowSharedFolder(create: () -> T): T {
+		synchronized(SHARED_FOLDER_CREATION_LOCK) {
+			return create()
+		}
+	}
+
 	@Throws(BackendException::class)
 	private fun lvl2Dir(dirHash: String): CloudFolder {
 		return cloudContentRepository.folder(lvl1Dir(dirHash), dirHash.substring(2))
@@ -443,6 +466,20 @@ abstract class CryptoImplDecorator(
 
 	fun evictFromCache(cryptoFolder: CryptoFolder) {
 		dirIdCache.evict(cryptoFolder)
+	}
+
+	/**
+	 * Runs [create] with the directory ID [folder] is to get. The ID is forgotten if [create] fails, so that the folder's
+	 * children aren't put where the vault doesn't link them.
+	 */
+	protected inline fun <T> withDirIdInfoOfNewFolder(folder: CryptoFolder, create: (DirIdInfo) -> T): T {
+		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
+		try {
+			return create(dirIdInfo)
+		} catch (e: Exception) {
+			evictFromCache(folder)
+			throw e
+		}
 	}
 
 	@Throws(BackendException::class)
@@ -482,5 +519,10 @@ abstract class CryptoImplDecorator(
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}
+	}
+
+	companion object {
+
+		private val SHARED_FOLDER_CREATION_LOCK = Any()
 	}
 }

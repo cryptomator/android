@@ -1,6 +1,14 @@
 package org.cryptomator.data.documents
 
 import android.os.CancellationSignal
+import org.cryptomator.data.db.entities.DocumentMetadataEntity
+import org.cryptomator.domain.CachedVaultFile
+import org.cryptomator.domain.CachedVaultFolder
+import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.VaultPath
+import java.io.File
+import java.util.Date
 import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletionException
@@ -50,4 +58,20 @@ internal fun isSameSecond(lastModified: Long?, otherLastModified: Long?): Boolea
 internal fun conflictCopyName(name: String, suffix: String): String {
 	val extensionStart = name.lastIndexOf('.')
 	return if (extensionStart > 0) "${name.substring(0, extensionStart)} ($suffix)${name.substring(extensionStart)}" else "$name ($suffix)"
+}
+
+internal fun cachedVaultFolder(cloud: Cloud?, folder: VaultPath, documentId: String? = null): CachedVaultFolder {
+	return CachedVaultFolder(cloud, if (folder.isRoot) "" else "/${folder.path}", documentId)
+}
+
+internal fun cachedVaultNode(parent: CachedVaultFolder, metadata: DocumentMetadataEntity, documentId: String, uploadFailure: Throwable?, thumbnail: File?): CloudNode {
+	if (metadata.isFolder) {
+		return CachedVaultFolder(parent.cloud, "${parent.path}/${metadata.name}", documentId)
+	}
+	val upload = when {
+		!metadata.isUploading -> CachedVaultFile.Upload.NONE
+		uploadFailure != null -> CachedVaultFile.Upload.FAILED
+		else -> CachedVaultFile.Upload.PENDING
+	}
+	return CachedVaultFile(parent, metadata.name, metadata.size, metadata.lastModified?.let(::Date), upload, thumbnail, documentId)
 }

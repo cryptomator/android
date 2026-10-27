@@ -38,8 +38,8 @@ class GetCloudListRecursiveTest {
 		val uploaded = CachedVaultFile(subfolder, "uploaded.txt", 5, null, CachedVaultFile.Upload.NONE, null)
 		whenever(vaultDocumentRepository.pathOf(folder)).thenReturn(VaultPath(vault, "a"))
 		whenever(vaultDocumentRepository.pathOf(subfolder)).thenReturn(VaultPath(vault, "a/b"))
-		whenever(vaultDocumentRepository.list(folder, true)).thenReturn(VaultListing(listOf(subfolder, pending), false, null))
-		whenever(vaultDocumentRepository.list(subfolder, true)).thenReturn(VaultListing(listOf(uploaded), false, null))
+		whenever(vaultDocumentRepository.list(folder, true)).thenReturn(VaultListing(folder, listOf(subfolder, pending), false, null))
+		whenever(vaultDocumentRepository.list(subfolder, true)).thenReturn(VaultListing(subfolder, listOf(uploaded), false, null))
 
 		val listing = GetCloudListRecursive(cloudContentRepository, vaultDocumentRepository, listOf(folder)).execute()
 

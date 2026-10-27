@@ -71,8 +71,10 @@ constructor(
 
 	/**
 	 * Shows [nodes] instead of the current ones, updating only the rows that changed. A row that didn't change keeps its
-	 * node, so that its selection and progress stay with what is bound; a changed row takes them over. The details of the
-	 * other rows are shown again anyway, since the age of the modified date they show changes with time.
+	 * node, so that its selection and progress stay with what is bound; a changed row takes them over, see [rowNode]. The
+	 * details of the other rows are shown again anyway, since the age of the modified date they show changes with time.
+	 * In selection mode, the number of selected nodes is reported again, since no row may be bound again to report it and
+	 * the title may have changed meanwhile, e.g. to the new name of the shown folder after another app renamed it.
 	 */
 	fun replaceAll(nodes: List<CloudNodeModel<*>>) {
 		val previous = ArrayList(itemCollection)
@@ -91,6 +93,9 @@ constructor(
 		itemCollection.addAll(next)
 		diff.dispatchUpdatesTo(this)
 		notifyItemRangeChanged(0, next.size, DETAILS_PAYLOAD)
+		if (isNavigationMode(SELECT_ITEMS)) {
+			callback.onSelectedNodesChanged(selectedCloudNodes().size)
+		}
 	}
 
 	override fun onBindViewHolder(holder: VaultContentViewHolder, position: Int, payloads: MutableList<Any>) {

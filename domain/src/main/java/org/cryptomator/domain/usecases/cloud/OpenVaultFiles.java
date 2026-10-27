@@ -30,7 +30,7 @@ class OpenVaultFiles {
 	public List<String> execute(ProgressAware<DownloadState> progressAware) throws BackendException {
 		List<String> documentIds = new ArrayList<>();
 		for (CloudFile file : files) {
-			VaultPath path = requireNonNull(vaultDocumentRepository.pathOf(file), "Not inside a vault");
+			VaultPath path = requireNonNull(vaultDocumentRepository.currentPathOf(file), "Not inside a vault");
 			documentIds.add(vaultDocumentRepository.open(path, progressAware));
 		}
 		return documentIds;

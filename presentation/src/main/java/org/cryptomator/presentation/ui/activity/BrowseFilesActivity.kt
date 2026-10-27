@@ -636,7 +636,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		showDialog(NoDirFileOrEmptyDialog.newInstance(cryptoFolderName, cloudFolderPath))
 	}
 
-	override fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel) {
+	override fun updateActiveFolder(folder: CloudFolderModel) {
 		browseFilesFragment().folder = folder
 	}
 

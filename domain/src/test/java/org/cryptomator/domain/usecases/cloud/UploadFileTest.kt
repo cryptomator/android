@@ -123,6 +123,20 @@ class UploadFileTest {
 	}
 
 	@Test
+	fun `each file is imported where its folder is when its import starts, also if another app renamed it meanwhile`() {
+		val renamedFolder = vaultFolder.parent!!.resolve("renamed")
+		whenever(vaultDocumentRepository.currentPathOf(parent)).thenReturn(vaultFolder, renamedFolder)
+		vaultImport { VaultDocumentChangeResult(vaultFolder.resolve(fileName), resultFile) }
+		val first = UploadFile.Builder().withFileName("a.txt").withDataSource(dataSourceWithBytes(0, 3, 3)).thatIsReplacing(false).build()
+		val second = UploadFile.Builder().withFileName("b.txt").withDataSource(dataSourceWithBytes(0, 3, 3)).thatIsReplacing(false).build()
+
+		UploadFiles(context, cloudContentRepository, vaultDocumentRepository, parent, listOf(first, second), true).execute(progressAware)
+
+		verify(vaultDocumentRepository).importFile(eq(vaultFolder), eq("a.txt"), any(DataSource::class.java), eq(false), eq(false), eq(true), anyArg())
+		verify(vaultDocumentRepository).importFile(eq(renamedFolder), eq("b.txt"), any(DataSource::class.java), eq(false), eq(false), eq(true), anyArg())
+	}
+
+	@Test
 	fun `an optimistic upload returns the file as the cache has it, without waiting for the cloud`() {
 		givenVaultFolder()
 		val cached: CloudFile = mock()
@@ -199,12 +213,13 @@ class UploadFileTest {
 
 		testCandidate(dataSourceWithBytes(0, fileSize, fileSize), false).execute(progressAware)
 
-		verify(vaultDocumentRepository).pathOf(parent)
+		verify(vaultDocumentRepository).currentPathOf(parent)
 		verifyNoMoreInteractions(vaultDocumentRepository)
 	}
 
 	private fun givenVaultFolder() {
-		whenever(vaultDocumentRepository.pathOf(parent)).thenReturn(vaultFolder)
+		// where the folder is by now, e.g. after another app renamed it while the files were chosen
+		whenever(vaultDocumentRepository.currentPathOf(parent)).thenReturn(vaultFolder)
 	}
 
 	private fun vaultImport(result: () -> VaultDocumentChangeResult<CloudFile>): VaultDocumentImport {

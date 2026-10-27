@@ -8,6 +8,8 @@ import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.MissingCryptorException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Test
@@ -77,6 +79,43 @@ class HelpersTest {
 		assertThrows<FileNotFoundException> { storedThumbnail(path(unlocked = true), metadata, thumbnailStore, thumbnailGenerator) }
 
 		verify(thumbnailGenerator).request(listOf(path(unlocked = true)))
+	}
+
+	@Test
+	fun `a document moved while its path was used is used again where it is then, as often as it moved`() {
+		val paths = ArrayDeque(listOf(path("a/x.jpg"), path("a (1A2B3)/x.jpg"), path("b/x.jpg")))
+		val used = mutableListOf<VaultPath>()
+
+		val result = followingDocument("1:7", { paths.removeFirst() }) { path ->
+			used.add(path)
+			when (path.path) {
+				"a/x.jpg" -> throw FileNotFoundException("Unknown document: 1:?")
+				"a (1A2B3)/x.jpg" -> throw NoSuchCloudFileException("1:7")
+				else -> "opened"
+			}
+		}
+
+		assertEquals("opened", result)
+		assertEquals(listOf(path("a/x.jpg"), path("a (1A2B3)/x.jpg"), path("b/x.jpg")), used)
+	}
+
+	@Test
+	fun `a document that didn't move, or is gone, keeps its failure, and other failures aren't retried`() {
+		val notFound = FileNotFoundException("Unknown document: 1:7")
+		var calls = 0
+
+		assertSame(notFound, assertThrows<FileNotFoundException> { followingDocument("1:7", { path("a/x.jpg") }) { check(++calls < 3) { "retried" }; throw notFound } })
+		assertEquals(1, calls)
+		val resolved = ArrayDeque(listOf(path("a/x.jpg")))
+		assertSame(notFound, assertThrows<FileNotFoundException> { followingDocument("1:7", { resolved.removeFirstOrNull() ?: throw FileNotFoundException("gone") }) { calls++; throw notFound } })
+		assertEquals(2, calls)
+		val moved = ArrayDeque(listOf(path("a/x.jpg"), path("b/x.jpg")))
+		assertThrows<IllegalStateException> { followingDocument("1:7", { moved.removeFirst() }) { calls++; throw IllegalStateException() } }
+		assertEquals(3, calls)
+	}
+
+	private fun path(path: String): VaultPath {
+		return VaultPath(Vault.aVault().withId(1L).withName("vault").withPath("/vault").withCloudType(CloudType.LOCAL).withPosition(0).withUnlocked(true).build(), path)
 	}
 
 	private fun path(unlocked: Boolean): VaultPath {

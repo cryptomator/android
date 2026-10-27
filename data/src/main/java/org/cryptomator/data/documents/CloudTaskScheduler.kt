@@ -44,6 +44,11 @@ class CloudTaskScheduler(
 	 */
 	private val waitingReads = HashMap<Long, MutableSet<CompletableFuture<*>>>()
 
+	/**
+	 * The requests that were pending at or below a path when it was renamed, by the path it was renamed to, see [renamed].
+	 */
+	private val pendingBeforeRename = HashMap<VaultPath, MutableSet<CompletableFuture<*>>>()
+
 	fun <T> read(path: VaultPath, task: () -> T): CompletableFuture<T> {
 		return schedule(defaultExecutor, listOf(path), emptyList()) { CompletableFuture.completedFuture(task()) }
 	}
@@ -78,6 +83,21 @@ class CloudTaskScheduler(
 		reads.forEach { it.completeExceptionally(MissingCryptorException()) }
 	}
 
+	/**
+	 * Makes the later requests at or below [to] wait for the requests that are pending at or below [from] now, after the
+	 * node at [from] was renamed to [to] while they were pending, e.g. because its name was taken in the cloud. Like the
+	 * requests of one path, they then run in the order they were made. What the requests at or below [from] wait for
+	 * after an earlier rename to [from] is carried over to [to], too.
+	 */
+	@Synchronized
+	fun renamed(from: VaultPath, to: VaultPath) {
+		val earlier = pendingReads[from].orEmpty() + pendingWrites[from].orEmpty() + pendingBeforeRename[from].orEmpty()
+		earlier.forEach { future ->
+			pendingBeforeRename.getOrPut(to) { HashSet() }.add(future)
+			future.whenComplete { _, _ -> synchronized(this) { pendingBeforeRename.removeFrom(to, future) } }
+		}
+	}
+
 	private fun <T> schedule(executor: Executor, reads: List<VaultPath>, writes: List<VaultPath>, task: () -> CompletableFuture<T>): CompletableFuture<T> {
 		val future = CompletableFuture<T>()
 		val vault = (reads + writes).first().vault
@@ -88,7 +108,7 @@ class CloudTaskScheduler(
 			if (isRead && isLocked(vault)) {
 				null
 			} else {
-				val dependencies = (readPaths + writes).flatMap { pendingWrites[it].orEmpty() } + writes.flatMap { pendingReads[it].orEmpty() }
+				val dependencies = (readPaths + writes).flatMap { pendingWrites[it].orEmpty() + pendingBeforeRename[it].orEmpty() } + writes.flatMap { pendingReads[it].orEmpty() }
 				readPaths.forEach { pendingReads.getOrPut(it) { HashSet() }.add(future) }
 				writes.forEach { pendingWrites.getOrPut(it) { HashSet() }.add(future) }
 				if (isRead) {
@@ -137,9 +157,5 @@ class CloudTaskScheduler(
 			remove(key)
 		}
 		return removed
-	}
-
-	private fun VaultPath.ancestors(): Sequence<VaultPath> {
-		return generateSequence(parent) { it.parent }
 	}
 }

@@ -308,7 +308,8 @@ public interface DocumentMetadataDao {
 	 * Drops a change that could not be applied to the cloud and marks the folders it touched for listing again, also
 	 * where a running move may have taken the node. That listing undoes a move. A moved subtree that holds a pending
 	 * write, see {@link #hasPendingWriteInSubtree}, stays where it was moved to instead. A node being created is dropped
-	 * right away, unless it holds a pending write.
+	 * right away, unless it holds a pending write. A folder then stays marked as being created, so that the uploads below
+	 * it create it in the cloud first.
 	 */
 	@Transaction
 	default void discardPendingChange(DocumentMetadataEntity pending) {
@@ -321,10 +322,10 @@ public interface DocumentMetadataDao {
 			updateLastEnumeratedAt(vaultId, parentPathOf(pending.getMoveTargetPath()), null);
 		}
 		if (pending.isCreating()) {
-			if (hasPendingWriteInSubtree(vaultId, pending.getPath())) {
-				markSynced(pending.getId());
-			} else {
+			if (!hasPendingWriteInSubtree(vaultId, pending.getPath())) {
 				deleteSubtree(vaultId, pending.getPath());
+			} else if (!pending.isFolder()) {
+				markSynced(pending.getId());
 			}
 		}
 		updateLastEnumeratedAt(vaultId, pending.getParentPath(), null);

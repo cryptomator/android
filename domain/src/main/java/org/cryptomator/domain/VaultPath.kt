@@ -17,6 +17,13 @@ class VaultPath(val vault: Vault, path: String?) {
 		return VaultPath(vault, "$path/${normalizePath(subPath)}")
 	}
 
+	/**
+	 * The folders above this path, from its parent up to the root.
+	 */
+	fun ancestors(): Sequence<VaultPath> {
+		return generateSequence(parent) { it.parent }
+	}
+
 	fun isAnyChildOf(potentialParent: VaultPath): Boolean {
 		return vault.id == potentialParent.vault.id && !isRoot && (potentialParent.isRoot || path.startsWith("${potentialParent.path}/"))
 	}

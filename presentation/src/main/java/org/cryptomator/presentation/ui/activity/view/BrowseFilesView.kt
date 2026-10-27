@@ -35,6 +35,6 @@ interface BrowseFilesView : View {
 	fun disableSelectionMode()
 	fun showSymLinkDialog()
 	fun showNoDirFileOrEmptyDialog(cryptoFolderName: String, cloudFolderPath: String)
-	fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel)
+	fun updateActiveFolder(folder: CloudFolderModel)
 
 }

@@ -29,7 +29,6 @@ import org.cryptomator.util.named
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.OutputStream
-import java.util.Date
 import java.util.concurrent.CompletableFuture
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -64,51 +63,57 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 		return (node.cloud as? CryptoCloud)?.let { VaultPath(it.vault, node.path) }
 	}
 
-	override fun list(folder: CloudFolder, forceRefresh: Boolean): VaultListing = cacheExceptions {
-		val path = requireNotNull(pathOf(folder)) { "Not inside a vault" }
-		if (forceRefresh) {
-			metadataCache.listNow(path)
-		} else {
-			metadataCache.ensureFolder(path)
+	override fun currentPathOf(node: CloudNode): VaultPath? {
+		val followed = when (node) {
+			is CachedVaultFolder -> followed(node)?.let(::pathOf)
+			// a file the cache doesn't know by its own id any more is looked for where its folder is now
+			is CachedVaultFile -> node.documentId?.let(::pathOrNull) ?: followed(node.parent)?.let(::pathOf)?.resolve(node.name)
+			else -> null
 		}
+		return followed ?: pathOf(node)
+	}
+
+	override fun list(folder: CloudFolder, forceRefresh: Boolean): VaultListing = cacheExceptions {
+		val followed = (folder as? CachedVaultFolder)?.let(::followed) ?: folder
+		val requested = requireNotNull(pathOf(followed)) { "Not inside a vault" }
+		// listing waits for the changes before it, which may move the folder
+		val path = if (forceRefresh) metadataCache.listNow(requested) else metadataCache.ensureFolder(requested)
+		val parent = cachedVaultFolder(followed.cloud, path, (followed as? CachedVaultFolder)?.documentId)
+		val current = if (path == requested) followed else parent
 		val children = metadataCache.children(path)
-		val parent = CachedVaultFolder(folder.cloud, nodePath(path))
-		VaultListing(children.documents.map { node(parent, it) }, children.isLoading, children.error ?: children.authError)
+		VaultListing(current, children.documents.map { node(parent, it) }, children.isLoading, children.error ?: children.authError)
+	}
+
+	/**
+	 * Where [folder] is by now if the cache knows it by its documentId, e.g. after another app renamed it.
+	 */
+	private fun followed(folder: CachedVaultFolder): CachedVaultFolder? {
+		val documentId = folder.documentId ?: return null
+		return pathOrNull(documentId)?.let { cachedVaultFolder(folder.cloud, it, documentId) }
+	}
+
+	private fun pathOrNull(documentId: String): VaultPath? {
+		return try {
+			metadataCache.path(documentId)
+		} catch (e: FileNotFoundException) {
+			null
+		}
 	}
 
 	/**
 	 * The node with [documentId] as the cache knows it, wherever it is by now, or `null` if it is gone.
 	 */
 	private fun cachedNode(documentId: String): CloudNode? {
-		val path = try {
-			metadataCache.path(documentId)
-		} catch (e: FileNotFoundException) {
-			return null
-		}
+		val path = pathOrNull(documentId) ?: return null
 		// another node may have taken the path since it was looked up
 		val metadata = metadataCache.cachedDocument(path)?.takeIf { metadataCache.documentId(it) == documentId } ?: return null
-		val parent = CachedVaultFolder(cloudRepository.decryptedViewOf(path.vault), nodePath(requireNotNull(path.parent)))
+		val parent = cachedVaultFolder(cloudRepository.decryptedViewOf(path.vault), requireNotNull(path.parent))
 		return node(parent, metadata)
 	}
 
 	private fun node(parent: CachedVaultFolder, metadata: DocumentMetadataEntity): CloudNode {
-		if (metadata.isFolder) {
-			return CachedVaultFolder(parent.cloud, "${parent.path}/${metadata.name}")
-		}
-		val upload = when {
-			!metadata.isUploading -> CachedVaultFile.Upload.NONE
-			metadataCache.uploadFailure(metadata) != null -> CachedVaultFile.Upload.FAILED
-			else -> CachedVaultFile.Upload.PENDING
-		}
 		val thumbnail = metadata.takeIf { it.isImage }?.let(lazyThumbnailStore.get()::thumbnail)
-		return CachedVaultFile(parent, metadata.name, metadata.size, metadata.lastModified?.let(::Date), upload, thumbnail)
-	}
-
-	/**
-	 * [path] in the form of [CloudNode.path] within the vault: `/a/b`, or `` for the root.
-	 */
-	private fun nodePath(path: VaultPath): String {
-		return if (path.isRoot) "" else "/${path.path}"
+		return cachedVaultNode(parent, metadata, metadataCache.documentId(metadata), metadataCache.uploadFailure(metadata), thumbnail)
 	}
 
 	override fun createFolder(folder: VaultPath, name: String, userInitiated: Boolean): VaultDocumentChange<CloudFolder> = cacheExceptions {
@@ -117,18 +122,19 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 	}
 
 	override fun rename(path: VaultPath, name: String, userInitiated: Boolean): VaultDocumentChange<CloudNode> = cacheExceptions {
-		val documentId = metadataCache.documentId(metadataCache.requireKnownDocument(path))
-		change(metadataCache.move(path, requireNotNull(path.parent), name, failIfTaken = true, userInitiated = userInitiated), documentId) { it }
+		val node = metadataCache.requireKnownDocument(path)
+		val current = VaultPath(path.vault, node.path)
+		change(metadataCache.move(current, requireNotNull(current.parent), name, failIfTaken = true, userInitiated = userInitiated), metadataCache.documentId(node)) { it }
 	}
 
 	override fun move(path: VaultPath, folder: VaultPath, userInitiated: Boolean): VaultDocumentChange<CloudNode> = cacheExceptions {
-		val documentId = metadataCache.documentId(metadataCache.requireKnownDocument(path))
-		change(metadataCache.move(path, folder, path.name, failIfTaken = true, userInitiated = userInitiated), documentId) { it }
+		val node = metadataCache.requireKnownDocument(path)
+		change(metadataCache.move(VaultPath(path.vault, node.path), folder, path.name, failIfTaken = true, userInitiated = userInitiated), metadataCache.documentId(node)) { it }
 	}
 
 	override fun delete(path: VaultPath, userInitiated: Boolean): VaultDocumentChange<Unit> = cacheExceptions {
-		metadataCache.requireKnownDocument(path)
-		change(contentCache.delete(path, userInitiated).result, documentId = null) { VaultDocumentChangeResult(path, Unit) }
+		val current = VaultPath(path.vault, metadataCache.requireKnownDocument(path).path)
+		change(contentCache.delete(current, userInitiated).result, documentId = null) { VaultDocumentChangeResult(path, Unit) }
 	}
 
 	/**
@@ -155,8 +161,8 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 
 	override fun read(path: VaultPath, target: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		cacheExceptions {
-			metadataCache.requireKnownDocument(path)
-			val localFile = contentCache.file(path, progressAware = progressAware)
+			val current = VaultPath(path.vault, metadataCache.requireKnownDocument(path).path)
+			val localFile = contentCache.file(current, progressAware = progressAware)
 			try {
 				localFile.inputStream().use { it.copyTo(target) }
 			} catch (e: IOException) {
@@ -168,9 +174,9 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 	}
 
 	override fun open(path: VaultPath, progressAware: ProgressAware<DownloadState>): String = cacheExceptions {
-		metadataCache.requireKnownDocument(path)
-		contentCache.prepare(path, progressAware)
-		requireNotNull(metadataCache.documentId(path))
+		val node = metadataCache.requireKnownDocument(path)
+		contentCache.prepare(VaultPath(path.vault, node.path), progressAware)
+		metadataCache.documentId(node)
 	}
 
 	override fun startExternalEditing(documentId: String) {

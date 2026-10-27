@@ -128,7 +128,7 @@ public class DownloadFileTest {
 	@Test
 	public void testAFailedDownloadFromAVaultClosesItsDataSinkAndOpensNoFurtherOnes() throws Exception {
 		VaultPath path = mock(VaultPath.class);
-		when(vaultDocumentRepository.pathOf(downloadFile)).thenReturn(path);
+		when(vaultDocumentRepository.currentPathOf(downloadFile)).thenReturn(path);
 		doThrow(new FatalBackendException("failed")).when(vaultDocumentRepository).read(path, dataSink, progressAware);
 
 		assertFailedDownloadClosesItsDataSinkAndOpensNoFurtherOnes();

@@ -205,11 +205,13 @@ public class DocumentMetadataEntity {
 	}
 
 	/**
-	 * Whether this is a file waiting for its first upload, e.g. because the upload failed. Relies on the cloud reporting
-	 * a modification date for every file it holds.
+	 * Whether this is a file waiting for its first upload, e.g. because the upload failed, or a folder being created, which
+	 * includes one kept for the writes below it after its creation failed, see
+	 * {@code DocumentMetadataDao#discardPendingChange}. For a file, this relies on the cloud reporting a modification date
+	 * for every file it holds.
 	 */
 	public boolean isNeverInCloud() {
-		return isUploading() && lastModified == null;
+		return (isUploading() && lastModified == null) || (isCreating() && isFolder());
 	}
 
 	public String getSourcePath() {

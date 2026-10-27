@@ -31,7 +31,7 @@ class RenameFile {
 	}
 
 	public ResultRenamed<CloudFile> execute() throws BackendException {
-		VaultPath vaultFile = vaultDocumentRepository.pathOf(file);
+		VaultPath vaultFile = vaultDocumentRepository.currentPathOf(file);
 		if (vaultFile != null) {
 			VaultDocumentChange<CloudNode> change = vaultDocumentRepository.rename(vaultFile, newName, optimistic);
 			CloudNode renamed = optimistic ? change.cachedNode() : change.await().getNode();

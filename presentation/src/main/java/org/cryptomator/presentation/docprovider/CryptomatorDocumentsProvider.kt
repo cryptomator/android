@@ -246,7 +246,9 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	/**
 	 * Instead of an error, Files shows a button for the user action of the thrown exception, which unlocks the vault. A
-	 * vault that is unlocked counts as used, so that it doesn't lock while another app uses it.
+	 * vault that is unlocked counts as used, which starts the automatic locking's timeout over. Like on iOS, a file another
+	 * app keeps open doesn't count, so the vault can lock while that app writes to it. The write is then uploaded after the
+	 * next unlock.
 	 */
 	private fun requireUnlocked(path: VaultPath): VaultPath {
 		if (!path.vault.isUnlocked) {
@@ -328,9 +330,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		LOG.v("openDocumentThumbnail($documentId)")
 		requireNotNull(documentId)
 
-		val path = unlockedPath(documentId)
-		val metadata = metadataCache.requireCachedDocument(path)
-		val thumbnail = storedThumbnail(path, metadata, thumbnailStore, thumbnailGenerator)
+		val thumbnail = followingDocument(documentId, ::unlockedPath) { path -> storedThumbnail(path, metadataCache.requireCachedDocument(path), thumbnailStore, thumbnailGenerator) }
 		return AssetFileDescriptor(ParcelFileDescriptor.open(thumbnail, ParcelFileDescriptor.MODE_READ_ONLY), 0, thumbnail.length())
 	}
 
@@ -351,7 +351,10 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(mode)
 
 		val accessMode = ParcelFileDescriptor.parseMode(mode)
-		val path = metadataCache.path(documentId)
+		return followingDocument(documentId, metadataCache::path) { path -> openDocument(documentId, path, accessMode, signal) }
+	}
+
+	private fun openDocument(documentId: String, path: VaultPath, accessMode: Int, signal: CancellationSignal?): ParcelFileDescriptor {
 		val pinnedFile = claimPinnedFileIfLocked(path, contentCache, ::authenticationRequired)
 		if (pinnedFile == null) {
 			vaultsUsed()
@@ -426,7 +429,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(mimeType)
 		requireNotNull(displayName)
 
-		return metadataCache.create(unlockedPath(parentDocumentId), FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR).documentId
+		return followingDocument(parentDocumentId, ::unlockedPath) { metadataCache.create(it, FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR).documentId }
 	}
 
 	/**
@@ -458,10 +461,10 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		LOG.v("deleteDocument($documentId)")
 		requireNotNull(documentId)
 
-		val path = unlockedPath(documentId)
-		require(!path.isRoot)
-
-		contentCache.delete(path).descendantIds.forEach(::revokeDocumentPermission)
+		followingDocument(documentId, ::unlockedPath) { path ->
+			require(!path.isRoot)
+			contentCache.delete(path)
+		}.descendantIds.forEach(::revokeDocumentPermission)
 	}
 
 	override fun moveDocument(sourceDocumentId: String?, sourceParentDocumentId: String?, targetParentDocumentId: String?): String {
@@ -470,9 +473,12 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(sourceParentDocumentId)
 		requireNotNull(targetParentDocumentId)
 
-		val sourcePath = unlockedPath(sourceDocumentId)
-		require(sourcePath.parent == metadataCache.path(sourceParentDocumentId)) { "$sourceParentDocumentId is not the parent of $sourceDocumentId" }
-		return moveDocumentImpl(sourceDocumentId, sourcePath, metadataCache.path(targetParentDocumentId))
+		return followingDocument(targetParentDocumentId, metadataCache::path) { targetParentPath ->
+			followingDocument(sourceDocumentId, ::unlockedPath) { sourcePath ->
+				require(sourcePath.parent == metadataCache.path(sourceParentDocumentId)) { "$sourceParentDocumentId is not the parent of $sourceDocumentId" }
+				moveDocumentImpl(sourceDocumentId, sourcePath, targetParentPath)
+			}
+		}
 	}
 
 	private fun moveDocumentImpl(sourceDocumentId: String, sourcePath: VaultPath, newParentPath: VaultPath): String {
@@ -484,7 +490,6 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 			LOG.v("moveDocument: $sourceDocumentId quietly not moved; the target is already its parent")
 			return sourceDocumentId
 		}
-		require(sourcePath != newParentPath && !newParentPath.isAnyChildOf(sourcePath)) { "Can't move $sourceDocumentId into itself" }
 
 		metadataCache.move(sourcePath, newParentPath, sourcePath.name)
 		return sourceDocumentId
@@ -495,15 +500,15 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(documentId)
 		requireNotNull(displayName)
 
-		val currentPath = unlockedPath(documentId)
-		require(!currentPath.isRoot)
 		val newName = FileNameValidator.sanitize(displayName)
-		if (currentPath.name == newName) {
-			LOG.v("renameDocument: $documentId quietly not renamed; requested name equals current name")
-			return null
+		followingDocument(documentId, ::unlockedPath) { currentPath ->
+			require(!currentPath.isRoot)
+			if (currentPath.name == newName) {
+				LOG.v("renameDocument: $documentId quietly not renamed; requested name equals current name")
+			} else {
+				metadataCache.move(currentPath, currentPath.parent!!, newName)
+			}
 		}
-
-		metadataCache.move(currentPath, currentPath.parent!!, newName)
 		return null //The documentId stays the same
 	}
 

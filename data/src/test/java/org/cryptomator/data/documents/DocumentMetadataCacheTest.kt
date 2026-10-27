@@ -51,6 +51,7 @@ import org.mockito.kotlin.isNull
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argThat
+import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.clearInvocations
 import org.mockito.kotlin.doAnswer
@@ -59,6 +60,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
+import org.mockito.kotlin.spy
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -72,7 +74,9 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 
 class DocumentMetadataCacheTest {
 
@@ -2024,7 +2028,7 @@ class DocumentMetadataCacheTest {
 	fun `a listing during which an upload finished is repeated`() {
 		givenUpload(remoteModified = null)
 		writeTarget("x.txt")
-		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR))
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID })
 
 		assertEquals(2, listingsWhile("a") { upload(base = 5_000) })
 	}
@@ -2530,14 +2534,752 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
+	fun `an upload below a folder whose creation failed creates that folder first`() {
+		givenUpload(remoteModified = null, lastModified = null)
+		val folder = givenKeptFolder("a")
+		val target = writeTarget("x.txt")
+
+		upload(base = null).result.get()
+
+		inOrder(repository, dao) {
+			verify(repository).create(folder)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).write(eq(target), any(), any(), eq(false), any())
+		}
+	}
+
+	@Test
+	fun `an upload below a folder whose creation failed gives that folder a conflict name if the cloud has another one there by now`() {
+		givenUpload(remoteModified = null, lastModified = null)
+		val taken = givenKeptFolder("a")
+		whenever(repository.create(taken)).thenThrow(CloudNodeAlreadyExistsException("a"))
+		val conflict: CloudFolder = mock()
+		whenever(repository.folder(eq(root), argThat { matches(CONFLICT_KEPT_FOLDER_NAME) })).thenReturn(conflict)
+		doAnswer { whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder(it.getArgument(2))) }.whenever(dao).renamePending(eq(VAULT_ID), eq("a"), any(), any(), any(), isNull())
+		val conflictInCloud: CloudFolder = mock()
+		whenever(repository.resolve(eq(cryptoCloud), argThat { matches(Regex("/$CONFLICT_KEPT_FOLDER_NAME")) })).thenReturn(conflictInCloud)
+		val target = writeTarget("x.txt", conflictInCloud)
+
+		upload(base = null).result.await()
+
+		verify(repository).create(conflict)
+		verify(dao).renamePending(eq(VAULT_ID), eq("a"), argThat { matches(CONFLICT_KEPT_FOLDER_NAME) }, argThat { matches(CONFLICT_KEPT_FOLDER_NAME) }, any(), isNull())
+		verify(dao).markCreated(FOLDER_ID, null, null)
+		verify(repository).write(eq(target), any(), any(), eq(false), any())
+	}
+
+	@Test
+	fun `an upload below a folder whose creation failed creates that folder at the name it got in the cache only meanwhile`() {
+		givenUpload(remoteModified = null, lastModified = null)
+		givenKeptFolder("a")
+		// renamed to b in the cache, e.g. for a name taken in the cloud, before the folders above the upload were checked again
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("a"), keptFolder("b"))
+		val renamed: CloudFolder = mock()
+		whenever(repository.folder(root, "b")).thenReturn(renamed)
+		writeTarget("x.txt")
+
+		upload(base = null).result.await()
+
+		inOrder(repository) {
+			verify(repository).create(renamed)
+			verify(repository).write(any(), any(), any(), any(), any())
+		}
+		verify(repository, atLeastOnce()).resolve(cryptoCloud, "/b")
+	}
+
+	@Test
+	fun `an upload below a folder whose creation fails again stays pending without writing`() {
+		givenUpload(remoteModified = null, lastModified = null)
+		val folder = givenKeptFolder("a")
+		whenever(repository.create(folder)).thenThrow(NetworkConnectionException())
+
+		assertFailsWith<NetworkConnectionException>(upload(base = null).result)
+
+		verify(repository, never()).write(any(), any(), any(), any(), any())
+		verify(dao, never()).markCreated(any(), anyOrNull(), anyOrNull())
+		verify(dao, never()).markUploaded(any(), anyOrNull(), anyOrNull(), any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder created in a folder whose creation failed creates that folder first`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val kept = givenKeptFolder("a")
+		whenever(dao.loadById(ID)).thenReturn(entity("a/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/new"))
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertEquals(path("a/new"), creation.result.get().path)
+		inOrder(repository) {
+			verify(repository).create(kept)
+			verify(repository).create(created)
+		}
+		verify(dao).markCreated(FOLDER_ID, null, null)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `the folders above a change whose creation failed are created from the top`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val outer = givenKeptFolder("a")
+		val inner = givenKeptFolder("a/b", FOLDER_ID + 1)
+		whenever(dao.loadById(ID)).thenReturn(entity("a/b/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/b/new"))
+
+		inTest.create(path("a/b"), "new", isFolder = true)
+		listings.runAll()
+
+		inOrder(repository, dao) {
+			verify(repository).create(outer)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).create(inner)
+			verify(dao).markCreated(FOLDER_ID + 1, null, null)
+			verify(repository).create(created)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder above a change that was created meanwhile is left as it is`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val outer = givenKeptFolder("a")
+		val inner = givenKeptFolder("a/b", FOLDER_ID + 1)
+		// a was created by another change after this one was requested
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID })
+		whenever(dao.loadById(ID)).thenReturn(entity("a/b/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/b/new"))
+
+		inTest.create(path("a/b"), "new", isFolder = true)
+		listings.runAll()
+
+		verify(repository).create(inner)
+		verify(dao).markCreated(FOLDER_ID + 1, null, null)
+		verify(repository, never()).create(outer)
+		verify(dao, never()).markCreated(eq(FOLDER_ID), anyOrNull(), anyOrNull())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a file moved into a folder whose creation failed creates that folder first`() {
+		whenever(dao.load(VAULT_ID, "x.txt")).thenReturn(entity("x.txt"))
+		val kept = givenKeptFolder("a")
+		givenMoved("x.txt", "a/x.txt")
+		val file: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(file)
+
+		val move = inTest.move(path("x.txt"), path("a"), "x.txt")
+		listings.runAll()
+
+		move.get()
+
+		inOrder(repository, dao) {
+			verify(repository).create(kept)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).move(file, file)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change below a folder whose creation failed fails if that folder was moved in the cache only meanwhile, without creating the folder`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		givenKeptFolder("a")
+		// a is moved into b in the cache after the creation was requested, and its move was given up
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("b/a"))
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.loadById(ID)).thenReturn(entity("b/a/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertFailsWith<IllegalStateException>(creation.result)
+		verify(repository, never()).create(any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed and that is moved while a change below it waits is created where the change was requested`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val kept = givenKeptFolder("a")
+		// a is moved into b in the cache after the creation was requested, and in the cloud only after the creation
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("b/a").apply { sourcePath = "a" })
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.loadById(ID)).thenReturn(entity("b/a/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/new"))
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertEquals(path("a/new"), creation.result.get().path)
+		inOrder(repository, dao) {
+			verify(repository).create(kept)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).create(created)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change below a folder whose creation failed creates that folder at the name it got for a name taken in the cloud, also if it was moved since`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		givenKeptFolder("a")
+		// renamed to a (1) as a was taken in the cloud, then moved to b after the creation was requested, which follows it
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("b").apply { sourcePath = "a (1)" })
+		whenever(dao.loadById(ID)).thenReturn(entity("b/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val renamed: CloudFolder = mock()
+		whenever(repository.folder(root, "a (1)")).thenReturn(renamed)
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a (1)/new"))
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertEquals(path("a (1)/new"), creation.result.get().path)
+		inOrder(repository) {
+			verify(repository).create(renamed)
+			verify(repository).create(created)
+		}
+		verify(repository).resolve(cryptoCloud, "/a (1)")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder created in a folder that is moved into a folder whose creation failed meanwhile is created where it was requested`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		// a is moved into b in the cache after the creation was requested, and in the cloud only after the creation
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		val kept = givenKeptFolder("b")
+		whenever(dao.loadById(FOLDER_ID + 1)).thenReturn(entity("b/a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.loadById(ID)).thenReturn(entity("b/a/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/new"))
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertEquals(path("a/new"), creation.result.get().path)
+		verify(repository, never()).create(kept)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder created in a folder whose creation failed and renamed before it is created there creates that folder first`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val kept = givenKeptFolder("a")
+		whenever(dao.loadById(ID)).thenReturn(entity("a/renamed", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/new"))
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		creation.result.get()
+		inOrder(repository) {
+			verify(repository).create(kept)
+			verify(repository).create(created)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `only the folders whose creation failed are created, each in the folder above it`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val docs: CloudFolder = mock()
+		val keptInDocs: CloudFolder = mock()
+		val inKept: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/docs")).thenReturn(docs)
+		whenever(repository.resolve(cryptoCloud, "/docs/a")).thenReturn(inKept)
+		whenever(dao.load(VAULT_ID, "docs")).thenReturn(entity("docs", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.load(VAULT_ID, "docs/a")).thenReturn(keptFolder("docs/a"))
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("docs/a"))
+		whenever(repository.folder(docs, "a")).thenReturn(keptInDocs)
+		whenever(dao.loadById(ID)).thenReturn(entity("docs/a/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(inKept, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("docs/a/new"))
+
+		inTest.create(path("docs/a"), "new", isFolder = true)
+		listings.runAll()
+
+		inOrder(repository, dao) {
+			verify(repository).create(keptInDocs)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).create(created)
+		}
+		verify(dao, never()).markCreated(eq(FOLDER_ID + 1), anyOrNull(), anyOrNull())
+		verify(repository, times(2)).create(any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder created in a folder whose creation failed and that was dropped with it is given up`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		givenKeptFolder("a")
+		// dropped with nothing below it to keep it, together with the new folder in it
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(null)
+		whenever(dao.loadById(ID)).thenReturn(null)
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertFailsWith<CancellationException>(creation.result)
+		verify(repository, never()).create(any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder created in a folder whose creation failed and that was dropped after the new folder was moved out fails`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		givenKeptFolder("a")
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(null)
+		whenever(dao.loadById(ID)).thenReturn(entity("new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+
+		val creation = inTest.create(path("a"), "new", isFolder = true)
+		listings.runAll()
+
+		assertFailsWith<IllegalStateException>(creation.result)
+		// failed rather than given up
+		verify(dao).discardPendingChange(argThat { path == "new" })
+		verify(repository, never()).create(any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is created where a change below it was requested although a folder above it was moved meanwhile`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val a: CloudFolder = mock()
+		val keptInA: CloudFolder = mock()
+		val inKept: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(a)
+		whenever(repository.resolve(cryptoCloud, "/a/k")).thenReturn(inKept)
+		var renamed = false
+		whenever(dao.load(VAULT_ID, "a")).thenAnswer { if (renamed) null else entity("a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 } }
+		whenever(dao.load(VAULT_ID, "a/k")).thenAnswer { if (renamed) null else keptFolder("a/k") }
+		whenever(dao.loadById(FOLDER_ID)).thenAnswer { if (renamed) keptFolder("b/k") else keptFolder("a/k") }
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.load(VAULT_ID, "b/k")).thenReturn(keptFolder("b/k"))
+		whenever(repository.folder(a, "k")).thenReturn(keptInA)
+		whenever(dao.loadById(ID)).thenReturn(entity("b/k/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(inKept, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/k/new"))
+
+		val creation = inTest.create(path("a/k"), "new", isFolder = true)
+		// a is renamed to b in the cache after the creation was requested, and in the cloud only after the creation
+		renamed = true
+		listings.runAll()
+
+		assertEquals(path("a/k/new"), creation.result.get().path)
+		inOrder(repository, dao) {
+			verify(repository).create(keptInA)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).create(created)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is created where a change below it was requested although it and a folder above it were renamed meanwhile`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val a: CloudFolder = mock()
+		val keptInA: CloudFolder = mock()
+		val inKept: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(a)
+		whenever(repository.resolve(cryptoCloud, "/a/k")).thenReturn(inKept)
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = FOLDER_ID + 1 })
+		whenever(dao.load(VAULT_ID, "a/k")).thenReturn(keptFolder("a/k"))
+		whenever(repository.folder(a, "k")).thenReturn(keptInA)
+		// a is renamed to b, then k to l, in the cache after the creation was requested; both moves follow it in the cloud
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("a/k"), keptFolder("b/l").apply { sourcePath = "b/k" })
+		whenever(dao.loadById(ID)).thenReturn(entity("b/l/new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		val created: CloudFolder = mock()
+		whenever(repository.folder(inKept, "new")).thenReturn(created)
+		whenever(repository.create(created)).thenReturn(cryptoFolder("a/k/new"))
+
+		val creation = inTest.create(path("a/k"), "new", isFolder = true)
+		listings.runAll()
+
+		assertEquals(path("a/k/new"), creation.result.get().path)
+		inOrder(repository, dao) {
+			verify(repository).create(keptInA)
+			verify(dao).markCreated(FOLDER_ID, null, null)
+			verify(repository).create(created)
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder renamed for a name taken in the cloud while it is created is moved once its creation ended`() {
+		val pool = Executors.newCachedThreadPool()
+		val threaded = cache(CloudTaskScheduler(pool, direct, direct))
+		val created = givenCreationAtAConflictName(threaded)
+		// moved under the name it got for the name taken in the cloud, which isn't ordered after its creation
+		whenever(dao.load(VAULT_ID, "x")).thenReturn(entity("x", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		whenever(dao.loadById(ID)).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply {
+			status = DocumentMetadataEntity.STATUS_CREATING
+			sourcePath = "x"
+		})
+
+		try {
+			val move = threaded.move(path("x"), VaultPath(vault), "b")
+
+			assertThrows<TimeoutException> { move.get(300, TimeUnit.MILLISECONDS) }
+			created.countDown()
+			move.get(5, TimeUnit.SECONDS)
+		} finally {
+			created.countDown()
+			pool.shutdown()
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder renamed for a name taken in the cloud while it is created is moved once its creation failed`() {
+		val pool = Executors.newCachedThreadPool()
+		val threaded = cache(CloudTaskScheduler(pool, direct, direct))
+		val created = givenCreationAtAConflictName(threaded, fails = true)
+		whenever(dao.load(VAULT_ID, "x")).thenReturn(entity("x", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		whenever(dao.loadById(ID)).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply {
+			status = DocumentMetadataEntity.STATUS_CREATING
+			sourcePath = "x"
+		})
+		try {
+			val move = threaded.move(path("x"), VaultPath(vault), "b")
+
+			assertThrows<TimeoutException> { move.get(300, TimeUnit.MILLISECONDS) }
+			created.countDown()
+			move.get(5, TimeUnit.SECONDS)
+		} finally {
+			created.countDown()
+			pool.shutdown()
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder renamed for a name taken in the cloud while it is created is deleted once its creation ended`() {
+		val pool = Executors.newCachedThreadPool()
+		val threaded = cache(CloudTaskScheduler(pool, direct, direct))
+		val created = givenCreationAtAConflictName(threaded)
+		whenever(dao.load(VAULT_ID, "x")).thenReturn(entity("x", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING })
+		whenever(dao.loadById(ID)).thenReturn(entity("x", Document.MIME_TYPE_DIR).apply { pendingDelete = 1 })
+		whenever(repository.folder(root, "x")).thenReturn(mock())
+		try {
+			val deletion = threaded.delete(path("x")).result
+
+			assertThrows<TimeoutException> { deletion.get(300, TimeUnit.MILLISECONDS) }
+			created.countDown()
+			deletion.get(5, TimeUnit.SECONDS)
+		} finally {
+			created.countDown()
+			pool.shutdown()
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change below a folder renamed for a name taken in the cloud while it is created waits until its creation ended`() {
+		val pool = Executors.newCachedThreadPool()
+		val threaded = cache(CloudTaskScheduler(pool, direct, direct))
+		val created = givenCreationAtAConflictName(threaded)
+		whenever(dao.load(VAULT_ID, "x")).thenReturn(entity("x", Document.MIME_TYPE_DIR).apply {
+			id = ID
+			status = DocumentMetadataEntity.STATUS_CREATING
+		})
+		whenever(dao.insert(any())).thenReturn(ID + 1)
+		val sub: CloudFolder = mock()
+		whenever(repository.folder(root, "sub")).thenReturn(sub)
+		whenever(repository.create(sub)).thenReturn(cryptoFolder("x/sub"))
+		try {
+			val below = threaded.create(path("x"), "sub", isFolder = true)
+
+			assertThrows<TimeoutException> { below.result.get(300, TimeUnit.MILLISECONDS) }
+			created.countDown()
+			assertEquals(path("new/sub"), below.result.get(5, TimeUnit.SECONDS).path)
+		} finally {
+			created.countDown()
+			pool.shutdown()
+		}
+	}
+
+	@Test
+	@Timeout(10)
+	fun `changes requested below a folder before its creation renamed it for a name taken in the cloud go into the folder it created`() {
+		val nodes = givenNodesThatMove(entity("x.txt").apply { id = ID + 10 })
+		val created = givenFolderCreationAtAConflictName()
+		val sub: CloudFolder = mock()
+		whenever(repository.folder(created, "sub")).thenReturn(sub)
+		whenever(repository.create(sub)).thenReturn(cryptoFolder("new (1A2B3)/sub"))
+		val written: CloudFile = mock()
+		whenever(repository.file(created, "g.txt")).thenReturn(written)
+		whenever(repository.file(eq(created), eq("g.txt"), any())).thenReturn(written)
+		val uploaded = cryptoFile("new (1A2B3)/g.txt")
+		whenever(repository.write(any(), any(), any(), any(), any())).thenReturn(uploaded)
+		val source: CloudFile = mock()
+		whenever(repository.file(root, "x.txt")).thenReturn(source)
+		val target: CloudFile = mock()
+		whenever(repository.file(created, "x.txt")).thenReturn(target)
+		val renamedTarget: CloudFile = mock()
+		whenever(repository.file(created, "y.txt")).thenReturn(renamedTarget)
+
+		inTest.create(VaultPath(vault), "new", isFolder = true)
+		val below = inTest.create(path("new"), "sub", isFolder = true)
+		nodes[ID + 11] = entity("new/g.txt").apply {
+			id = ID + 11
+			status = DocumentMetadataEntity.STATUS_UPLOADING
+		}
+		val upload = inTest.upload(path("new/g.txt"), localFile, { null }) { _, _, _, _ -> }
+		val read = inTest.readFromCloud(path("new/g.txt"))
+		inTest.move(path("x.txt"), path("new"), "x.txt")
+		inTest.move(path("new/x.txt"), path("new"), "y.txt")
+		val deletion = inTest.delete(path("new/y.txt"))
+		listings.runAll()
+
+		assertTrue(below.result.get().path.path.matches(Regex("new \\([0-9A-F]{5}\\)/sub")))
+		upload.result.await()
+		deletion.result.await()
+		verify(repository).create(sub)
+		verify(repository).write(eq(written), any(), any(), any(), any())
+		assertTrue(read().path.matches(Regex("new \\([0-9A-F]{5}\\)/g.txt")))
+		inOrder(repository) {
+			verify(repository).move(source, target)
+			verify(repository).move(target, renamedTarget)
+			verify(repository).delete(renamedTarget)
+		}
+		verify(repository, never()).folder(root, "sub")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a move requested below a folder before the folder's move renamed it for a name taken in the cloud starts in the folder it moved`() {
+		givenNodesThatMove(
+			entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 20 },
+			entity("a/x.txt").apply { id = ID + 21 },
+			entity("b", Document.MIME_TYPE_DIR).apply { id = ID + 22 }
+		)
+		val b: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(b)
+		val a: CloudFolder = mock()
+		whenever(repository.folder(root, "a")).thenReturn(a)
+		val taken: CloudFolder = mock()
+		whenever(repository.folder(b, "a")).thenReturn(taken)
+		whenever(repository.move(a, taken)).thenThrow(CloudNodeAlreadyExistsException("a"))
+		val conflict: CloudFolder = mock()
+		whenever(repository.folder(eq(b), argThat { matches(Regex("a \\([0-9A-F]{5}\\)")) })).thenReturn(conflict)
+		val movedA = cryptoFolder("b/a (1A2B3)")
+		whenever(repository.move(a, conflict)).thenReturn(movedA)
+		val moved: CloudFolder = mock()
+		whenever(repository.resolve(eq(cryptoCloud), argThat { matches(Regex("/b/a \\([0-9A-F]{5}\\)")) })).thenReturn(moved)
+		val source: CloudFile = mock()
+		whenever(repository.file(moved, "x.txt")).thenReturn(source)
+		val target: CloudFile = mock()
+		whenever(repository.file(moved, "y.txt")).thenReturn(target)
+		val movedX = cryptoFile("b/a (1A2B3)/y.txt")
+		whenever(repository.move(source, target)).thenReturn(movedX)
+
+		inTest.move(path("a"), path("b"), "a")
+		val renamed = inTest.move(path("b/a/x.txt"), path("b/a"), "y.txt")
+		listings.runAll()
+
+		renamed.get()
+		verify(repository).move(source, target)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a change requested below a folder before its creation renamed it for a name taken in the cloud goes into the folder it created, also if it was moved meanwhile`() {
+		givenNodesThatMove()
+		val created = givenFolderCreationAtAConflictName()
+		val sub: CloudFolder = mock()
+		whenever(repository.folder(created, "sub")).thenReturn(sub)
+		whenever(repository.create(sub)).thenReturn(cryptoFolder("new (1A2B3)/sub"))
+		val renamed: CloudFolder = mock()
+		whenever(repository.folder(root, "renamed")).thenReturn(renamed)
+
+		inTest.create(VaultPath(vault), "new", isFolder = true)
+		val below = inTest.create(path("new"), "sub", isFolder = true)
+		val move = inTest.move(path("new"), VaultPath(vault), "renamed")
+		listings.runAll()
+
+		below.result.get()
+		move.get()
+		inOrder(repository) {
+			verify(repository).create(sub)
+			verify(repository).move(argThat<CloudFolder> { name.matches(CONFLICT_FOLDER_NAME) }, eq(renamed))
+		}
+		verify(repository, never()).folder(root, "sub")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder that its creation renamed for a name taken in the cloud orders the later changes below it after the earlier ones`() {
+		val scheduler = spy(CloudTaskScheduler(listings, direct, direct))
+		givenNodesThatMove()
+		givenFolderCreationAtAConflictName()
+
+		cache(scheduler).create(VaultPath(vault), "new", isFolder = true)
+		listings.runAll()
+
+		verify(scheduler).renamed(eq(path("new")), argThat { path.matches(CONFLICT_FOLDER_NAME) })
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is moved in the cache, and what its creation left is deleted`() {
+		val leftOver = givenMovedKeptFolder()
+
+		val move = inTest.move(path("a"), VaultPath(vault), "b")
+		listings.runAll()
+
+		assertEquals(path("b"), move.get().path)
+		verify(repository).delete(leftOver)
+		verify(repository, never()).move(anyOrNull<CloudFolder>(), anyOrNull<CloudFolder>())
+		verify(repository, never()).create(any())
+		verify(dao).clearSourcePath(FOLDER_ID)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is moved in the cache without looking up where it goes in the cloud`() {
+		givenMovedKeptFolder()
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("p/b").apply { sourcePath = "a" })
+		givenCachedFolders("p")
+		// resolving p in the cloud needs its dir file, e.g. while offline
+		whenever(repository.resolve(cryptoCloud, "/p")).thenThrow(NetworkConnectionException())
+
+		val move = inTest.move(path("a"), path("p"), "b")
+		listings.runAll()
+
+		assertInstanceOf(CloudFolder::class.java, move.get().node)
+		assertEquals("/p/b", move.get().node.path)
+		verify(dao).clearSourcePath(FOLDER_ID)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is moved in the cache although what its creation left can't be deleted`() {
+		val leftOver = givenMovedKeptFolder()
+		doThrow(NetworkConnectionException()).whenever(repository).delete(leftOver)
+
+		val move = inTest.move(path("a"), VaultPath(vault), "b")
+		listings.runAll()
+
+		assertEquals(path("b"), move.get().path)
+		verify(dao).clearSourcePath(FOLDER_ID)
+		verify(dao, never()).revertMove(any(), any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed and that is moved while its vault is locked deletes what its creation left after the next unlock`() {
+		val leftOver = givenMovedKeptFolder()
+		whenever(repository.exists(leftOver.dirFile!!)).thenThrow(MissingCryptorException()).thenReturn(false)
+
+		val move = inTest.move(path("a"), VaultPath(vault), "b")
+		listings.runAll()
+
+		assertFalse(move.isDone)
+		verify(repository, never()).delete(any())
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		move.get()
+		verify(repository).delete(leftOver)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder the cloud has where a folder whose creation failed was stays when that is moved`() {
+		val leftOver = givenMovedKeptFolder()
+		whenever(repository.exists(leftOver.dirFile!!)).thenReturn(true)
+
+		val move = inTest.move(path("a"), VaultPath(vault), "b")
+		listings.runAll()
+
+		move.get()
+		verify(repository, never()).delete(any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is deleted in the cache, together with what its creation left`() {
+		val leftOver = givenDeletedKeptFolder()
+
+		val deletion = inTest.delete(path("a"))
+		listings.runAll()
+
+		deletion.result.get()
+		verify(repository).delete(leftOver)
+		verify(dao).deleteSubtree(VAULT_ID, "a")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder the cloud has where a folder whose creation failed was stays when that is deleted`() {
+		val leftOver = givenDeletedKeptFolder()
+		whenever(repository.exists(leftOver.dirFile!!)).thenReturn(true)
+
+		val deletion = inTest.delete(path("a"))
+		listings.runAll()
+
+		deletion.result.get()
+		verify(repository, never()).delete(any())
+		verify(dao).deleteSubtree(VAULT_ID, "a")
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed is deleted in the cache although what its creation left can't be deleted`() {
+		val leftOver = givenDeletedKeptFolder()
+		whenever(repository.exists(leftOver.dirFile!!)).thenThrow(NetworkConnectionException())
+
+		val deletion = inTest.delete(path("a"))
+		listings.runAll()
+
+		deletion.result.get()
+		verify(dao).deleteSubtree(VAULT_ID, "a")
+		verify(dao, never()).clearPendingDelete(any(), any())
+	}
+
+	@Test
+	@Timeout(10)
+	fun `a folder whose creation failed and that is deleted while its vault is locked deletes what its creation left after the next unlock`() {
+		val leftOver = givenDeletedKeptFolder()
+		whenever(repository.exists(leftOver.dirFile!!)).thenThrow(MissingCryptorException()).thenReturn(false)
+
+		val deletion = inTest.delete(path("a"))
+		listings.runAll()
+
+		assertFalse(deletion.result.isDone)
+		verify(repository, never()).delete(any())
+		inTest.resumeLockedChanges(vault)
+		listings.runAll()
+
+		deletion.result.get()
+		verify(repository).delete(leftOver)
+		verify(dao).deleteSubtree(VAULT_ID, "a")
+	}
+
+	@Test
 	fun `a file that has never been in the cloud is only moved in the cache`() {
 		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
 		whenever(dao.loadById(ID)).thenReturn(entity("b.txt").apply {
 			sourcePath = "a.txt"
 			status = DocumentMetadataEntity.STATUS_UPLOADING
 		})
-		val target: CloudFile = mock()
-		whenever(repository.file(root, "b.txt")).thenReturn(target)
 
 		val move = inTest.move(path("a.txt"), VaultPath(vault), "b.txt")
 		listings.runAll()
@@ -2545,7 +3287,22 @@ class DocumentMetadataCacheTest {
 		verify(repository, never()).move(anyOrNull<CloudFile>(), anyOrNull<CloudFile>())
 		verify(dao).clearSourcePath(ID)
 		verify(dao, never()).revertMove(any(), any())
-		assertEquals(target, move.get().node)
+		assertInstanceOf(CloudFile::class.java, move.get().node)
+		assertEquals("/b.txt", move.get().node.path)
+	}
+
+	@Test
+	@Timeout(10)
+	fun `each move of a file that has never been in the cloud tells where it moved the file`() {
+		givenMovableNode("a.txt", DocumentMetadataEntity.STATUS_UPLOADING)
+		givenCachedFolders("p", "q")
+
+		val first = inTest.move(path("a.txt"), path("p"), "b.txt")
+		val second = inTest.move(path("p/b.txt"), path("q"), "c.txt")
+		listings.runAll()
+
+		assertEquals("/p/b.txt", first.get().node.path)
+		assertEquals("/q/c.txt", second.get().node.path)
 	}
 
 	@Test
@@ -2894,6 +3651,7 @@ class DocumentMetadataCacheTest {
 	fun `with failIfTaken a name taken in the cache fails the change and changes nothing`() {
 		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
 		whenever(dao.load(VAULT_ID, "a.txt")).thenReturn(entity("a.txt"))
+		whenever(dao.loadById(ID)).thenReturn(entity("a.txt"))
 		whenever(dao.load(VAULT_ID, "b.txt")).thenReturn(entity("b.txt").apply { id = ID + 1 })
 		whenever(dao.load(VAULT_ID, "folder")).thenReturn(entity("folder", Document.MIME_TYPE_DIR).apply { id = ID + 2 })
 
@@ -2964,15 +3722,21 @@ class DocumentMetadataCacheTest {
 		whenever(repository.resolve(cryptoCloud, "/a/b")).thenReturn(folderB)
 		whenever(repository.resolve(cryptoCloud, "/a/b/c")).thenReturn(folderC)
 		whenever(repository.list(root)).thenAnswer {
-			whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1 })
+			val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1 }
+			whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+			whenever(dao.loadById(ID + 1)).thenReturn(a)
 			listOf(cryptoFolder("a"))
 		}
 		whenever(repository.list(folderA)).thenAnswer {
-			whenever(dao.load(VAULT_ID, "a/b")).thenReturn(entity("a/b", Document.MIME_TYPE_DIR).apply { id = ID + 2 })
+			val b = entity("a/b", Document.MIME_TYPE_DIR).apply { id = ID + 2 }
+			whenever(dao.load(VAULT_ID, "a/b")).thenReturn(b)
+			whenever(dao.loadById(ID + 2)).thenReturn(b)
 			listOf(cryptoFolder("a/b"))
 		}
 		whenever(repository.list(folderB)).thenAnswer {
-			whenever(dao.load(VAULT_ID, "a/b/c")).thenReturn(entity("a/b/c", Document.MIME_TYPE_DIR).apply { id = ID + 3 })
+			val c = entity("a/b/c", Document.MIME_TYPE_DIR).apply { id = ID + 3 }
+			whenever(dao.load(VAULT_ID, "a/b/c")).thenReturn(c)
+			whenever(dao.loadById(ID + 3)).thenReturn(c)
 			listOf(cryptoFolder("a/b/c"))
 		}
 		whenever(dao.insert(any())).thenReturn(ID)
@@ -3004,12 +3768,369 @@ class DocumentMetadataCacheTest {
 	@Test
 	fun `a cached document is used if its folder can't be listed`() {
 		val cached = entity("a/x.txt")
-		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now - 60_000 })
+		val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+		whenever(dao.loadById(ID + 1)).thenReturn(a)
 		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(cached)
+		whenever(dao.loadById(ID)).thenReturn(cached)
 		whenever(repository.list(root)).thenThrow(NetworkConnectionException())
 		val cache = cache(CloudTaskScheduler(direct, direct, direct))
 
 		assertEquals(cached, cache.currentDocument(path("a/x.txt")))
+	}
+
+	@Test
+	fun `a document is found where it is after its folder was listed, also if a folder above it was renamed meanwhile`() {
+		val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+		whenever(dao.loadById(ID + 1)).thenReturn(a)
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val folderA: CloudFolder = mock()
+		val renamedFolder: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/a (1A2B3)")).thenReturn(renamedFolder)
+		val renamed = entity("a (1A2B3)/x.txt")
+		whenever(repository.list(folderA)).thenAnswer {
+			// the listing waited for a's move, which gave it a conflict name for another device's a, holding an x.txt, too
+			val moved = entity("a (1A2B3)", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+			whenever(dao.load(VAULT_ID, "a (1A2B3)")).thenReturn(moved)
+			whenever(dao.loadById(ID + 1)).thenReturn(moved)
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt").apply { id = ID + 2 })
+			whenever(dao.loadById(ID)).thenReturn(renamed)
+			listOf(cryptoFile("a/x.txt"))
+		}
+		val listedRenamed = listOf(cryptoFile("a (1A2B3)/x.txt"))
+		whenever(repository.list(renamedFolder)).thenReturn(listedRenamed)
+		val cache = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals(renamed, cache.currentDocument(path("a/x.txt")))
+		verify(repository).list(renamedFolder)
+	}
+
+	@Test
+	fun `a folder whose listing failed is not listed again if it is still where it was`() {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
+		val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now }
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+		whenever(dao.loadById(ID + 1)).thenReturn(a)
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		// a listing again would go on forever
+		whenever(repository.list(folderA)).thenThrow(NetworkConnectionException()).thenAnswer { throw AssertionError("listed again") }
+		val cache = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertThrows<NetworkConnectionException> { cache.listNow(path("a")) }
+		verify(repository).list(folderA)
+	}
+
+	@Test
+	fun `a node the cache knows is found without listing its folder, also while the cloud can't be reached`() {
+		givenCachedFolders("", "a")
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		whenever(repository.list(any())).thenThrow(NetworkConnectionException())
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals("a/x.txt", inTest.requireKnownDocument(path("a/x.txt")).path)
+		verify(repository, never()).list(any())
+	}
+
+	@Test
+	fun `a move that lists its folder first moves the node from where it is then, e g after the folder was renamed for a name taken in the cloud`() {
+		val renamedFolder = givenFolderRenamedWhileListed()
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.move(path("a/x.txt"), path("a"), "y.txt", failIfTaken = true)
+
+		verify(repository).list(renamedFolder)
+		verify(dao).move(eq(VAULT_ID), eq("a (1A2B3)/x.txt"), eq("a (1A2B3)/y.txt"), eq("a (1A2B3)"), eq("y.txt"), any())
+	}
+
+	@Test
+	fun `a creation that lists its folder first creates the node where the folder is then, listed there`() {
+		val renamedFolder = givenFolderRenamedWhileListed()
+		whenever(dao.insert(any())).thenReturn(ID + 7)
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.create(path("a"), "new", isFolder = true, failIfTaken = true)
+
+		verify(repository).list(renamedFolder)
+		verify(dao).insert(argThat { path == "a (1A2B3)/new" && parentPath == "a (1A2B3)" })
+	}
+
+	@Test
+	fun `a node the cache doesn't know is found by listing its folder where the folder is once it was listed`() {
+		givenFolderRenamedWhileListed()
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals("a (1A2B3)/z.txt", inTest.requireKnownDocument(path("a/z.txt")).path)
+	}
+
+	@Test
+	fun `a node below a folder the cache doesn't know is found where that folder is once the folders above it were listed`() {
+		givenFolderRenamedWhileListed()
+		val folderC: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a (1A2B3)/c")).thenReturn(folderC)
+		whenever(repository.list(folderC)).thenAnswer {
+			whenever(dao.load(VAULT_ID, "a (1A2B3)/c/w.txt")).thenReturn(entity("a (1A2B3)/c/w.txt").apply { id = ID + 8 })
+			listOf(cryptoFile("a (1A2B3)/c/w.txt"))
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals("a (1A2B3)/c/w.txt", inTest.requireKnownDocument(path("a/c/w.txt")).path)
+	}
+
+	@Test
+	fun `a folder the cache doesn't know is found by listing the folder above where that folder is once it was listed`() {
+		givenFolderRenamedWhileListed()
+		whenever(dao.insert(any())).thenReturn(ID + 7)
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.create(path("a/c"), "new", isFolder = true, failIfTaken = true)
+
+		verify(dao).insert(argThat { path == "a (1A2B3)/c/new" })
+	}
+
+	@Test
+	fun `a folder listed now is listed again where it is once its listing waited for a rename, and that is returned`() {
+		val renamedFolder = givenFolderRenamedWhileListed()
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals(path("a (1A2B3)"), inTest.listNow(path("a")))
+		verify(repository).list(renamedFolder)
+	}
+
+	@Test
+	fun `a folder is followed as long as each listing finds it moved again`() {
+		val renamedFolder = givenFolderRenamedWhileListed()
+		val movedAgain: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(movedAgain)
+		whenever(repository.list(renamedFolder)).thenAnswer {
+			val moved = entity("b", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+			whenever(dao.load(VAULT_ID, "a (1A2B3)")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "b")).thenReturn(moved)
+			whenever(dao.loadById(ID + 1)).thenReturn(moved)
+			emptyList<CloudNode>()
+		}
+		whenever(repository.list(movedAgain)).thenReturn(emptyList())
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals(path("b"), inTest.prepareFolder(path("a"), requireListing = false))
+		verify(repository).list(movedAgain)
+	}
+
+	@Test
+	fun `a folder gone once its listing waited for the changes before it isn't taken for another one at its path`() {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 })
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			// another app deleted a and created another a
+			whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 2; lastEnumeratedAt = now })
+			whenever(dao.loadById(ID + 1)).thenReturn(null)
+			emptyList<CloudNode>()
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertThrows<NoSuchCloudFileException> { inTest.prepareFolder(path("a"), requireListing = false) }
+		verify(repository).list(folderA)
+	}
+
+	@Test
+	fun `a move that lists its folder first fails if the node is gone by then, also if another one took its path`() {
+		givenCachedFolders("", "a")
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val b = entity("b", Document.MIME_TYPE_DIR).apply { id = ID + 3; lastEnumeratedAt = now - 60_000 }
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(b)
+		whenever(dao.loadById(ID + 3)).thenReturn(b)
+		val folderB: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+		whenever(repository.list(folderB)).thenAnswer {
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt").apply { id = ID + 1 })
+			whenever(dao.loadById(ID)).thenReturn(null)
+			emptyList<CloudNode>()
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertThrows<NoSuchCloudFileException> { inTest.move(path("a/x.txt"), path("b"), "x.txt", failIfTaken = true) }
+		verify(repository).list(folderB)
+		verify(dao, never()).move(any(), any(), any(), any(), any(), any())
+	}
+
+	@Test
+	fun `a rename that lists its folder first renames the node in the folder another app moved it to meanwhile`() {
+		givenCachedFolders("", "b")
+		val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+		whenever(dao.loadById(ID + 1)).thenReturn(a)
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			val moved = entity("b/x.txt")
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "b/x.txt")).thenReturn(moved)
+			whenever(dao.loadById(ID)).thenReturn(moved)
+			emptyList<CloudNode>()
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.move(path("a/x.txt"), path("a"), "y.txt", failIfTaken = true)
+
+		verify(dao).move(eq(VAULT_ID), eq("b/x.txt"), eq("b/y.txt"), eq("b"), eq("y.txt"), any())
+	}
+
+	@Test
+	fun `a read or write of a node not at its path any more lists nothing there, so that another device's node there isn't taken for it`() {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 })
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt").apply { id = ID + 2 })
+			listOf(cryptoFile("a/x.txt"))
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertNull(inTest.currentDocument(path("a/x.txt")))
+		verify(repository, never()).list(folderA)
+	}
+
+	@Test
+	fun `a folder whose listing failed because the folder was moved meanwhile is listed where it is now`() {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 })
+		val folderA: CloudFolder = mock()
+		val folderB: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/b")).thenReturn(folderB)
+		whenever(repository.list(folderA)).thenAnswer {
+			val moved = entity("b", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+			whenever(dao.load(VAULT_ID, "a")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "b")).thenReturn(moved)
+			whenever(dao.loadById(ID + 1)).thenReturn(moved)
+			throw NoSuchCloudFileException("a")
+		}
+		whenever(repository.list(folderB)).thenReturn(emptyList())
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals(path("b"), inTest.prepareFolder(path("a"), requireListing = true))
+		verify(repository).list(folderB)
+	}
+
+	@Test
+	fun `a folder listed now that is gone once its listing waited for the changes before it fails`() {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now })
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			whenever(dao.loadById(ID + 1)).thenReturn(null)
+			emptyList<CloudNode>()
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertThrows<NoSuchCloudFileException> { inTest.listNow(path("a")) }
+		verify(repository).list(folderA)
+	}
+
+	@Test
+	fun `a folder the cache doesn't know is listed now where the listing of the folders above found it`() {
+		val renamedFolder = givenFolderRenamedWhileListed()
+		val folderC: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a (1A2B3)/c")).thenReturn(folderC)
+		whenever(repository.list(folderC)).thenReturn(emptyList())
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertEquals(path("a (1A2B3)/c"), inTest.listNow(path("a/c")))
+		verify(repository).list(renamedFolder)
+		verify(repository).list(folderC)
+	}
+
+	@Test
+	fun `a move that lists its folder first moves the node into that folder where it is then`() {
+		givenFolderRenamedWhileListed()
+		val y = entity("y.txt").apply { id = ID + 9 }
+		whenever(dao.load(VAULT_ID, "y.txt")).thenReturn(y)
+		whenever(dao.loadById(ID + 9)).thenReturn(y)
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.move(path("y.txt"), path("a"), "y.txt", failIfTaken = true)
+
+		verify(dao).move(eq(VAULT_ID), eq("y.txt"), eq("a (1A2B3)/y.txt"), eq("a (1A2B3)"), eq("y.txt"), any())
+	}
+
+	@Test
+	fun `a move into the folder a node was in goes there, also if another app moved the node away meanwhile`() {
+		givenCachedFolders("", "b")
+		val a = entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(a)
+		whenever(dao.loadById(ID + 1)).thenReturn(a)
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			val moved = entity("b/x.txt")
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "b/x.txt")).thenReturn(moved)
+			whenever(dao.loadById(ID)).thenReturn(moved)
+			emptyList<CloudNode>()
+		}
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		inTest.move(path("a/x.txt"), path("a"), "x.txt", failIfTaken = true)
+
+		verify(dao).move(eq(VAULT_ID), eq("b/x.txt"), eq("a/x.txt"), eq("a"), eq("x.txt"), any())
+	}
+
+	@Test
+	fun `a move of a node the cache doesn't have fails before its folder is listed`() {
+		givenCachedFolders("")
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now - 60_000 })
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertThrows<NoSuchCloudFileException> { inTest.move(path("x.txt"), path("b"), "x.txt", failIfTaken = true) }
+		verify(repository, never()).list(any())
+	}
+
+	@Test
+	fun `a folder isn't moved into itself`() {
+		givenCachedFolders("", "s", "s/t")
+
+		assertThrows<IllegalArgumentException> { inTest.move(path("s"), path("s/t"), "s") }
+		assertThrows<IllegalArgumentException> { inTest.move(path("s"), path("s"), "s") }
+		verify(dao, never()).move(any(), any(), any(), any(), any(), any())
+	}
+
+	@Test
+	fun `a document gone after its folder was listed isn't taken for another one now at its path`() {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now - 60_000 })
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val folderA: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.list(folderA)).thenAnswer {
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt").apply { id = ID + 1 })
+			listOf(cryptoFile("a/x.txt"))
+		}
+		val cache = cache(CloudTaskScheduler(direct, direct, direct))
+
+		assertNull(cache.currentDocument(path("a/x.txt")))
+	}
+
+	@Test
+	fun `a read goes where the cloud has its file once the requests before it are done, also if one of them renamed the file for a name taken in the cloud`() {
+		whenever(dao.load(VAULT_ID, "f.txt")).thenReturn(entity("f.txt"))
+		inTest = cache(CloudTaskScheduler(direct, direct, direct))
+
+		val read = inTest.readFromCloud(path("f.txt"))
+		// the move that renamed g.txt to f.txt found f.txt taken in the cloud, whose f.txt a listing stored meanwhile
+		whenever(dao.loadById(ID)).thenReturn(entity("f (1A2B3).txt"))
+		val other = entity("f.txt").apply { id = ID + 1 }
+		whenever(dao.load(VAULT_ID, "f.txt")).thenReturn(other)
+		whenever(dao.loadById(ID + 1)).thenReturn(other)
+		assertEquals(path("f (1A2B3).txt"), read())
+		// a move requested after the read waits for it, the cloud has the file at its conflict name meanwhile
+		whenever(dao.loadById(ID)).thenReturn(entity("h.txt").apply { sourcePath = "f (1A2B3).txt" })
+		assertEquals(path("f (1A2B3).txt"), read())
 	}
 
 	@Test
@@ -3059,6 +4180,16 @@ class DocumentMetadataCacheTest {
 	}
 
 	@Test
+	fun `a listing during which a folder above a change was created after its creation failed is repeated`() {
+		whenever(dao.insert(any())).thenReturn(ID)
+		givenKeptFolder("a")
+		whenever(repository.folder(root, "new")).thenReturn(mock())
+
+		assertEquals(2, listingsWhile("") { inTest.create(path("a"), "new", isFolder = true) })
+		verify(dao).markCreated(FOLDER_ID, null, null)
+	}
+
+	@Test
 	fun `a change in another folder does not repeat a listing`() {
 		whenever(dao.insert(any())).thenReturn(ID)
 		whenever(repository.folder(root, "new")).thenReturn(mock())
@@ -3095,7 +4226,9 @@ class DocumentMetadataCacheTest {
 		val inTest = cache(CloudTaskScheduler(direct, direct, direct))
 		whenever(dao.insert(any())).thenReturn(ID)
 		whenever(repository.folder(root, "new")).thenReturn(mock())
-		whenever(dao.load(VAULT_ID, "b")).thenReturn(entity("b", Document.MIME_TYPE_DIR))
+		val b = entity("b", Document.MIME_TYPE_DIR)
+		whenever(dao.load(VAULT_ID, "b")).thenReturn(b)
+		whenever(dao.loadById(ID)).thenReturn(b)
 		var listCalls = 0
 		whenever(repository.list(root)).thenAnswer {
 			listCalls++
@@ -3426,6 +4559,145 @@ class DocumentMetadataCacheTest {
 		assertInstanceOf(T::class.java, assertThrows<Throwable> { future.await() })
 	}
 
+	/**
+	 * A folder at [path] whose creation failed and that was kept for the writes below it.
+	 *
+	 * @return the folder at [path] in the cloud
+	 */
+	private fun givenKeptFolder(path: String, id: Long = FOLDER_ID): CloudFolder {
+		// the database has the root, too
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { this.id = FOLDER_ID + 9 })
+		whenever(dao.load(VAULT_ID, path)).thenReturn(keptFolder(path, id))
+		whenever(dao.loadById(id)).thenReturn(keptFolder(path, id))
+		val folder: CloudFolder = mock()
+		whenever(repository.folder(root, path.substringAfterLast('/'))).thenReturn(folder)
+		return folder
+	}
+
+	/**
+	 * Starts creating a folder "new" in the root with [cache]. Its name is taken in the cloud, so the creation renames it
+	 * and creates it under a conflict name. That creation waits until the returned latch is counted down, and then fails
+	 * if [fails] is set.
+	 */
+	private fun givenCreationAtAConflictName(cache: DocumentMetadataCache, fails: Boolean = false): CountDownLatch {
+		whenever(dao.insert(any())).thenReturn(ID)
+		val node = entity("new", Document.MIME_TYPE_DIR).apply { status = DocumentMetadataEntity.STATUS_CREATING }
+		whenever(dao.loadById(ID)).thenReturn(node)
+		doAnswer { node.status = DocumentMetadataEntity.STATUS_SYNCED }.whenever(dao).markCreated(eq(ID), anyOrNull(), anyOrNull())
+		val taken: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(taken)
+		whenever(repository.create(taken)).thenThrow(CloudNodeAlreadyExistsException("new"))
+		val conflict: CloudFolder = mock()
+		whenever(repository.folder(eq(root), argThat { matches(CONFLICT_FOLDER_NAME) })).thenReturn(conflict)
+		val creating = CountDownLatch(1)
+		val created = CountDownLatch(1)
+		whenever(repository.create(conflict)).thenAnswer {
+			creating.countDown()
+			created.await()
+			if (fails) {
+				throw NetworkConnectionException()
+			}
+			cryptoFolder("new (1A2B3)")
+		}
+		cache.create(VaultPath(vault), "new", isFolder = true)
+		creating.await()
+		return created
+	}
+
+	/**
+	 * Keeps [nodes] and those the cache inserts by id, and moves them and the nodes below them like the database when the
+	 * cache moves or renames one.
+	 *
+	 * @return the nodes by id
+	 */
+	private fun givenNodesThatMove(vararg nodes: DocumentMetadataEntity): MutableMap<Long, DocumentMetadataEntity> {
+		val byId = nodes.associateBy { requireNotNull(it.id) }.toMutableMap()
+		var nextId = ID
+		whenever(dao.insert(any())).thenAnswer { invocation ->
+			val node = invocation.getArgument<DocumentMetadataEntity>(0)
+			node.id = nextId++
+			byId[requireNotNull(node.id)] = node
+			node.id
+		}
+		whenever(dao.load(eq(VAULT_ID), any())).thenAnswer { invocation -> byId.values.firstOrNull { it.path == invocation.getArgument(1) } }
+		whenever(dao.loadById(any())).thenAnswer { byId[it.getArgument(0)] }
+		val moveSubtree = { from: String, to: String, name: String, sourcePath: String? ->
+			byId.values.filter { it.path == from || it.path.startsWith("$from/") }.forEach { node ->
+				if (node.path == from) {
+					node.name = name
+					node.sourcePath = node.sourcePath ?: sourcePath
+				}
+				node.path = to + node.path.removePrefix(from)
+				node.parentPath = node.path.substringBeforeLast('/', "")
+			}
+		}
+		doAnswer { moveSubtree(it.getArgument(1), it.getArgument(2), it.getArgument(4), it.getArgument(1)) }.whenever(dao).move(any(), any(), any(), any(), any(), any())
+		doAnswer { moveSubtree(it.getArgument(1), it.getArgument(2), it.getArgument(3), it.getArgument(5)) }.whenever(dao).renamePending(any(), any(), any(), any(), any(), anyOrNull())
+		doAnswer { byId[it.getArgument(0)]?.sourcePath = it.getArgument(1) }.whenever(dao).setSourcePath(any(), any())
+		doAnswer { byId[it.getArgument(0)]?.sourcePath = null }.whenever(dao).clearSourcePath(any())
+		doAnswer { byId[it.getArgument(0)]?.status = DocumentMetadataEntity.STATUS_SYNCED }.whenever(dao).markCreated(any(), anyOrNull(), anyOrNull())
+		doAnswer { invocation ->
+			val path = invocation.getArgument<String>(1)
+			byId.values.filter { it.path == path || it.path.startsWith("$path/") }.forEach { it.pendingDelete = invocation.getArgument(2) }
+		}.whenever(dao).markPendingDelete(any(), any(), any())
+		return byId
+	}
+
+	/**
+	 * Makes the cloud have a folder "new" in the root, so that the creation of one renames it to a conflict name and runs
+	 * [whileCreating] while it creates it there.
+	 *
+	 * @return the folder the creation creates
+	 */
+	private fun givenFolderCreationAtAConflictName(whileCreating: () -> Unit = {}): CloudFolder {
+		val taken: CloudFolder = mock()
+		whenever(repository.folder(root, "new")).thenReturn(taken)
+		whenever(repository.create(taken)).thenThrow(CloudNodeAlreadyExistsException("new"))
+		val conflict: CloudFolder = mock { on { name } doReturn "new (1A2B3)" }
+		whenever(repository.folder(eq(root), argThat { matches(CONFLICT_FOLDER_NAME) })).thenReturn(conflict)
+		whenever(repository.create(conflict)).thenAnswer {
+			whileCreating()
+			cryptoFolder("new (1A2B3)")
+		}
+		val created: CloudFolder = mock()
+		whenever(repository.resolve(eq(cryptoCloud), argThat { matches(Regex("/new \\([0-9A-F]{5}\\)")) })).thenReturn(created)
+		return created
+	}
+
+	/**
+	 * A folder kept after its creation failed, moved from a to b in the cache.
+	 *
+	 * @return what its creation may have left at a in the cloud
+	 */
+	private fun givenMovedKeptFolder(): CryptoFolder {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(keptFolder("a"))
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("b").apply { sourcePath = "a" })
+		val leftOver = CryptoFolder(root, "a", "/a", mock())
+		whenever(repository.folder(root, "a")).thenReturn(leftOver)
+		whenever(repository.folder(root, "b")).thenReturn(mock())
+		return leftOver
+	}
+
+	/**
+	 * A folder at a kept after its creation failed, being deleted.
+	 *
+	 * @return what its creation may have left at a in the cloud
+	 */
+	private fun givenDeletedKeptFolder(): CryptoFolder {
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(keptFolder("a"))
+		whenever(dao.loadById(FOLDER_ID)).thenReturn(keptFolder("a").apply { pendingDelete = 1 })
+		val leftOver = CryptoFolder(root, "a", "/a", mock())
+		whenever(repository.folder(root, "a")).thenReturn(leftOver)
+		return leftOver
+	}
+
+	private fun keptFolder(path: String, id: Long = FOLDER_ID): DocumentMetadataEntity {
+		return entity(path, Document.MIME_TYPE_DIR).apply {
+			this.id = id
+			status = DocumentMetadataEntity.STATUS_CREATING
+		}
+	}
+
 	private fun uploading(): DocumentMetadataEntity {
 		return entity("a/x.txt").apply {
 			status = DocumentMetadataEntity.STATUS_UPLOADING
@@ -3476,6 +4748,44 @@ class DocumentMetadataCacheTest {
 		inTest.children(path(folder))
 		listings.runAll()
 		return listCalls
+	}
+
+	/**
+	 * Makes the listing of folder a, which is due, wait for a move that gave a a conflict name for another device's folder
+	 * a. Like in the database, the cache then has a and its file x.txt at "a (1A2B3)" and nothing at a, so the listing of
+	 * a stores nothing. Only listing "a (1A2B3)" shows the rest of its content, z.txt and folder c.
+	 *
+	 * @return the folder "a (1A2B3)" in the cloud
+	 */
+	private fun givenFolderRenamedWhileListed(): CloudFolder {
+		whenever(dao.load(VAULT_ID, "")).thenReturn(entity("", Document.MIME_TYPE_DIR).apply { lastEnumeratedAt = now })
+		whenever(dao.load(VAULT_ID, "a")).thenReturn(entity("a", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 })
+		whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(entity("a/x.txt"))
+		val folderA: CloudFolder = mock()
+		val renamedFolder: CloudFolder = mock()
+		whenever(repository.resolve(cryptoCloud, "/a")).thenReturn(folderA)
+		whenever(repository.resolve(cryptoCloud, "/a (1A2B3)")).thenReturn(renamedFolder)
+		whenever(repository.list(folderA)).thenAnswer {
+			// a move keeps the folder's last listing
+			val renamed = entity("a (1A2B3)", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now - 60_000 }
+			val file = entity("a (1A2B3)/x.txt")
+			whenever(dao.load(VAULT_ID, "a")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "a/x.txt")).thenReturn(null)
+			whenever(dao.load(VAULT_ID, "a (1A2B3)")).thenReturn(renamed)
+			whenever(dao.load(VAULT_ID, "a (1A2B3)/x.txt")).thenReturn(file)
+			whenever(dao.loadById(ID + 1)).thenReturn(renamed)
+			whenever(dao.loadById(ID)).thenReturn(file)
+			listOf(cryptoFile("a/other.txt"))
+		}
+		whenever(repository.list(renamedFolder)).thenAnswer {
+			val folderC = entity("a (1A2B3)/c", Document.MIME_TYPE_DIR).apply { id = ID + 6; lastEnumeratedAt = now }
+			whenever(dao.load(VAULT_ID, "a (1A2B3)")).thenReturn(entity("a (1A2B3)", Document.MIME_TYPE_DIR).apply { id = ID + 1; lastEnumeratedAt = now })
+			whenever(dao.load(VAULT_ID, "a (1A2B3)/z.txt")).thenReturn(entity("a (1A2B3)/z.txt").apply { id = ID + 4 })
+			whenever(dao.load(VAULT_ID, "a (1A2B3)/c")).thenReturn(folderC)
+			whenever(dao.loadById(ID + 6)).thenReturn(folderC)
+			listOf(cryptoFile("a (1A2B3)/x.txt"), cryptoFile("a (1A2B3)/z.txt"), cryptoFolder("a (1A2B3)/c"))
+		}
+		return renamedFolder
 	}
 
 	private fun givenCachedFolders(vararg paths: String) {
@@ -3578,10 +4888,12 @@ class DocumentMetadataCacheTest {
 
 		private const val VAULT_ID = 1L
 		private const val ID = 7L
+		private const val FOLDER_ID = 8L
 		private const val GENERATION = 3L
 		private val CONFLICT_NAME = Regex("x \\([0-9A-F]{5}\\)\\.txt")
 		private val CONFLICT_TARGET_NAME = Regex("b \\([0-9A-F]{5}\\)\\.txt")
 		private val CONFLICT_FOLDER_NAME = Regex("new \\([0-9A-F]{5}\\)")
+		private val CONFLICT_KEPT_FOLDER_NAME = Regex("a \\([0-9A-F]{5}\\)")
 		private val CONFLICT_FILE_NAME = Regex("new \\([0-9A-F]{5}\\)\\.txt")
 	}
 }

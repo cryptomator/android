@@ -39,7 +39,7 @@ class DownloadFiles {
 		for (DownloadFile file : downloadFiles) {
 			OutputStream dataSink = openDataSink(file);
 			try {
-				VaultPath vaultFile = vaultDocumentRepository.pathOf(file.getDownloadFile());
+				VaultPath vaultFile = vaultDocumentRepository.currentPathOf(file.getDownloadFile());
 				if (vaultFile != null) {
 					vaultDocumentRepository.read(vaultFile, dataSink, progressAware);
 				} else {

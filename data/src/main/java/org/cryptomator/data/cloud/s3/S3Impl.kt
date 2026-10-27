@@ -78,9 +78,20 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 			}
 		} catch (e: ErrorResponseException) {
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
-				return false
+				// a folder created by a tool that writes no object for it is there by what is in it
+				return node is S3Folder && hasContent(node)
 			}
-			throw FatalBackendException(e)
+			throw handleApiError(e, node.path)
+		}
+	}
+
+	@Throws(BackendException::class)
+	private fun hasContent(folder: S3Folder): Boolean {
+		val request = ListObjectsArgs.builder().bucket(cloud.s3Bucket()).prefix(folder.key).maxKeys(1).build()
+		return try {
+			client.listObjects(request).firstOrNull()?.get() != null
+		} catch (e: ErrorResponseException) {
+			throw handleApiError(e, folder.path)
 		}
 	}
 
@@ -93,7 +104,7 @@ internal class S3Impl(private val cloud: S3Cloud, private val client: MinioClien
 			if (S3CloudApiErrorCodes.NO_SUCH_KEY.value == e.errorResponse().code()) {
 				return null
 			}
-			throw FatalBackendException(e)
+			throw handleApiError(e, file.path)
 		}
 	}
 

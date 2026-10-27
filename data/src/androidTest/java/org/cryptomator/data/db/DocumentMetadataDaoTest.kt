@@ -531,7 +531,7 @@ class DocumentMetadataDaoTest {
 	}
 
 	@Test
-	fun discardingAFailedCreationKeepsAFolderWithAPendingUpload() {
+	fun discardingAFailedCreationKeepsAFolderWithAPendingUploadAsBeingCreated() {
 		dao.storeChildren(folder("", 1000), listOf())
 		dao.insert(folder("new").apply { status = DocumentMetadataEntity.STATUS_CREATING })
 		dao.insert(file("new/x.txt"))
@@ -539,9 +539,8 @@ class DocumentMetadataDaoTest {
 
 		dao.loadInterruptedChanges().forEach(dao::discardPendingChange)
 
-		Assert.assertThat(dao.load(VAULT_ID, "new")?.hasPendingChange(), CoreMatchers.`is`(false))
+		Assert.assertThat(dao.load(VAULT_ID, "new")?.isCreating, CoreMatchers.`is`(true))
 		Assert.assertThat(dao.load(VAULT_ID, "new/x.txt")?.isUploading, CoreMatchers.`is`(true))
-		Assert.assertThat(dao.loadInterruptedChanges(), CoreMatchers.`is`(emptyList()))
 	}
 
 	@Test

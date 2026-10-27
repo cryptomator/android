@@ -35,7 +35,7 @@ class ResumeVaultUploads {
 		} else {
 			List<VaultPath> paths = new ArrayList<>();
 			for (CloudFile file : files) {
-				paths.add(vaultDocumentRepository.pathOf(file));
+				paths.add(vaultDocumentRepository.currentPathOf(file));
 			}
 			vaultDocumentRepository.retryUploads(vault, paths);
 		}

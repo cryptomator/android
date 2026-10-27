@@ -28,7 +28,7 @@ class CreateFolder {
 	}
 
 	public CloudFolder execute() throws BackendException {
-		VaultPath vaultFolder = vaultDocumentRepository.pathOf(parent);
+		VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(parent);
 		if (vaultFolder != null) {
 			VaultDocumentChange<CloudFolder> change = vaultDocumentRepository.createFolder(vaultFolder, folderName, optimistic);
 			return optimistic ? change.cachedNode() : change.await().getNode();

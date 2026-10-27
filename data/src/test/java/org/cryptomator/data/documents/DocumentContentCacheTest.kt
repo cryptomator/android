@@ -88,6 +88,8 @@ class DocumentContentCacheTest {
 	@BeforeEach
 	fun setup() {
 		whenever(metadataCache.parentFolder(any())).thenReturn(root)
+		whenever(metadataCache.prepareFolder(any(), any())).thenAnswer { it.getArgument<VaultPath>(0) }
+		doAnswer { invocation -> invocation.getArgument<VaultPath>(0).let { path -> { path } } }.whenever(metadataCache).readFromCloud(any())
 		whenever(metadataCache.withChangesPaused(any<() -> Any?>())).thenAnswer { it.getArgument<() -> Any?>(0)() }
 		whenever(metadataCache.upload(any(), any(), any(), any(), anyOrNull(), any(), any())).thenAnswer { runningUpload() }
 	}
@@ -317,6 +319,17 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
+	fun `a file opened for writing without its content is looked up in the cache only, so that the open never waits for a listing`() {
+		givenStoredCopies()
+		givenDocument(lastModified = 5_000)
+
+		cache().fileForWriting(vaultPath("x.txt"), keepContent = false)
+
+		verify(metadataCache).requireCachedDocument(vaultPath("x.txt"))
+		verify(metadataCache, never()).requireCurrentDocument(any())
+	}
+
+	@Test
 	fun `an upload as a conflict copy leaves a copy that is still open for writing with its file`() {
 		val stored = givenStoredCopies(cachedFile("copy"))
 		copy("copy", "local changes")
@@ -525,6 +538,18 @@ class DocumentContentCacheTest {
 		cache.resumeUploadsOnce(vault)
 
 		verify(metadataCache, times(2)).upload(eq(vaultPath("x.txt")), eq(copy), any(), any(), anyOrNull(), any(), any())
+	}
+
+	@Test
+	fun `a file is imported into its folder where the folder is once it was listed, e g after it was renamed for a name taken in the cloud`() {
+		givenImportTarget("a (1A2B3)/x.txt", isNew = true)
+		givenStoredCopies()
+		whenever(metadataCache.prepareFolder(vaultPath("a"), false)).thenReturn(vaultPath("a (1A2B3)"))
+
+		cache().importFile(vaultPath("a"), "x.txt", replace = false, requireListing = false, progressAware = mock(), modifiedDate = null) { it.write("imported".toByteArray()) }
+
+		verify(metadataCache).createFile(vaultPath("a (1A2B3)/x.txt"), false)
+		verify(metadataCache, never()).createFile(eq(vaultPath("a/x.txt")), any())
 	}
 
 	@Test
@@ -1432,7 +1457,7 @@ class DocumentContentCacheTest {
 	}
 
 	@Test
-	fun `a download whose document is gone before it is recorded is given up`() {
+	fun `a download that can't be recorded is given up`() {
 		givenDocument(lastModified = 9_000)
 		givenCloudContent("content")
 		doThrow(IllegalStateException("FOREIGN KEY constraint failed")).whenever(dao).store(any())
@@ -1441,6 +1466,96 @@ class DocumentContentCacheTest {
 		assertThrows<IllegalStateException> { cache.file(vaultPath("x.txt")) }
 
 		assertEquals(0, directory.listFiles()!!.size)
+	}
+
+	@Test
+	fun `a download of a file that is gone by the time it is recorded is only handed to the reader`() {
+		givenDocument(lastModified = 9_000)
+		givenCloudContent("content") { givenGone("x.txt") }
+
+		val file = cache().file(vaultPath("x.txt"))
+
+		assertEquals("content", file.readText())
+		verify(dao, never()).store(any())
+	}
+
+	@Test
+	fun `a copy to write of a file that is gone by the time it is recorded fails like for a gone file and gives up its download`() {
+		givenDocument(lastModified = 9_000)
+		givenCloudContent("content") { givenGone("x.txt") }
+		val cache = cache()
+
+		assertThrows<NoSuchCloudFileException> { cache.fileForWriting(vaultPath("x.txt"), keepContent = true) }
+
+		verify(dao, never()).store(any())
+		assertEquals(0, directory.listFiles()!!.size)
+	}
+
+	@Test
+	fun `a download reads its file where the cloud has it, also below a folder renamed because its name was taken in the cloud`() {
+		givenDocument(lastModified = 9_000, path = "new/x.txt")
+		givenCloudContent("another device's content")
+		val renamed: CloudFolder = mock()
+		whenever(metadataCache.parentFolder(vaultPath("new (1A2B3)/x.txt"))).thenReturn(renamed)
+		givenCloudContent("content", folder = renamed)
+		doAnswer { { vaultPath("new (1A2B3)/x.txt") } }.whenever(metadataCache).readFromCloud(vaultPath("new/x.txt"))
+
+		val file = cache().file(vaultPath("new/x.txt"))
+
+		assertEquals("content", file.readText())
+	}
+
+	@Test
+	fun `a read of a file whose folder was renamed while the read waited reads and records it where it is now`() {
+		givenDocument(lastModified = 9_000, path = "new (1A2B3)/x.txt")
+		val renamedFile = metadataCache.requireCachedDocument(vaultPath("new (1A2B3)/x.txt"))
+		whenever(metadataCache.requireCurrentDocument(vaultPath("new/x.txt"))).thenReturn(renamedFile)
+		givenCloudContent("another device's content")
+		val renamed: CloudFolder = mock()
+		whenever(metadataCache.parentFolder(vaultPath("new (1A2B3)/x.txt"))).thenReturn(renamed)
+		givenCloudContent("content", folder = renamed)
+
+		val file = cache().file(vaultPath("new/x.txt"))
+
+		assertEquals("content", file.readText())
+		verify(dao).store(argThat { path == "new (1A2B3)/x.txt" && localName == file.name })
+	}
+
+	@Test
+	fun `a download for a preview reads its file where the cloud has it, too`() {
+		givenCloudContent("another device's content")
+		val renamed: CloudFolder = mock()
+		whenever(metadataCache.parentFolder(vaultPath("new (1A2B3)/x.txt"))).thenReturn(renamed)
+		givenCloudContent("content", folder = renamed)
+		doAnswer { { vaultPath("new (1A2B3)/x.txt") } }.whenever(metadataCache).readFromCloud(vaultPath("new/x.txt"))
+		val preview = File(directory, "preview")
+
+		cache().downloadUnrecorded(vaultPath("new/x.txt"), preview)
+
+		assertEquals("content", preview.readText())
+	}
+
+	@Test
+	fun `a copy to write is recorded where its file is now, also if it was renamed since it was looked up`() {
+		givenDocument(lastModified = 9_000)
+		// e.g. as its own move got another name because the name was taken in the cloud
+		givenRenamed("x.txt", "y.txt")
+
+		val file = cache().fileForWriting(vaultPath("x.txt"), keepContent = false)
+
+		verify(dao).store(argThat { path == "y.txt" && localName == file.name })
+		verify(dao, never()).store(argThat { path == "x.txt" })
+	}
+
+	@Test
+	fun `a download is recorded where its file is now, also if it was renamed while it was downloaded`() {
+		givenDocument(lastModified = 9_000)
+		givenCloudContent("content") { givenRenamed("x.txt", "y.txt") }
+
+		val file = cache().file(vaultPath("x.txt"))
+
+		verify(dao).store(argThat { path == "y.txt" && localName == file.name })
+		verify(dao, never()).store(argThat { path == "x.txt" })
 	}
 
 	@Test
@@ -2867,6 +2982,7 @@ class DocumentContentCacheTest {
 
 	private fun givenDocument(lastModified: Long, status: String = DocumentMetadataEntity.STATUS_SYNCED, path: String = "x.txt") {
 		val metadata = DocumentMetadataEntity().apply {
+			id = 100L + path.hashCode()
 			vaultId = VAULT_ID
 			this.path = path
 			parentPath = ""
@@ -2876,13 +2992,39 @@ class DocumentContentCacheTest {
 			this.status = status
 		}
 		whenever(metadataCache.requireCurrentDocument(vaultPath(path))).thenReturn(metadata)
-		whenever(metadataCache.requireDocument(vaultPath(path))).thenReturn(metadata)
+		whenever(metadataCache.requireCachedDocument(vaultPath(path))).thenReturn(metadata)
+		whenever(metadataCache.visibleDocument(requireNotNull(metadata.id))).thenReturn(metadata)
 	}
 
-	private fun givenCloudContent(content: String, modified: Long? = null, whileReading: () -> Unit = {}) {
+	/**
+	 * Makes the document given at [path] gone when it is looked up by id.
+	 */
+	private fun givenGone(path: String) {
+		val metadata = metadataCache.requireCachedDocument(vaultPath(path))
+		whenever(metadataCache.visibleDocument(requireNotNull(metadata.id))).thenReturn(null)
+	}
+
+	/**
+	 * Makes the cache have the document given at [path] at [renamedPath] when it is looked up by id.
+	 */
+	private fun givenRenamed(path: String, renamedPath: String) {
+		val metadata = metadataCache.requireCachedDocument(vaultPath(path))
+		whenever(metadataCache.visibleDocument(requireNotNull(metadata.id))).thenReturn(DocumentMetadataEntity().apply {
+			id = metadata.id
+			vaultId = VAULT_ID
+			this.path = renamedPath
+			parentPath = ""
+			name = renamedPath
+			mimeType = metadata.mimeType
+			lastModified = metadata.lastModified
+			status = metadata.status
+		})
+	}
+
+	private fun givenCloudContent(content: String, modified: Long? = null, folder: CloudFolder = root, whileReading: () -> Unit = {}) {
 		val handle: CloudFile = mock()
 		val stored: CloudFile = mock { on { this.modified } doReturn modified?.let(::Date) }
-		whenever(repository.file(eq(root), any())).thenReturn(handle)
+		whenever(repository.file(eq(folder), any())).thenReturn(handle)
 		whenever(repository.metadata(handle)).thenReturn(stored)
 		whenever(repository.read(eq(stored), any(), any())).thenAnswer {
 			whileReading()

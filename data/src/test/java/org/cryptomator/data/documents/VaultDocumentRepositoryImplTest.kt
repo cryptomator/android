@@ -68,6 +68,13 @@ class VaultDocumentRepositoryImplTest {
 	private val cryptoCloud: CryptoCloud = mock { on { vault } doReturn vault }
 	private val inTest = VaultDocumentRepositoryImpl(context, { cachesCreated++; metadataCache }, { cachesCreated++; contentCache }, { thumbnailStore }, { thumbnailGenerator }, events, cloudRepository, CloudTaskScheduler({ background.addLast(it) }, { it.run() }, { it.run() }))
 
+	init {
+		whenever(metadataCache.requireKnownDocument(any())).thenAnswer { entity(it.getArgument<VaultPath>(0).path) }
+		whenever(metadataCache.documentId(any<DocumentMetadataEntity>())).thenAnswer { "1:${it.getArgument<DocumentMetadataEntity>(0).id}" }
+		whenever(metadataCache.ensureFolder(any())).thenAnswer { it.getArgument<VaultPath>(0) }
+		whenever(metadataCache.listNow(any())).thenAnswer { it.getArgument<VaultPath>(0) }
+	}
+
 	@Test
 	fun `nodes of a vault are found by their cleartext path, other nodes are not in a vault`() {
 		val cryptoCloud: CryptoCloud = mock { on { vault } doReturn vault }
@@ -115,6 +122,28 @@ class VaultDocumentRepositoryImplTest {
 			verify(metadataCache).requireKnownDocument(path("a/x.txt"))
 			verify(contentCache).delete(path("a/x.txt"), true)
 		}
+	}
+
+	@Test
+	fun `a node found only once its folder was listed is changed and read where it is then, e g after the folder was renamed for a name taken in the cloud`() {
+		val renamed = entity("a (1A2B3)/x.txt")
+		whenever(metadataCache.requireKnownDocument(path("a/x.txt"))).thenReturn(renamed)
+		whenever(metadataCache.documentId(renamed)).thenReturn("1:7")
+		whenever(metadataCache.move(any(), any(), any(), any(), any())).thenReturn(CompletableFuture())
+		whenever(contentCache.delete(any(), any())).thenReturn(DocumentMetadataCache.Deletion(emptyList(), CompletableFuture()))
+		whenever(contentCache.file(any(), anyOrNull(), any())).thenReturn(File.createTempFile("copy", null).apply { deleteOnExit() })
+
+		inTest.rename(path("a/x.txt"), "y.txt", userInitiated = false)
+		inTest.move(path("a/x.txt"), path("b"), userInitiated = false)
+		inTest.delete(path("a/x.txt"), userInitiated = false)
+		inTest.read(path("a/x.txt"), java.io.ByteArrayOutputStream(), mock())
+		assertEquals("1:7", inTest.open(path("a/x.txt"), mock()))
+
+		verify(metadataCache).move(path("a (1A2B3)/x.txt"), path("a (1A2B3)"), "y.txt", true, false)
+		verify(metadataCache).move(path("a (1A2B3)/x.txt"), path("b"), "x.txt", true, false)
+		verify(contentCache).delete(path("a (1A2B3)/x.txt"), false)
+		verify(contentCache).file(eq(path("a (1A2B3)/x.txt")), anyOrNull(), any())
+		verify(contentCache).prepare(eq(path("a (1A2B3)/x.txt")), any())
 	}
 
 	@Test
@@ -175,7 +204,7 @@ class VaultDocumentRepositoryImplTest {
 	@Test
 	fun `a file is opened for the app once its copy is current, and is known by its documentId`() {
 		val progressAware: ProgressAware<DownloadState> = mock()
-		whenever(metadataCache.documentId(path("a/x.txt"))).thenReturn("1:7")
+		whenever(metadataCache.documentId(any<DocumentMetadataEntity>())).thenReturn("1:7")
 
 		assertEquals("1:7", inTest.open(path("a/x.txt"), progressAware))
 
@@ -222,6 +251,7 @@ class VaultDocumentRepositoryImplTest {
 		val folder = entity("a/b", mimeType = DocumentsContract.Document.MIME_TYPE_DIR)
 		whenever(metadataCache.children(path("a"))).thenReturn(DocumentMetadataCache.Children(listOf(synced, uploading, failed, folder), isLoading = true, error = null, authError = authError))
 		whenever(metadataCache.uploadFailure(failed)).thenReturn(IOException("upload failed"))
+		whenever(metadataCache.documentId(folder)).thenReturn("1:9")
 		// only images have thumbnails
 		whenever(thumbnailStore.thumbnail(any())).thenReturn(thumbnail)
 
@@ -234,7 +264,7 @@ class VaultDocumentRepositoryImplTest {
 		assertEquals(listOf(CachedVaultFile.Upload.NONE, CachedVaultFile.Upload.PENDING, CachedVaultFile.Upload.FAILED), files.map { it.upload })
 		assertEquals(listOf(thumbnail, null, null), files.map { it.thumbnail })
 		assertEquals(Date(4_000), files[0].modified)
-		assertInstanceOf(CachedVaultFolder::class.java, listing.nodes[3])
+		assertEquals("1:9", assertInstanceOf(CachedVaultFolder::class.java, listing.nodes[3]).documentId)
 		assertEquals(true, listing.isLoading)
 		assertSame(authError, listing.error)
 	}
@@ -243,6 +273,7 @@ class VaultDocumentRepositoryImplTest {
 	fun `a listed node is found by its path again, also in the root folder`() {
 		whenever(metadataCache.children(path(""))).thenReturn(DocumentMetadataCache.Children(listOf(entity("x.txt"), entity("b", mimeType = DocumentsContract.Document.MIME_TYPE_DIR)), isLoading = false, error = null))
 		whenever(metadataCache.children(path("b"))).thenReturn(DocumentMetadataCache.Children(listOf(entity("b/y.txt")), isLoading = false, error = null))
+		whenever(metadataCache.path("1:${entity("b").id}")).thenReturn(path("b"))
 
 		val root = inTest.list(CachedVaultFolder(cryptoCloud, ""), forceRefresh = false).nodes
 		val nested = inTest.list(root[1] as CloudFolder, forceRefresh = false).nodes
@@ -250,6 +281,65 @@ class VaultDocumentRepositoryImplTest {
 		assertEquals(listOf("/x.txt", "/b"), root.map { it.path })
 		assertEquals(listOf(path("x.txt"), path("b")), root.map(inTest::pathOf))
 		assertEquals(listOf(path("b/y.txt")), nested.map(inTest::pathOf))
+	}
+
+	@Test
+	fun `a folder is listed where it is by now, e g after another app renamed it while it was shown`() {
+		whenever(metadataCache.path("1:7")).thenReturn(path("a/y (1A2B3)"))
+		whenever(metadataCache.children(path("a/y (1A2B3)"))).thenReturn(DocumentMetadataCache.Children(listOf(entity("a/y (1A2B3)/x.txt")), isLoading = false, error = null))
+
+		val listing = inTest.list(CachedVaultFolder(cryptoCloud, "/a/E", "1:7"), forceRefresh = false)
+
+		verify(metadataCache).ensureFolder(path("a/y (1A2B3)"))
+		assertEquals("/a/y (1A2B3)", listing.folder.path)
+		assertEquals("1:7", (listing.folder as CachedVaultFolder).documentId)
+		assertSame(cryptoCloud, listing.folder.cloud)
+		assertEquals(listOf(path("a/y (1A2B3)/x.txt")), listing.nodes.map(inTest::pathOf))
+		// so that an action on a listed file follows its folder, too
+		assertEquals("1:7", (listing.nodes.single() as CachedVaultFile).parent.documentId)
+		assertEquals("1:${entity("a/y (1A2B3)/x.txt").id}", (listing.nodes.single() as CachedVaultFile).documentId)
+	}
+
+	@Test
+	fun `a folder is listed and shown where its listing found it, e g after a change it waited for renamed it for a name taken in the cloud`() {
+		whenever(metadataCache.path("1:7")).thenReturn(path("a/E"))
+		whenever(metadataCache.listNow(path("a/E"))).thenReturn(path("a/E (1A2B3)"))
+		whenever(metadataCache.children(path("a/E (1A2B3)"))).thenReturn(DocumentMetadataCache.Children(listOf(entity("a/E (1A2B3)/x.txt")), isLoading = false, error = null))
+
+		val listing = inTest.list(CachedVaultFolder(cryptoCloud, "/a/E", "1:7"), forceRefresh = true)
+
+		assertEquals("/a/E (1A2B3)", listing.folder.path)
+		assertEquals("1:7", (listing.folder as CachedVaultFolder).documentId)
+		assertEquals(listOf(path("a/E (1A2B3)/x.txt")), listing.nodes.map(inTest::pathOf))
+	}
+
+	@Test
+	fun `a node shown before another app renamed it or its folder is changed where it is now, a node the cache doesn't know by id where it is shown`() {
+		whenever(metadataCache.path("1:7")).thenReturn(path("a/F"))
+		whenever(metadataCache.path("1:8")).thenAnswer { throw FileNotFoundException("Unknown document: 1:8") }
+		val file = CachedVaultFile(CachedVaultFolder(cryptoCloud, "/a"), "x.txt", null, null, CachedVaultFile.Upload.NONE, null)
+		val fileInRenamed = CachedVaultFile(CachedVaultFolder(cryptoCloud, "/a/E", "1:7"), "y.txt", null, null, CachedVaultFile.Upload.NONE, null)
+		// renamed for a name taken in the cloud, e.g. when its upload found another device's y.txt
+		whenever(metadataCache.path("1:9")).thenReturn(path("a/F/y (1A2B3).txt"))
+		val renamedFile = CachedVaultFile(CachedVaultFolder(cryptoCloud, "/a/E", "1:7"), "y.txt", null, null, CachedVaultFile.Upload.NONE, null, "1:9")
+
+		assertEquals(path("a/F"), inTest.currentPathOf(CachedVaultFolder(cryptoCloud, "/a/E", "1:7")))
+		assertEquals(path("a/G"), inTest.currentPathOf(CachedVaultFolder(cryptoCloud, "/a/G", "1:8")))
+		assertEquals(path("a/x.txt"), inTest.currentPathOf(file))
+		assertEquals(path("a/F/y.txt"), inTest.currentPathOf(fileInRenamed))
+		assertEquals(path("a/F/y (1A2B3).txt"), inTest.currentPathOf(renamedFile))
+	}
+
+	@Test
+	fun `a folder the cache no longer knows by its documentId is listed at its path`() {
+		whenever(metadataCache.path("1:7")).thenAnswer { throw FileNotFoundException("Unknown document: 1:7") }
+		whenever(metadataCache.children(path("a"))).thenReturn(DocumentMetadataCache.Children(emptyList(), isLoading = false, error = null))
+		val folder = CachedVaultFolder(cryptoCloud, "/a", "1:7")
+
+		val listing = inTest.list(folder, forceRefresh = true)
+
+		verify(metadataCache).listNow(path("a"))
+		assertSame(folder, listing.folder)
 	}
 
 	@Test

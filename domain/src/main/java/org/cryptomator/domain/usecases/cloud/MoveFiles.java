@@ -34,11 +34,12 @@ class MoveFiles {
 	}
 
 	public List<CloudFile> execute() throws BackendException {
-		VaultPath vaultFolder = vaultDocumentRepository.pathOf(parent);
 		List<CloudFile> resultFiles = new ArrayList<>();
 		for (CloudFile sourceFile : sourceFiles) {
+			// looked up for each file, since the folder may be renamed while the files before are moved
+			VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(parent);
 			if (vaultFolder != null) {
-				VaultPath source = vaultDocumentRepository.pathOf(sourceFile);
+				VaultPath source = vaultDocumentRepository.currentPathOf(sourceFile);
 				VaultDocumentChange<CloudNode> change = vaultDocumentRepository.move(source, vaultFolder, optimistic);
 				CloudNode moved = optimistic ? change.cachedNode() : change.await().getNode();
 				if (moved != null) {

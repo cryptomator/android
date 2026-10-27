@@ -3,6 +3,7 @@ package org.cryptomator.presentation.ui.adapter
 import org.cryptomator.domain.CachedVaultFile
 import org.cryptomator.domain.CachedVaultFolder
 import org.cryptomator.presentation.model.CloudFileModel
+import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.FileProgressStateModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
@@ -52,6 +53,32 @@ class NodeRowsTest {
 	}
 
 	@Test
+	fun `another node at the same path changes the row, so that actions on it don't follow the node that was there`() {
+		val old = file()
+		val replacement = file(documentId = "1:8")
+		val replacedFolder = CloudFolderModel(CachedVaultFolder(null, "/a/b", "1:9"))
+
+		assertSame(replacement, rowNode(old, replacement))
+		assertSame(old, rowNode(old, file()))
+		assertSame(replacedFolder, rowNode(CloudFolderModel(CachedVaultFolder(null, "/a/b", "1:10")), replacedFolder))
+	}
+
+	@Test
+	fun `another node at the same path isn't selected in place of the node the user selected, a changed one stays selected`() {
+		val selected = file().apply { isSelected = true }
+
+		assertFalse(rowNode(selected, file(documentId = "1:8")).isSelected)
+		assertTrue(rowNode(selected, file(size = 4)).isSelected)
+	}
+
+	@Test
+	fun `a node without a documentId, e g outside a vault, keeps its row as long as nothing shown changed`() {
+		val old = file(documentId = null)
+
+		assertSame(old, rowNode(old, file(documentId = null)))
+	}
+
+	@Test
 	fun `a changed upload state or thumbnail changes the row`() {
 		val pending = file(upload = CachedVaultFile.Upload.PENDING)
 		assertNotSame(pending, rowNode(pending, file(upload = CachedVaultFile.Upload.FAILED)))
@@ -83,8 +110,8 @@ class NodeRowsTest {
 		assertFalse(isUploadProgress(ProgressModel.GENERIC))
 	}
 
-	private fun file(size: Long = 3, upload: CachedVaultFile.Upload = CachedVaultFile.Upload.NONE, thumbnail: File? = null): CloudFileModel {
-		return CloudFileModel(CachedVaultFile(folder, "x.jpg", size, Date(1_000), upload, thumbnail), FileIcon.IMAGE)
+	private fun file(size: Long = 3, upload: CachedVaultFile.Upload = CachedVaultFile.Upload.NONE, thumbnail: File? = null, documentId: String? = "1:7"): CloudFileModel {
+		return CloudFileModel(CachedVaultFile(folder, "x.jpg", size, Date(1_000), upload, thumbnail, documentId), FileIcon.IMAGE)
 	}
 
 	private fun progress(state: String): ProgressModel {

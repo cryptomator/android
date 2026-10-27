@@ -87,9 +87,10 @@ class UploadFiles {
 	}
 
 	private List<CloudFile> upload(ProgressAware<UploadState> progressAware) throws BackendException {
-		VaultPath vaultFolder = vaultDocumentRepository.pathOf(parent);
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 		for (UploadFile file : files) {
+			// looked up for each file, since the folder may be renamed while the files before are uploaded
+			VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(parent);
 			CloudFile uploaded = vaultFolder != null ? importIntoVault(vaultFolder, file, progressAware) : upload(file, progressAware);
 			// an optimistic upload of a file that has been deleted meanwhile has no result
 			if (uploaded != null) {

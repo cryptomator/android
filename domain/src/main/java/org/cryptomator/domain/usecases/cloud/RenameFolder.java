@@ -31,7 +31,7 @@ class RenameFolder {
 	}
 
 	public ResultRenamed<CloudFolder> execute() throws BackendException {
-		VaultPath vaultFolder = vaultDocumentRepository.pathOf(folder);
+		VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(folder);
 		if (vaultFolder != null) {
 			VaultDocumentChange<CloudNode> change = vaultDocumentRepository.rename(vaultFolder, newName, optimistic);
 			CloudNode renamed = optimistic ? change.cachedNode() : change.await().getNode();

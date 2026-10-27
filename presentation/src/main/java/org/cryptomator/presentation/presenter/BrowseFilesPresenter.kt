@@ -217,9 +217,13 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private val vaultDocumentChanges = object : VaultDocumentListener {
+		/**
+		 * A change above the displayed folder may have renamed or moved it, which the listing follows.
+		 */
 		override fun onChanged(folder: VaultPath) {
 			onUiThread {
-				if (folder == displayedVaultPath()) {
+				val displayed = displayedVaultPath()
+				if (displayed != null && (folder == displayed || displayed.isAnyChildOf(folder))) {
 					listVaultFolder(forceRefresh = false)
 				}
 			}
@@ -365,6 +369,11 @@ class BrowseFilesPresenter @Inject constructor( //
 					if (displayedVaultFolder() != folder) {
 						return
 					}
+					if (listing.folder != folder.toCloudNode()) {
+						val moved = cloudFolderModelMapper.toModel(listing.folder)
+						view?.updateActiveFolder(moved)
+						view?.updateTitle(moved)
+					}
 					showCloudNodesCollectionInView(listing.nodes)
 					view?.showLoading(listing.isLoading)
 					val failure = listing.error
@@ -448,7 +457,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun updatePlaintextCloud(cloudFolderModel: CloudFolderModel, updatedCloud: CloudModel) {
 		cloudFolderModel.toCloudNode().withCloud(updatedCloud.toCloud())?.let {
 			val folder = cloudFolderModelMapper.toModel(it)
-			view?.updateActiveFolderDueToAuthenticationProblem(folder)
+			view?.updateActiveFolder(folder)
 			getCloudList(folder)
 			resumedAfterAuthentication = false
 		} ?: throw FatalBackendException("cloudFolderModel with updated Cloud shouldn't be null")
@@ -460,7 +469,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			.run(object : DefaultResultHandler<Cloud>() {
 				override fun onSuccess(cloud: Cloud) {
 					val folder = cloudFolderModelMapper.toModel(cloudFolderModel.toCloudNode().withCloud(cloud)!!)
-					view?.updateActiveFolderDueToAuthenticationProblem(folder)
+					view?.updateActiveFolder(folder)
 					listVaultFolder(forceRefresh = true)
 				}
 

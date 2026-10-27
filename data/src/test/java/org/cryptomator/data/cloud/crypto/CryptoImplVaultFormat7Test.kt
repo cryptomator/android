@@ -15,8 +15,12 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.exception.AlreadyExistException
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.MissingCryptorException
+import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource.Companion.from
@@ -33,6 +37,7 @@ import org.mockito.AdditionalMatchers
 import org.mockito.Mockito
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argThat
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -89,6 +94,12 @@ class CryptoImplVaultFormat7Test {
 	private lateinit var cryptoFolder1: CryptoFolder
 
 	private lateinit var inTest: CryptoImplVaultFormat7
+
+	/**
+	 * The folder of another node, next to the one a test is about.
+	 */
+	private val otherFolder: TestFolder
+		get() = TestFolder(aaFolder, "other.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/other.c9r")
 
 	private fun <T> any(type: Class<T>): T = Mockito.any(type)
 
@@ -518,6 +529,318 @@ class CryptoImplVaultFormat7Test {
 	@DisplayName("create(\"/Directory 3/\")")
 	@Throws(BackendException::class)
 	fun testCreateShortFolder() {
+		val creation = givenShortFolderCreation()
+
+		val cloudFolder = inTest.create(creation.cryptoFolder)
+
+		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(creation.cryptoFolder))
+
+		Mockito.verify(cloudContentRepository).create(creation.ddFolder)
+		Mockito.verify(cloudContentRepository).create(creation.dirFolder)
+		Mockito.verify(cloudContentRepository).write(eq(creation.dirFile), any(), any(), eq(false), any())
+		Mockito.verify(cloudContentRepository).write(eq(creation.dirBackupFile), any(), any(), eq(false), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") takes the folder of an earlier creation that failed before it wrote the dir file")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderLeftByAFailedCreation() {
+		val creation = givenShortFolderCreation()
+		// like WebDAV, which finds a folder at the path of a file, too
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenReturn(true)
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.dirFolder))
+
+		val cloudFolder = inTest.create(creation.cryptoFolder)
+
+		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(creation.cryptoFolder))
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(creation.dirFolder)
+		Mockito.verify(cloudContentRepository).write(eq(creation.dirFile), any(), any(), eq(false), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") takes the folder of an earlier creation that a cloud telling files and folders apart reports only when creating it")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderLeftByAFailedCreationOnTypedCloud() {
+		val creation = givenShortFolderCreation()
+		// like Dropbox, which doesn't find a folder at the path of a file
+		whenever(cloudContentRepository.create(creation.dirFolder)).thenThrow(CloudNodeAlreadyExistsException("dir3.c9r"))
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.dirFolder))
+
+		val cloudFolder = inTest.create(creation.cryptoFolder)
+
+		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(creation.cryptoFolder))
+		Mockito.verify(cloudContentRepository).write(eq(creation.dirFile), any(), any(), eq(false), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails on a cloud telling files and folders apart if a file has its name")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderWhoseNameAFileHasOnTypedCloud() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.create(creation.dirFolder)).thenThrow(CloudNodeAlreadyExistsException("dir3.c9r"))
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.nameFile))
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(creation.dirFile), any(), any(), any(), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3x250/\") fails if a file has its shortened name")
+	@Throws(BackendException::class)
+	fun testCreateLongFolderWhoseNameAFileHas() {
+		val shortened = givenShortenedName("contents.c9r")
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile)) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(shortened.dirFile), any(), any(), any(), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3x250/\") fails if a folder has its shortened name")
+	@Throws(BackendException::class)
+	fun testCreateLongFolderWhoseNameAFolderHas() {
+		val shortened = givenShortenedName("dir.c9r")
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile)) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(shortened.dirFile), any(), any(), any(), any())
+	}
+
+	/**
+	 * The folder of the shortened name "XYZ.c9s" with its name file and, if given, the file making it a node.
+	 */
+	private fun givenShortenedName(nodeFileName: String? = null): ShortenedName {
+		val folder = TestFolder(aaFolder, "XYZ.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/XYZ.c9s")
+		val nameFile = TestFile(folder, "name.c9s", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/XYZ.c9s/name.c9s", null, null)
+		val nodeFiles = listOfNotNull(nodeFileName?.let { TestFile(folder, it, "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/XYZ.c9s/$it", null, null) })
+		whenever(cloudContentRepository.exists(folder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(otherFolder, folder))
+		whenever(cloudContentRepository.list(folder)).thenReturn(listOf(nameFile) + nodeFiles)
+		return ShortenedName(folder, TestFile(folder, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/XYZ.c9s/dir.c9r", null, null))
+	}
+
+	private class ShortenedName(val folder: TestFolder, val dirFile: TestFile)
+
+	@Test
+	@DisplayName("move(\"/Directory 1\", \"/Directory 3x250\") fails if a file has the shortened name")
+	@Throws(BackendException::class)
+	fun testMoveFolderToLongNameAFileHas() {
+		val shortened = givenShortenedName("contents.c9r")
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.move(cryptoFolder1, CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile)) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).move(eq(cryptoFolder1.dirFile!!), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails if a file has its name")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderWhoseNameAFileHas() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenReturn(true)
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(otherFolder, creation.nameFile))
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(creation.dirFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(creation.dirFile), any(), any(), any(), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails if a folder has its name")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderWhoseNameAFolderHas() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.exists(creation.dirFile)).thenReturn(true)
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.dirFolder))
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(creation.dirFile), any(), any(), any(), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails if a symlink has its name")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderWhoseNameASymlinkHas() {
+		val creation = givenShortFolderCreation()
+		val symlinkFile = TestFile(creation.dirFolder as TestFolder, "symlink.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r/symlink.c9r", null, null)
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenReturn(true)
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.dirFolder))
+		whenever(cloudContentRepository.list(creation.dirFolder)).thenReturn(listOf(symlinkFile))
+
+		Assertions.assertThrows(CloudNodeAlreadyExistsException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(creation.dirFile), any(), any(), any(), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails if the folder of its dir file can't be created")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderFailing() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.create(creation.dirFolder)).thenThrow(AlreadyExistException())
+
+		Assertions.assertThrows(AlreadyExistException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).write(eq(creation.dirFile), any(), any(), any(), any())
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") looks up the folder of its content again before it creates it")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderLooksUpTheContentFolderAgain() {
+		val creation = givenShortFolderCreation()
+		// as looked up before another creation made the folder above it
+		val stale = TestFolder(d, "stale", "/d/stale")
+		whenever(dirIdCache.put(eq(creation.cryptoFolder), any())).thenReturn(DirIdInfo("dir3-id", stale))
+
+		inTest.create(creation.cryptoFolder)
+
+		Mockito.verify(cloudContentRepository).create(creation.ddFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(stale)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") forgets the directory ID of a folder whose creation failed")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderForgetsTheDirIdIfItFails() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(dirIdCache).evict(creation.cryptoFolder)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") deletes the folder it made for its dir file if it can't write that")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderDeletesTheFolderOfItsDirFileIfItFails() {
+		val creation = givenShortFolderCreation()
+		givenListedFolder(creation.dirFolder)
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository).delete(creation.dirFolder)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") deletes the folder an earlier creation left for its dir file if it can't write that")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderLeftByAFailedCreationDeletesItIfItFails() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenReturn(true)
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(creation.dirFolder))
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository).delete(creation.dirFolder)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") keeps the folder of its dir file if the dir file got there although writing it failed")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderKeepsTheFolderOfItsDirFileIfTheDirFileGotThere() {
+		val creation = givenShortFolderCreation()
+		givenListedFolder(creation.dirFolder)
+		// e.g. when only the response got lost
+		var written = false
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenAnswer {
+			written = true
+			throw NetworkConnectionException()
+		}
+		whenever(cloudContentRepository.list(creation.dirFolder)).thenAnswer { if (written) listOf(creation.dirFile) else emptyList() }
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") keeps the folder of its dir file if another node is in it, e.g. a symlink of another device that a cloud like S3 let it create the folder over")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderKeepsTheFolderOfItsDirFileIfANodeIsInIt() {
+		val creation = givenShortFolderCreation()
+		givenListedFolder(creation.dirFolder)
+		whenever(cloudContentRepository.list(creation.dirFolder)).thenReturn(listOf(TestFile(creation.dirFolder as TestFolder, "symlink.c9r", "${creation.dirFolder.path}/symlink.c9r", null, null)))
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails like writing its dir file failed, also if deleting the folder of the dir file fails")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderFailsLikeItsDirFileIfDeletingItsFolderFails() {
+		val creation = givenShortFolderCreation()
+		givenListedFolder(creation.dirFolder)
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+		Mockito.doThrow(NoSuchCloudFileException()).whenever(cloudContentRepository).delete(creation.dirFolder)
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository).delete(creation.dirFolder)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") fails like writing its dir file failed, also if looking into the folder of the dir file fails")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderFailsLikeItsDirFileIfLookingIntoItsFolderFails() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+		whenever(cloudContentRepository.exists(creation.dirFolder)).thenThrow(NoSuchCloudFileException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository).exists(creation.dirFolder)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") deletes nothing if looking up its name fails, e.g. what another device has there")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderDeletesNothingIfLookingUpItsNameFails() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.exists(cryptoFileAt(creation.nameFile))).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	/**
+	 * Makes the cloud list [folder], which is empty unless stubbed otherwise, as a folder in its parent.
+	 */
+	private fun givenListedFolder(folder: CloudFolder) {
+		whenever(cloudContentRepository.exists(folder)).thenReturn(true)
+		whenever(cloudContentRepository.list(requireNotNull(folder.parent))).thenReturn(listOf(folder))
+	}
+
+	/**
+	 * Matches the file that the existence check of a folder's name passes on, which the cloud resolves to [cloudFile].
+	 */
+	private fun cryptoFileAt(cloudFile: CloudFile): CloudNode {
+		return argThat { this is CryptoFile && this.cloudFile == cloudFile }
+	}
+
+	private class ShortFolderCreation(val cryptoFolder: CryptoFolder, val ddFolder: CloudFolder, val dirFolder: CloudFolder, val dirFile: CloudFile, val dirBackupFile: CloudFile, val nameFile: CloudFile)
+
+	/**
+	 * Prepares creating "/Directory 3", whose dir id is "dir3-id".
+	 */
+	private fun givenShortFolderCreation(): ShortFolderCreation {
 		/*
 		 * <code>
 		 * path/to/vault/d
@@ -577,17 +900,10 @@ class CryptoImplVaultFormat7Test {
 			}
 
 		// just for the exits check
-		whenever(cloudContentRepository.file(aaFolder, "dir3.c9r", null))
-			.thenReturn(TestFile(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r", null, null))
+		val nameFile = TestFile(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r", null, null)
+		whenever(cloudContentRepository.file(aaFolder, "dir3.c9r", null)).thenReturn(nameFile)
 
-		val cloudFolder = inTest.create(cryptoFolder3)
-
-		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(cryptoFolder3))
-
-		Mockito.verify(cloudContentRepository).create(ddFolder)
-		Mockito.verify(cloudContentRepository).create(testDir3)
-		Mockito.verify(cloudContentRepository).write(eq(testDir3DirFile), any(), any(), eq(false), any())
-		Mockito.verify(cloudContentRepository).write(eq(testDir3DirBackupFile), any(), any(), eq(false), any())
+		return ShortFolderCreation(cryptoFolder3, ddFolder, testDir3, testDir3DirFile, testDir3DirBackupFile, nameFile)
 	}
 
 	@Test
@@ -675,6 +991,7 @@ class CryptoImplVaultFormat7Test {
 				invocationOnMock.getArgument(0)
 			}
 
+		whenever(cloudContentRepository.list(testDir3)).thenReturn(listOf(testDir3NameFile))
 		var cloudFolder: CloudFolder = inTest.folder(root, dir3Name)
 
 		cloudFolder = inTest.create(cryptoFolder3)
@@ -777,6 +1094,95 @@ class CryptoImplVaultFormat7Test {
 	}
 
 	@Test
+	@DisplayName("delete(\"/Directory 3/\") deletes what a creation that failed before it wrote the dir file left, and no content folder")
+	@Throws(BackendException::class)
+	fun testDeleteFolderLeftByAFailedCreation() {
+		val leftOver = givenShortName()
+		// a directory ID looked up for it while it wasn't in the cloud
+		val contentFolder = TestFolder(d, "33", "/d/33")
+		whenever(dirIdCache[leftOver.cryptoFolder]).thenReturn(DirIdInfo("made-up", contentFolder))
+		whenever(cloudContentRepository.exists(leftOver.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(otherFolder, leftOver.dirFolder))
+
+		inTest.delete(leftOver.cryptoFolder)
+
+		Mockito.verify(cloudContentRepository).delete(leftOver.dirFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(contentFolder)
+		Mockito.verify(dirIdCache).evict(leftOver.cryptoFolder)
+	}
+
+	@Test
+	@DisplayName("delete(\"/Directory 3/\") keeps a file that has the folder's name")
+	@Throws(BackendException::class)
+	fun testDeleteFolderWhoseNameAFileHas() {
+		val name = givenShortName()
+		// like WebDAV, which finds a folder at the path of a file, too
+		whenever(cloudContentRepository.exists(name.dirFolder)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(otherFolder, TestFile(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r", null, null)))
+
+		Assertions.assertThrows(NoSuchCloudFileException::class.java) { inTest.delete(name.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	@Test
+	@DisplayName("delete(\"/Directory 3/\") lists nothing where nothing has the folder's name")
+	@Throws(BackendException::class)
+	fun testDeleteFolderThatIsNotThere() {
+		val name = givenShortName()
+		// like a cloud that finds folders by ID and can't list one it didn't find
+		whenever(cloudContentRepository.list(aaFolder)).thenThrow(NullPointerException())
+
+		Assertions.assertThrows(NoSuchCloudFileException::class.java) { inTest.delete(name.cryptoFolder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	/**
+	 * "/Directory 3" at "dir3.c9r", where nothing is stubbed yet.
+	 */
+	private fun givenShortName(): ShortName {
+		val dirFolder = TestFolder(aaFolder, "dir3.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r")
+		val dirFile = TestFile(dirFolder, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3.c9r/dir.c9r", null, null)
+		return ShortName(CryptoFolder(root, "Directory 3", "/Directory 3", dirFile), dirFolder)
+	}
+
+	private class ShortName(val cryptoFolder: CryptoFolder, val dirFolder: TestFolder)
+
+	@Test
+	@DisplayName("delete(\"/Directory 3x250\") deletes what a creation that failed before it wrote the dir file left")
+	@Throws(BackendException::class)
+	fun testDeleteLongFolderLeftByAFailedCreation() {
+		val shortened = givenShortenedName()
+
+		inTest.delete(CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile))
+
+		Mockito.verify(cloudContentRepository).delete(shortened.folder)
+	}
+
+	@Test
+	@DisplayName("delete(\"/Directory 3x250\") deletes a symlink, which is listed as a folder")
+	@Throws(BackendException::class)
+	fun testDeleteLongSymlink() {
+		val shortened = givenShortenedName("symlink.c9r")
+
+		inTest.delete(CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile))
+
+		Mockito.verify(cloudContentRepository).delete(shortened.folder)
+	}
+
+	@Test
+	@DisplayName("delete(\"/Directory 3x250\") keeps a file that has the folder's shortened name")
+	@Throws(BackendException::class)
+	fun testDeleteLongFolderWhoseNameAFileHas() {
+		val shortened = givenShortenedName("contents.c9r")
+
+		Assertions.assertThrows(NoSuchCloudFileException::class.java) { inTest.delete(CryptoFolder(root, "Directory 3x250", "/Directory 3x250", shortened.dirFile)) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	@Test
 	@DisplayName("delete(\"/Directory 3x250\")")
 	@Throws(BackendException::class)
 	fun testDeleteSingleLongFolder() {
@@ -805,6 +1211,7 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.file(testDir3, "name.c9s", 257L)).thenReturn(testDir3NameFile)
 		whenever<List<*>>(cloudContentRepository.list(ddFolder)).thenReturn(ArrayList<CloudNode>())
 		whenever(fileNameCryptor.hashDirectoryId(AdditionalMatchers.not(eq("")))).thenReturn("33DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+		whenever(cloudContentRepository.exists(testDir3DirFile)).thenReturn(true)
 
 		inTest.delete(cryptoFolder3)
 
@@ -1109,6 +1516,115 @@ class CryptoImplVaultFormat7Test {
 	}
 
 	@Test
+	@DisplayName("move(\"/Directory 1\", \"/Directory 15\") takes the folder of an earlier creation of \"/Directory 15\" that failed before it wrote the dir file")
+	@Throws(BackendException::class)
+	fun testMoveShortFolderToFolderLeftByAFailedCreation() {
+		val bbLvl2Dir = TestFolder(d, "11", "/d/11")
+		val bbFolder = TestFolder(bbLvl2Dir, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "/d/11/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+		val testDir15 = TestFolder(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r")
+		val testDir15DirFile = TestFile(testDir15, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r/dir.c9r", null, null)
+		val testDir15NameFile = TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", null, null)
+		val cryptoFolder15 = CryptoFolder(root, "Directory 15", "/Directory 15/", testDir15DirFile)
+
+		whenever(cloudContentRepository.file(aaFolder, "dir15.c9r", null)).thenReturn(testDir15NameFile)
+		// like WebDAV, which finds a folder at the path of a file, too
+		whenever(cloudContentRepository.exists(cryptoFileAt(testDir15NameFile))).thenReturn(true)
+		whenever(cloudContentRepository.exists(testDir15)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(testDir15))
+		whenever(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d)
+		whenever(cloudContentRepository.folder(d, "11")).thenReturn(bbLvl2Dir)
+		whenever(cloudContentRepository.folder(bbLvl2Dir, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")).thenReturn(bbFolder)
+		whenever(dirIdCache.put(eq(cryptoFolder1), any())).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(dirIdCache.put(eq(cryptoFolder15), any())).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(dirIdCache[cryptoFolder1]).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(dirIdCache[cryptoFolder15]).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(cloudContentRepository.file(testDir15, "dir.c9r")).thenReturn(testDir15DirFile)
+		whenever(cloudContentRepository.move(cryptoFolder1.dirFile!!, testDir15DirFile)).thenReturn(testDir15DirFile)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "Directory 15", dirIdRoot.toByteArray())).thenReturn("dir15")
+
+		inTest.move(cryptoFolder1, cryptoFolder15)
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(testDir15)
+		Mockito.verify(cloudContentRepository).move(cryptoFolder1.dirFile!!, testDir15DirFile)
+	}
+
+	@Test
+	@DisplayName("move(\"/Directory 1\", \"/Directory 15\") takes the folder of an earlier creation of \"/Directory 15\" that a cloud telling files and folders apart reports only when creating it")
+	@Throws(BackendException::class)
+	fun testMoveShortFolderToFolderLeftByAFailedCreationOnTypedCloud() {
+		val bbLvl2Dir = TestFolder(d, "11", "/d/11")
+		val bbFolder = TestFolder(bbLvl2Dir, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "/d/11/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+		val testDir15 = TestFolder(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r")
+		val testDir15DirFile = TestFile(testDir15, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r/dir.c9r", null, null)
+		val cryptoFolder15 = CryptoFolder(root, "Directory 15", "/Directory 15/", testDir15DirFile)
+
+		whenever(cloudContentRepository.file(aaFolder, "dir15.c9r", null)).thenReturn(TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", null, null))
+		// like Dropbox, which doesn't find a folder at the path of a file
+		whenever(cloudContentRepository.create(testDir15)).thenThrow(CloudNodeAlreadyExistsException("dir15.c9r"))
+		whenever(cloudContentRepository.exists(testDir15)).thenReturn(true)
+		whenever(cloudContentRepository.list(aaFolder)).thenReturn(listOf(otherFolder, testDir15))
+		whenever(cloudContentRepository.folder(rootFolder, "d")).thenReturn(d)
+		whenever(cloudContentRepository.folder(d, "11")).thenReturn(bbLvl2Dir)
+		whenever(cloudContentRepository.folder(bbLvl2Dir, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")).thenReturn(bbFolder)
+		whenever(dirIdCache.put(eq(cryptoFolder1), any())).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(dirIdCache[cryptoFolder1]).thenReturn(DirIdInfo(dirId1, bbFolder))
+		whenever(cloudContentRepository.file(testDir15, "dir.c9r")).thenReturn(testDir15DirFile)
+		whenever(cloudContentRepository.move(cryptoFolder1.dirFile!!, testDir15DirFile)).thenReturn(testDir15DirFile)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "Directory 15", dirIdRoot.toByteArray())).thenReturn("dir15")
+
+		inTest.move(cryptoFolder1, cryptoFolder15)
+
+		Mockito.verify(cloudContentRepository).move(cryptoFolder1.dirFile!!, testDir15DirFile)
+	}
+
+	@Test
+	@DisplayName("move(\"/Directory 1\", \"/Directory 15\") deletes the folder it made for the dir file if it can't move that there")
+	@Throws(BackendException::class)
+	fun testMoveShortFolderDeletesTheFolderItMadeIfMovingTheDirFileFails() {
+		val target = givenShortFolderMoveTarget()
+		givenListedFolder(target.dirFile!!.parent!!)
+		whenever(cloudContentRepository.move(cryptoFolder1.dirFile!!, target.dirFile!!)).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.move(cryptoFolder1, target) }
+
+		Mockito.verify(cloudContentRepository).delete(target.dirFile!!.parent!!)
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(cryptoFolder1.dirFile!!.parent!!)
+	}
+
+	@Test
+	@DisplayName("move(\"/Directory 1\", \"/Directory 15\") keeps the folder it made for the dir file if the dir file got there although moving it failed")
+	@Throws(BackendException::class)
+	fun testMoveShortFolderKeepsTheFolderItMadeIfTheDirFileGotThere() {
+		val target = givenShortFolderMoveTarget()
+		val dirFolder = target.dirFile!!.parent!!
+		givenListedFolder(dirFolder)
+		// e.g. when only the response got lost
+		var moved = false
+		whenever(cloudContentRepository.move(cryptoFolder1.dirFile!!, target.dirFile!!)).thenAnswer {
+			moved = true
+			throw NetworkConnectionException()
+		}
+		whenever(cloudContentRepository.list(dirFolder)).thenAnswer { if (moved) listOf(target.dirFile) else emptyList() }
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.move(cryptoFolder1, target) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
+	}
+
+	/**
+	 * Prepares moving "/Directory 1" to the new "/Directory 15".
+	 */
+	private fun givenShortFolderMoveTarget(): CryptoFolder {
+		val testDir15 = TestFolder(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r")
+		val testDir15DirFile = TestFile(testDir15, "dir.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r/dir.c9r", null, null)
+		whenever(cloudContentRepository.file(aaFolder, "dir15.c9r", null)).thenReturn(TestFile(aaFolder, "dir15.c9r", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir15.c9r", null, null))
+		whenever(cloudContentRepository.create(testDir15)).thenReturn(testDir15)
+		whenever(cloudContentRepository.file(testDir15, "dir.c9r")).thenReturn(testDir15DirFile)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), "Directory 15", dirIdRoot.toByteArray())).thenReturn("dir15")
+		return CryptoFolder(root, "Directory 15", "/Directory 15/", testDir15DirFile)
+	}
+
+	@Test
 	@DisplayName("move(\"/Directory 1\", \"/Directory 15x200\")")
 	@Throws(BackendException::class)
 	fun testMoveShortFolderToNewLongFolder() {
@@ -1136,6 +1652,7 @@ class CryptoImplVaultFormat7Test {
 		whenever(cloudContentRepository.create(testDir15)).thenReturn(testDir15)
 		whenever(cloudContentRepository.file(testDir15, "dir.c9r")).thenReturn(testDir15DirFile)
 		whenever(cloudContentRepository.file(testDir15, "name.c9s", 507L)).thenReturn(testDir15NameFile)
+		whenever(cloudContentRepository.list(testDir15)).thenReturn(listOf(testDir15NameFile))
 		whenever(cloudContentRepository.move(cryptoFolder1.dirFile!!, testDir15DirFile)).thenReturn(testDir15DirFile)
 		whenever(cloudContentRepository.create(testDir15)).thenReturn(testDir15)
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base64Url(), dir15Name, dirIdRoot.toByteArray())).thenReturn(dir15Cipher)

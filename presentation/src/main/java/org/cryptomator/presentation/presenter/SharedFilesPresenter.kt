@@ -272,7 +272,9 @@ class SharedFilesPresenter @Inject constructor( //
 				.andForceRefresh(true) //
 				.run(object : DefaultResultHandler<VaultListing>() {
 					override fun onSuccess(listing: VaultListing) {
-						checkForExistingFilesOrUploadFiles(folder, listing.nodes)
+						// the folder may have been renamed or moved meanwhile, e.g. by another app
+						location = cloudFolderModelMapper.toModel(listing.folder)
+						checkForExistingFilesOrUploadFiles(listing.folder, listing.nodes)
 					}
 				})
 			return
