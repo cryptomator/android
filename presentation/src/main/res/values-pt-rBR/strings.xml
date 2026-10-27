@@ -451,6 +451,7 @@
 	<string name="permission_snackbar_auth_local_vault">O Cryptomator precisa de permissão de acesso ao armazenamento para usar os cofres locais</string>
 	<string name="permission_snackbar_auth_auto_upload">O Cryptomator precisa de permissão de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões para notificar o estado dos cofres, por exemplo.</string>
+	<string name="permission_snackbar_local_network">O Cryptomator precisa de acesso à rede local para se conectar aos servidores na sua rede local</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
