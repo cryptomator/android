@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Ang bersyon na nakasulat sa %1$s ay naiiba sa %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ay naiiba sa %2$s</string>
 	<string name="error_vault_config_loading">Karaniwang kamalian habang nag lo-load ang vault config</string>
-	<string name="error_file_not_found_after_opening_using_3party">Ang lokal na file ay hindi na matagpuan pagkatapos lumipat sa Cryptomator. Maaaring hindi na ma-i upload pabalik sa cloud.</string>
 	<string name="error_no_such_bucket">Hindi matagpuan ang bucket na ito</string>
 	<string name="error_masterkey_location_not_supported">Hindi pa suportado ang custom Masterkey location</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nabigong makipag-ugnayan sa F-Droid app. Hindi naka-install?</string>
@@ -221,8 +220,6 @@
 	<string name="screen_settings_security_label">Mga pahiwatig ng seguridad</string>
 	<string name="screen_settings_section_version">Bersyon</string>
 	<string name="screen_settings_advanced_settings">Mga advanced na setting</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Workaround sa pagbubukas ng mga file ng Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Ibukas ang mga files sa Microsoft apps kasamang write permission</string>
 	<string name="screen_settings_background_unlock_preparation_label">Pabilisin ang pag-unlock</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">I-download ang vault config sa background habang sinenyasan na ilagay ang password o biometric auth</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Panatilihing naka-unlock</string>
@@ -329,7 +326,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Sa mode na ito, maaaring isulat ang sensitibong data sa isang log file sa iyong device (hal., mga filename at path). Ang mga password, cookies, atbp. ay tahasang hindi kasama.\n\nTandaang i-disable ang debug mode sa lalong madaling panahon.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atensyon</string>
 	<string name="dialog_debug_mode_positive_button">I-enable</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Dahil sa isang bug sa mga Microsoft app, ang file na ie-edit ay dapat na ibahagi sa mga app na ito sa isang pampublikong media folder sa iyong device. Pagkatapos maipagpatuloy ang Cryptomator, ang file na naa-access ng publiko ay tatanggalin muli, ngunit hindi maimpluwensyahan ng Cryptomator kung ano ang nangyari sa file na ito pansamantala. Tiyaking alam mo ang gawi na ito kapag ina-activate ang opsyong ito. Malalapat lang ito sa mga uri ng file ng Microsoft.\n\nMagre-restart ang Cryptomator pagkatapos ma-activate.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ang setting na ito ay isang feature na panseguridad at pinipigilan ang iba pang app na linlangin ang mga user sa paggawa ng mga bagay na hindi nila gustong gawin.\n\nSa pamamagitan ng hindi pagpapagana, kinukumpirma mo na ikaw ay <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured"> alam sa mga panganib</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atensyon</string>
 	<string name="dialog_disable_app_obscured_positive_button">Huwag paganahin</string>
@@ -434,10 +430,7 @@
 	<string name="notification_update_check_finished_latest">Naka-install ang pinakabagong bersyon</string>
 	<string name="notification_authenticating">Pagpapatunay ng&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Na-access kamakailan ng cache ang mga file na naka-encrypt nang lokal sa device para magamit muli sa ibang pagkakataon kapag muling binuksan</string>
-	<string name="screen_settings_lru_cache_size">Kabuuang laki ng cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Linisin ang Cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Ang mga pagbabago ay makikita pagkatapos ng pag-restart ng app</string>
 	<string name="screen_settings_license_title_unlock">I-unlock ang Buong Bersyon</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Pamahalaan ang Subscription</string>
@@ -446,21 +439,12 @@
 	<string name="dialog_settings_update_check_interval_title">I-update ang agwat ng pagsusuri</string>
 	<string name="screen_settings_check_updates">Tingnan ang mga update</string>
 	<string name="screen_settings_last_check_updates">Huling pagtakbo %1$s</string>
-	<string name="dialog_cache_size_title">Laki ng cache sa bawat Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minuto</string>
 	<string name="lock_timeout_5m">5 minuto</string>
 	<string name="lock_timeout_10m">10 minuto</string>
 	<string name="lock_timeout_never">Hindi kailanman</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estilo</string>
 	<string name="follow_system">Awtomatico (sundan ang system)</string>
