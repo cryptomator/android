@@ -231,6 +231,7 @@
 	<string name="screen_settings_secure_screen">Блокировать скриншоты</string>
 	<string name="screen_settings_secure_screen_summary">Блокировать скриншоты в списке недавних и внутри приложения</string>
 	<string name="screen_settings_documents_provider">Открыть хранилища в приложении \"Файлы\"</string>
+	<string name="screen_settings_documents_provider_summary">Позволяет другим приложениям открывать и сохранять файлы в ваших хранилищах с помощью системного средства выбора файлов. Заблокированные хранилища разблокируются при открытии. При отключении этого параметра хранилища будут скрыты, а доступ к ним других приложений - удалён.</string>
 	<string name="screen_settings_section_search">Поиск</string>
 	<string name="screen_settings_live_search">Поиск в реальном времени</string>
 	<string name="screen_settings_live_search_summary">Обновлять результаты поиска по мере ввода запроса</string>
@@ -240,6 +241,8 @@
 	<string name="screen_settings_section_auto_lock">Автоматическая блокировка</string>
 	<string name="screen_settings_auto_lock_timeout">Блокировать через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Когда экран отключён</string>
+	<string name="screen_settings_auto_lock_gracefully">Перенос данных</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Автоматическая блокировка ожидает завершения отправки и загрузки</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматическая отправка фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включить</string>
@@ -351,6 +354,9 @@
 	<string name="dialog_progress_encryption">Шифрование&#8230;</string>
 	<string name="dialog_progress_decryption">Расшифровка&#8230;</string>
 	<string name="action_progress_moving">Перемещение&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Ошибка отправки. Нажмите, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed">Ошибка отправки. Потяните вниз, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed_in_folder">Ошибка отправки данных в эту папку. Потяните вниз, чтобы повторить.</string>
 	<string name="dialog_lock_vault">Заблокировать</string>
 	<string name="dialog_accept_ssl_certificate_title">Неверный сертификат SSL</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL-сертификат недействителен. Вы всё равно хотите ему доверять?</string>
@@ -441,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Мы не смогли\u0027t найти существующую покупку на этой учётной записи Google.</string>
 	<string name="dialog_restore_failed_title">Не удалось восстановить</string>
 	<string name="dialog_restore_failed_message">Мы не смогли\u0027t войти в Play Store. Проверьте подключение и повторите попытку.</string>
+	<string name="dialog_change_failed_title">Не удалось изменить на %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
