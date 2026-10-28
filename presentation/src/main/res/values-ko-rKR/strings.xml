@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s이(가) %2$s와 동일하지 않습니다</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 오류 발생</string>
-	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
@@ -261,8 +260,6 @@
 	<string name="screen_settings_security_label">보안 수칙</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일에 대한 우회</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft 앱에서 쓰기 권한으로 파일을 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금 해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금 해제 유지</string>
@@ -371,7 +368,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft 앱의 버그로 인해, 편집할 파일이 기기의 공개 미디어 폴더에서 공유되어야 합니다. Cryptomator의 실행이 재개되면 이 공개 접근이 가능한 파일은 다시 삭제되나, Cryptomator는 해당 파일에 어떠한 일이 일어났는지 알 수 없습니다. 이 항목을 활성화할 경우 이러한 동작이 일어남을 숙지하세요. 이것은 Microsoft 파일 형식에만 적용됩니다. \n\n활성화 후 Cryptomator를 다시 시작합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
@@ -501,10 +497,7 @@
 	<string name="notification_authenticating">로그인중&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">신뢰하는 호스트 목록이 삭제됨</string>
 	<string name="screen_settings_lru_cache">캐시</string>
-	<string name="screen_settings_lru_cache_toggle_summary">최근의 사용한 암호화된 파일을 기기에 저장한 후 나중에 파일을 다시 열 때 재사용합니다</string>
-	<string name="screen_settings_lru_cache_size">총 캐시 크기</string>
 	<string name="screen_settings_clear_lru_cache_size">캐시 지우기</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">변경사항은 앱 재시작 후 적용됩니다</string>
 	<string name="screen_settings_license_title_unlock">정식 버전 구입</string>
 	<string name="screen_settings_license_title_unlocked">정식 버전</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -524,21 +517,12 @@
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
-	<string name="dialog_cache_size_title">클라우드당 캐시 크기</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">즉시</string>
 	<string name="lock_timeout_1m">1분</string>
 	<string name="lock_timeout_2m">2분</string>
 	<string name="lock_timeout_5m">5분</string>
 	<string name="lock_timeout_10m">10분</string>
 	<string name="lock_timeout_never">잠그지 않음</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">스타일</string>
 	<string name="follow_system">자동 (시스템 설정 따르기)</string>
