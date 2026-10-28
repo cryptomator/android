@@ -203,6 +203,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Bloquear a interceção da entrada e apresentar uma interface de utilizador falsa</string>
 	<string name="screen_settings_secure_screen">Bloquear capturas de ecrã</string>
 	<string name="screen_settings_secure_screen_summary">Bloquear capturas de ecrã na lista de recentes e dentro da aplicação</string>
+	<string name="screen_settings_documents_provider">Exibir cofres na aplicação Arquivos</string>
+	<string name="screen_settings_documents_provider_summary">Permite que outras aplicações abram e guardem ficheiros nos seus cofres através do seletor de ficheiros do sistema. Os cofres bloqueados são desbloqueados ao serem abertos. Desativar esta opção oculta os cofres e remove o acesso concedido a outras aplicações.</string>
 	<string name="screen_settings_section_search">Buscar</string>
 	<string name="screen_settings_live_search">Pesquisa em tempo real</string>
 	<string name="screen_settings_live_search_summary">Atualizar resultados de pesquisa ao inserir o texto</string>
@@ -212,6 +214,8 @@
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando o ecrã estiver desativado</string>
+	<string name="screen_settings_auto_lock_gracefully">Aguarde as transferências</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">O bloqueio automático aguarda até que os envios e transferências em curso estejam concluídos</string>
 	<string name="screen_settings_section_auto_photo_upload">Upload de foto automático</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para upload</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
@@ -324,6 +328,9 @@
 	<string name="dialog_progress_encryption">Encriptando&#8230;</string>
 	<string name="dialog_progress_decryption">Desencriptando&#8230;</string>
 	<string name="action_progress_moving">Movendo&#8230;</string>
+	<string name="screen_file_browser_upload_failed">O envio falhou. Toque para tentar novamente.</string>
+	<string name="documents_provider_upload_failed">O envio falhou. Deslize para baixo para tentar novamente.</string>
+	<string name="documents_provider_upload_failed_in_folder">O envio para esta pasta falhou. Arraste para baixo para tentar novamente.</string>
 	<string name="dialog_lock_vault">Bloquear</string>
 	<string name="dialog_accept_ssl_certificate_title">Certificado SSL inválido</string>
 	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
@@ -410,6 +417,7 @@
 	<string name="dialog_hub_vault_archived_hint">Este cofre está arquivado e não pode ser desbloqueado. Para desbloqueá-lo, o proprietário do cofre deve desarquivá-lo.</string>
 	<string name="dialog_restore_successful_title">Restauração bem-sucedida</string>
 	<string name="dialog_no_full_version_title">Sem Versão Completa</string>
+	<string name="dialog_change_failed_title">Mudança para %1$s falhou</string>
 	<string name="dialog_hub_user_setup_required_title">Configuração do utilizador necessária</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Vá para o Perfil</string>
@@ -417,6 +425,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator precisa de acesso ao armazenamento para usar cofres locais</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator precisa de acesso ao armazenamento para usar o envio automático de fotos</string>
 	<string name="permission_snackbar_notifications">O Cryptomator precisa de permissões de notificação para exibir, como exemplo, o estado do cofre</string>
+	<string name="permission_snackbar_local_network">O Cryptomator necessita de acesso à rede local para se ligar aos servidores da sua rede local</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
