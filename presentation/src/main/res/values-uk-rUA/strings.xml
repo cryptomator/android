@@ -231,6 +231,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення введення та відображення фальшивого інтерфейсу</string>
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
 	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
+	<string name="screen_settings_documents_provider">Показувати сховища в додатку «Файли»</string>
+	<string name="screen_settings_documents_provider_summary">Дозволяє іншим застосункам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших застосунків скасується.</string>
 	<string name="screen_settings_section_search">Пошук</string>
 	<string name="screen_settings_live_search">Пошук в реальному часі</string>
 	<string name="screen_settings_live_search_summary">Оновлювати результати пошуку при введенні запиту</string>
@@ -240,6 +242,8 @@
 	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
 	<string name="screen_settings_auto_lock_timeout">Блокувати через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
+	<string name="screen_settings_auto_lock_gracefully">Очікувати завершення передавання</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Автоматичне блокування зачекає, доки завершаться поточні вивантаження та завантаження</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматичне завантаження фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для завантаження</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Увімкнути</string>
@@ -352,6 +356,9 @@
 	<string name="dialog_progress_encryption">Шифрування&#8230;</string>
 	<string name="dialog_progress_decryption">Розшифрування&#8230;</string>
 	<string name="action_progress_moving">Переміщення&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Не вдалося вивантажити. Торкніться, щоб повторити.</string>
+	<string name="documents_provider_upload_failed">Не вдалося вивантажити. Потягніть униз, щоб повторити.</string>
+	<string name="documents_provider_upload_failed_in_folder">Помилка вивантаження в цій папці. Потягніть униз, щоб повторити.</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_accept_ssl_certificate_title">Недійсний SSL сертифікат</string>
 	<string name="dialog_accept_ssl_certificate_hint">Сертифікат SSL недійсний. Ви все одно хочете йому довіряти?</string>
@@ -442,6 +449,7 @@
 	<string name="dialog_no_full_version_message">Ми не змогли знайти наявну покупку в цьому обліковому записі Google.</string>
 	<string name="dialog_restore_failed_title">Не вдалося відновити</string>
 	<string name="dialog_restore_failed_message">Не вдалося з’єднатися з Play Store. Будь ласка, перевірте підключення та спробуйте ще раз.</string>
+	<string name="dialog_change_failed_title">Не вдалося перейти до «%1$s»</string>
 	<string name="dialog_hub_user_setup_required_title">Необхідне налаштування користувача</string>
 	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
