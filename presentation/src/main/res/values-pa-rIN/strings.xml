@@ -352,7 +352,6 @@
 	<string name="notification_cancel_auto_upload">ਅੱਪਲੋਡ ਨੂੰ ਰੱਦ ਕਰੋ</string>
 	<string name="notification_auto_upload_message">%1d/%2d ਨੂੰ ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
 	<string name="screen_settings_lru_cache">ਕੈਸ਼</string>
-	<string name="screen_settings_lru_cache_size">ਕੁੱਲ ਕੈਸ਼ ਆਕਾਰ</string>
 	<string name="screen_settings_clear_lru_cache_size">ਕੈਸ਼ ਨੂੰ ਮਿਟਾਓ</string>
 	<string name="screen_settings_license_title_unlock">ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -363,19 +362,11 @@
 	<string name="screen_settings_check_updates">ਅੱਪਡੇਟ ਲਈ ਜਾਂਚ ਕਰੋ</string>
 	<string name="screen_settings_last_check_updates">%1$s ਨੂੰ ਆਖਰੀ ਵਾਰ ਚਲਾਇਆ</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">ਫ਼ੌਰਨ</string>
 	<string name="lock_timeout_1m">1 ਮਿੰਟ</string>
 	<string name="lock_timeout_2m">2 ਮਿੰਟ</string>
 	<string name="lock_timeout_5m">5 ਮਿੰਟ</string>
 	<string name="lock_timeout_10m">10 ਮਿੰਟ</string>
 	<string name="lock_timeout_never">ਕਦੇ ਨਹੀਂ</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">ਸਟਾਈਲ</string>
 	<string name="follow_system">ਆਟੋਮੈਟਿਕ (ਸਿਸਟਮ ਮੁਤਾਬਕ)</string>
