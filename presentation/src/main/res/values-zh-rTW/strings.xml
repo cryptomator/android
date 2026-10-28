@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">載入加密檔案庫設定時發生錯誤</string>
-	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
@@ -227,8 +226,6 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">開啟 Microsoft 檔案的替代方案</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">使用寫入權限於 Microsoft 應用程式中開啟檔案</string>
 	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">在提示輸入密碼或生物識別身份驗證時在後台下載保險庫配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
@@ -335,7 +332,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">由於 Microsoft 應用程式中的錯誤，必須將檔案分享到公用資料夾才能進行編輯。一旦 Cryptomator 繼續運作，可以公開存取的相應檔案將再次被刪除，但 Cryptomator 無法影響在此期間該檔案所發生的情況。請確保在啟用此選項時了解此行為。此問題僅適用於 Microsoft 文件類型。\n\n啟用該選項後，Cryptomator 將重新啟動。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙使用者做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">了解其風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
@@ -453,10 +449,7 @@
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
 	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">快取</string>
-	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
-	<string name="screen_settings_lru_cache_size">快取總大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除快取</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
 	<string name="screen_settings_license_title_unlock">解鎖完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">管理訂閱</string>
@@ -466,21 +459,12 @@
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>
-	<string name="dialog_cache_size_title">每個雲端快取大小</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">立即</string>
 	<string name="lock_timeout_1m">1分鐘</string>
 	<string name="lock_timeout_2m">2分鐘</string>
 	<string name="lock_timeout_5m">5分鐘</string>
 	<string name="lock_timeout_10m">10分鐘</string>
 	<string name="lock_timeout_never">從不</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">樣式</string>
 	<string name="follow_system">自動（跟隨系統）</string>
