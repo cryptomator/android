@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">A %1$s -ban megadott verzió eltér a %2$s -tól</string>
 	<string name="error_vault_key_invalid">A(z) %1$s nem egyezik a következővel: %2$s</string>
 	<string name="error_vault_config_loading">Általános hiba a tároló konfigjának betöltése közben</string>
-	<string name="error_file_not_found_after_opening_using_3party">A Cryptomatorra való visszaváltás után a helyi fájl már nem elérhető. Az esetleges változások nem frissíthetik a felhőben lévő fájlt.</string>
 	<string name="error_no_such_bucket">Nem található ilyen adat</string>
 	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nem sikerült kommunikálni az F-Droid alkalmazással. Nincs telepítve?</string>
@@ -262,8 +261,6 @@
 	<string name="screen_settings_security_label">Biztonsági tippek</string>
 	<string name="screen_settings_section_version">Verzió</string>
 	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Megkerülés Microsoft-fájlok megnyitásával</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Fájlok megnyitása Microsoft-alkalmazásokban írási engedéllyel</string>
 	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Titkosított tároló konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
@@ -372,7 +369,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződjön meg róla, hogy tisztában van ezzel a viselkedéssel, amikor bekapcsolja ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ez a beállítás egy biztonsági funkció, amely megakadályozza, hogy más alkalmazások megtévesszék a felhasználókat, és olyan dolgokat tegyenek, amelyeket nem akarnak.\n\nA letiltással megerősíti, hogy <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">tisztában van a kockázatokkal</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
@@ -501,10 +497,7 @@
 	<string name="notification_authenticating">Hitelesítés&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Megbízható gazdagépek törölve</string>
 	<string name="screen_settings_lru_cache">Gyorsítótár</string>
-	<string name="screen_settings_lru_cache_toggle_summary">A készüléken helyileg titkosított, legutóbb megnyitott fájlok gyorsítótárazása a későbbi újbóli megnyitáskor történő újrafelhasználás céljából</string>
-	<string name="screen_settings_lru_cache_size">Gyorsítótár mérete</string>
 	<string name="screen_settings_clear_lru_cache_size">Gyorsítótár törlése</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">A módosítások az alkalmazás újraindítása után lépnek életbe</string>
 	<string name="screen_settings_license_title_unlock">Teljes verzió feloldása</string>
 	<string name="screen_settings_license_title_unlocked">Teljes verzió</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -524,21 +517,12 @@
 	<string name="dialog_settings_update_check_interval_title">A frissítések ellenőrzési gyakorisága</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
 	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
-	<string name="dialog_cache_size_title">Felhőnkénti gyorsítótár mérete</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Azonnal</string>
 	<string name="lock_timeout_1m">1 perc</string>
 	<string name="lock_timeout_2m">2 perc</string>
 	<string name="lock_timeout_5m">5 perc</string>
 	<string name="lock_timeout_10m">10 perc</string>
 	<string name="lock_timeout_never">Soha</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stílus</string>
 	<string name="follow_system">Automatikus (A rendszeren alapuló)</string>
