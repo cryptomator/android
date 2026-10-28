@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Versiunea specificată în %1$s este diferită de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nu se potrivește cu %2$s</string>
 	<string name="error_vault_config_loading">Eroare generală în timpul încărcării configurației seifului</string>
-	<string name="error_file_not_found_after_opening_using_3party">Fișierul local nu mai este prezent după ce s-a trecut înapoi la Cryptomator. Modificările posibile nu pot fi propagate înapoi în nor.</string>
 	<string name="error_no_such_bucket">Nu există așa găleată</string>
 	<string name="error_masterkey_location_not_supported">Nu este suportată încă utilizarea locației personalizate pentru cheia master</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nu s-a putut comunicat cu aplicația F-Droid. Este posibil ca aplicația sa nu fie instalata?</string>
@@ -223,8 +222,6 @@
 	<string name="screen_settings_security_label">Indicații de securitate</string>
 	<string name="screen_settings_section_version">Versiune</string>
 	<string name="screen_settings_advanced_settings">Setări avansate</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Soluție pentru deschiderea fișierelor Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Deschide fișiere în aplicații Microsoft cu permisiune de scriere</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerează deblocarea</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descărcați configurarea seifului în fundal în timp ce vi se solicită introducerea parolei sau a autentificării biometrice</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Păstrați deblocat</string>
@@ -331,7 +328,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenție</string>
 	<string name="dialog_debug_mode_positive_button">Activează</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Din cauza unei erori în aplicațiile Microsoft, fișierul care urmează să fie editat trebuie să fie partajat cu aceste aplicații într-un folder media public de pe dispozitivul dvs. După ce Cryptomator este repornit, fişierul accesibil publicului este şters din nou, dar Cryptomator nu poate influenţa ceea ce s-a întâmplat cu acest fişier între timp. Asigurați-vă că sunteți conștient de acest comportament atunci când activați această opțiune. Acest comportament se aplica doar tipurilor de fișiere Microsoft.\n\nCryptomator va reporni după activare.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Aceasta setare este o caracteristica de securitate si previne alte aplicatii sa pacaleasca utilizatorii sa faca lucruri pe care nu ar trebui sa le faca. \n\nPrin dezactivare, confirmati ca sunteti <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured"> constient de aceste riscuri</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenție</string>
 	<string name="dialog_disable_app_obscured_positive_button">Dezactivează</string>
@@ -440,10 +436,7 @@
 	<string name="notification_update_check_finished_latest">Ultima versiune instalată</string>
 	<string name="notification_authenticating">In proces de autentificare&#8230;</string>
 	<string name="screen_settings_lru_cache">Memorie cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Recent memoria cache a accesat fișiere criptate local pe acest dispozitiv pentru a fi reutilizare ulterior la redeschidere</string>
-	<string name="screen_settings_lru_cache_size">Total memorie cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Golește memoria cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Modificările vor fi aplicate la următoarea repornire a aplicației</string>
 	<string name="screen_settings_license_title_unlock">Deblochează versiunea completă</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Administrați-vă abonamentul</string>
@@ -452,21 +445,12 @@
 	<string name="dialog_settings_update_check_interval_title">Interval de verificare a actualizărilor</string>
 	<string name="screen_settings_check_updates">Verifică actualizări</string>
 	<string name="screen_settings_last_check_updates">Ultima execuție %1$s</string>
-	<string name="dialog_cache_size_title">Dimensiune cache pentru fiecare Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">Un minut</string>
 	<string name="lock_timeout_2m">2 minute</string>
 	<string name="lock_timeout_5m">5 minute</string>
 	<string name="lock_timeout_10m">10 minute</string>
 	<string name="lock_timeout_never">Niciodată</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Aspect</string>
 	<string name="follow_system">Automat (conform tematicii de sistem)</string>
