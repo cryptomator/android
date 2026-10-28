@@ -1,7 +1,6 @@
 package org.cryptomator.data.cloud.box
 
 import android.content.Context
-import com.tomclaw.cache.DiskLruCache
 import org.cryptomator.data.cloud.webdav.network.DataSourceBasedRequestBody
 import org.cryptomator.data.util.CopyStream
 import org.cryptomator.data.util.TransferredBytesAwareInputStream
@@ -17,10 +16,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadState
-import org.cryptomator.util.SharedPreferencesHandler
-import org.cryptomator.util.file.LruFileCacheUtil
-import org.cryptomator.util.file.LruFileCacheUtil.Companion.retrieveFromLruCache
-import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
@@ -28,9 +23,6 @@ import java.util.Date
 import timber.log.Timber
 
 internal class BoxImpl(private val cloud: BoxCloud, private val api: BoxApi, private val idCache: BoxIdCache, private val context: Context) {
-
-	private val sharedPreferencesHandler: SharedPreferencesHandler by lazy { SharedPreferencesHandler(context) }
-	private var diskLruCache: DiskLruCache? = null
 
 	fun root(): BoxFolder {
 		return RootBoxFolder(cloud)
@@ -56,6 +48,20 @@ internal class BoxImpl(private val cloud: BoxCloud, private val api: BoxApi, pri
 	@Throws(IOException::class)
 	fun exists(node: BoxNode): Boolean {
 		return currentNodeInfo(node) != null
+	}
+
+	@Throws(IOException::class)
+	fun metadata(file: BoxFile): BoxFile? {
+		val info = currentNodeInfo(file) ?: return null
+		return try {
+			BoxCloudNodeFactory.file(file.parent, api.fileInfo(info.id))
+		} catch (e: BoxApiException) {
+			if (!e.isNotFound) {
+				throw e
+			}
+			idCache.remove(file.path)
+			null
+		}
 	}
 
 	@Throws(IOException::class, BackendException::class)
@@ -201,31 +207,9 @@ internal class BoxImpl(private val cloud: BoxCloud, private val api: BoxApi, pri
 	}
 
 	@Throws(IOException::class, BackendException::class)
-	fun read(file: BoxFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	fun read(file: BoxFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		progressAware.onProgress(Progress.started(DownloadState.download(file)))
 		val nodeInfo = requireNodeInfo(file)
-		var cacheKey: String? = null
-		var cacheFile: File? = null
-		if (sharedPreferencesHandler.useLruCache() && createLruCache(sharedPreferencesHandler.lruCacheSize())) {
-			// asks for the current sha1 as the file might have been changed elsewhere, which would serve outdated content from the LRU cache
-			cacheKey = api.fileInfo(nodeInfo.id).sha1?.let { nodeInfo.id + it }
-			cacheFile = cacheKey?.let { key -> diskLruCache?.let { it[key] } }
-		}
-		if (cacheFile != null) {
-			try {
-				retrieveFromLruCache(cacheFile, data)
-			} catch (e: IOException) {
-				Timber.tag("BoxImpl").w(e, "Error while retrieving content from Cache, get from web request")
-				writeToData(file, nodeInfo, data, encryptedTmpFile, cacheKey, progressAware)
-			}
-		} else {
-			writeToData(file, nodeInfo, data, encryptedTmpFile, cacheKey, progressAware)
-		}
-		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
-	}
-
-	@Throws(IOException::class)
-	private fun writeToData(file: BoxFile, nodeInfo: BoxIdCache.NodeInfo, data: OutputStream, encryptedTmpFile: File?, cacheKey: String?, progressAware: ProgressAware<DownloadState>) {
 		api.download(nodeInfo.id).use { response ->
 			val inputStream = response.body?.byteStream() ?: throw FatalBackendException("InputStream shouldn't be null")
 			object : TransferredBytesAwareOutputStream(data) {
@@ -234,27 +218,7 @@ internal class BoxImpl(private val cloud: BoxCloud, private val api: BoxApi, pri
 				}
 			}.use { out -> CopyStream.copyStreamToStream(inputStream, out) }
 		}
-		if (encryptedTmpFile != null && cacheKey != null) {
-			try {
-				diskLruCache?.let {
-					LruFileCacheUtil.storeToLruCache(it, cacheKey, encryptedTmpFile)
-				} ?: Timber.tag("BoxImpl").e("Failed to store item in LRU cache")
-			} catch (e: IOException) {
-				Timber.tag("BoxImpl").e(e, "Failed to write downloaded file in LRU cache")
-			}
-		}
-	}
-
-	private fun createLruCache(cacheSize: Int): Boolean {
-		if (diskLruCache == null) {
-			diskLruCache = try {
-				DiskLruCache.create(LruFileCacheUtil(context).resolve(LruFileCacheUtil.Cache.BOX), cacheSize.toLong())
-			} catch (e: IOException) {
-				Timber.tag("BoxImpl").e(e, "Failed to setup LRU cache")
-				return false
-			}
-		}
-		return true
+		progressAware.onProgress(Progress.completed(DownloadState.download(file)))
 	}
 
 	@Throws(IOException::class, BackendException::class)

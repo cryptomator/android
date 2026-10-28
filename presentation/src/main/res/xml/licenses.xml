@@ -37,13 +37,6 @@
 				android:data="https://google.github.io/dagger/" />
 		</Preference>
 		<Preference
-			android:summary="Apache License v2"
-			android:title="Disk LRU Cache (Igor Solkin)">
-			<intent
-				android:action="android.intent.action.VIEW"
-				android:data="https://github.com/solkin/disk-lru-cache" />
-		</Preference>
-		<Preference
 			android:summary="MIT License"
 			android:title="Dropbox SDK for Android (Dropbox, Inc.)">
 			<intent

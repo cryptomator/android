@@ -92,7 +92,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	private fun hideNotification() {
-		OpenWritableFileNotification(context(), Uri.EMPTY).hide()
+		OpenWritableFileNotification(context()).hide()
 	}
 
 	private fun unSuspendLock() {

@@ -87,6 +87,10 @@ public abstract class RecyclerViewBaseAdapter<Item, Callback, ViewHolder extends
 
 	public void deleteItem(Item item) {
 		int positionOf = positionOf(item);
+		if (positionOf < 0) {
+			// e.g. a listing that already reflects a move or delete removed it before the operation reported back
+			return;
+		}
 		itemCollection.remove(item);
 		notifyItemRemoved(positionOf);
 	}

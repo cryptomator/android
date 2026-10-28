@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
+import org.cryptomator.domain.VaultPath;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException;
@@ -24,6 +25,8 @@ import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.exception.NoSuchCloudFileException;
 import org.cryptomator.domain.exception.authentication.AuthenticationException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentImport;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.CancelAwareDataSource;
 import org.cryptomator.domain.usecases.cloud.DataSource;
@@ -56,6 +59,7 @@ public class AutoUploadService extends Service {
 
 	private AutoUploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
+	private VaultDocumentRepository vaultDocumentRepository;
 	private ContentResolverUtil contentResolverUtil;
 	private FileUtil fileUtil;
 	private List<UploadFile> uploadFiles;
@@ -65,6 +69,7 @@ public class AutoUploadService extends Service {
 	private long elapsedTimeAutoUploadNotificationDelay = 0L;
 	private Thread worker;
 	private volatile boolean cancelled;
+	private volatile VaultDocumentImport runningImport;
 	private final Flag cancelledFlag = new Flag() {
 		@Override
 		public boolean get() {
@@ -218,8 +223,29 @@ public class AutoUploadService extends Service {
 		if (size == null) {
 			throw new FileRemovedDuringUploadException();
 		}
+		VaultPath vaultFolder = vaultDocumentRepository.pathOf(parent);
+		if (vaultFolder != null) {
+			return importIntoVault(vaultFolder, fileName, dataSource, replacing, progressAware);
+		}
 		CloudFile source = cloudContentRepository.file(parent, fileName, size);
 		return cloudContentRepository.write(source, dataSource, progressAware, replacing, size);
+	}
+
+	/**
+	 * An outdated listing of the folder is renewed first, so that a photo already in the cloud fails with a
+	 * CloudNodeAlreadyExistsException and is skipped instead of being uploaded as a copy.
+	 */
+	private CloudFile importIntoVault(VaultPath folder, String fileName, CancelAwareDataSource dataSource, boolean replacing, ProgressAware<UploadState> progressAware) throws BackendException {
+		VaultDocumentImport vaultImport = vaultDocumentRepository.importFile(folder, fileName, dataSource, replacing, true, false, progressAware);
+		runningImport = vaultImport;
+		if (cancelled) {
+			vaultImport.cancel();
+		}
+		try {
+			return vaultImport.await().getNode();
+		} finally {
+			runningImport = null;
+		}
 	}
 
 	@Override
@@ -236,6 +262,10 @@ public class AutoUploadService extends Service {
 			Timber.tag("AutoUploadService").i("Received stop auto upload");
 
 			cancelled = true;
+			VaultDocumentImport running = runningImport;
+			if (running != null) {
+				running.cancel();
+			}
 
 			hideNotification();
 		}
@@ -277,8 +307,9 @@ public class AutoUploadService extends Service {
 		Binder() {
 		}
 
-		public void init(CloudContentRepository myCloudContentRepository, FileUtil myFileUtil, ContentResolverUtil myContentResolverUtil, Context myContext) {
+		public void init(CloudContentRepository myCloudContentRepository, VaultDocumentRepository myVaultDocumentRepository, FileUtil myFileUtil, ContentResolverUtil myContentResolverUtil, Context myContext) {
 			cloudContentRepository = myCloudContentRepository;
+			vaultDocumentRepository = myVaultDocumentRepository;
 			fileUtil = myFileUtil;
 			contentResolverUtil = myContentResolverUtil;
 			context = myContext;

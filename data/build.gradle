@@ -211,8 +211,6 @@ dependencies {
 
 	implementation dependencies.documentFile
 
-	implementation dependencies.lruFileCache
-
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 	// test

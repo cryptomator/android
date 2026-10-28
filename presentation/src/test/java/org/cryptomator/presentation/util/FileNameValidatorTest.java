@@ -74,6 +74,26 @@ public class FileNameValidatorTest {
 		assertInvalid("file\"name.txt");
 	}
 
+	@Test
+	public void testSanitizingKeepsAValidName() {
+		assertThat(FileNameValidator.Companion.sanitize(VALID_NAME), is(VALID_NAME));
+	}
+
+	@Test
+	public void testSanitizingReplacesInvalidCharacters() {
+		assertThat(FileNameValidator.Companion.sanitize("a\\b/c:d*e?f\"g<h>i|j.txt"), is("a_b_c_d_e_f_g_h_i_j.txt"));
+	}
+
+	@Test
+	public void testSanitizingDropsTrailingDotsAndSpaces() {
+		assertThat(FileNameValidator.Companion.sanitize("filename. ."), is("filename"));
+	}
+
+	@Test
+	public void testSanitizingANameOfOnlyDotsYieldsAValidName() {
+		assertThat(FileNameValidator.Companion.sanitize(".."), is("_"));
+	}
+
 	private void assertValid(String name) {
 		boolean isValid = !FileNameValidator.Companion.isInvalidName(name);
 
