@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не совпадает с %2$s</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
 	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
@@ -231,6 +230,7 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Блокировать перехват ввода, показывая ложный интерфейс</string>
 	<string name="screen_settings_secure_screen">Блокировать скриншоты</string>
 	<string name="screen_settings_secure_screen_summary">Блокировать скриншоты в списке недавних и внутри приложения</string>
+	<string name="screen_settings_documents_provider">Открыть хранилища в приложении \"Файлы\"</string>
 	<string name="screen_settings_section_search">Поиск</string>
 	<string name="screen_settings_live_search">Поиск в реальном времени</string>
 	<string name="screen_settings_live_search_summary">Обновлять результаты поиска по мере ввода запроса</string>
@@ -263,8 +263,6 @@
 	<string name="screen_settings_security_label">Советы по безопасности</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Дополнительные настройки</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Обход открытия файлов Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Открывать файлы в приложениях Microsoft с разрешением на запись</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускорить разблокировку</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Загружать конфигурацию хранилища в фоне при запросе пароля или биоаутентификации</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
@@ -372,7 +370,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft, редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator общедоступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. При активации этой опции убедитесь, что вы знаете об таком поведении. Применимо только к типам файлов Microsoft.\n\nПосле активации Cryptomator будет перезапущен.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
@@ -502,10 +499,7 @@
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Доверенные хосты очищены</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
-	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
 	<string name="screen_settings_license_title_unlock">Получить полную версию</string>
 	<string name="screen_settings_license_title_unlocked">Полная версия</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -525,21 +519,12 @@
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
-	<string name="dialog_cache_size_title">Размер кэша в облаке</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Сразу</string>
 	<string name="lock_timeout_1m">1 мин</string>
 	<string name="lock_timeout_2m">2 мин</string>
 	<string name="lock_timeout_5m">5 мин</string>
 	<string name="lock_timeout_10m">10 мин</string>
 	<string name="lock_timeout_never">Никогда</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Стиль</string>
 	<string name="follow_system">Автоматически (как в системе)</string>
