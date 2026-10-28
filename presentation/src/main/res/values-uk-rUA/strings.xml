@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Версія вказана у %1$s відрізняється від %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не збігається з цим %2$s</string>
 	<string name="error_vault_config_loading">Під час завантаження конфігурації сховища сталася загальна помилка</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після повернення до Cryptomator. Можливі зміни не можуть бути збережені у хмарі.</string>
 	<string name="error_no_such_bucket">Такого S3-кошика не існує</string>
 	<string name="error_masterkey_location_not_supported">Власне розташування Masterkey ще не підтримується</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв’язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
@@ -264,8 +263,6 @@
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Альтернативний спосіб відкриття файлів Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в додатках Microsoft з дозволом на запис</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажувати конфігурацію сховища у фоновому режимі, поки очікується введення пароля або біометрична автентифікація</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
@@ -374,7 +371,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в програмах Microsoft, файл, що редагується, повинен бути наданий цим програмам у загальнодоступній папці на вашому пристрої. Після відновлення роботи Cryptomator цей загальнодоступний файл буде видалено, але Cryptomator не може вплинути на те, що відбувається з цим файлом за цей час. Переконайтеся, що ви усвідомлюєте таку поведінку, перш ніж активувати цю опцію. Це стосуватиметься лише файлів Microsoft.\n\nПісля активації Cryptomator буде перезапущено.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
@@ -504,10 +500,7 @@
 	<string name="notification_authenticating">Авторизація&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Очищені довірені хости</string>
 	<string name="screen_settings_lru_cache">Кешування</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавно відкриті зашифровані файли локально на пристрої для повторного використання під час наступного відкриття</string>
-	<string name="screen_settings_lru_cache_size">Загальний розмір кеша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни буде застосовано після перезапуску програми</string>
 	<string name="screen_settings_license_title_unlock">Розблокувати повну версію</string>
 	<string name="screen_settings_license_title_unlocked">Повна версія</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -527,21 +520,12 @@
 	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевірити наявність оновлень</string>
 	<string name="screen_settings_last_check_updates">Востаннє перевірено %1$s</string>
-	<string name="dialog_cache_size_title">Розмір кешу для кожного хмарного сховища</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Негайно</string>
 	<string name="lock_timeout_1m">1 хвилина</string>
 	<string name="lock_timeout_2m">2 хвилини</string>
 	<string name="lock_timeout_5m">5 хвилин</string>
 	<string name="lock_timeout_10m">10 хвилин</string>
 	<string name="lock_timeout_never">Ніколи</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Тема</string>
 	<string name="follow_system">Автоматично (як у системі)</string>
