@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Wersja zapisana w %1$s różni się od tej w %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nie pasuje do tego %2$s</string>
 	<string name="error_vault_config_loading">Ogólny błąd podczas ładowania konfiguracji sejfu</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokalny plik nie jest już obecny po przełączeniu się z powrotem na Cryptomator. Możliwe zmiany nie mogą być przeniesione z powrotem do chmury.</string>
 	<string name="error_no_such_bucket">Nie ma takiego bucketu</string>
 	<string name="error_masterkey_location_not_supported">Niestandardowa lokalizacja klucza głównego jest jeszcze nieobsługiwana</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nie udało się połączyć z aplikacją F-Droid. Nie ma aplikacji?</string>
@@ -230,8 +229,6 @@
 	<string name="screen_settings_security_label">Wskazówki bezpieczeństwa</string>
 	<string name="screen_settings_section_version">Wersja</string>
 	<string name="screen_settings_advanced_settings">Ustawienia zaawansowane</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Otwieranie plików Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Otwórz pliki w aplikacjach firmy Microsoft z uprawnieniami do zapisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Przyspiesz odblokowanie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Pobierz konfigurację sejfu w tle, gdy zostaniesz poproszony o wprowadzenie hasła lub autoryzację biometryczną</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Zachowaj odblokowany</string>
@@ -338,7 +335,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uwaga</string>
 	<string name="dialog_debug_mode_positive_button">Włącz</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Z powodu błędu w aplikacjach firmy Microsoft, plik do edycji musi być udostępniony tym aplikacjom w folderze mediów publicznych na Twoim urządzeniu. Po wznowieniu działania Cryptomator ponownie usuwa publicznie dostępny plik, ale Cryptomator nie może wpływać na to, co w międzyczasie stało się z tym plikiem. Upewnij się, że jesteś świadomy tego zachowania podczas aktywowania tej opcji. To będzie dotyczyć tylko typów plików firmy Microsoft.\n\nCryptomator uruchomi się ponownie po aktywacji.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">To zabezpieczenie uniemożliwia innym aplikacjom nakłonienie użytkowników do wykonania niezamierzonych działań.\n\nWyłączając je potwierdzasz, że jesteś <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">świadomy ryzyka</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uwaga</string>
 	<string name="dialog_disable_app_obscured_positive_button">Wyłącz</string>
@@ -456,10 +452,7 @@
 	<string name="notification_update_check_finished_latest">Zainstalowano najnowszą wersję</string>
 	<string name="notification_authenticating">Uwierzytelnianie&#8230;</string>
 	<string name="screen_settings_lru_cache">Pamięć podręczna</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Pamięć podręczna ostatnio uruchomionych plików zaszyfrowanych lokalnie na urządzeniu w celu ponownego użycia po ponownym otwarciu</string>
-	<string name="screen_settings_lru_cache_size">Rozmiar całkowity pamięci podręcznej</string>
 	<string name="screen_settings_clear_lru_cache_size">Wyczyść pamięć podręczną</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Zmiany zostaną zastosowane po ponownym uruchomieniu</string>
 	<string name="screen_settings_license_title_unlock">Odblokuj pełną wersję</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Zarządzaj subskrypcją</string>
@@ -468,21 +461,12 @@
 	<string name="dialog_settings_update_check_interval_title">Częstotliwość sprawdzania aktualizacji</string>
 	<string name="screen_settings_check_updates">Sprawdź dostępne aktualizacje</string>
 	<string name="screen_settings_last_check_updates">Ostatnio uruchomiono %1$s</string>
-	<string name="dialog_cache_size_title">Rozmiar pamięci podręcznej na usługę</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Natychmiast</string>
 	<string name="lock_timeout_1m">1 minuta</string>
 	<string name="lock_timeout_2m">2 minuty</string>
 	<string name="lock_timeout_5m">5 minut</string>
 	<string name="lock_timeout_10m">10 minut</string>
 	<string name="lock_timeout_never">Nigdy</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Wygląd</string>
 	<string name="follow_system">Automatyczny (motyw systemu)</string>
