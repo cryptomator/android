@@ -45,7 +45,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<string name="light">Svetla</string>
 	<string name="dark">Tamna</string>
