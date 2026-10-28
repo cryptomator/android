@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Verzia definovaná v %1$s je odlišná od %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nezodpovedá s týmto %2$s</string>
 	<string name="error_vault_config_loading">Chyba počas zavádzania konfigurácie trezora</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor nie je viac prezentovaný po prepnutí naspäť do Cryptomator-a. Možné zmeny sa neprenesú späť do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
@@ -258,8 +257,6 @@
 	<string name="screen_settings_security_label">Bezpečnostné tipy</string>
 	<string name="screen_settings_section_version">Verzia</string>
 	<string name="screen_settings_advanced_settings">Pokročilé nastavenia</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Obídenie otvorenia súborov Microsoftu</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Otvoriť súbory v Microsoft aplikáciách s právom zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urýchliť odomknutie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stiahnuť konfiguráciu trezora na pozadí počas vyzvania na zadanie hesla alebo biometrickej autentikácie</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
@@ -367,7 +364,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Z dôvodu chyby v Microsoft aplikácií,</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ste si vedomí rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>
@@ -488,10 +484,7 @@
 	<string name="notification_authenticating">Autentikujem&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Zmazané dôveryhodné hosty</string>
 	<string name="screen_settings_lru_cache">Vyrovnávacia pamäť</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Nedávno sprístupnené súbory vyrovnávaciej pamäťe lokálne zašifrované na zariadení pre neskoršie použitie pri novom otvoreni</string>
-	<string name="screen_settings_lru_cache_size">Celková veľkosť vyrovovnávacej pamäte</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyprázdniť vyrovnávaciu pamäť</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Zmeny sa uplatnia pro reštarte aplikácie</string>
 	<string name="screen_settings_license_title_unlock">Odomknúť plnú verziu</string>
 	<string name="screen_settings_license_title_unlocked">Plná verzia</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -511,21 +504,12 @@
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizácii</string>
 	<string name="screen_settings_check_updates">Skontrolovať dostupnosť aktualizácií</string>
 	<string name="screen_settings_last_check_updates">Naposledy %1$s</string>
-	<string name="dialog_cache_size_title">Veľkosť vyrovnávaciej pamäťe na Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Okamžite</string>
 	<string name="lock_timeout_1m">1 minúta</string>
 	<string name="lock_timeout_2m">2 minúty</string>
 	<string name="lock_timeout_5m">5 minút</string>
 	<string name="lock_timeout_10m">10 minút</string>
 	<string name="lock_timeout_never">Nikdy</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Štýl</string>
 	<string name="follow_system">Automaticky (nasleduj systém)</string>
