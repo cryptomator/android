@@ -61,6 +61,7 @@
 	<string name="screen_license_check_benefit_support">Open-Source-Entwicklung</string>
 	<string name="screen_license_check_button_purchase">Über Google Play freischalten</string>
 	<string name="screen_license_check_button_enter_license">Lizenzschlüssel eingeben</string>
+	<string name="screen_license_check_enter_license_action">Eingabe</string>
 	<string name="screen_license_check_title_full_version">Vollversion freischalten</string>
 	<string name="screen_license_check_trial_title">30-Tage-Testversion</string>
 	<string name="screen_license_check_trial_price">Gratis</string>
@@ -228,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Blockiere das Abfangen der Eingabe und das Anzeigen einer falschen Benutzeroberfläche</string>
 	<string name="screen_settings_secure_screen">Blockiere Screenshots</string>
 	<string name="screen_settings_secure_screen_summary">Blockiere Screenshots im Anwendungsverlauf und innerhalb der App</string>
+	<string name="screen_settings_documents_provider">Tresore in der Dateien-App anzeigen</string>
+	<string name="screen_settings_documents_provider_summary">Andere Apps können über die Dateiauswahl des Systems Dateien in deinen Tresoren öffnen und speichern. Gesperrte Tresore werden beim Öffnen entsperrt. Wenn du die Option ausschaltest, werden die Tresore ausgeblendet und erteilte Zugriffsberechtigungen widerrufen.</string>
 	<string name="screen_settings_section_search">Suche</string>
 	<string name="screen_settings_live_search">Live-Suche</string>
 	<string name="screen_settings_live_search_summary">Suchergebnisse während der Eingabe der Abfrage aktualisieren</string>
@@ -237,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
 	<string name="screen_settings_auto_lock_timeout">Sperren nach</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Bei deaktiviertem Bildschirm</string>
+	<string name="screen_settings_auto_lock_gracefully">Auf Übertragungen warten</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Das automatische Sperren wartet, bis laufende Uploads und Downloads abgeschlossen sind</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatisches Photo-Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
@@ -349,6 +354,9 @@
 	<string name="dialog_progress_encryption">Wird verschlüsselt &#8230;</string>
 	<string name="dialog_progress_decryption">Wird entschlüsselt &#8230;</string>
 	<string name="action_progress_moving">Wird verschoben &#8230;</string>
+	<string name="screen_file_browser_upload_failed">Upload fehlgeschlagen. Tippe zum Wiederholen.</string>
+	<string name="documents_provider_upload_failed">Upload fehlgeschlagen. Ziehe zum Wiederholen nach unten.</string>
+	<string name="documents_provider_upload_failed_in_folder">Ein Upload in diesem Ordner ist fehlgeschlagen. Ziehe zum Wiederholen nach unten.</string>
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
@@ -439,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Wir konnten keinen vorhandenen Kauf für dieses Google-Konto finden.</string>
 	<string name="dialog_restore_failed_title">Wiederherstellung fehlgeschlagen</string>
 	<string name="dialog_restore_failed_message">Wir konnten den Play Store nicht erreichen. Bitte überprüfe deine Verbindung und versuche es erneut.</string>
+	<string name="dialog_change_failed_title">Änderung auf %1$s fehlgeschlagen</string>
 	<string name="dialog_hub_user_setup_required_title">Benutzereinstellung erforderlich</string>
 	<string name="dialog_hub_user_setup_required_hint">Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Zum Profil</string>
@@ -446,6 +455,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<string name="permission_snackbar_notifications">Cryptomator benötigt die Berechtigung zur Anzeige von Benachrichtigungen, um beispielsweise den Status des Tresors anzeigen zu können</string>
+	<string name="permission_snackbar_local_network">Cryptomator benötigt Zugriff auf das lokale Netzwerk, um sich mit Servern in deinem lokalen Netzwerk zu verbinden.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -510,6 +520,7 @@
 	<string name="dialog_trial_expired_unlock">Vollversion freischalten</string>
 	<string name="dialog_trial_expired_continue_read_only">Im Nur-Lese-Modus fortfahren</string>
 	<string name="dialog_license_lost_title">Eingabe des Lizenzschlüssels wiederholen</string>
+	<string name="dialog_license_lost_message">Ein früheres Update hat den Lizenzschlüssel, der auf %1$s registriert ist, von diesem Gerät entfernt. Gib ihn erneut ein, um den Schreibzugriff wiederherzustellen. Bis dahin sind deine Tresore schreibgeschützt.</string>
 	<string name="dialog_license_lost_reenter">Eingabe des Lizenzschlüssels wiederholen</string>
 	<string name="dialog_license_lost_later">Später</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
