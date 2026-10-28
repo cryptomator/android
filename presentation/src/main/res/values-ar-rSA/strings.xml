@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">الإصدار المحدد في %1$s مختلف عن %2$s</string>
 	<string name="error_vault_key_invalid">%1$s لا يتطابق مع هذا %2$s</string>
 	<string name="error_vault_config_loading">خطأ عام أثناء تحميل إعدادات المخزن</string>
-	<string name="error_file_not_found_after_opening_using_3party">بعد إعادة التبديل الي Cryptomator لم يعد الملف المحلي موجود. لايمكن نشر التعديلات الي موفر الخدمة السحابية.</string>
 	<string name="error_no_such_bucket">لا يوجد مخزن بهذه المعلومات في S3</string>
 	<string name="error_masterkey_location_not_supported">موقع المفتاح الرئيسي غير مدعوم بعد</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">فشل في التواصل مع تطبيق F-Droid. غير مثبت؟</string>
@@ -263,8 +262,6 @@
 	<string name="screen_settings_security_label">تلميحات الأمان</string>
 	<string name="screen_settings_section_version">الإصدارة</string>
 	<string name="screen_settings_advanced_settings">إعدادات متقدمة</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">العمل على فتح ملفات مايكروسوفت</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">فتح الملفات في تطبيقات مايكروسوفت مع السماح بالتعديل</string>
 	<string name="screen_settings_background_unlock_preparation_label">تسريع فتح القفل</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">تنزيل إعدادات المخزن في الخلفية أثناء مطالبته بإدخال كلمة المرور أو البصمة</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">أبقه فاتح</string>
@@ -372,7 +369,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.</string>
 	<string name="dialog_debug_mode_disclaimer_title">انتباه</string>
 	<string name="dialog_debug_mode_positive_button">تفعيل</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">بسبب خطأ في تطبيقات مايكروسوفت، يجب مشاركة الملف المراد تعديله مع هذه التطبيقات في مجلد وسائط عام على جهازك. بعد استئناف Cryptomator ، يتم حذف هذا الملف مرة أخرى، ولكن Cryptomator لا يمكنه التأثير على ما حدث لهذا الملف في هذه الأثناء. تأكد من أنك على علم بهذا السلوك عند تفعيل هذا الخيار. سيتم تطبيق هذا فقط على ملفات مايكروسوفت.\n\nسيتم إعادة تشغيل Cryptomator بعد التفعيل.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">هذا الإعداد هو ميزة أمنية تمنع التطبيقات الأخرى من استدراج المستخدمين لفعل أشياء لا يريدون القيام بها.\n\nبتعطيليها, أنت تؤكد أنك <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">على علم بالمخاطر</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">انتباه</string>
 	<string name="dialog_disable_app_obscured_positive_button">تعطيل</string>
@@ -496,10 +492,7 @@
 	<string name="notification_authenticating">جارٍ التحقُقُ من &#8230;</string>
 	<string name="notification_cleared_trusted_hosts">تم مسح المضيفين الموثوقين</string>
 	<string name="screen_settings_lru_cache">ذاكرة التخزين المؤقت</string>
-	<string name="screen_settings_lru_cache_toggle_summary">سيتم حفظ الملفات المشفرة محليا على الجهاز، لتسهيل الوصول إليها لاحقا</string>
-	<string name="screen_settings_lru_cache_size">إجمالي حجم ذاكرة التخزين المؤقت</string>
 	<string name="screen_settings_clear_lru_cache_size">مسح بيانات الذاكرة المؤقتة</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">سيتم تطبيق التغييرات عند إعادة تشغيل التطبيق</string>
 	<string name="screen_settings_license_title_unlock">فتح النسخة الكاملة</string>
 	<string name="screen_settings_license_title_unlocked">النسخة الكاملة</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -516,21 +509,12 @@
 	<string name="dialog_settings_update_check_interval_title">الفاصل الزمني للتحديث</string>
 	<string name="screen_settings_check_updates">بحث عن تحديثات</string>
 	<string name="screen_settings_last_check_updates">اخر بحث %1$s</string>
-	<string name="dialog_cache_size_title">حجم ذاكرة التخزين المؤقت لكل سحابة</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">فوري</string>
 	<string name="lock_timeout_1m">دقيقة</string>
 	<string name="lock_timeout_2m">دقيقتان</string>
 	<string name="lock_timeout_5m">5 دقائق</string>
 	<string name="lock_timeout_10m">١٠ دقائق</string>
 	<string name="lock_timeout_never">ابداً</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 م. ب</string>
-	<string name="cache_size_100m">100 م. ب</string>
-	<string name="cache_size_250m">250 م. ب</string>
-	<string name="cache_size_500m">500 م. ب</string>
-	<string name="cache_size_1000m">1 ج. ب</string>
-	<string name="cache_size_5000m">5 ق. ب</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">الشكل</string>
 	<string name="follow_system">تلقائي (تابع النظام)</string>
