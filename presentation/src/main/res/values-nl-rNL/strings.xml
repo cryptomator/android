@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Versie gespecificeerd in %1$s is anders dan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s komt niet overeen met deze %2$s</string>
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokaal bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet worden verzonden naar de cloud.</string>
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kan niet communiceren met de F-Droid app. Niet geïnstalleerd?</string>
@@ -230,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Blokkeer het onderscheppen van de invoer en het weergeven van een valse gebruikersinterface</string>
 	<string name="screen_settings_secure_screen">Schermafbeeldingen blokkeren</string>
 	<string name="screen_settings_secure_screen_summary">Blokkeer het maken van schermafbeeldingen in de app als in de lijst van recent gebruikte apps</string>
+	<string name="screen_settings_documents_provider">Toon kluizen in de Bestanden app</string>
+	<string name="screen_settings_documents_provider_summary">Laat andere apps bestanden openen en opslaan in uw kluis via de systeembestandskiezer. Vergrendelde kluizen worden ontgrendeld wanneer ze worden geopend. Dit uitschakelen verbergt de kluizen en verwijdert de toegang die andere apps hadden gekregen.</string>
 	<string name="screen_settings_section_search">Zoeken</string>
 	<string name="screen_settings_live_search">Live zoeken</string>
 	<string name="screen_settings_live_search_summary">Zoekresultaten bijwerken tijdens het invoeren</string>
@@ -239,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Automatisch vergrendelen</string>
 	<string name="screen_settings_auto_lock_timeout">Vergrendel na</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Wanneer scherm is uitgeschakeld</string>
+	<string name="screen_settings_auto_lock_gracefully">Wacht op overdrachten</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Automatisch vergrendelen wacht tot het uploaden en downloaden voltooid is</string>
 	<string name="screen_settings_section_auto_photo_upload">Foto\'s automatisch uploaden</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Kies kluis voor uploaden</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activeren</string>
@@ -262,8 +265,6 @@
 	<string name="screen_settings_security_label">Beveiligingstips</string>
 	<string name="screen_settings_section_version">Versie</string>
 	<string name="screen_settings_advanced_settings">Geavanceerde opties</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Workaround voor het openen van Microsoft-bestanden</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Open bestanden in Microsoft apps met schrijfrechten</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ontgrendelen versnellen</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download kluisconfiguratie op de achtergrond wanneer gevraagd wordt om het wachtwoord of biometrische authenticatie in te voeren</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ontgrendeld houden</string>
@@ -353,6 +354,9 @@
 	<string name="dialog_progress_encryption">Versleutelen&#8230;</string>
 	<string name="dialog_progress_decryption">Decoderen&#8230;</string>
 	<string name="action_progress_moving">Verplaatsen&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Upload mislukt. Tik om opnieuw te proberen.</string>
+	<string name="documents_provider_upload_failed">Upload mislukt. Trek omlaag om opnieuw te proberen.</string>
+	<string name="documents_provider_upload_failed_in_folder">Een upload in deze map is mislukt. Trek omlaag om het opnieuw te proberen.</string>
 	<string name="dialog_lock_vault">Vergrendel</string>
 	<string name="dialog_accept_ssl_certificate_title">Ongeldig SSL-certificaat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Het SSL-certificaat is ongeldig. Wilt u het toch vertrouwen?</string>
@@ -372,7 +376,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
 	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Door een bug in Microsoft apps moet het te bewerken bestand gedeeld worden met deze apps in een publieke mediamap op je apparaat. Nadat Cryptomator is hervat, wordt het publiek toegankelijke bestand weer verwijderd, maar Cryptomator kan niet controleren wat er in de tussentijd met dit bestand is gebeurd. Zorg ervoor dat u zich bewust bent van dit effect wanneer u deze optie activeert. Dit geldt alleen voor Microsoft bestandstypen.\n\nCryptomator zal herstarten na activering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden en hen dingen laten doen die ze niet willen doen.\n\nDoor deze instelling uit te schakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">op de hoogte bent van de risico\'s</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
 	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
@@ -444,6 +447,7 @@
 	<string name="dialog_no_full_version_message">We konden geen bestaande aankoop op dit Google-account vinden.</string>
 	<string name="dialog_restore_failed_title">Herstel mislukt</string>
 	<string name="dialog_restore_failed_message">We konden de Play Store niet bereiken. Controleer de verbinding en probeer opnieuw.</string>
+	<string name="dialog_change_failed_title">Omzetten naar %1$s mislukt</string>
 	<string name="dialog_hub_user_setup_required_title">Instellen van gebruiker vereist</string>
 	<string name="dialog_hub_user_setup_required_hint">Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ga naar Profiel</string>
@@ -502,10 +506,7 @@
 	<string name="notification_authenticating">Verifiëren&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Vertrouwde hosts vrijgegeven</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Bewaar recent geopende bestanden versleuteld en lokaal op het apparaat voor later hergebruik</string>
-	<string name="screen_settings_lru_cache_size">Totale cache grootte</string>
 	<string name="screen_settings_clear_lru_cache_size">Cache leegmaken</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Wijzigingen worden toegepast bij het opnieuw opstarten van de app</string>
 	<string name="screen_settings_license_title_unlock">Volledige versie ontgrendelen</string>
 	<string name="screen_settings_license_title_unlocked">Volledige Versie</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -525,21 +526,12 @@
 	<string name="dialog_settings_update_check_interval_title">Update interval</string>
 	<string name="screen_settings_check_updates">Controleren op updates</string>
 	<string name="screen_settings_last_check_updates">Laatst uitgevoerd %1$s</string>
-	<string name="dialog_cache_size_title">Cachegrootte per Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Onmiddellijk</string>
 	<string name="lock_timeout_1m">1 minuut</string>
 	<string name="lock_timeout_2m">2 minuten</string>
 	<string name="lock_timeout_5m">5 minuten</string>
 	<string name="lock_timeout_10m">10 minuten</string>
 	<string name="lock_timeout_never">Nooit</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stijl</string>
 	<string name="follow_system">Automatisch (systeemthema)</string>
