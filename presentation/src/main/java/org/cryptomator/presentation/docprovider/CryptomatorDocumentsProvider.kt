@@ -32,6 +32,7 @@ import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.ContextHolder
 import org.cryptomator.presentation.util.FileNameValidator
@@ -39,6 +40,7 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.named
 import java.io.File
 import java.io.FileNotFoundException
+import java.util.function.Consumer
 import timber.log.Timber
 
 private val SUPPORTED_ROOT_COLUMNS: Array<String> = arrayOf(
@@ -72,6 +74,9 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	private val contentCache by lazy { appComponent.documentContentCache() }
 	private val thumbnailStore by lazy { appComponent.thumbnailStore() }
 	private val thumbnailGenerator by lazy { appComponent.thumbnailGenerator() }
+	private val preferences by lazy { SharedPreferencesHandler(context!!) }
+	private val licenseEnforcer by lazy { LicenseEnforcer(preferences) }
+	private val vaultRepository by lazy { appComponent.vaultRepository() }
 	private val closeHandler by lazy { Handler(HandlerThread("DocumentsProviderClose").apply { start() }.looper) }
 
 	override fun onCreate(): Boolean {
@@ -90,9 +95,20 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		})
 	}
 
+	/**
+	 * Whether a vault is writable depends on the license, see [isWritable], so Files is told about every root and document
+	 * when it changes. Held here, since the preferences only hold the listener weakly.
+	 */
+	private val licenseChanged = Consumer<String> { notifyEverything() }
+
+	private val licenseChangesObserved by lazy {
+		preferences.addLicenseChangedListeners(licenseChanged)
+	}
+
 	override fun queryRoots(projection: Array<String>?): Cursor {
 		LOG.v("queryRoots")
 		vaultChangesObserved
+		licenseChangesObserved
 		val actualProjection = projection ?: SUPPORTED_ROOT_COLUMNS
 		try {
 			return queryRootsImpl(actualProjection)
@@ -104,7 +120,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	@Throws(BackendException::class)
 	private fun queryRootsImpl(actualProjection: Array<String>): Cursor {
 		val result = MatrixCursor(actualProjection)
-		if (!SharedPreferencesHandler(context!!).documentsProvider()) {
+		if (!preferences.documentsProvider()) {
 			return result
 		}
 		val vaults = appComponent.vaultRepository().vaults()
@@ -278,7 +294,11 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun isWritable(vault: Vault): Boolean {
-		return !vault.cloud.isReadOnly() && !vault.isReadOnly
+		return isWritable(vault, licenseEnforcer, vaultRepository::unlockedVault)
+	}
+
+	private fun writablePath(documentId: String): VaultPath {
+		return requireUnlocked(requireWritable(metadataCache.path(documentId), licenseEnforcer, vaultRepository::unlockedVault))
 	}
 
 	@Throws(BackendException::class)
@@ -355,18 +375,23 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 	}
 
 	private fun openDocument(documentId: String, path: VaultPath, accessMode: Int, signal: CancellationSignal?): ParcelFileDescriptor {
+		// a mode without write access, e.g. "rt", needs only a grant to read, so it never truncates or writes
+		val writing = (accessMode and ParcelFileDescriptor.MODE_WRITE_ONLY) != 0
+		if (writing) {
+			requireWritable(path, licenseEnforcer, vaultRepository::unlockedVault)
+		}
 		val pinnedFile = claimPinnedFileIfLocked(path, contentCache, ::authenticationRequired)
 		if (pinnedFile == null) {
 			vaultsUsed()
 		}
 		try {
-			if (accessMode == ParcelFileDescriptor.MODE_READ_ONLY) {
+			if (!writing) {
 				val localFile = pinnedFile ?: whileUnlocked(path.vault, ::authenticationRequired) { contentCache.file(path, signal) }
 				try {
 					// kept in use until the reader closes the file, so that a writer gets a copy of its own meanwhile, see
 					// DocumentContentCache.fileForWriting. A reader that detached the file descriptor, e.g. for native code,
 					// closes it unnoticed, so its copy stays in use until the process ends.
-					return ParcelFileDescriptor.open(localFile, accessMode, closeHandler) { e ->
+					return ParcelFileDescriptor.open(localFile, ParcelFileDescriptor.MODE_READ_ONLY, closeHandler) { e ->
 						if (e !is ParcelFileDescriptor.FileDescriptorDetachedException) {
 							contentCache.release(localFile)
 						}
@@ -377,9 +402,6 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 				}
 			}
 			try {
-				if (!isWritable(path.vault)) {
-					throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
-				}
 				return whileUnlocked(path.vault, ::authenticationRequired) { openForWriting(documentId, path, accessMode, signal, pinnedFile) }
 			} finally {
 				pinnedFile?.let(contentCache::release)
@@ -429,7 +451,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(mimeType)
 		requireNotNull(displayName)
 
-		return followingDocument(parentDocumentId, ::unlockedPath) { metadataCache.create(it, FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR).documentId }
+		return followingDocument(parentDocumentId, ::writablePath) { metadataCache.create(it, FileNameValidator.sanitize(displayName), mimeType == Document.MIME_TYPE_DIR).documentId }
 	}
 
 	/**
@@ -461,7 +483,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		LOG.v("deleteDocument($documentId)")
 		requireNotNull(documentId)
 
-		followingDocument(documentId, ::unlockedPath) { path ->
+		followingDocument(documentId, ::writablePath) { path ->
 			require(!path.isRoot)
 			contentCache.delete(path)
 		}.descendantIds.forEach(::revokeDocumentPermission)
@@ -474,7 +496,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(targetParentDocumentId)
 
 		return followingDocument(targetParentDocumentId, metadataCache::path) { targetParentPath ->
-			followingDocument(sourceDocumentId, ::unlockedPath) { sourcePath ->
+			followingDocument(sourceDocumentId, ::writablePath) { sourcePath ->
 				require(sourcePath.parent == metadataCache.path(sourceParentDocumentId)) { "$sourceParentDocumentId is not the parent of $sourceDocumentId" }
 				moveDocumentImpl(sourceDocumentId, sourcePath, targetParentPath)
 			}
@@ -501,7 +523,7 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 		requireNotNull(displayName)
 
 		val newName = FileNameValidator.sanitize(displayName)
-		followingDocument(documentId, ::unlockedPath) { currentPath ->
+		followingDocument(documentId, ::writablePath) { currentPath ->
 			require(!currentPath.isRoot)
 			if (currentPath.name == newName) {
 				LOG.v("renameDocument: $documentId quietly not renamed; requested name equals current name")
@@ -514,6 +536,10 @@ class CryptomatorDocumentsProvider : DocumentsProvider() {
 
 	private fun notifyRoots() {
 		context?.contentResolver?.let { notifyRoots(it) }
+	}
+
+	private fun notifyEverything() {
+		context?.contentResolver?.notifyChange(Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(AUTHORITY).build(), null)
 	}
 
 	/**

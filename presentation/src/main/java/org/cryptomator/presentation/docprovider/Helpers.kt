@@ -14,6 +14,8 @@ import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.di.component.ApplicationComponent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
+import org.cryptomator.presentation.model.VaultModel
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -46,6 +48,25 @@ internal fun <T> whileUnlocked(vault: Vault, authenticationRequired: (Vault) -> 
 	} catch (e: MissingCryptorException) {
 		throw authenticationRequired(vault)
 	}
+}
+
+/**
+ * Like in the app, writing needs a license or a running trial, or for a Hub vault a paid Hub license, which only the vault
+ * as it was unlocked knows about, see [unlockedVault]. Asking doesn't record that the trial expired, so that the app still
+ * tells the user, see [LicenseEnforcer.peekWriteAccessForVault].
+ */
+internal fun isWritable(vault: Vault, licenseEnforcer: LicenseEnforcer, unlockedVault: (Vault) -> Vault?): Boolean {
+	return !vault.cloud.isReadOnly() && !vault.isReadOnly && licenseEnforcer.peekWriteAccessForVault(VaultModel(unlockedVault(vault) ?: vault))
+}
+
+/**
+ * Checked by every change, since a client may ignore the flags that tell it what it may do.
+ */
+internal fun requireWritable(path: VaultPath, licenseEnforcer: LicenseEnforcer, unlockedVault: (Vault) -> Vault?): VaultPath {
+	if (!isWritable(path.vault, licenseEnforcer, unlockedVault)) {
+		throw UnsupportedOperationException("Vault ${path.vault.name} is read-only")
+	}
+	return path
 }
 
 /**

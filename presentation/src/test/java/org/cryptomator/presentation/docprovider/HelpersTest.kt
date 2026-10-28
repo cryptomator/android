@@ -4,17 +4,27 @@ import org.cryptomator.data.db.entities.DocumentMetadataEntity
 import org.cryptomator.data.documents.DocumentContentCache
 import org.cryptomator.data.documents.ThumbnailGenerator
 import org.cryptomator.data.documents.ThumbnailStore
+import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
+import org.cryptomator.presentation.licensing.LicenseEnforcer
+import org.cryptomator.util.FlavorConfig
+import org.cryptomator.util.SharedPreferencesHandler
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
@@ -26,6 +36,8 @@ class HelpersTest {
 	private val contentCache: DocumentContentCache = mock()
 	private val thumbnailStore: ThumbnailStore = mock()
 	private val thumbnailGenerator: ThumbnailGenerator = mock()
+	private val sharedPreferencesHandler: SharedPreferencesHandler = mock()
+	private val licenseEnforcer = LicenseEnforcer(sharedPreferencesHandler)
 	private val metadata = DocumentMetadataEntity().apply {
 		id = 7
 		vaultId = 1
@@ -112,6 +124,73 @@ class HelpersTest {
 		val moved = ArrayDeque(listOf(path("a/x.jpg"), path("b/x.jpg")))
 		assertThrows<IllegalStateException> { followingDocument("1:7", { moved.removeFirst() }) { calls++; throw IllegalStateException() } }
 		assertEquals(3, calls)
+	}
+
+	@Test
+	fun `a vault is writable with a license of the app`() {
+		givenLicense(token = "token")
+		val path = vaultPath()
+
+		assertTrue(isWritable(path.vault, licenseEnforcer, locked))
+		assertSame(path, requireWritable(path, licenseEnforcer, locked))
+	}
+
+	@Test
+	fun `a vault is read-only once the trial expired without a license, every change is refused, and the app still tells the user`() {
+		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
+		givenLicense(trialExpiration = System.currentTimeMillis() - 1000)
+		val path = vaultPath()
+
+		assertFalse(isWritable(path.vault, licenseEnforcer, locked))
+		assertThrows<UnsupportedOperationException> { requireWritable(path, licenseEnforcer, locked) }
+		verify(sharedPreferencesHandler, never()).setTrialExpired(any())
+	}
+
+	@Test
+	fun `a vault is writable during the trial`() {
+		givenLicense(trialExpiration = System.currentTimeMillis() + 60_000)
+
+		assertTrue(isWritable(vaultPath().vault, licenseEnforcer, locked))
+	}
+
+	@Test
+	fun `a Hub vault is writable with the paid Hub license its unlock found, without one only with a license of the app`() {
+		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
+		givenLicense()
+		// like a vault the repository loads, which doesn't know about Hub
+		val stored = vaultPath().vault
+		val paid = Vault.aCopyOf(stored).withHubVault(true).withHubPaidLicense(true).build()
+		val unpaid = Vault.aCopyOf(stored).withHubVault(true).withHubPaidLicense(false).build()
+
+		assertTrue(isWritable(stored, licenseEnforcer) { paid })
+		assertFalse(isWritable(stored, licenseEnforcer) { unpaid })
+		assertFalse(isWritable(stored, licenseEnforcer, locked))
+		givenLicense(token = "token")
+		assertTrue(isWritable(stored, licenseEnforcer) { unpaid })
+	}
+
+	@Test
+	fun `a read-only cloud keeps the vault read-only, also with a license`() {
+		givenLicense(token = "token")
+
+		assertFalse(isWritable(vaultPath(readOnlyCloud = true).vault, licenseEnforcer, locked))
+	}
+
+	private val locked: (Vault) -> Vault? = { null }
+
+	private fun givenLicense(token: String = "", trialExpiration: Long = 0) {
+		whenever(sharedPreferencesHandler.licenseToken()).thenReturn(token)
+		whenever(sharedPreferencesHandler.hasRunningSubscription()).thenReturn(false)
+		whenever(sharedPreferencesHandler.trialExpirationDate()).thenReturn(trialExpiration)
+		whenever(sharedPreferencesHandler.isTrialExpired()).thenReturn(false)
+	}
+
+	private fun vaultPath(readOnlyCloud: Boolean = false): VaultPath {
+		val cloud: Cloud = mock {
+			on { type() } doReturn CloudType.LOCAL
+			on { isReadOnly() } doReturn readOnlyCloud
+		}
+		return VaultPath(Vault.aVault().withId(1L).withName("vault").withPath("/vault").withCloud(cloud).withPosition(0).withUnlocked(true).build(), "x.txt")
 	}
 
 	private fun path(path: String): VaultPath {

@@ -4,6 +4,8 @@ import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -50,6 +52,17 @@ class CryptorsTest {
 
 		inTest.putAll(mapOf(first to cryptor))
 		assertEquals(1, changes)
+	}
+
+	@Test
+	fun `a vault is found as it was unlocked, e g with what its Hub unlock found out, and not once it is locked`() {
+		val unlocked = Vault.aCopyOf(first).withHubVault(true).withHubPaidLicense(true).build()
+		inTest.putIfAbsent(unlocked, mock())
+
+		assertSame(unlocked, inTest.unlockedVault(first))
+		assertNull(inTest.unlockedVault(second))
+		inTest.remove(first)
+		assertNull(inTest.unlockedVault(first))
 	}
 
 	private fun vault(id: Long): Vault {
