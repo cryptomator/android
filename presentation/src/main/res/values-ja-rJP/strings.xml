@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
 	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomatorに切り替えた後、ローカルファイルは存在しなくなりました。変更をクラウドに戻すことはできません。</string>
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droidアプリと通信ができません。インストールしてありませんか？</string>
@@ -239,8 +238,6 @@
 	<string name="screen_settings_security_label">セキュリティの心得</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft のファイルを開くための回避策</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">ファイルを Microsoft アプリから書き込み可能で開く</string>
 	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
@@ -349,7 +346,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">このオプションを有効にする場合には以下の挙動を必ずご確認ください。Microsoft アプリのバグを回避するため、編集するファイルはデバイス上の公開メディアフォルダを通してアプリに共有する必要があります。編集を終えて Cryptomator に戻った際に公開メディアフォルダ上のファイルは削除されますが、その間ファイルは他アプリからもアクセス可能なままとなります。本回避策は Microsoft のファイルタイプのみに適用されます。\n\nオプションを有効化した後に Cryptomator は再起動します。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定はセキュリティのための機能であり、ユーザーが他のアプリに騙されて望まない操作をしてしまうことを防ぎます。\n\n無効にするには<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">リスクを承知</a>してください。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
@@ -471,10 +467,7 @@
 	<string name="notification_authenticating">認証中&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">信頼できるホストを消去しました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
-	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>
-	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
 	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">変更は次のアプリの再起動時に適用されます</string>
 	<string name="screen_settings_license_title_unlock">フル バージョンのロックを解除</string>
 	<string name="screen_settings_license_title_unlocked">フルバージョン</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -486,21 +479,12 @@
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>
 	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
-	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">即時</string>
 	<string name="lock_timeout_1m">1分</string>
 	<string name="lock_timeout_2m">2分経過後</string>
 	<string name="lock_timeout_5m">5分経過後</string>
 	<string name="lock_timeout_10m">10分経過後</string>
 	<string name="lock_timeout_never">ロックしない</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">外観</string>
 	<string name="follow_system">自動（システムに従う）</string>
