@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Versi yang ditentukan di %1$s berbeda dengan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s tidak cocok dengan %2$s ini</string>
 	<string name="error_vault_config_loading">Kesalahan umum saat memuat konfigurasi brankas</string>
-	<string name="error_file_not_found_after_opening_using_3party">Berkas lokal sudah tidak tersedia lagi setelah beralih kembali ke Cryptomator. Perubahan yang ada tidak dapat disimpan kembali ke cloud.</string>
 	<string name="error_no_such_bucket">Bucket tidak ada</string>
 	<string name="error_masterkey_location_not_supported">Lokasi Kunci utama belum didukung</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Gagal berkomunikasi dengan aplikasi F-Droid. Belum dipasang?</string>
@@ -227,8 +226,6 @@
 	<string name="screen_settings_security_label">Petunjuk keamanan</string>
 	<string name="screen_settings_section_version">Versi</string>
 	<string name="screen_settings_advanced_settings">Pengaturan Lanjutan</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Solusi membuka berkas Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Buka file di aplikasi Microsoft dengan izin menulis</string>
 	<string name="screen_settings_background_unlock_preparation_label">Percepat buka kunci</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Unduh konfigurasi vault di latar belakang saat diminta memasukkan kata sandi atau otentikasi biometrik</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Biarkan tidak terkunci</string>
@@ -335,7 +332,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Perhatian</string>
 	<string name="dialog_debug_mode_positive_button">Aktifkan</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Karena adanya bug pada aplikasi Microsoft, berkas yang akan diedit harus dibagikan dengan aplikasi ini di folder media publik di perangkat Anda. Setelah Cryptomator dilanjutkan, berkas yang dapat diakses publik akan dihapus lagi, namun Cryptomator tidak dapat memengaruhi apa yang terjadi pada berkas ini untuk sementara. Pastikan Anda mengetahui perilaku ini saat mengaktifkan opsi ini. Ini hanya berlaku untuk jenis berkas Microsoft.\n\nCryptomator akan dimulai ulang setelah aktivasi.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Pengaturan ini adalah fitur keamanan untuk mencegah aplikasi lain mengelabui pengguna melakukan hal-hal yang tidak ingin mereka lakukan.\n\nDengan menonaktifkan, Anda mengonfirmasi bahwa telah <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">menyadari akan bahaya tersebut</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Perhatian</string>
 	<string name="dialog_disable_app_obscured_positive_button">Matikan</string>
@@ -453,10 +449,7 @@
 	<string name="notification_update_check_finished_latest">Versi terbaru sudah terpasang</string>
 	<string name="notification_authenticating">Mengautentikasi&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Gunakan cache yang terenkripsi di perangkat lokal untuk file yang baru-baru ini diakses agar bisa digunakan lagi ketika dibuka kembali</string>
-	<string name="screen_settings_lru_cache_size">Total ukuran cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Bersihkan Cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Perubahan akan diterapkan pada saat aplikasi dibuka kembali</string>
 	<string name="screen_settings_license_title_unlock">Buka Versi Lengkap</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Atur Langganan</string>
@@ -465,21 +458,12 @@
 	<string name="dialog_settings_update_check_interval_title">Jangka waktu pembaruan</string>
 	<string name="screen_settings_check_updates">Periksa untuk pembaruan</string>
 	<string name="screen_settings_last_check_updates">Terakhir dijalankan %1$s</string>
-	<string name="dialog_cache_size_title">Ukuran cache per Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instan</string>
 	<string name="lock_timeout_1m">1 menit</string>
 	<string name="lock_timeout_2m">2 menit</string>
 	<string name="lock_timeout_5m">5 menit</string>
 	<string name="lock_timeout_10m">10 menit</string>
 	<string name="lock_timeout_never">Jangan pernah</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Style</string>
 	<string name="follow_system">Otomatis (mengikuti sistem)</string>
