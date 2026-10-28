@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">La versión especificada en %1$s es diferente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s no coincide con este %2$s</string>
 	<string name="error_vault_config_loading">Error general al cargar la configuración de la bóveda</string>
-	<string name="error_file_not_found_after_opening_using_3party">El archivo local ya no está presente después de volver a Cryptomator. Los posibles cambios no se pueden propagar a la nube.</string>
 	<string name="error_no_such_bucket">El bucket no existe</string>
 	<string name="error_masterkey_location_not_supported">Ubicación personalizada Masterkey aún no soportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error al comunicarse con la aplicación F-Droid. ¿No está instalada?</string>
@@ -236,8 +235,6 @@
 	<string name="screen_settings_security_label">Consejos de seguridad</string>
 	<string name="screen_settings_section_version">Versión</string>
 	<string name="screen_settings_advanced_settings">Ajustes avanzados</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Solución para abrir archivos de Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir archivos en apps de Microsoft con permiso de lectura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Acelerar desbloqueo</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarga la configuración de la bóveda en segundo plano mientras se le pide ingresar la contraseña o la autenticación biométrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantener desbloqueado</string>
@@ -346,7 +343,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En este modo, los datos sensibles pueden ser escritos en un archivo de registro de su dispositivo (por ejemplo, nombres de archivos y rutas). Las contraseñas, las cookies, etc., se excluyen explícitamente.\n\nRecuerde desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Debido a un error en las aplicaciones de Microsoft, el archivo que se va a editar debe compartirse con estas aplicaciones en una carpeta de medios públicos en su dispositivo. Una vez que se reanude Cryptomator, el archivo de acceso público se elimina nuevamente, pero Cryptomator no puede influir en lo que sucedió con este archivo mientras tanto. Asegúrese de conocer este comportamiento al activar esta opción. Esto solo se aplicará a los tipos de archivos de Microsoft.\n\nCryptomator se reiniciará después de la activación.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
@@ -471,10 +467,7 @@
 	<string name="notification_authenticating">Autenticando&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Hosts de confianza limpiados</string>
 	<string name="screen_settings_lru_cache">Caché</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
-	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
 	<string name="screen_settings_license_title_unlock">Desbloquear versión completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
@@ -487,21 +480,12 @@
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>
-	<string name="dialog_cache_size_title">Tamaño de la caché por nube</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instantáneo</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minutos</string>
 	<string name="lock_timeout_5m">5 minutos</string>
 	<string name="lock_timeout_10m">10 minutos</string>
 	<string name="lock_timeout_never">Nunca</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estilo</string>
 	<string name="follow_system">Automático (seguir sistema)</string>
