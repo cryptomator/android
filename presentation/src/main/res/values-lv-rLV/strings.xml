@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s norādītā versija atšķiras no %2$s</string>
 	<string name="error_vault_key_invalid">%1$s neatbilst %2$s</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
-	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_no_such_bucket">Nav šāda krājuma</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
@@ -234,8 +233,6 @@
 	<string name="screen_settings_security_label">Drošības norādes</string>
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_advanced_settings">Papildu iestatījumi</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
 	<string name="screen_settings_background_unlock_preparation_label">Paātrināt atslēgšanu</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
@@ -342,7 +339,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
 	<string name="dialog_debug_mode_positive_button">Iespējot</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">apzināti riski</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uzmanību</string>
 	<string name="dialog_disable_app_obscured_positive_button">Atspējot</string>
@@ -460,10 +456,7 @@
 	<string name="notification_update_check_finished_latest">Uzstādīta jaunākā versija</string>
 	<string name="notification_authenticating">Autentificē&#8230;</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
-	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
 	<string name="screen_settings_license_title_unlock">Atslēgt pilno versiju</string>
 	<string name="screen_settings_license_title_unlocked">Pilnā versija</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -478,21 +471,12 @@
 	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
 	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
 	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
-	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Tūlītēja</string>
 	<string name="lock_timeout_1m">1 minūte</string>
 	<string name="lock_timeout_2m">2 minūtes</string>
 	<string name="lock_timeout_5m">5 minūtes</string>
 	<string name="lock_timeout_10m">10 minūtes</string>
 	<string name="lock_timeout_never">Nekad</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Izskats</string>
 	<string name="follow_system">Automātisks (izmantot sistēmas)</string>
