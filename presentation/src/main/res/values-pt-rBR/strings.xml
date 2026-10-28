@@ -229,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Bloqueia a interceptação de entrada e mostra uma interface de usuário falsa</string>
 	<string name="screen_settings_secure_screen">Bloquear capturas de tela</string>
 	<string name="screen_settings_secure_screen_summary">Bloqueia as capturas de tela na lista de recentes e dentro do aplicativo</string>
+	<string name="screen_settings_documents_provider">Mostrar cofres no gerenciador de arquivos</string>
+	<string name="screen_settings_documents_provider_summary">Permite que outros aplicativos abram e salvem arquivos em seus cofres por meio do seletor de arquivos do sistema. Os cofres bloqueados são desbloqueados ao serem abertos. Desativar essa opção oculta os cofres e revoga o acesso que havia sido concedido a outros aplicativos.</string>
 	<string name="screen_settings_section_search">Buscar</string>
 	<string name="screen_settings_live_search">Pesquisa em tempo real</string>
 	<string name="screen_settings_live_search_summary">Atualiza os resultados da busca ao inserir o texto</string>
@@ -238,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Bloqueio automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear após</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Quando a tela estiver desativada</string>
+	<string name="screen_settings_auto_lock_gracefully">Aguardar por transferências</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">O bloqueio automático aguarda a conclusão dos envios e downloads.</string>
 	<string name="screen_settings_section_auto_photo_upload">Envio automático de foto</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Escolha o cofre para carregar</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Ativar</string>
@@ -350,6 +354,9 @@
 	<string name="dialog_progress_encryption">Criptografando&#8230;</string>
 	<string name="dialog_progress_decryption">Descriptografando&#8230;</string>
 	<string name="action_progress_moving">Movendo&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Falha ao enviar. Toque para tentar novamente.</string>
+	<string name="documents_provider_upload_failed">Falha ao enviar. Puxe para baixo para tentar novamente.</string>
+	<string name="documents_provider_upload_failed_in_folder">Um enviou nesta pasta falhou. Puxe para baixo para tentar novamente.</string>
 	<string name="dialog_lock_vault">Bloquear</string>
 	<string name="dialog_accept_ssl_certificate_title">Certificado SSL inválido</string>
 	<string name="dialog_accept_ssl_certificate_hint">O certificado SSL é inválido. Deseja confiar nele mesmo assim?</string>
@@ -440,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Não foi possível encontrar uma compra existente em sua conta Google.</string>
 	<string name="dialog_restore_failed_title">Falha ao restaurar</string>
 	<string name="dialog_restore_failed_message">Não foi possível encontrar a Play Store. Verifique sua conexão e tente novamente.</string>
+	<string name="dialog_change_failed_title">Falha ao mudar para %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Requer configuração de usuário</string>
 	<string name="dialog_hub_user_setup_required_hint">Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Acessar o perfil</string>
