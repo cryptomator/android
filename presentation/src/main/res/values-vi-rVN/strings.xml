@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Phiên bản được chỉ định trong %1$s khác với %2$s</string>
 	<string name="error_vault_key_invalid">%1$s không khớp với %2$s</string>
 	<string name="error_vault_config_loading">Lỗi không rõ khi tải cấu hình vault</string>
-	<string name="error_file_not_found_after_opening_using_3party">Tệp cục bộ không còn xuất hiện nữa sau khi chuyển về Cryptomator. Những thay đổi có thể xảy ra không thể được truyền trở lại đám mây.</string>
 	<string name="error_no_such_bucket">Không có vùng lưu trữ như vậy</string>
 	<string name="error_masterkey_location_not_supported">Vị trí tùy chọn của Khoá Chính chưa được hỗ trợ</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Không giao tiếp được với ứng dụng F-Droid. Chưa cài đặt?</string>
@@ -219,8 +218,6 @@
 	<string name="screen_settings_security_label">Gợi ý bảo mật</string>
 	<string name="screen_settings_section_version">Phiên bản</string>
 	<string name="screen_settings_advanced_settings">Cài đặt nâng cao</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Giải pháp mở tệp Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Mở tệp trong ứng dụng Microsoft với quyền ghi</string>
 	<string name="screen_settings_background_unlock_preparation_label">Tăng tốc mở khoá</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Tải xuống cấu hình vault trong nền khi được nhắc nhập mật khẩu hoặc xác thực sinh trắc học</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Giữ mở khóa</string>
@@ -327,7 +324,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Chú ý</string>
 	<string name="dialog_debug_mode_positive_button">Bật</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Do lỗi trong các ứng dụng của Microsoft, tệp cần chỉnh sửa phải được chia sẻ với các ứng dụng này trong thư mục phương tiện công cộng trên thiết bị của bạn. Sau khi Cryptomator được tiếp tục, tệp có thể truy cập công khai sẽ bị xoá một lần nữa, nhưng Cryptomator không thể tác động đến những gì đã xảy ra với tệp này trong lúc ấy. Đảm bảo rằng bạn biết hành vi này khi kích hoạt tuỳ chọn này. Điều này sẽ chỉ áp dụng cho các loại tệp của Microsoft.\n\nCryptomator sẽ khởi động lại sau khi kích hoạt.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Chú ý</string>
 	<string name="dialog_disable_app_obscured_positive_button">Tắt</string>
 	<string name="dialog_app_is_obscured_info_title">Ứng dụng bị che khuất</string>
@@ -423,10 +419,7 @@
 	<string name="notification_update_check_finished_latest">Phiên bản mới nhất được cài đặt</string>
 	<string name="notification_authenticating">Đang xác thực&#8230;</string>
 	<string name="screen_settings_lru_cache">Bộ nhớ cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Lưu đệm các tệp được truy cập gần đây trong khi mã hoá cục bộ trên thiết bị để sử dụng lại sau này khi mở lại</string>
-	<string name="screen_settings_lru_cache_size">Tổng kích thước bộ đệm</string>
 	<string name="screen_settings_clear_lru_cache_size">Xóa bộ nhớ Cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Các thay đổi sẽ được áp dụng vào lần tiếp theo ứng dụng khởi động lại</string>
 	<string name="screen_settings_license_title_unlock">Mở khóa bản đầy đủ</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="dialog_trial_expired_unlock">Mở khóa bản đầy đủ</string>
@@ -434,21 +427,12 @@
 	<string name="dialog_settings_update_check_interval_title">Khoảng thời gian kiểm tra cập nhật</string>
 	<string name="screen_settings_check_updates">Kiểm tra cập nhật</string>
 	<string name="screen_settings_last_check_updates">Lần chạy cuối %1$s</string>
-	<string name="dialog_cache_size_title">Kích thước bộ đệm trên mỗi đám mây</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Ngay lập tức</string>
 	<string name="lock_timeout_1m">1 phút</string>
 	<string name="lock_timeout_2m">2 phút</string>
 	<string name="lock_timeout_5m">5 phút</string>
 	<string name="lock_timeout_10m">10 phút</string>
 	<string name="lock_timeout_never">Không bao giờ</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Kiểu</string>
 	<string name="follow_system">Tự động (theo hệ thống)</string>
