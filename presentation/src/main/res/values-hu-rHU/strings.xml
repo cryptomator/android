@@ -229,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">A bevitel elfogásának blokkolása és a hamis felhasználói felület megjelenítése</string>
 	<string name="screen_settings_secure_screen">Képernyőképek letiltása</string>
 	<string name="screen_settings_secure_screen_summary">Képernyőképek letiltása a előzmények listáján és az alkalmazáson belül</string>
+	<string name="screen_settings_documents_provider">Tárolók mutatása a Fájlkezelő applikációban</string>
+	<string name="screen_settings_documents_provider_summary">Lehetővé teszi, hogy más alkalmazások megnyissák és elmentsék a fájlokat a tárolókban a rendszerfájl-választón keresztül. A zárolt tárolókat a rendszer megnyitáskor feloldja. Ennek kikapcsolása elrejti a tárolókat, és eltávolítja a hozzáférést a többi alkalmazás számára.</string>
 	<string name="screen_settings_section_search">Keresés</string>
 	<string name="screen_settings_live_search">Élő keresés</string>
 	<string name="screen_settings_live_search_summary">Frissítse a keresési eredményeket a keresőszavak beírása közben közben</string>
@@ -238,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Automatikus zárolás</string>
 	<string name="screen_settings_auto_lock_timeout">Lezárás ennyi idő után</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Amikor a képernyőt inaktív</string>
+	<string name="screen_settings_auto_lock_gracefully">Várakozás az átvitelre</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Az automatikus zárolás addig vár, amíg a feltöltések és a letöltések futtatása befejeződik</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatikus képfeltöltés</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tároló kiválasztása a feltöltéshez</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiválás</string>
@@ -350,6 +354,9 @@
 	<string name="dialog_progress_encryption">Titkosítás&#8230;</string>
 	<string name="dialog_progress_decryption">Dekódolás&#8230;</string>
 	<string name="action_progress_moving">Áthelyezés&#8230;</string>
+	<string name="screen_file_browser_upload_failed">A feltöltés sikertelen. Koppintson az újrapróbálkozáshoz.</string>
+	<string name="documents_provider_upload_failed">A feltöltés sikertelen. Húzza le, hogy újrapróbálkozzon.</string>
+	<string name="documents_provider_upload_failed_in_folder">A mappában lévő feltöltés sikertelen. Húzza le, hogy újrapróbálkozzon.</string>
 	<string name="dialog_lock_vault">Zárolás</string>
 	<string name="dialog_accept_ssl_certificate_title">Érvénytelen SSL-tanúsítvány</string>
 	<string name="dialog_accept_ssl_certificate_hint">Az SSL tanúsítvány érvénytelen. El szeretné fogadni ennek ellenére?</string>
@@ -440,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Nem találtunk meglévő vásárlást ehhez a Google-fiókhoz.</string>
 	<string name="dialog_restore_failed_title">Visszaállítás sikertelen</string>
 	<string name="dialog_restore_failed_message">Nem sikerült elérnünk a Play Áruházat. Kérjük, ellenőrizze az internetkapcsolatát, majd próbálja meg újra.</string>
+	<string name="dialog_change_failed_title">A következő értékre való módosítás sikertelen: %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Felhasználói profil beállítása szükséges</string>
 	<string name="dialog_hub_user_setup_required_hint">A folytatáshoz kérjük, hajtsa végre a Hub felhasználói profiljában megadott lépéseket.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ugrás a Profilhoz</string>
@@ -447,6 +455,7 @@
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a titkosított tárolók használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a tároló állapotának megjelenítéséhez</string>
+	<string name="permission_snackbar_local_network">A Cryptomatornak helyi hálózati hozzáférésre van szüksége ahhoz, hogy csatlakozzon a helyi hálózat szervereihez</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
