@@ -195,6 +195,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">阻止攔截輸入並顯示假的用戶界面</string>
 	<string name="screen_settings_secure_screen">禁用截圖</string>
 	<string name="screen_settings_secure_screen_summary">在對話清單或應用程式內停用畫面擷取功能</string>
+	<string name="screen_settings_documents_provider">在「檔案」App 中顯示加密檔案庫</string>
+	<string name="screen_settings_documents_provider_summary">允許其他 App 透過系統檔案選擇器開啟並儲存加密檔案庫中的檔案。已上鎖的加密檔案庫在開啟時將會解鎖。關閉此功能會隱藏加密檔案庫，並移除其他 App 已獲得的存取權限。</string>
 	<string name="screen_settings_section_search">搜尋</string>
 	<string name="screen_settings_live_search">即時搜尋</string>
 	<string name="screen_settings_live_search_summary">輸入查詢時更新搜索結果</string>
@@ -203,6 +205,8 @@
 	<string name="screen_settings_section_auto_lock">自動鎖定</string>
 	<string name="screen_settings_auto_lock_timeout">在多久後鎖定</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">當螢幕被鎖定</string>
+	<string name="screen_settings_auto_lock_gracefully">等待傳輸完成</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">自動上鎖將會等待進行中的上傳與下載完成</string>
 	<string name="screen_settings_section_auto_photo_upload">自動上傳相片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">選擇要上傳的加密檔案庫</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">啟用</string>
@@ -313,6 +317,9 @@
 	<string name="dialog_progress_encryption">正在加密中……</string>
 	<string name="dialog_progress_decryption">解密中&#8230;</string>
 	<string name="action_progress_moving">正在移動中……</string>
+	<string name="screen_file_browser_upload_failed">上傳失敗。輕觸以重試。</string>
+	<string name="documents_provider_upload_failed">上傳失敗。下拉以重試。</string>
+	<string name="documents_provider_upload_failed_in_folder">此資料夾中有上傳項目失敗。下拉以重試。</string>
 	<string name="dialog_lock_vault">鎖定</string>
 	<string name="dialog_accept_ssl_certificate_title">無效的 SSL 憑證</string>
 	<string name="dialog_accept_ssl_certificate_hint">這個 SSL 認證無效，您仍要信任它嗎？</string>
@@ -394,6 +401,7 @@
 	<string name="dialog_hub_vault_archived_hint">此加密檔案庫已被封存，無法解鎖。要解鎖，必須由加密檔案庫的擁有者取消封存。</string>
 	<string name="dialog_restore_successful_title">復原成功</string>
 	<string name="dialog_no_full_version_title">沒有完整版</string>
+	<string name="dialog_change_failed_title">變更為 %1$s 失敗</string>
 	<string name="dialog_hub_user_setup_required_title">需要設定使用者</string>
 	<string name="dialog_hub_user_setup_required_hint">請完成您使用者檔案中所需的步驟，以便繼續進行。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">轉到個人資料</string>
