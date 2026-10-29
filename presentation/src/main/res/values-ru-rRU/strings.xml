@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не совпадает с %2$s</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
 	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
@@ -231,6 +230,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Блокировать перехват ввода, показывая ложный интерфейс</string>
 	<string name="screen_settings_secure_screen">Блокировать скриншоты</string>
 	<string name="screen_settings_secure_screen_summary">Блокировать скриншоты в списке недавних и внутри приложения</string>
+	<string name="screen_settings_documents_provider">Открыть хранилища в приложении \"Файлы\"</string>
+	<string name="screen_settings_documents_provider_summary">Позволяет другим приложениям открывать и сохранять файлы в ваших хранилищах с помощью системного средства выбора файлов. Заблокированные хранилища разблокируются при открытии. При отключении этого параметра хранилища будут скрыты, а доступ к ним других приложений - удалён.</string>
 	<string name="screen_settings_section_search">Поиск</string>
 	<string name="screen_settings_live_search">Поиск в реальном времени</string>
 	<string name="screen_settings_live_search_summary">Обновлять результаты поиска по мере ввода запроса</string>
@@ -240,6 +241,8 @@
 	<string name="screen_settings_section_auto_lock">Автоматическая блокировка</string>
 	<string name="screen_settings_auto_lock_timeout">Блокировать через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Когда экран отключён</string>
+	<string name="screen_settings_auto_lock_gracefully">Перенос данных</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Автоматическая блокировка ожидает завершения отправки и загрузки</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматическая отправка фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включить</string>
@@ -263,8 +266,6 @@
 	<string name="screen_settings_security_label">Советы по безопасности</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Дополнительные настройки</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Обход открытия файлов Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Открывать файлы в приложениях Microsoft с разрешением на запись</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускорить разблокировку</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Загружать конфигурацию хранилища в фоне при запросе пароля или биоаутентификации</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
@@ -353,6 +354,9 @@
 	<string name="dialog_progress_encryption">Шифрование&#8230;</string>
 	<string name="dialog_progress_decryption">Расшифровка&#8230;</string>
 	<string name="action_progress_moving">Перемещение&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Ошибка отправки. Нажмите, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed">Ошибка отправки. Потяните вниз, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed_in_folder">Ошибка отправки данных в эту папку. Потяните вниз, чтобы повторить.</string>
 	<string name="dialog_lock_vault">Заблокировать</string>
 	<string name="dialog_accept_ssl_certificate_title">Неверный сертификат SSL</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL-сертификат недействителен. Вы всё равно хотите ему доверять?</string>
@@ -372,7 +376,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft, редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator общедоступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. При активации этой опции убедитесь, что вы знаете об таком поведении. Применимо только к типам файлов Microsoft.\n\nПосле активации Cryptomator будет перезапущен.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
@@ -444,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Мы не смогли\u0027t найти существующую покупку на этой учётной записи Google.</string>
 	<string name="dialog_restore_failed_title">Не удалось восстановить</string>
 	<string name="dialog_restore_failed_message">Мы не смогли\u0027t войти в Play Store. Проверьте подключение и повторите попытку.</string>
+	<string name="dialog_change_failed_title">Не удалось изменить на %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
@@ -451,6 +455,7 @@
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
+	<string name="permission_snackbar_local_network">Для подключения к серверам в локальной сети Cryptomater нужен к ней доступ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -501,10 +506,7 @@
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Доверенные хосты очищены</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
-	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
 	<string name="screen_settings_license_title_unlock">Получить полную версию</string>
 	<string name="screen_settings_license_title_unlocked">Полная версия</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -517,24 +519,19 @@
 	<string name="dialog_trial_expired_message">Бесплатный период опробования завершён. Вы можете продолжить в режиме только чтения, либо разблокировать полную версию.</string>
 	<string name="dialog_trial_expired_unlock">Получить полную версию</string>
 	<string name="dialog_trial_expired_continue_read_only">Продолжить в режиме только чтения</string>
+	<string name="dialog_license_lost_title">Введите ключ повторно</string>
+	<string name="dialog_license_lost_message">Предыдущее обновление удалило лицензионный ключ, зарегистрированный на %1$s с этого устройства. Введите его снова, чтобы восстановить доступ на запись. Пока вы этого не сделаете, ваши хранилища будут только для чтения.</string>
+	<string name="dialog_license_lost_reenter">Введите ключ повторно</string>
+	<string name="dialog_license_lost_later">Позже</string>
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
-	<string name="dialog_cache_size_title">Размер кэша в облаке</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Сразу</string>
 	<string name="lock_timeout_1m">1 мин</string>
 	<string name="lock_timeout_2m">2 мин</string>
 	<string name="lock_timeout_5m">5 мин</string>
 	<string name="lock_timeout_10m">10 мин</string>
 	<string name="lock_timeout_never">Никогда</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Стиль</string>
 	<string name="follow_system">Автоматически (как в системе)</string>

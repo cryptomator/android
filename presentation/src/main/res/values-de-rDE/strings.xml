@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Die in %1$s angegebene Version ist nicht identisch mit der Version in %2$s</string>
 	<string name="error_vault_key_invalid">%1$s stimmt nicht mit %2$s überein</string>
 	<string name="error_vault_config_loading">Allgemeiner Fehler beim Laden der Tresorkonfiguration</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokale Datei ist nach dem Zurückwechseln zu Cryptomator nicht mehr vorhanden. Mögliche Änderungen können nicht in die Cloud übertragen werden.</string>
 	<string name="error_no_such_bucket">Bucket existiert nicht</string>
 	<string name="error_masterkey_location_not_supported">Benutzerdefinierter Ort der Masterkey-Datei wird noch nicht unterstützt</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Fehler bei der Kommunikation mit der F-Droid-App. Nicht installiert?</string>
@@ -62,6 +61,7 @@
 	<string name="screen_license_check_benefit_support">Open-Source-Entwicklung</string>
 	<string name="screen_license_check_button_purchase">Über Google Play freischalten</string>
 	<string name="screen_license_check_button_enter_license">Lizenzschlüssel eingeben</string>
+	<string name="screen_license_check_enter_license_action">Eingabe</string>
 	<string name="screen_license_check_title_full_version">Vollversion freischalten</string>
 	<string name="screen_license_check_trial_title">30-Tage-Testversion</string>
 	<string name="screen_license_check_trial_price">Gratis</string>
@@ -229,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Blockiere das Abfangen der Eingabe und das Anzeigen einer falschen Benutzeroberfläche</string>
 	<string name="screen_settings_secure_screen">Blockiere Screenshots</string>
 	<string name="screen_settings_secure_screen_summary">Blockiere Screenshots im Anwendungsverlauf und innerhalb der App</string>
+	<string name="screen_settings_documents_provider">Tresore in der Dateien-App anzeigen</string>
+	<string name="screen_settings_documents_provider_summary">Andere Apps können über die Dateiauswahl des Systems Dateien in deinen Tresoren öffnen und speichern. Gesperrte Tresore werden beim Öffnen entsperrt. Wenn du die Option ausschaltest, werden die Tresore ausgeblendet und erteilte Zugriffsberechtigungen widerrufen.</string>
 	<string name="screen_settings_section_search">Suche</string>
 	<string name="screen_settings_live_search">Live-Suche</string>
 	<string name="screen_settings_live_search_summary">Suchergebnisse während der Eingabe der Abfrage aktualisieren</string>
@@ -238,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Automatisch sperren</string>
 	<string name="screen_settings_auto_lock_timeout">Sperren nach</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Bei deaktiviertem Bildschirm</string>
+	<string name="screen_settings_auto_lock_gracefully">Auf Übertragungen warten</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Das automatische Sperren wartet, bis laufende Uploads und Downloads abgeschlossen sind</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatisches Photo-Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tresor auswählen für das Hochladen</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktivieren</string>
@@ -261,8 +265,6 @@
 	<string name="screen_settings_security_label">Sicherheitshinweise</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Erweiterte Eigenschaften</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Workaround zum Öffnen von Microsoft-Dateien</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">In Microsoft-Apps Dateien mit Schreibberechtigung öffnen</string>
 	<string name="screen_settings_background_unlock_preparation_label">Entsperren beschleunigen</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Während der Passworteingabe oder biometrischer Authentifizierung, Tresor-Konfiguration im Hintergrund herunterladen</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Entsperrt bleiben</string>
@@ -272,6 +274,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
+	<string name="screen_cloud_settings_box_connections">Box-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
 	<string name="screen_cloud_settings_local_storage_locations">Lokale Speicherorte</string>
 	<string name="screen_cloud_settings_log_in_to">Einloggen in</string>
@@ -351,6 +354,9 @@
 	<string name="dialog_progress_encryption">Wird verschlüsselt &#8230;</string>
 	<string name="dialog_progress_decryption">Wird entschlüsselt &#8230;</string>
 	<string name="action_progress_moving">Wird verschoben &#8230;</string>
+	<string name="screen_file_browser_upload_failed">Upload fehlgeschlagen. Tippe zum Wiederholen.</string>
+	<string name="documents_provider_upload_failed">Upload fehlgeschlagen. Ziehe zum Wiederholen nach unten.</string>
+	<string name="documents_provider_upload_failed_in_folder">Ein Upload in diesem Ordner ist fehlgeschlagen. Ziehe zum Wiederholen nach unten.</string>
 	<string name="dialog_lock_vault">Sperren</string>
 	<string name="dialog_accept_ssl_certificate_title">Ungültiges SSL-Zertifikat</string>
 	<string name="dialog_accept_ssl_certificate_hint">Das SSL-Zertifikat ist ungültig. Möchtest du ihm trotzdem vertrauen?</string>
@@ -370,7 +376,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Achtung</string>
 	<string name="dialog_debug_mode_positive_button">Aktivieren</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Aufgrund eines Fehlers in Microsoft-Apps muss die zu bearbeitende Datei in einem öffentlichen Medienordner deines Gerät für diese Apps bereitgestellt werden. Nach dem Fortsetzen von Cryptomator wird die öffentlich zugängliche Datei wieder gelöscht; allerdings kann Cryptomator nicht beeinflussen, was in der Zwischenzeit mit dieser Datei geschehen ist. Achte beim Aktivieren dieser Option darauf, dass du dir dieses Verhaltens bewusst bist. Dies gilt nur für Microsoft-Dateitypen.\n\nCryptomator wird nach der Aktivierung neu gestartet.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Dies ist eine Sicherheitsfunktion und verhindert, dass andere Apps Nutzer dazu bringen, Dinge zu tun, die sie nicht tun wollen.\n\nDurch die Deaktivierung bestätigst du, dass du dich <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">der Risiken bewusst</a> bist.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Achtung</string>
 	<string name="dialog_disable_app_obscured_positive_button">Deaktivieren</string>
@@ -442,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Wir konnten keinen vorhandenen Kauf für dieses Google-Konto finden.</string>
 	<string name="dialog_restore_failed_title">Wiederherstellung fehlgeschlagen</string>
 	<string name="dialog_restore_failed_message">Wir konnten den Play Store nicht erreichen. Bitte überprüfe deine Verbindung und versuche es erneut.</string>
+	<string name="dialog_change_failed_title">Änderung auf %1$s fehlgeschlagen</string>
 	<string name="dialog_hub_user_setup_required_title">Benutzereinstellung erforderlich</string>
 	<string name="dialog_hub_user_setup_required_hint">Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Zum Profil</string>
@@ -449,6 +455,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator benötigt Speicherzugriff, um lokale Tresore nutzen zu können</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator benötigt Zugriff auf den Speicher um den automatischen Foto-Upload zu nutzen</string>
 	<string name="permission_snackbar_notifications">Cryptomator benötigt die Berechtigung zur Anzeige von Benachrichtigungen, um beispielsweise den Status des Tresors anzeigen zu können</string>
+	<string name="permission_snackbar_local_network">Cryptomator benötigt Zugriff auf das lokale Netzwerk, um sich mit Servern in deinem lokalen Netzwerk zu verbinden.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -499,10 +506,7 @@
 	<string name="notification_authenticating">Melde an&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Vertrauenswürdige Hosts gelöscht</string>
 	<string name="screen_settings_lru_cache">Zwischenspeicher</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Speichere kürzlich geöffnete Dateien lokal und verschlüsselt auf dem Gerät für eine spätere Wiederverwendung beim erneuten öffnen</string>
-	<string name="screen_settings_lru_cache_size">Zwischenspeichergröße gesamt</string>
 	<string name="screen_settings_clear_lru_cache_size">Zwischenspeicher leeren</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Änderungen werden nach einem Neustart der App aktiv</string>
 	<string name="screen_settings_license_title_unlock">Vollversion freischalten</string>
 	<string name="screen_settings_license_title_unlocked">Vollversion</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -515,24 +519,19 @@
 	<string name="dialog_trial_expired_message">Deine kostenlose Testversion ist abgelaufen. Du kannst im Nur-Lese-Modus fortfahren oder die Vollversion freischalten.</string>
 	<string name="dialog_trial_expired_unlock">Vollversion freischalten</string>
 	<string name="dialog_trial_expired_continue_read_only">Im Nur-Lese-Modus fortfahren</string>
+	<string name="dialog_license_lost_title">Eingabe des Lizenzschlüssels wiederholen</string>
+	<string name="dialog_license_lost_message">Ein früheres Update hat den Lizenzschlüssel, der auf %1$s registriert ist, von diesem Gerät entfernt. Gib ihn erneut ein, um den Schreibzugriff wiederherzustellen. Bis dahin sind deine Tresore schreibgeschützt.</string>
+	<string name="dialog_license_lost_reenter">Eingabe des Lizenzschlüssels wiederholen</string>
+	<string name="dialog_license_lost_later">Später</string>
 	<string name="dialog_settings_update_check_interval_title">Intervall der Aktualisierungsprüfung</string>
 	<string name="screen_settings_check_updates">Nach Aktualisierungen suchen</string>
 	<string name="screen_settings_last_check_updates">Letzte Ausführung %1$s</string>
-	<string name="dialog_cache_size_title">Zwischenspeichergröße je Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Sofort</string>
 	<string name="lock_timeout_1m">1 Minute</string>
 	<string name="lock_timeout_2m">2 Minuten</string>
 	<string name="lock_timeout_5m">5 Minuten</string>
 	<string name="lock_timeout_10m">10 Minuten</string>
 	<string name="lock_timeout_never">Nie</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Design</string>
 	<string name="follow_system">Automatisch (Systemeinstellung verwenden)</string>

@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s এ ভার্সনটি %2$s এর ভার্সন থেকে ভিন্ন</string>
 	<string name="error_vault_key_invalid">%1$s এই %2$s এর সাথে মেলে না</string>
 	<string name="error_vault_config_loading">ভোল্ট কোনফিগারেশন লোডিংএ সাধারণ ত্রুটি দেখা দিয়েছে</string>
-	<string name="error_file_not_found_after_opening_using_3party">ক্রিপ্টোমেটরে ফিরে যাওয়ার পর লোকাল ফাইলটি বিদ্যমান নয়। তাই সম্ভাব্য পরিবর্তনগুলো আবার ক্লাউডে স্থানান্তর করা হবে না।</string>
 	<string name="error_no_such_bucket">এরকম কোন bucket নেই</string>
 	<string name="error_masterkey_location_not_supported">কাস্টম মাস্টারকি অবস্থান এখনও সমর্থিত নয়</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid অ্যাপের সাথে যোগাযোগ করতে ব্যর্থ হয়েছে৷ ইনস্টল করা হয়নি?</string>
@@ -261,7 +260,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

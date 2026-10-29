@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s में निर्दिष्ट किया हुआ अनुवाद संख्या %2$s से भिन्न है |</string>
 	<string name="error_vault_key_invalid">%1$s इस %2$s से मेल नहीं खाता |</string>
 	<string name="error_vault_config_loading">वॉल्ट कॉन्फ़िगरेशन लोड करते समय सामान्य त्रुटि</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator पर वापस जाने के बाद स्थानीय फ़ाइल अब मौजूद नहीं है। संभावित परिवर्तनों को वापस क्लाउड पर प्रचारित नहीं किया जा सकता है।</string>
 	<string name="error_no_such_bucket">ऐसी कोई बकेट नहीं है।</string>
 	<string name="error_masterkey_location_not_supported">व्यक्तिगत मास्टरकी स्थान का सपोर्ट अभीतक उपलब्ध नहीं हैं |</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid एप्लिकेशन के साथ संचार करने में विफल। स्थापित नहीं है?</string>
@@ -202,8 +201,6 @@
 	<string name="screen_settings_security_label">सुरक्षा के संकेत |</string>
 	<string name="screen_settings_section_version">संस्करण</string>
 	<string name="screen_settings_advanced_settings">एडवांस्ड सेटिंग्स</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">माइक्रोसॉफ्ट फ़ाइल खुलनेका वैकल्पिक हल |</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">फ़ाइलें को माइक्रोसॉ आप्स में लिखने के अनुमती के साथ खोले |</string>
 	<string name="screen_settings_background_unlock_preparation_label">अनलॉक में तेजी लाएं |</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">पासवर्ड या बायोमेट्रिक प्रमाण दर्ज करने के लिए संकेत देते समय पृष्ठभूमि में तिजोरी के कॉन्फ़िगरेशन को डाउनलोड करें</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">अनलॉक्ड रखें</string>
@@ -315,6 +312,7 @@
 	<string name="notification_auto_upload_failed_title">ऑटो फोटो अपलोड असफल</string>
 	<string name="notification_update_check_finished_latest">नवीनतम संस्करण इनस्टॉल किया गया</string>
 	<string name="screen_settings_lru_cache">कैशे</string>
+	<string name="dialog_license_lost_later">बाद में</string>
 	<string name="screen_settings_last_check_updates">%1$s को चलाया गया है</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_1m">1 मिनट</string>
@@ -322,13 +320,6 @@
 	<string name="lock_timeout_5m">5 मिनट</string>
 	<string name="lock_timeout_10m">10 मिनट</string>
 	<string name="lock_timeout_never">कभी नहीं</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">स्टाइल</string>
 	<string name="follow_system">ऑटोमैटिक (सिस्टम को फॉलो करें)</string>

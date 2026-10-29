@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">La version spécifiée dans %1$s est différente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ne correspond pas à ce %2$s</string>
 	<string name="error_vault_config_loading">Erreur générale lors du chargement de la configuration du coffre</string>
-	<string name="error_file_not_found_after_opening_using_3party">Le fichier local n\'est plus présent après le retour à Cryptomator. Les éventuelles modifications ne peuvent être propagées dans le cloud.</string>
 	<string name="error_no_such_bucket">Aucun bucket correspondant</string>
 	<string name="error_masterkey_location_not_supported">L\'emplacement personnalisé de la clé principale n\'est pas encore pris en charge</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossible de communiquer avec l\'application F-Droid. Est-elle installée ?</string>
@@ -229,6 +228,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Bloquer l\'interception de l\'entrée et l\'affichage d\'une fausse interface utilisateur</string>
 	<string name="screen_settings_secure_screen">Bloquer les captures d\'écran</string>
 	<string name="screen_settings_secure_screen_summary">Empêcher la prise de capture d\'écran dans la liste des éléments récents et dans l\'application</string>
+	<string name="screen_settings_documents_provider">Afficher les coffres dans l\'application Fichiers</string>
+	<string name="screen_settings_documents_provider_summary">Permet à d\'autres applications d\'ouvrir et d\'enregistrer des fichiers dans vos coffres via le sélecteur de fichiers système. Les coffres verrouillés sont déverrouillés une fois ouverts. Désactiver cette option masque les coffres et supprime l\'accès aux autres applications.</string>
 	<string name="screen_settings_section_search">Recherche</string>
 	<string name="screen_settings_live_search">Recherche en direct</string>
 	<string name="screen_settings_live_search_summary">Mettre à jour les résultats de la recherche pendant la saisie de la requête</string>
@@ -238,6 +239,8 @@
 	<string name="screen_settings_section_auto_lock">Verrouillage automatique</string>
 	<string name="screen_settings_auto_lock_timeout">Verrouillage après</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Lorsque l\'écran est éteint</string>
+	<string name="screen_settings_auto_lock_gracefully">Attendre les transferts</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Le verrouillage automatique attend que les envois et les téléchargements soient terminés</string>
 	<string name="screen_settings_section_auto_photo_upload">Téléversement automatique de photo</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choisir un coffre-fort pour le téléversement</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Activer</string>
@@ -261,8 +264,6 @@
 	<string name="screen_settings_security_label">Conseils de sécurité</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Paramètres Avancés</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Méthode alternative d\'ouverture des fichiers Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Ouvrir les fichiers dans les appli Microsoft avec permission d\'écriture</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accélérer le déverrouillage</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Téléchargez la configuration du coffre-fort en arrière-plan lorsque vous êtes invité à entrer le mot de passe ou l\'authentification biométrique</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Maintenir deverouillé</string>
@@ -272,6 +273,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Connexions SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Connexions Box™</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Emplacements du stockage local</string>
 	<string name="screen_cloud_settings_log_in_to">Se connecter à</string>
@@ -351,6 +353,9 @@
 	<string name="dialog_progress_encryption">Chiffrement&#8230;</string>
 	<string name="dialog_progress_decryption">Déchiffrement&#8230;</string>
 	<string name="action_progress_moving">Déplacement&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Échec de l\'envoi. Appuyez pour réessayer.</string>
+	<string name="documents_provider_upload_failed">Échec de l\'envoi. Tirez vers le bas pour réessayer.</string>
+	<string name="documents_provider_upload_failed_in_folder">Un envoi dans ce dossier a échoué. Tirez vers le bas pour réessayer.</string>
 	<string name="dialog_lock_vault">Verouiller</string>
 	<string name="dialog_accept_ssl_certificate_title">Certificat SSL invalide</string>
 	<string name="dialog_accept_ssl_certificate_hint">Le certificat SSL n\'est pas valide. Vous voulez quand même lui faire confiance?</string>
@@ -370,7 +375,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d\'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN\'oubliez pas de désactiver le mode de débogage dès que possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Avertissement</string>
 	<string name="dialog_debug_mode_positive_button">Activer</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">En raison d\'un bug dans les appli Microsoft, le fichier à modifier doit être partagé avec ces appli dans un dossier média public sur votre appareil. Après le rechargement de Cryptomator, le fichier accessible au public est à nouveau supprimé, mais Cryptomator ne peut pas contrôler ce qui est arrivé à ce fichier entre-temps. Assurez-vous d\'être au courant de ce comportement lors de l\'activation de cette option. Cela ne s\'appliquera qu\'aux types de fichiers Microsoft.\n\nCryptomator redémarrera après l\'activation.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ce paramètre est une fonction de sécurité qui empêche les autres applications de manipuler les utilisateurs et de les inciter à faire des choses qu\'ils ne souhaitent pas faire.\n\n En le désactivant, vous confirmez que vous êtes <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">conscient des risques</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Avertissement</string>
 	<string name="dialog_disable_app_obscured_positive_button">Désactiver</string>
@@ -442,6 +446,7 @@
 	<string name="dialog_no_full_version_message">Nous avons pu\u0027trouver un achat existant sur ce compte Google.</string>
 	<string name="dialog_restore_failed_title">La restauration a échoué</string>
 	<string name="dialog_restore_failed_message">Nous n\u0027avons pas pu joindre le Play Store. Merci de vérifier votre connexion et de réessayer.</string>
+	<string name="dialog_change_failed_title">Le changement de %1$s a échoué</string>
 	<string name="dialog_hub_user_setup_required_title">Configuration de l’utilisateur requise</string>
 	<string name="dialog_hub_user_setup_required_hint">Pour continuer, veuillez compléter les étapes requises dans votre profil d\'utilisateur Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Aller au profil</string>
@@ -449,6 +454,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator a besoin de l\'accès au stockage pour utiliser les coffres locaux</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator a besoin de l\'accès au stockage pour effectuer le téléversement automatique de photos</string>
 	<string name="permission_snackbar_notifications">Cryptomator requiert des permissions de notification pour afficher le statut du coffre, par exemple</string>
+	<string name="permission_snackbar_local_network">Cryptomator a besoin d\'un accès au réseau local pour se connecter aux serveurs de votre réseau local</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -499,10 +505,7 @@
 	<string name="notification_authenticating">Authentification en cours&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Hôtes de confiance effacés</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Mettre en cache les fichiers récemment consultés chiffrés localement sur l\'appareil pour une réutilisation lors d\'une réouverture ultérieure</string>
-	<string name="screen_settings_lru_cache_size">Taille totale du cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Vider le cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Les changements seront appliqués lors du prochain démarrage de l\'application</string>
 	<string name="screen_settings_license_title_unlock">Débloquer la version complète</string>
 	<string name="screen_settings_license_title_unlocked">Version complète</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -515,24 +518,19 @@
 	<string name="dialog_trial_expired_message">Votre essai gratuit est terminé. Vous pouvez continuer en mode lecture seule ou déverrouiller la version complète.</string>
 	<string name="dialog_trial_expired_unlock">Débloquer la version complète</string>
 	<string name="dialog_trial_expired_continue_read_only">Continuer en mode lecture seule</string>
+	<string name="dialog_license_lost_title">Ressaisir la clé de licence</string>
+	<string name="dialog_license_lost_message">Une mise à jour précédente a supprimé la clé de licence enregistrée pour %1$s de cet appareil. Veuillez la saisir à nouveau pour restaurer l\'accès en écriture. Jusque-là, vos coffres sont en lecture seule.</string>
+	<string name="dialog_license_lost_reenter">Ressaisir la clé de licence</string>
+	<string name="dialog_license_lost_later">Plus tard</string>
 	<string name="dialog_settings_update_check_interval_title">Intervalle de vérification des mises à jour</string>
 	<string name="screen_settings_check_updates">Vérifier les mises à jour</string>
 	<string name="screen_settings_last_check_updates">Dernière exécution %1$s</string>
-	<string name="dialog_cache_size_title">Taille du cache par cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instantané</string>
 	<string name="lock_timeout_1m">1 minute</string>
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
 	<string name="lock_timeout_never">Jamais</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 Mo</string>
-	<string name="cache_size_100m">100 Mo</string>
-	<string name="cache_size_250m">250 Mo</string>
-	<string name="cache_size_500m">500 Mo</string>
-	<string name="cache_size_1000m">1 Go</string>
-	<string name="cache_size_5000m">5 Go</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Aspect</string>
 	<string name="follow_system">Automatique (suivre le système)</string>

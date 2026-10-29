@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">La versió especificada a %1$s és diferent a la de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s no coincideix amb aquest %2$s</string>
 	<string name="error_vault_config_loading">Error general carregant la configuració de la caixa forta</string>
-	<string name="error_file_not_found_after_opening_using_3party">El fitxer local ja no és present després de tornar a canviar a Cryptomator. Els possibles canvis no és poden propagar cap al núvol.</string>
 	<string name="error_no_such_bucket">No existeix el cubell</string>
 	<string name="error_masterkey_location_not_supported">Encara no es permet la ubicació personalitzada de la clau mestra</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error en la comunicació amb l\'aplicació F-Droid. Està instal·lada?</string>
@@ -226,8 +225,6 @@
 	<string name="screen_settings_security_label">Consells de seguretat</string>
 	<string name="screen_settings_section_version">Versió</string>
 	<string name="screen_settings_advanced_settings">Configuració avançada</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Solució alternativa per obrir fitxers de Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Obrir fitxers a Microsoft apps amb permís d\'escriptura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Desbloqueja més ràpid</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarrega la configuració de la caixa forta de fons mentre es demana introduir la contrasenya o l\'autenticació biomètrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Manté desblocat</string>
@@ -334,7 +331,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d\'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Atenció</string>
 	<string name="dialog_debug_mode_positive_button">Activa</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa d\'un error en les aplicacions de Microsoft, el fitxer que s\'editarà s\'ha de compartir amb aquestes aplicacions en una carpeta de mitjans públics al dispositiu. Quan es reprengui Cryptomator, el fitxer d\'accés públic s\'elimina novament, però Cryptomator no pot influir en el que va passar amb aquest fitxer mentrestant. Assegureu-vos de conèixer aquest comportament en activar aquesta opció. Això només s\'aplicarà als tipus de fitxers de Microsoft.\n\nCryptomator es reiniciarà després de l\'activació.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Aquesta configuració és una funció de seguretat que evita que altres aplicacions enganyin els usuaris perquè facin coses que no volen fer.\n\nEn desactivar-la, confirmeu que en compreneu &lt;a href=\"https://docs.cryptomator.org\". /en/1.6/android/settings/#block-app-when-obscured\"&gt;els riscos&lt;/a&gt;.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Atenció</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactiva</string>
@@ -366,7 +362,7 @@
 	<string name="dialog_update_available_message">Actualizeu Cryptomator a la versió més recent. Si premeu OK l\'app es descarregarà en segon pla i us demanarà permís per a instal·lar-se.</string>
 	<string name="dialog_update_available_update">Actualitza ara</string>
 	<string name="dialog_update_available_download_site">Vés al lloc de descàrregues</string>
-	<string name="dialog_update_available_cancel">Després</string>
+	<string name="dialog_update_available_cancel">Més tard</string>
 	<string name="dialog_download_update_title">Descàrrega en procés</string>
 	<string name="dialog_download_update_message">Ara es descarrega la versió més recent de Cryptomator</string>
 	<string name="dialog_sym_link_title">La carpeta és un enllaç simbòlic</string>
@@ -443,32 +439,21 @@
 	<string name="notification_update_check_finished_latest">La versió més recent s\'ha instal·lat</string>
 	<string name="notification_authenticating">Autenticació&#8230;</string>
 	<string name="screen_settings_lru_cache">Memòria cau</string>
-	<string name="screen_settings_lru_cache_toggle_summary">La cache dels fitxers accedits recentment s\'ha encriptat localment en el dispositiu per a reaprofitar-se quan es torni a desbloquejar</string>
-	<string name="screen_settings_lru_cache_size">Mida total de la memòria cau</string>
 	<string name="screen_settings_clear_lru_cache_size">Esborra la memòria cau</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Els canvis seran aplicats al reinicialitzar l\'aplicació</string>
 	<string name="screen_settings_license_title_unlock">Desbloca la versió completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Gestionar Subscripcions</string>
 	<string name="dialog_trial_expired_unlock">Desbloca la versió completa</string>
+	<string name="dialog_license_lost_later">Més tard</string>
 	<string name="dialog_settings_update_check_interval_title">Interval entre comprovacions d\'actualitzacions</string>
 	<string name="screen_settings_check_updates">Cerca actualitzacions</string>
 	<string name="screen_settings_last_check_updates">Darrera comprovació: %1$s</string>
-	<string name="dialog_cache_size_title">Mida de la cache per Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instantani</string>
 	<string name="lock_timeout_1m">1 minut</string>
 	<string name="lock_timeout_2m">2 minuts</string>
 	<string name="lock_timeout_5m">5 minuts</string>
 	<string name="lock_timeout_10m">10 minuts</string>
 	<string name="lock_timeout_never">Mai</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estil</string>
 	<string name="follow_system">Automàtic (fa servir el del sistema)</string>

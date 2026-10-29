@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s içinde belirtilen sürüm %2$s\'den farklı</string>
 	<string name="error_vault_key_invalid">%1$s, bu %2$s ile eşleşmiyor</string>
 	<string name="error_vault_config_loading">Kasa yapılandırması yüklenirken genel hata</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator\'a geri döndükten sonra yerel dosya artık mevcut değil. Olası değişiklikler buluta geri aktarılamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
@@ -230,8 +229,6 @@
 	<string name="screen_settings_security_label">Güvenlik ipuçları</string>
 	<string name="screen_settings_section_version">Sürüm</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft dosyalarını açmak için geçici çözüm</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft uygulamalarındaki dosyaları yazma izniyle aç</string>
 	<string name="screen_settings_background_unlock_preparation_label">Kilidi açmayı hızlandır</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Parola veya biyometrik doğrulama girmeniz istendiğinde kasa yapılandırmasını arka planda indirin</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
@@ -338,7 +335,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. dosya adları ve yolları) yazılabilir. Parolalar, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft uygulamalarındaki bir hata nedeniyle, düzenlenecek dosyanın cihazınızdaki herkese açık bir medya klasöründe bu uygulamalarla paylaşılması gerekir. Cryptomator yeniden başlatıldıktan sonra, herkese açık dosya tekrar silinir, ancak Cryptomator bu arada bu dosyaya ne olduğunu etkileyemez. Bu seçeneği etkinleştirirken bu davranışın farkında olduğunuzdan emin olun. Bu sadece Microsoft dosya türleri için geçerli olacaktır.\n\nCryptomator aktivasyondan sonra yeniden başlayacaktır.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların kullanıcıları yapmak istemedikleri şeyleri yapmaları için kandırmasını önler.\n\nDevre dışı bırakarak <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
@@ -456,33 +452,22 @@
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
 	<string name="notification_authenticating">Doğrulanıyor&#8230;</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
-	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
 	<string name="screen_settings_license_title_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
 	<string name="dialog_trial_expired_title">Deneme Sona Erdi</string>
 	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
+	<string name="dialog_license_lost_later">Sonra</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>
-	<string name="dialog_cache_size_title">Bulut başına önbellek boyutu</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Anında</string>
 	<string name="lock_timeout_1m">1 dakika</string>
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
 	<string name="lock_timeout_never">Asla</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stil</string>
 	<string name="follow_system">Otomatik (sisteme göre)</string>
