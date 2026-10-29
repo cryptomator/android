@@ -1,9 +1,6 @@
-- Added support for SharePoint
-- AVIF images open in the built-in preview on Android 17+
-- Fixed moving folders to a parent folder
-- Fixed UI freeze after pressing back when unlocking a vault
-- Fixed failing WebDAV uploads on reused connections
-- Fixed connecting to local WebDAV and S3 servers on Android 17
-- Fixed auto photo upload uploading photos unencrypted after re-authentication
-- Fixed auto photo upload crash when re-authentication is required
+- Vaults now appear in the Files app and system file picker, so other apps can open and save files in them directly
+- Added support for Box
+- Folders and opened files are cached until you clear the cache
+- Saves upload in the background, conflicting changes are kept as a copy
+- Auto-lock counts from the last use and waits for running transfers
 - Updated translations and dependencies
