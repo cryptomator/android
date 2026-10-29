@@ -70,7 +70,7 @@
 	<string name="screen_license_check_subscription_subtitle">연간</string>
 	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
 	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %2$s까지 %1$d%% 할인</string>
-	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 한정 시간 세일</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 기간 한정 세일</string>
 	<string name="screen_license_check_lifetime_subtitle">일회성</string>
 	<string name="screen_license_check_restore_purchase">구매 복원</string>
 	<string name="screen_license_check_terms">이용 약관</string>
@@ -228,6 +228,7 @@
 	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
 	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
+	<string name="screen_settings_documents_provider">파일 앱에서 ${vault} 열기</string>
 	<string name="screen_settings_section_search">검색</string>
 	<string name="screen_settings_live_search">실시간 검색</string>
 	<string name="screen_settings_live_search_summary">검색 내용 입력중 검색 결과 업데이트</string>
