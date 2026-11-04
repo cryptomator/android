@@ -163,7 +163,6 @@
 	<!-- notification -->
 	<string name="notification_unlocked">Скарбніцы разамкнёныя: %1$d</string>
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

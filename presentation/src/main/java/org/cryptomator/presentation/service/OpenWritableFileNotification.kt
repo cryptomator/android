@@ -5,9 +5,6 @@ import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_LOW
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
-import android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-import android.net.Uri
 import androidx.core.app.NotificationCompat
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.intent.Intents.vaultListIntent
@@ -15,7 +12,7 @@ import org.cryptomator.presentation.presenter.ContextHolder
 import org.cryptomator.presentation.util.ResourceHelper
 import org.cryptomator.presentation.util.ResourceHelper.Companion.getColor
 
-class OpenWritableFileNotification(private val context: Context, private val uriToOpenendFile: Uri) {
+class OpenWritableFileNotification(private val context: Context) {
 
 	private val builder: NotificationCompat.Builder
 	private var notificationManager: NotificationManager? = null
@@ -51,7 +48,6 @@ class OpenWritableFileNotification(private val context: Context, private val uri
 	}
 
 	private fun cancelNowIntent(): PendingIntent {
-		context.revokeUriPermission(uriToOpenendFile, FLAG_GRANT_WRITE_URI_PERMISSION or FLAG_GRANT_READ_URI_PERMISSION)
 		val startTheActivity = vaultListIntent().withStopEditFileNotification(true).build(context as ContextHolder)
 		return PendingIntent.getActivity(context, 0, startTheActivity, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 	}

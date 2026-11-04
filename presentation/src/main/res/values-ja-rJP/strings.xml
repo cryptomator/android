@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s で指定されたバージョンが %2$s と異なります</string>
 	<string name="error_vault_key_invalid">%1$s はこの %2$s と一致しません</string>
 	<string name="error_vault_config_loading">金庫の設定を読み込み中に失敗しました</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomatorに切り替えた後、ローカルファイルは存在しなくなりました。変更をクラウドに戻すことはできません。</string>
 	<string name="error_no_such_bucket">バケットがありません</string>
 	<string name="error_masterkey_location_not_supported">好きな場所に Masterkey を置くことはまだできません</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droidアプリと通信ができません。インストールしてありませんか？</string>
@@ -43,9 +42,12 @@
 	<string name="error_hub_unlock_pre_31">Hub は Android 12 以降でのみサポートされています。</string>
 	<string name="error_hub_not_trustworthy">ハブは信頼できません。</string>
 	<!-- # read-only & purchases -->
+	<string name="screen_license_check_title">書き込みアクセスのロックを解除する</string>
 	<string name="screen_license_check_benefit_family_sharing">ファミリー共有</string>
 	<string name="screen_license_check_benefit_write_access">金庫への書き込みアクセス</string>
 	<string name="screen_license_check_benefit_support">オープンソース開発</string>
+	<string name="screen_license_check_button_purchase">Google Play でロック解除</string>
+	<string name="screen_license_check_button_enter_license">ライセンスキーを入力</string>
 	<string name="screen_license_check_title_full_version">フル バージョンのロックを解除</string>
 	<string name="screen_license_check_trial_title">30日間のトライアル</string>
 	<string name="screen_license_check_trial_price">無料</string>
@@ -53,16 +55,22 @@
 	<string name="screen_license_check_subscription_title">年間サブスクリプション</string>
 	<string name="screen_license_check_subscription_subtitle">毎年</string>
 	<string name="screen_license_check_lifetime_title">永続ライセンス</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 期間限定セール</string>
 	<string name="screen_license_check_lifetime_subtitle">ワンタイム</string>
 	<string name="screen_license_check_restore_purchase">購入情報の復元</string>
 	<string name="screen_license_check_terms">利用規約</string>
 	<string name="screen_license_check_privacy">プライバシーポリシー</string>
+	<string name="screen_license_check_trial_expiration">有効期限: %s</string>
 	<string name="screen_license_check_trial_status_active">有効</string>
 	<string name="screen_license_check_trial_status_expired">期限切れ</string>
+	<string name="screen_license_check_trial_active_info">試用版の有効期限: %s</string>
 	<string name="screen_license_check_trial_expired_info">試用版の有効期限が切れました。</string>
 	<string name="screen_welcome_title">ようこそ</string>
+	<string name="screen_welcome_notifications_button">通知を許可する</string>
+	<string name="screen_welcome_notifications_granted">通知を有効にしました。</string>
 	<string name="screen_welcome_continue_button">続行</string>
 	<string name="screen_welcome_screen_lock_button">画面ロックを設定</string>
+	<string name="screen_welcome_screen_lock_already_set">画面ロックは既に設定されています。</string>
 	<string name="next">次へ</string>
 	<string name="back">戻る</string>
 	<!-- # clouds -->
@@ -149,6 +157,7 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">接続先を選択</string>
 	<string name="screen_cloud_connections_no_connections">ここをタップして場所を追加する</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">利用可能なドライブがありません。</string>
 	<string name="screen_cloud_error_webdav_not_supported">サーバーに WebDAV との互換性がありません</string>
 	<string name="screen_cloud_local_error_no_content_provider">ディレクトリを開くことができるファイルマネージャが見つかりませんでした</string>
 	<!-- ## screen: webdav settings -->
@@ -229,16 +238,16 @@
 	<string name="screen_settings_security_label">セキュリティの心得</string>
 	<string name="screen_settings_section_version">バージョン</string>
 	<string name="screen_settings_advanced_settings">高度な設定</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft のファイルを開くための回避策</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">ファイルを Microsoft アプリから書き込み可能で開く</string>
 	<string name="screen_settings_background_unlock_preparation_label">高速な解錠</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">パスワードまたは生体による認証中に、バックグラウンドで金庫の設定をダウンロードします</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">解錠したままにする</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">ファイルの編集中は金庫を解錠しておく</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 接続</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint 接続</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 接続</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 接続</string>
+	<string name="screen_cloud_settings_box_connections">Box 接続</string>
 	<string name="screen_cloud_settings_s3_connections">S3 接続</string>
 	<string name="screen_cloud_settings_local_storage_locations">ローカル ストレージの場所</string>
 	<string name="screen_cloud_settings_log_in_to">ログイン</string>
@@ -337,7 +346,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">有効にする</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">このオプションを有効にする場合には以下の挙動を必ずご確認ください。Microsoft アプリのバグを回避するため、編集するファイルはデバイス上の公開メディアフォルダを通してアプリに共有する必要があります。編集を終えて Cryptomator に戻った際に公開メディアフォルダ上のファイルは削除されますが、その間ファイルは他アプリからもアクセス可能なままとなります。本回避策は Microsoft のファイルタイプのみに適用されます。\n\nオプションを有効化した後に Cryptomator は再起動します。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">この設定はセキュリティのための機能であり、ユーザーが他のアプリに騙されて望まない操作をしてしまうことを防ぎます。\n\n無効にするには<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">リスクを承知</a>してください。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">無効</string>
@@ -380,6 +388,9 @@
 	<string name="dialog_no_more_images_to_display">表示する画像がありません&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' の資格情報が更新されました</string>
 	<string name="dialog_pcloud_credentials_updated">新しいpCloudのアカウントを追加する場合は、このURL<a href="https://www.pcloud.com">www.pcloud.com</a>をタップし、現在のアカウントからログアウトして、このアプリの「+」をもう一度タップして、新しいクラウド接続を作成してください。</string>
+	<string name="dialog_enter_sharepoint_url_title">SharePoint URL を入力</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint サイト URL</string>
+	<string name="dialog_choose_sharepoint_drive_title">ドライブを選択</string>
 	<string name="dialog_cbc_password_vaults_migration_title">金庫のパスワード移行が必要です</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">セキュリティ強化のため、金庫ごとに生体認証を２回ずつ要求されます。これは最新技術で金庫のパスワードを保護し続けるために必要です。これを行いたくない場合は保存されたパスワードが削除されます。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">移行</string>
@@ -456,34 +467,24 @@
 	<string name="notification_authenticating">認証中&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">信頼できるホストを消去しました</string>
 	<string name="screen_settings_lru_cache">キャッシュ</string>
-	<string name="screen_settings_lru_cache_toggle_summary">最近アクセスしたファイルを暗号化して端末のローカルにキャッシュし、後で再び開いたときに再利用することができます。</string>
-	<string name="screen_settings_lru_cache_size">キャッシュの合計サイズ</string>
 	<string name="screen_settings_clear_lru_cache_size">キャッシュを削除する</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">変更は次のアプリの再起動時に適用されます</string>
 	<string name="screen_settings_license_title_unlock">フル バージョンのロックを解除</string>
 	<string name="screen_settings_license_title_unlocked">フルバージョン</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">サブスクリプションの管理</string>
 	<string name="screen_settings_upgrade_to_lifetime">永久ライセンスにアップグレードする</string>
+	<string name="dialog_trial_expired_title">試用期間が終了しました</string>
 	<string name="dialog_trial_expired_unlock">フル バージョンのロックを解除</string>
+	<string name="dialog_license_lost_later">あとで</string>
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>
 	<string name="screen_settings_last_check_updates">最終実行 %1$s</string>
-	<string name="dialog_cache_size_title">クラウドごとのキャッシュ サイズ</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">即時</string>
 	<string name="lock_timeout_1m">1分</string>
 	<string name="lock_timeout_2m">2分経過後</string>
 	<string name="lock_timeout_5m">5分経過後</string>
 	<string name="lock_timeout_10m">10分経過後</string>
 	<string name="lock_timeout_never">ロックしない</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">外観</string>
 	<string name="follow_system">自動（システムに従う）</string>

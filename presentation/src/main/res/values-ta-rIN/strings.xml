@@ -26,7 +26,6 @@
 	<string name="error_update_no_internet">புதுப்பிப்பு சரிபார்ப்பு தோல்வியடைந்தது. இணைய இணைப்பு இல்லை.</string>
 	<string name="error_biometric_auth_aborted">உயிரியளவுகள் உறுதிசெய்தல் கைவிடப்பட்டது</string>
 	<string name="error_vault_config_loading">பெட்டகத்தின் உள்ளமைவை ஏற்றும்போது பொதுவான பிழை ஏற்பட்டது</string>
-	<string name="error_file_not_found_after_opening_using_3party">மீண்டும் Cryptomator-இற்கு மாறியபிறகு, உள்ளூர் கோப்பு இல்லை. சாத்தியமான மாற்றங்களை மீண்டும் மேகக்கணிக்கு பரப்ப முடியாது.</string>
 	<string name="error_no_such_bucket">இப்பெயருள்ள bucket இல்லை</string>
 	<!-- # read-only & purchases -->
 	<string name="screen_welcome_screen_lock_button">திரைப்பூட்டை அமை</string>
@@ -191,13 +190,6 @@
 	<string name="lock_timeout_5m">5 நிமிடங்கள்</string>
 	<string name="lock_timeout_10m">10 நிமிடங்கள்</string>
 	<string name="lock_timeout_never">ஒருபோதுமில்லை</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">பாங்கு</string>
 	<string name="follow_system">தானியங்கி (கைப்பேசியைப் பின்தொடரவும்)</string>

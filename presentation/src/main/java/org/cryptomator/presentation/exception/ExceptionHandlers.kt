@@ -6,6 +6,7 @@ import org.cryptomator.cryptolib.api.InvalidPassphraseException
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
+import org.cryptomator.domain.exception.CloudNodeIsFolderException
 import org.cryptomator.domain.exception.IllegalFileNameException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchBucketException
@@ -14,6 +15,7 @@ import org.cryptomator.domain.exception.UnableToDecryptSmbPasswordException
 import org.cryptomator.domain.exception.UnableToDecryptWebdavPasswordException
 import org.cryptomator.domain.exception.VaultAlreadyExistException
 import org.cryptomator.domain.exception.authentication.AuthenticationException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.hub.HubAuthenticationFailedException
 import org.cryptomator.domain.exception.hub.HubDeviceAlreadyRegisteredForOtherUserException
 import org.cryptomator.domain.exception.hub.HubInvalidSetupCodeException
@@ -44,10 +46,12 @@ class ExceptionHandlers @Inject constructor(private val context: Context, defaul
 	private val defaultExceptionHandler: ExceptionHandler = defaultExceptionHandler
 
 	private fun setupHandlers() {
+		staticHandler(LocalNetworkPermissionMissingException::class.java, R.string.permission_snackbar_local_network)
 		staticHandler(AuthenticationException::class.java, R.string.error_authentication_failed)
 		staticHandler(NetworkConnectionException::class.java, R.string.error_no_network_connection)
 		staticHandler(InvalidPassphraseException::class.java, R.string.error_invalid_passphrase)
 		staticHandler(CloudNodeAlreadyExistsException::class.java, R.string.error_file_or_folder_exists)
+		staticHandler(CloudNodeIsFolderException::class.java, R.string.error_file_or_folder_exists)
 		staticHandler(VaultAlreadyExistException::class.java, R.string.error_vault_already_exists)
 		staticHandler(ActivityNotFoundException::class.java, R.string.error_activity_not_found)
 		staticHandler(CloudAlreadyExistsException::class.java, R.string.error_cloud_already_exists)

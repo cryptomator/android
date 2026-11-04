@@ -65,6 +65,15 @@ internal class WebDavImpl(private val cloud: WebDavCloud, private val connection
 	}
 
 	@Throws(BackendException::class)
+	fun metadata(file: WebDavFile): WebDavFile? {
+		return try {
+			connectionHandler.get(absoluteUriFrom(file.path), file.parent) as? WebDavFile
+		} catch (e: NotFoundException) {
+			null
+		}
+	}
+
+	@Throws(BackendException::class)
 	fun list(folder: WebDavFolder): List<WebDavNode> {
 		return connectionHandler.dirList(absoluteUriFrom(folder.path), folder)
 	}

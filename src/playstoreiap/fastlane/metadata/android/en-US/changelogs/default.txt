@@ -1,1 +1,9 @@
-- Alternative installation options are now hidden in the settings.
+- Added support for SharePoint
+- AVIF images open in the built-in preview on Android 17+
+- Fixed moving folders to a parent folder
+- Fixed UI freeze after pressing back when unlocking a vault
+- Fixed failing WebDAV uploads on reused connections
+- Fixed connecting to local WebDAV and S3 servers on Android 17
+- Fixed auto photo upload uploading photos unencrypted after re-authentication
+- Fixed auto photo upload crash when re-authentication is required
+- Updated translations and dependencies

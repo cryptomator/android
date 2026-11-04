@@ -29,7 +29,6 @@
 	<string name="error_vault_version_mismatch">A versión especificada en %1$s é diferente a %2$s</string>
 	<string name="error_vault_key_invalid">%1$s non coincide con esta %2$s</string>
 	<string name="error_vault_config_loading">Erro xeral cargando a configuración da caixa forte</string>
-	<string name="error_file_not_found_after_opening_using_3party">O ficheiro local xa non está presente ao volver a Cryptomator. Os posíbeis cambios non poden ser propagados de volta á nube.</string>
 	<string name="error_no_such_bucket">Non existe tal bucket</string>
 	<string name="error_masterkey_location_not_supported">A localización personalizada de chave mestra aínda non está soportada</string>
 	<!-- # read-only & purchases -->
@@ -215,7 +214,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

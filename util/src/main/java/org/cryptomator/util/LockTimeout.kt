@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit
 
 enum class LockTimeout {
 	NEVER,  //
-	INSTANT(500, TimeUnit.MILLISECONDS),  //
 	ONE_MINUTE(1, TimeUnit.MINUTES),  //
 	TWO_MINUTES(2, TimeUnit.MINUTES),  //
 	FIVE_MINUTES(5, TimeUnit.MINUTES),  //
@@ -30,4 +29,14 @@ enum class LockTimeout {
 			check(!isDisabled) { "Autolock after timeout is disabled" }
 			return unit?.toMillis(duration.toLong())
 		}
+
+	companion object {
+
+		/**
+		 * The timeout stored as [name], or [ONE_MINUTE] for one that no longer exists, e.g. the former instant lock.
+		 */
+		fun fromStored(name: String): LockTimeout {
+			return entries.find { it.name == name } ?: ONE_MINUTE
+		}
+	}
 }

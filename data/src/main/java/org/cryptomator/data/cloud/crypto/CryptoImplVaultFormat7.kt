@@ -102,7 +102,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun inflate(cloudNode: CloudNode): String {
 		val metadataFile = metadataFile(cloudNode)
 		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(metadataFile, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 
@@ -205,28 +205,11 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	@Throws(BackendException::class)
 	private fun cloudNodeFromName(cloudNode: CloudNode, cryptoFolder: CryptoFolder, cleartextName: String, longNameFile: CloudFile?, dirFile: CloudFile?): CryptoNode? {
 		if (cloudNode is CloudFile) {
-			val cleartextSize = cloudNode.size?.let {
-				val ciphertextSizeWithoutHeader = it - cryptor().fileHeaderCryptor().headerSize()
-				if (ciphertextSizeWithoutHeader >= 0) {
-					cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-				} else {
-					null
-				}
-			}
-			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize)
+			return file(cryptoFolder, cleartextName, cloudNode, cleartextSize(cloudNode))
 		} else if (cloudNode is CloudFolder) {
 			return if (longNameFile != null) {
 				// long file
-				val cleartextSize = longNameFile.size?.let {
-					val ciphertextSizeWithoutHeader: Long = it - cryptor().fileHeaderCryptor().headerSize()
-					if (ciphertextSizeWithoutHeader >= 0) {
-						cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-					} else {
-						null
-					}
-				}
-
-				file(cryptoFolder, cleartextName, longNameFile, cleartextSize)
+				file(cryptoFolder, cleartextName, longNameFile, cleartextSize(longNameFile))
 			} else {
 				// folder
 				if (dirFile != null) {
@@ -290,7 +273,7 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	private fun loadContentsOfDirFile(file: CloudFile): ByteArray {
 		try {
 			ByteArrayOutputStream().use { out ->
-				cloudContentRepository.read(file, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+				cloudContentRepository.read(file, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 				if (dirfileIsEmpty(out)) {
 					throw EmptyDirFileException(file.parent.name, file.path)
 				}
@@ -305,40 +288,132 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	override fun create(folder: CryptoFolder): CryptoFolder {
 		requireNotNull(folder.dirFile)
 		var shortName = false
+		var leftOverDirFolder: CloudFolder? = null
 		if (folder.dirFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
-			assertCryptoLongDirFileAlreadyExists(folder)
+			assertNoNodeHasShortenedName(folder.dirFile.parent, folder.name)
 		} else {
-			assertCryptoFolderAlreadyExists(folder)
+			leftOverDirFolder = assertCryptoFolderAlreadyExistsUnlessLeftOver(folder)
 			shortName = true
 		}
-		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
-		val createdCloudFolder = cloudContentRepository.create(dirIdInfo.cloudFolder)
-		var dirFolder = folder.dirFile.parent
-		var dirFile = folder.dirFile
-		if (shortName) {
-			dirFolder = cloudContentRepository.create(dirFolder)
-			dirFile = cloudContentRepository.file(dirFolder, folder.dirFile.name)
+		return withDirIdInfoOfNewFolder(folder) { dirIdInfo ->
+			val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
+			// encrypted first, so that a vault locked meanwhile fails the creation before it changes the cloud
+			val encryptedDirId = encryptedBackupDirId(dirId)
+			val createdCloudFolder = createLvl2Dir(dirIdInfo)
+			var dirFolder = folder.dirFile.parent
+			var dirFile = folder.dirFile
+			if (shortName) {
+				dirFolder = leftOverDirFolder ?: createDirFolder(dirFolder)
+				dirFile = cloudContentRepository.file(dirFolder, folder.dirFile.name)
+			}
+			val createdDirFile = try {
+				cloudContentRepository.write(dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
+			} catch (e: Exception) {
+				if (shortName) {
+					deleteDirFolderOfFailedCreation(dirFolder)
+				}
+				throw e
+			}
+			val result = folder(folder, createdDirFile)
+			addFolderToCache(result, dirIdInfo.withCloudFolder(createdCloudFolder))
+			silentlyUploadBackupDirIdFile(encryptedDirId, createdCloudFolder)
+			result
 		}
-		val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
-		val createdDirFile = cloudContentRepository.write(dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
-		val result = folder(folder, createdDirFile)
-		addFolderToCache(result, dirIdInfo.withCloudFolder(createdCloudFolder))
-		silentlyUploadBackupDirIdFile(dirId, createdCloudFolder)
-		return result
 	}
 
-	private fun silentlyUploadBackupDirIdFile(dirId: ByteArray, dirFolder: CloudFolder) {
-		val data = ByteArrayOutputStream()
+	/**
+	 * Deletes [dirFolder] after putting the dir file into it failed, since a listing would show it as a folder that can't
+	 * be opened. A creation or move of a folder made it, or took it over as left by an earlier one. It stays if it holds
+	 * the dir file after all, e.g. when only the response was lost. It also stays if it holds another node, e.g. another
+	 * device's symlink that a cloud creating folders over existing ones, like S3, let the creation take. If the deletion
+	 * fails, e.g. while offline, a later creation takes the folder over.
+	 */
+	private fun deleteDirFolderOfFailedCreation(dirFolder: CloudFolder) {
+		try {
+			if (isLeftOverByFailedCreation(dirFolder)) {
+				cloudContentRepository.delete(dirFolder)
+			}
+		} catch (e: Exception) {
+			Timber.tag("CryptoFs").w(e, "Deleting the folder of a dir file that couldn't be written failed")
+		}
+	}
 
+	/**
+	 * Fails if a node has the name of [folder], unless that is the folder of its dir file, left by a creation that failed,
+	 * see [isLeftOverByFailedCreation]. That folder is returned then, so that it is taken rather than created.
+	 */
+	@Throws(BackendException::class)
+	private fun assertCryptoFolderAlreadyExistsUnlessLeftOver(folder: CryptoFolder): CloudFolder? {
+		val dirFile = requireNotNull(folder.dirFile)
+		val parent = requireNotNull(folder.parent)
+		if (cloudContentRepository.exists(dirFile)) {
+			throw CloudNodeAlreadyExistsException(folder.name)
+		}
+		if (!cloudContentRepository.exists(file(parent, folder.name))) {
+			return null
+		}
+		if (!isLeftOverByFailedCreation(dirFile.parent)) {
+			throw CloudNodeAlreadyExistsException(folder.name)
+		}
+		return dirFile.parent
+	}
+
+	/**
+	 * Creates the folder that the dir file of a folder belongs into, or takes it over if a creation that failed left it. A
+	 * cloud that tells files and folders apart by their type doesn't report that folder as a taken name beforehand.
+	 */
+	@Throws(BackendException::class)
+	private fun createDirFolder(dirFolder: CloudFolder): CloudFolder {
+		return try {
+			cloudContentRepository.create(dirFolder)
+		} catch (e: CloudNodeAlreadyExistsException) {
+			if (isLeftOverByFailedCreation(dirFolder)) dirFolder else throw e
+		}
+	}
+
+	/**
+	 * Whether [dirFolder], the folder that the dir file of a folder belongs into, holds neither a dir file nor what makes
+	 * it a symlink or a file with a shortened name, as a creation that failed before it wrote the dir file leaves it.
+	 */
+	@Throws(BackendException::class)
+	private fun isLeftOverByFailedCreation(dirFolder: CloudFolder): Boolean {
+		return isFolderHoldingNone(dirFolder, NODE_FILE_NAMES)
+	}
+
+	@Throws(BackendException::class)
+	private fun isFolderHoldingNone(dirFolder: CloudFolder, nodeFileNames: Set<String>): Boolean {
+		// asked first, since a folder looked up below one that isn't there can't be listed. exists() finds a folder at the
+		// path of a file, too, so the listing of the parent tells which it is
+		return cloudContentRepository.exists(dirFolder) //
+				&& cloudContentRepository.list(requireNotNull(dirFolder.parent)).any { it is CloudFolder && it.name == dirFolder.name } //
+				&& cloudContentRepository.list(dirFolder).none { it.name in nodeFileNames }
+	}
+
+	/**
+	 * Fails if a folder, a symlink or a file has the shortened name whose folder is [dirFolder]. That folder itself is
+	 * there for every node with a shortened name, since encrypting the name creates it.
+	 */
+	@Throws(BackendException::class)
+	private fun assertNoNodeHasShortenedName(dirFolder: CloudFolder, name: String) {
+		if (cloudContentRepository.list(dirFolder).any { it.name in NODE_FILE_NAMES }) {
+			throw CloudNodeAlreadyExistsException(name)
+		}
+	}
+
+	private fun encryptedBackupDirId(dirId: ByteArray): ByteArray {
+		val data = ByteArrayOutputStream()
 		Channels.newChannel(data).use { channel ->
 			EncryptingWritableByteChannel(channel, cryptor()).use { encryptingChannel ->
 				encryptingChannel.write(ByteBuffer.wrap(dirId))
 			}
 		}
+		return data.toByteArray()
+	}
 
+	private fun silentlyUploadBackupDirIdFile(encryptedDirId: ByteArray, dirFolder: CloudFolder) {
 		try {
 			val dirIdBackupFile = cloudContentRepository.file(dirFolder, CryptoConstants.DIR_ID_FILE)
-			cloudContentRepository.write(dirIdBackupFile, from(data.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, data.size().toLong())
+			cloudContentRepository.write(dirIdBackupFile, from(encryptedDirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, encryptedDirId.size.toLong())
 		} catch (e: BackendException) {
 			Timber.tag("CryptoFs").e(e, "Failed to create DirIdBackupFile")
 		}
@@ -359,18 +434,27 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		requireNotNull(target.dirFile)
 		target.parent?.let { targetsParent ->
 			var shortName = false
+			var leftOverDirFolder: CloudFolder? = null
 			if (target.dirFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
-				assertCryptoLongDirFileAlreadyExists(target)
+				assertNoNodeHasShortenedName(target.dirFile.parent, target.name)
 			} else {
-				assertCryptoFolderAlreadyExists(target)
+				leftOverDirFolder = assertCryptoFolderAlreadyExistsUnlessLeftOver(target)
 				shortName = true
 			}
 			var targetDirFile = target.dirFile
 			if (shortName) {
-				val targetDirFolder = cloudContentRepository.create(target.dirFile.parent)
+				val targetDirFolder = leftOverDirFolder ?: createDirFolder(target.dirFile.parent)
 				targetDirFile = cloudContentRepository.file(targetDirFolder, target.dirFile.name)
 			}
-			val result = folder(targetsParent, target.name, cloudContentRepository.move(source.dirFile, targetDirFile))
+			val movedDirFile = try {
+				cloudContentRepository.move(source.dirFile, targetDirFile)
+			} catch (e: Exception) {
+				if (shortName) {
+					deleteDirFolderOfFailedCreation(targetDirFile.parent)
+				}
+				throw e
+			}
+			val result = folder(targetsParent, target.name, movedDirFile)
 			cloudContentRepository.delete(source.dirFile.parent)
 			evictFromCache(source)
 			evictFromCache(target)
@@ -380,19 +464,18 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 
 	@Throws(BackendException::class)
 	override fun move(source: CryptoFile, target: CryptoFile): CryptoFile {
-		return if (source.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
+		val sourceDirFolder = longFileDirFolder(source)
+		return if (sourceDirFolder != null) {
+			val sourceFile = cloudContentRepository.file(sourceDirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
 			val targetDirFolder = cloudContentRepository.folder(target.cloudFile.parent, target.cloudFile.name)
 			val cryptoFile: CryptoFile = if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
 				assertCryptoLongDirFileAlreadyExists(targetDirFolder)
-				moveLongFileToLongFile(source, target, targetDirFolder)
+				moveLongFileToLongFile(sourceFile, target, targetDirFolder)
 			} else {
 				assertCryptoFileAlreadyExists(target)
-				moveLongFileToShortFile(source, target)
+				moveLongFileToShortFile(sourceFile, target)
 			}
-			source.cloudFile.parent.parent?.let {
-				val sourceDirFolder = cloudContentRepository.folder(it, source.cloudFile.parent.name)
-				cloudContentRepository.delete(sourceDirFolder)
-			}
+			cloudContentRepository.delete(sourceDirFolder)
 			cryptoFile
 		} else {
 			if (target.cloudFile.name.endsWith(LONG_NODE_FILE_EXT)) {
@@ -407,17 +490,13 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	}
 
 	@Throws(BackendException::class)
-	private fun moveLongFileToLongFile(source: CryptoFile, target: CryptoFile, targetDirFolder: CloudFolder): CryptoFile {
-		requireNotNull(source.cloudFile.parent)
-		val sourceFile = cloudContentRepository.file(source.cloudFile.parent, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+	private fun moveLongFileToLongFile(sourceFile: CloudFile, target: CryptoFile, targetDirFolder: CloudFolder): CryptoFile {
 		val movedFile = cloudContentRepository.move(sourceFile, cloudContentRepository.file(targetDirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT))
 		return file(target, movedFile, movedFile.size)
 	}
 
 	@Throws(BackendException::class)
-	private fun moveLongFileToShortFile(source: CryptoFile, target: CryptoFile): CryptoFile {
-		requireNotNull(source.cloudFile.parent)
-		val sourceFile = cloudContentRepository.file(source.cloudFile.parent, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+	private fun moveLongFileToShortFile(sourceFile: CloudFile, target: CryptoFile): CryptoFile {
 		val movedFile = cloudContentRepository.move(sourceFile, target.cloudFile)
 		return file(target, movedFile, movedFile.size)
 	}
@@ -432,6 +511,15 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 	override fun delete(node: CloudNode) {
 		if (node is CryptoFolder) {
 			requireNotNull(node.dirFile)
+			if (!cloudContentRepository.exists(node.dirFile)) {
+				// a symlink, or what a creation that failed before it wrote the dir file left, which links no content
+				if (!isFolderHoldingNone(node.dirFile.parent, FILE_NODE_FILE_NAMES)) {
+					throw NoSuchCloudFileException(node.name)
+				}
+				cloudContentRepository.delete(node.dirFile.parent)
+				evictFromCache(node)
+				return
+			}
 			val cryptoSubfolders = deepCollectSubfolders(node)
 			for (cryptoSubfolder in cryptoSubfolders) {
 				getCachingAwareDirIdInfo(cryptoSubfolder)?.let {
@@ -444,11 +532,40 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 			cloudContentRepository.delete(node.dirFile.parent)
 			evictFromCache(node)
 		} else if (node is CryptoFile) {
-			if (node.cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT)) {
-				cloudContentRepository.delete(node.cloudFile.parent)
-			} else {
-				cloudContentRepository.delete(node.cloudFile)
-			}
+			cloudContentRepository.delete(longFileDirFolder(node) ?: node.cloudFile)
+		}
+	}
+
+	/**
+	 * A file whose name is shortened is the contents file inside its .c9s folder.
+	 */
+	@Throws(BackendException::class)
+	override fun exists(file: CryptoFile): Boolean {
+		val dirFolder = longFileDirFolder(file) ?: return super.exists(file)
+		return cloudContentRepository.exists(cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT))
+	}
+
+	/**
+	 * Like [exists].
+	 */
+	@Throws(BackendException::class)
+	override fun metadata(file: CryptoFile): CryptoFile? {
+		val dirFolder = longFileDirFolder(file) ?: return super.metadata(file)
+		val contentsFile = cloudContentRepository.file(dirFolder, LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+		return cloudContentRepository.metadata(contentsFile)?.let { file(file, it, cleartextSize(it)) }
+	}
+
+	/**
+	 * The .c9s folder of a file whose name is shortened. [file] is either the contents file inside it, as a listing
+	 * returns it, or the folder itself, as `file(parent, name)` returns it. `null` for a file whose name isn't shortened.
+	 */
+	@Throws(BackendException::class)
+	private fun longFileDirFolder(file: CryptoFile): CloudFolder? {
+		val cloudFile = file.cloudFile
+		return when {
+			cloudFile.parent.name.endsWith(LONG_NODE_FILE_EXT) -> cloudFile.parent
+			cloudFile.name.endsWith(LONG_NODE_FILE_EXT) -> cloudContentRepository.folder(cloudFile.parent, cloudFile.name)
+			else -> null
 		}
 	}
 
@@ -555,6 +672,8 @@ open class CryptoImplVaultFormat7 : CryptoImplDecorator {
 		private const val LONG_NODE_FILE_CONTENT_CONTENTS = "contents"
 		private const val LONG_NODE_FILE_CONTENT_NAME = "name"
 		private const val CLOUD_NODE_SYMLINK_PRE = "symlink"
+		private val FILE_NODE_FILE_NAMES = setOf(LONG_NODE_FILE_CONTENT_CONTENTS + CLOUD_NODE_EXT)
+		private val NODE_FILE_NAMES = FILE_NODE_FILE_NAMES + setOf(CLOUD_FOLDER_DIR_FILE_PRE + CLOUD_NODE_EXT, CLOUD_NODE_SYMLINK_PRE + CLOUD_NODE_EXT)
 		private val BASE64_ENCRYPTED_NAME_PATTERN = Pattern.compile("^([A-Za-z0-9+/\\-_]{4})*([A-Za-z0-9+/\\-]{4}|[A-Za-z0-9+/\\-_]{3}=|[A-Za-z0-9+/\\-_]{2}==)?$")
 	}
 }

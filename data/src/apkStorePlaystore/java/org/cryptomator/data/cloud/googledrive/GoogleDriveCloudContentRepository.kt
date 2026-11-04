@@ -17,7 +17,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.net.SocketTimeoutException
@@ -109,6 +108,15 @@ internal class GoogleDriveCloudContentRepository(context: Context, private val c
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: GoogleDriveFile): GoogleDriveFile? {
+			return try {
+				impl.metadata(file)
+			} catch (e: IOException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: GoogleDriveFolder): List<GoogleDriveNode> {
 			return try {
 				impl.list(folder)
@@ -157,12 +165,12 @@ internal class GoogleDriveCloudContentRepository(context: Context, private val c
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: GoogleDriveFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: GoogleDriveFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
 				if (file.driveId == null) {
 					throw NoSuchCloudFileException(file.name)
 				}
-				impl.read(file, encryptedTmpFile, data, progressAware)
+				impl.read(file, data, progressAware)
 			} catch (e: IOException) {
 				throw FatalBackendException(e)
 			}

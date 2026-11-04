@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s versio poikkeaa %2$s versiosta</string>
 	<string name="error_vault_key_invalid">%1$s ei täsmää %2$s kanssa</string>
 	<string name="error_vault_config_loading">Holvin asetuksia ladatessa tapahtui virhe</string>
-	<string name="error_file_not_found_after_opening_using_3party">Tiedosto ei ole enää saatavilla Cryptomatoriin palaamisen jälkeen. Mahdollisia muutoksia ei voida siirtää pilveen.</string>
 	<string name="error_masterkey_location_not_supported">Mukautettua pääavaimen sijaintia ei vielä tueta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid -sovellukseen yhdistäminen epäonnistui. Onko se asennettu?</string>
 	<string name="error_hub_vault_operation_not_supported">Holvitoimintoa ei tueta Hubille</string>
@@ -163,7 +162,6 @@
 	<string name="screen_settings_security_label">Turvallisuusvihjeet</string>
 	<string name="screen_settings_section_version">Veriso</string>
 	<string name="screen_settings_advanced_settings">Edistyneet asetukset</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Avaa tiedostot Microsoftin ohjelmissa kirjoitusoikeuksilla</string>
 	<string name="screen_settings_background_unlock_preparation_label">Kiihdytä lukituksen avausta</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Lataa holvin asetukset taustalla syöttäessä salasanaa tai käyttäessä biometristä tunnistusta</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Älä lukitse</string>
@@ -210,7 +208,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

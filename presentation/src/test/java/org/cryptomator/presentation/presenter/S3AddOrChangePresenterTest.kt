@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.ResultHandler
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToS3UseCase
@@ -68,6 +69,21 @@ class S3AddOrChangePresenterTest {
 
 				activityCompat.verify { ActivityCompat.requestPermissions(any(), eq(arrayOf<String?>(Manifest.permission.ACCESS_LOCAL_NETWORK)), any()) }
 				verify(exceptionHandlers, never()).handle(any(), any())
+			}
+		}
+	}
+
+	@Test
+	fun testOtherErrorsAreShown() {
+		Mockito.mockStatic(ContextCompat::class.java).use { contextCompat ->
+			Mockito.mockStatic(ActivityCompat::class.java).use { activityCompat ->
+				contextCompat.`when`<Int> { ContextCompat.checkSelfPermission(any(), any()) }.thenReturn(PackageManager.PERMISSION_DENIED)
+				val error = WrongCredentialsException(cloud)
+
+				connectResultHandler().onError(error)
+
+				verify(exceptionHandlers).handle(view, error)
+				activityCompat.verify({ ActivityCompat.requestPermissions(any(), any(), any()) }, never())
 			}
 		}
 	}

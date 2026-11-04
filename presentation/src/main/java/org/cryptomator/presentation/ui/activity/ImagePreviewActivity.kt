@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.ui.activity
 
-import android.net.Uri
 import android.view.View.GONE
 import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -40,8 +39,8 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 
 	lateinit var imagePreviewFiles: ArrayList<ImagePreviewFile>
 
-	private val currentImageUri: Uri?
-		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)].uri
+	private val currentImagePreviewFile: ImagePreviewFile
+		get() = imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)]
 
 	private val pageChangeListener = object : ViewPager.SimpleOnPageChangeListener() {
 
@@ -55,20 +54,21 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 			val imagePreviewFileStore = presenter.getImagePreviewFileStore(imagePreviewIntent.withImagePreviewFiles())
 
 			val index = imagePreviewFileStore.index
-			imagePreviewFiles = presenter.getImagePreviewFiles(imagePreviewFileStore, index)
+			imagePreviewFiles = presenter.getImagePreviewFiles(imagePreviewFileStore)
 
 			binding.deleteImage.setOnClickListener {
-				presenter.onDeleteImageClicked(imagePreviewFiles[imagePreviewSliderAdapter.getIndex(binding.viewPager.currentItem)])
+				presenter.onDeleteImageClicked(currentImagePreviewFile)
 			}
 			binding.exportImage.setOnClickListener {
-				currentImageUri?.let { presenter.exportImageToUserSelectedLocation(it) }
+				presenter.exportImageToUserSelectedLocation(currentImagePreviewFile.cloudFileModel)
 			}
 			binding.shareImage.setOnClickListener {
-				currentImageUri?.let { presenter.onShareImageClicked(it) }
+				currentImagePreviewFile.let { image -> image.uri?.let { presenter.onShareImageClicked(image.cloudFileModel, it) } }
 			}
 
 			setupViewPager(index)
-			setupToolbar(index)
+			// the store counts all images, so its index can be past the pages restored after the activity was recreated
+			setupToolbar(binding.viewPager.currentItem)
 			setupStatusBar()
 			toggleFullScreen()
 			attachSystemUiVisibilityChangeListener()
@@ -166,12 +166,13 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 	}
 
 	override fun showImagePreview(imagePreviewFile: ImagePreviewFile) {
+		imagePreviewFiles.find { it.cloudFileModel == imagePreviewFile.cloudFileModel }?.uri = imagePreviewFile.uri
 		fragmentFor(imagePreviewFile)?.showAndUpdateImage(imagePreviewFile)
 	}
 
 	private fun fragmentFor(imagePreviewFile: ImagePreviewFile): ImagePreviewFragment? {
 		return supportFragmentManager.fragments
-			.map { it as ImagePreviewFragment }
+			.filterIsInstance<ImagePreviewFragment>()
 			.firstOrNull { it.imagePreviewFile() == imagePreviewFile }
 	}
 
@@ -221,7 +222,10 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 	inner class ImagePreviewSliderAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
 		init {
-			initPageIndexes()
+			// unless restored after the activity was recreated
+			if (!presenter.hasPageIndexes()) {
+				initPageIndexes()
+			}
 		}
 
 		override fun getItem(position: Int): Fragment {
@@ -238,8 +242,9 @@ class ImagePreviewActivity : BaseActivity<ActivityImagePreviewBinding>(ActivityI
 
 		// Delete a page at a `position`
 		fun deletePage(position: Int) {
-			// Remove the corresponding item in the data set
-			presenter.pageIndexes.removeAt(position)
+			// a copy, since the saved instance state may still hold the list, which has to match the pages the pager saved
+			// with it
+			presenter.pageIndexes = ArrayList(presenter.pageIndexes).apply { removeAt(position) }
 			// Notify the adapter that the data set is changed
 			notifyDataSetChanged()
 		}

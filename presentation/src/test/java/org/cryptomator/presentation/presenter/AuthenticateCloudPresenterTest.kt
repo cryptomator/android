@@ -11,8 +11,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.SmbCloud
+import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException
+import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.ResultHandler
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
@@ -24,6 +26,7 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.SmbCloudModel
+import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.S3AddOrChangeActivity
 import org.cryptomator.presentation.ui.activity.SmbAddOrChangeActivity
@@ -113,6 +116,25 @@ class AuthenticateCloudPresenterTest {
 	}
 
 	@Test
+	fun testOtherErrorsAreHandledByTheCloudsStrategy() {
+		val webDavCloud = WebDavCloud.aWebDavCloudCloud().withId(1L).withUrl("http://192.168.178.20/webdav").withUsername("alice").withPassword("encryptedSecret").build()
+		whenever(intent.cloud()).thenReturn(WebDavCloudModel(webDavCloud))
+		whenever(intent.error()).thenReturn(WebDavServerNotFoundException(webDavCloud))
+
+		Mockito.mockStatic(ContextCompat::class.java).use { contextCompat ->
+			Mockito.mockStatic(ActivityCompat::class.java).use { activityCompat ->
+				contextCompat.`when`<Int> { ContextCompat.checkSelfPermission(any(), any()) }.thenReturn(PackageManager.PERMISSION_DENIED)
+
+				inTest.resumed()
+
+				verify(view).showMessage(eq(R.string.error_server_not_found), anyVararg())
+				verify(view).finish()
+				activityCompat.verify({ ActivityCompat.requestPermissions(any(), any(), any()) }, never())
+			}
+		}
+	}
+
+	@Test
 	fun testGrantedPermissionSavesCloudSoTheCallerRetries() {
 		inTest.authenticateCloudLocalNetworkPermissionResult(PermissionsResult(mock(), true), SmbCloudModel(cloud))
 
@@ -185,6 +207,7 @@ class AuthenticateCloudPresenterTest {
 
 			assertThat(targets, `is`(emptyList<Any?>()))
 		}
+
 		verify(addOrChangeCloudConnectionUseCase).withCloud(changedCloud)
 		val saved = argumentCaptor<ResultHandler<Void?>>()
 		verify(addOrChangeCloudConnectionLauncher).run(saved.capture())

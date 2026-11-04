@@ -15,7 +15,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
@@ -80,6 +79,15 @@ internal class BoxCloudContentRepository(private val cloud: BoxCloud, api: BoxAp
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: BoxFile): BoxFile? {
+			return try {
+				impl.metadata(file)
+			} catch (e: IOException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: BoxFolder): List<BoxNode> {
 			return try {
 				impl.list(folder)
@@ -127,9 +135,9 @@ internal class BoxCloudContentRepository(private val cloud: BoxCloud, api: BoxAp
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: BoxFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: BoxFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
-				impl.read(file, encryptedTmpFile, data, progressAware)
+				impl.read(file, data, progressAware)
 			} catch (e: IOException) {
 				throw FatalBackendException(e)
 			}

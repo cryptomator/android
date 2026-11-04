@@ -67,7 +67,7 @@ class SmbCloudContentRepositoryTest {
 			"moveFile" -> { -> inTest.move(file, fileTarget) }
 			"moveFolder" -> { -> inTest.move(folder, folderTarget) }
 			"write" -> { -> inTest.write(file, dataSource(), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, true, 1L) }
-			"read" -> { -> inTest.read(file, null, ByteArrayOutputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) }
+			"read" -> { -> inTest.read(file, ByteArrayOutputStream(), ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD) }
 			else -> { -> inTest.delete(file) }
 		}
 		// meanwhile, a node with the old settings was used, e.g. by a vault unlocked before the edit

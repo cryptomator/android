@@ -73,6 +73,10 @@ public class CryptoCloudContentRepositoryFactory implements CloudContentReposito
 		cryptors.get(vault).get();
 	}
 
+	public Vault unlockedVault(Vault vault) {
+		return cryptors.unlockedVault(vault);
+	}
+
 	void registerCryptor(Vault vault, Cryptor cryptor) {
 		if (!cryptors.putIfAbsent(vault, cryptor)) {
 			throw new IllegalStateException(format("Cryptor already registered for vault %s", vault));

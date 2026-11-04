@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Verze zadaná v %1$s se liší od verze %2$s</string>
 	<string name="error_vault_key_invalid">%1$s se neshoduje s %2$s</string>
 	<string name="error_vault_config_loading">Obecná chyba při načítání konfigurace trezoru</string>
-	<string name="error_file_not_found_after_opening_using_3party">Místní soubor již není přítomen po přepnutí zpět na Cryptomator. Možné změny nelze promítnout zpět do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Vlastní umístění hlavního klíče ještě není podporováno</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nepodařilo se komunikovat s aplikací F-Droid. Možná není nainstalována?</string>
@@ -223,8 +222,6 @@
 	<string name="screen_settings_security_label">Bezpečnostní rady</string>
 	<string name="screen_settings_section_version">Verze</string>
 	<string name="screen_settings_advanced_settings">Rozšířená nastavení</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Řešení otevírání souborů Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Otevřít soubory v aplikaci Microsoft s oprávněním k zápisu</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urychlit odemknutí</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stáhnout konfiguraci trezoru na pozadí při vyzvání k zadání hesla nebo biometrického ověření</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ponechat odemčené</string>
@@ -331,7 +328,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornění</string>
 	<string name="dialog_debug_mode_positive_button">Povolit</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvůli chybě v aplikacích společnosti Microsoft musí být upravovaný soubor sdílen s těmito aplikacemi ve veřejné složce médií v zařízení. Po obnovení činnosti aplikace Cryptomator se veřejně přístupný soubor opět odstraní, ale aplikace Cryptomator nemůže ovlivnit, co se s tímto souborem mezitím stalo. Při aktivaci této možnosti se ujistěte, že jste si tohoto chování vědomi. Toto se týká pouze typů souborů společnosti Microsoft.\n\nCryptomator se po aktivaci znovu spustí.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornění</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázat</string>
 	<string name="dialog_app_is_obscured_info_title">Aplikace je překrytá</string>
@@ -429,32 +425,21 @@
 	<string name="notification_update_check_finished_latest">Nainstalována aktuální verze</string>
 	<string name="notification_authenticating">Ověřování&#8230;</string>
 	<string name="screen_settings_lru_cache">Mezipaměť</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Uložit nedávno otevřené soubory šifrovaně do lokální mezipaměti pro pozdější použití</string>
-	<string name="screen_settings_lru_cache_size">Velikost mezipaměti</string>
 	<string name="screen_settings_clear_lru_cache_size">Vyčistit mezipaměť</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Změny budou použity při příštím restartu aplikace</string>
 	<string name="screen_settings_license_title_unlock">Odemknout plnou verzi</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Spravovat předplatné</string>
 	<string name="dialog_trial_expired_unlock">Odemknout plnou verzi</string>
+	<string name="dialog_license_lost_later">Později</string>
 	<string name="dialog_settings_update_check_interval_title">Interval kontroly aktualizací</string>
 	<string name="screen_settings_check_updates">Zkontrolovat aktualizace</string>
 	<string name="screen_settings_last_check_updates">Poslední kontrola %1$s</string>
-	<string name="dialog_cache_size_title">Velikost mezipaměti na Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Okamžitě</string>
 	<string name="lock_timeout_1m">1 minuta</string>
 	<string name="lock_timeout_2m">2 minuty</string>
 	<string name="lock_timeout_5m">5 minut</string>
 	<string name="lock_timeout_10m">10 minut</string>
 	<string name="lock_timeout_never">Nikdy</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Vzhled</string>
 	<string name="follow_system">Automaticky (použít dle systému)</string>

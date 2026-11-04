@@ -79,6 +79,28 @@ internal class SmbImpl(private val cloud: SmbCloud, private val connectionPool: 
 	}
 
 	@Throws(BackendException::class)
+	fun metadata(file: SmbFile): SmbFile? {
+		return try {
+			withShare(file, Retry.IF_FAILED) { share ->
+				share.openFile(
+					pathOf(file),
+					EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES),
+					null,
+					EnumSet.of(SMB2ShareAccess.FILE_SHARE_READ),
+					SMB2CreateDisposition.FILE_OPEN,
+					null
+				).use { smbFile ->
+					val basicInformation = smbFile.getFileInformation(FileBasicInformation::class.java)
+					val standardInformation = smbFile.getFileInformation(FileStandardInformation::class.java)
+					SmbFile(file.parent, file.name, file.path, standardInformation.endOfFile, basicInformation.lastWriteTime.toDate())
+				}
+			}
+		} catch (e: NoSuchCloudFileException) {
+			null
+		}
+	}
+
+	@Throws(BackendException::class)
 	fun list(folder: SmbFolder): List<SmbNode> {
 		return withShare(folder, Retry.IF_FAILED) { share ->
 			share.list(pathOf(folder)) //

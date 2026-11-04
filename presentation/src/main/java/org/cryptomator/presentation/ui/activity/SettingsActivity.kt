@@ -13,7 +13,6 @@ import org.cryptomator.presentation.ui.dialog.AskIgnoreBatteryOptimizationsDialo
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
-import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.fragment.SettingsFragment
@@ -27,8 +26,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(ActivitySettingsB
 	DisableAppWhenObscuredDisclaimerDialog.Callback,
 	DisableSecureScreenDisclaimerDialog.Callback,
 	UpdateAppAvailableDialog.Callback,
-	UpdateAppDialog.Callback,
-	MicrosoftWorkaroundDisclaimerDialog.Callback {
+	UpdateAppDialog.Callback {
 
 	@Inject
 	lateinit var presenter: SettingsPresenter
@@ -36,6 +34,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(ActivitySettingsB
 	override fun setupView() {
 		setupToolbar()
 		presenter.checkAutoUploadEnabledAndBatteryOptimizationDisabled()
+		presenter.refreshCacheSize()
 	}
 
 	private fun setupToolbar() {
@@ -90,6 +89,10 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(ActivitySettingsB
 		settingsFragment().setupUpdateCheck()
 	}
 
+	override fun showCacheSize(size: Long) {
+		settingsFragment().showCacheSize(size)
+	}
+
 	override fun disableAutoUpload() {
 		settingsFragment().disableAutoUpload()
 	}
@@ -113,13 +116,5 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>(ActivitySettingsB
 
 	override fun onUpdateAppDialogLoaded() {
 		showProgress(ProgressModel.GENERIC)
-	}
-
-	override fun onMicrosoftDisclaimerAccepted() {
-		presenter.restartApp()
-	}
-
-	override fun onMicrosoftDisclaimerRejected() {
-		settingsFragment().deactivateMicrosoftWorkaround()
 	}
 }

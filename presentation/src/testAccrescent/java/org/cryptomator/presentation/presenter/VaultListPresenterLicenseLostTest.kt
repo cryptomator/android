@@ -16,7 +16,6 @@ import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase
-import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
@@ -56,7 +55,6 @@ class VaultListPresenterLicenseLostTest {
 			Mockito.mock(MoveVaultPositionUseCase::class.java),
 			Mockito.mock(DoUpdateCheckUseCase::class.java),
 			Mockito.mock(DoUpdateUseCase::class.java),
-			Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase::class.java),
 			Mockito.mock(ListCBCEncryptedPasswordVaultsUseCase::class.java),
 			Mockito.mock(RemoveStoredVaultPasswordsUseCase::class.java),
 			Mockito.mock(SaveVaultsUseCase::class.java),

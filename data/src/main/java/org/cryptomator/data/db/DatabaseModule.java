@@ -4,7 +4,9 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import org.cryptomator.data.db.dao.CachedFileDao;
 import org.cryptomator.data.db.dao.CloudDao;
+import org.cryptomator.data.db.dao.DocumentMetadataDao;
 import org.cryptomator.data.db.dao.UpdateCheckDao;
 import org.cryptomator.data.db.dao.VaultDao;
 
@@ -22,15 +24,25 @@ public class DatabaseModule {
 		return Room.databaseBuilder(context, CryptomatorDatabase.class, CryptomatorDatabase.NAME) //
 				.addMigrations(databaseUpgrades.all()) //
 				.addCallback(new InitialDataCallback()) //
-				// the database holds a handful of rows and is read from the main thread in places such as
-				// PhotoContentJob#onStartJob, which greenDAO allowed and moving off it is its own change
+				// vaults and clouds are read from the main thread, e.g. in PhotoContentJob#onStartJob, and are only a
+				// handful of rows
 				.allowMainThreadQueries() //
 				.build();
 	}
 
 	@Provides
+	public CachedFileDao provideCachedFileDao(CryptomatorDatabase database) {
+		return database.cachedFileDao();
+	}
+
+	@Provides
 	public CloudDao provideCloudDao(CryptomatorDatabase database) {
 		return database.cloudDao();
+	}
+
+	@Provides
+	public DocumentMetadataDao provideDocumentMetadataDao(CryptomatorDatabase database) {
+		return database.documentMetadataDao();
 	}
 
 	@Provides

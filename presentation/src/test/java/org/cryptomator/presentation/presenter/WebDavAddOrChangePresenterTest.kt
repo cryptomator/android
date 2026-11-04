@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
+import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
 import org.cryptomator.domain.usecases.ResultHandler
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToWebDavUseCase
@@ -54,6 +55,21 @@ class WebDavAddOrChangePresenterTest {
 				activityCompat.verify { ActivityCompat.requestPermissions(any(), eq(arrayOf<String?>(Manifest.permission.ACCESS_LOCAL_NETWORK)), any()) }
 				verify(authenticationExceptionHandler, never()).handleAuthenticationException(any(), any(), any())
 				verify(exceptionHandlers, never()).handle(any(), any())
+			}
+		}
+	}
+
+	@Test
+	fun testUntrustedCertificateIsHandledAsAnAuthenticationProblem() {
+		Mockito.mockStatic(ContextCompat::class.java).use { contextCompat ->
+			Mockito.mockStatic(ActivityCompat::class.java).use { activityCompat ->
+				contextCompat.`when`<Int> { ContextCompat.checkSelfPermission(any(), any()) }.thenReturn(PackageManager.PERMISSION_DENIED)
+				val error = WebDavCertificateUntrustedAuthenticationException(cloud, "certificate")
+
+				connectResultHandler().onError(error)
+
+				verify(authenticationExceptionHandler).handleAuthenticationException(any(), eq(error), any())
+				activityCompat.verify({ ActivityCompat.requestPermissions(any(), any(), any()) }, never())
 			}
 		}
 	}

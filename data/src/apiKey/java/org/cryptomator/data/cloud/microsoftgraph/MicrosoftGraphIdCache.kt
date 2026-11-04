@@ -43,12 +43,8 @@ internal class MicrosoftGraphIdCache @Inject constructor() {
 		}
 	}
 
-	internal class NodeInfo(val id: String, val driveId: String?, val isFolder: Boolean, private val cTag: String?) {
-		constructor(node: MicrosoftGraphIdCloudNode) : this(node.id, node.driveId, node is CloudFolder, "")
-
-		fun getcTag(): String? {
-			return cTag
-		}
+	internal class NodeInfo(val id: String, val driveId: String?, val isFolder: Boolean) {
+		constructor(node: MicrosoftGraphIdCloudNode) : this(node.id, node.driveId, node is CloudFolder)
 	}
 
 }

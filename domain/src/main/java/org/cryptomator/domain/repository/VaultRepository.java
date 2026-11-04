@@ -18,4 +18,10 @@ public interface VaultRepository {
 
 	void assertUnlocked(Vault vault) throws MissingCryptorException;
 
+	/**
+	 * @return {@code vault} as it was unlocked, or {@code null} if it is locked. Only the unlocked vault knows what the unlock
+	 * found out, e.g. whether a Hub vault has a paid license.
+	 */
+	Vault unlockedVault(Vault vault);
+
 }

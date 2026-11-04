@@ -1,1 +1,9 @@
-- Ein neuer Willkommensbildschirm erleichtert den Einstieg und zeigt die wichtigsten ersten Schritte
+- Unterstützung für SharePoint hinzugefügt
+- AVIF-Bilder in der Vorschau ab Android 17
+- Verschieben in übergeordnete Ordner behoben
+- Hängende Oberfläche nach Zurück beim Entsperren behoben
+- WebDAV-Uploads bei wiederverwendeten Verbindungen behoben
+- Verbindung zu lokalen WebDAV- und S3-Servern unter Android 17 behoben
+- Unverschlüsselter Foto-Upload nach Neuanmeldung behoben
+- Absturz des Foto-Uploads bei nötiger Neuanmeldung behoben
+- Übersetzungen und Abhängigkeiten aktualisiert

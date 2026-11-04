@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Версія вказана у %1$s відрізняється від %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не збігається з цим %2$s</string>
 	<string name="error_vault_config_loading">Під час завантаження конфігурації сховища сталася загальна помилка</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після повернення до Cryptomator. Можливі зміни не можуть бути збережені у хмарі.</string>
 	<string name="error_no_such_bucket">Такого S3-кошика не існує</string>
 	<string name="error_masterkey_location_not_supported">Власне розташування Masterkey ще не підтримується</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв’язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
@@ -232,6 +231,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Блокувати перехоплення введення та відображення фальшивого інтерфейсу</string>
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
 	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
+	<string name="screen_settings_documents_provider">Показувати сховища в додатку «Файли»</string>
+	<string name="screen_settings_documents_provider_summary">Дозволяє іншим застосункам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших застосунків скасується.</string>
 	<string name="screen_settings_section_search">Пошук</string>
 	<string name="screen_settings_live_search">Пошук в реальному часі</string>
 	<string name="screen_settings_live_search_summary">Оновлювати результати пошуку при введенні запиту</string>
@@ -241,6 +242,8 @@
 	<string name="screen_settings_section_auto_lock">Автоматичне блокування</string>
 	<string name="screen_settings_auto_lock_timeout">Блокувати через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Коли екран вимкнено</string>
+	<string name="screen_settings_auto_lock_gracefully">Очікувати завершення передавання</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Автоматичне блокування зачекає, доки завершаться поточні вивантаження та завантаження</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматичне завантаження фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Вибрати сховище для завантаження</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Увімкнути</string>
@@ -264,8 +267,6 @@
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Альтернативний спосіб відкриття файлів Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в додатках Microsoft з дозволом на запис</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажувати конфігурацію сховища у фоновому режимі, поки очікується введення пароля або біометрична автентифікація</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
@@ -275,6 +276,7 @@
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Локальні розташування сховищ</string>
 	<string name="screen_cloud_settings_log_in_to">Увійти до</string>
@@ -354,6 +356,9 @@
 	<string name="dialog_progress_encryption">Шифрування&#8230;</string>
 	<string name="dialog_progress_decryption">Розшифрування&#8230;</string>
 	<string name="action_progress_moving">Переміщення&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Не вдалося вивантажити. Торкніться, щоб повторити.</string>
+	<string name="documents_provider_upload_failed">Не вдалося вивантажити. Потягніть униз, щоб повторити.</string>
+	<string name="documents_provider_upload_failed_in_folder">Помилка вивантаження в цій папці. Потягніть униз, щоб повторити.</string>
 	<string name="dialog_lock_vault">Заблокувати</string>
 	<string name="dialog_accept_ssl_certificate_title">Недійсний SSL сертифікат</string>
 	<string name="dialog_accept_ssl_certificate_hint">Сертифікат SSL недійсний. Ви все одно хочете йому довіряти?</string>
@@ -373,7 +378,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в програмах Microsoft, файл, що редагується, повинен бути наданий цим програмам у загальнодоступній папці на вашому пристрої. Після відновлення роботи Cryptomator цей загальнодоступний файл буде видалено, але Cryptomator не може вплинути на те, що відбувається з цим файлом за цей час. Переконайтеся, що ви усвідомлюєте таку поведінку, перш ніж активувати цю опцію. Це стосуватиметься лише файлів Microsoft.\n\nПісля активації Cryptomator буде перезапущено.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
@@ -445,6 +449,7 @@
 	<string name="dialog_no_full_version_message">Ми не змогли знайти наявну покупку в цьому обліковому записі Google.</string>
 	<string name="dialog_restore_failed_title">Не вдалося відновити</string>
 	<string name="dialog_restore_failed_message">Не вдалося з’єднатися з Play Store. Будь ласка, перевірте підключення та спробуйте ще раз.</string>
+	<string name="dialog_change_failed_title">Не вдалося перейти до «%1$s»</string>
 	<string name="dialog_hub_user_setup_required_title">Необхідне налаштування користувача</string>
 	<string name="dialog_hub_user_setup_required_hint">Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти до профілю</string>
@@ -452,6 +457,7 @@
 	<string name="permission_snackbar_auth_local_vault">Для використання локальних сховищ Cryptomator потрібен доступ до сховища</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автоматичного завантаження фото Cryptomator потрібен доступ до сховища</string>
 	<string name="permission_snackbar_notifications">Cryptomator потрібен дозвіл на сповіщення, щоб, наприклад, відображати статус сховища</string>
+	<string name="permission_snackbar_local_network">Cryptomator потрібен доступ до локальної мережі, щоб підключатися до серверів у вашій локальній мережі</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -502,10 +508,7 @@
 	<string name="notification_authenticating">Авторизація&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Очищені довірені хости</string>
 	<string name="screen_settings_lru_cache">Кешування</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кешувати нещодавно відкриті зашифровані файли локально на пристрої для повторного використання під час наступного відкриття</string>
-	<string name="screen_settings_lru_cache_size">Загальний розмір кеша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистити кеш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Зміни буде застосовано після перезапуску програми</string>
 	<string name="screen_settings_license_title_unlock">Розблокувати повну версію</string>
 	<string name="screen_settings_license_title_unlocked">Повна версія</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -518,24 +521,19 @@
 	<string name="dialog_trial_expired_message">Ваш безплатний пробний період закінчився. Ви можете продовжити роботу в режимі лише для читання або розблокувати повну версію.</string>
 	<string name="dialog_trial_expired_unlock">Розблокувати повну версію</string>
 	<string name="dialog_trial_expired_continue_read_only">Продовжити в режимі лише для читання</string>
+	<string name="dialog_license_lost_title">Повторне введення ліцензійного ключа</string>
+	<string name="dialog_license_lost_message">Попереднє оновлення видалило з цього пристрою ліцензійний ключ, зареєстрований для «%1$s». Введіть його повторно, щоб відновити доступ до запису. До цього часу ваші сховища будуть доступні лише для читання.</string>
+	<string name="dialog_license_lost_reenter">Повторно введіть ліцензійний ключ</string>
+	<string name="dialog_license_lost_later">Пізніше</string>
 	<string name="dialog_settings_update_check_interval_title">Періодичність перевірки оновлень</string>
 	<string name="screen_settings_check_updates">Перевірити наявність оновлень</string>
 	<string name="screen_settings_last_check_updates">Востаннє перевірено %1$s</string>
-	<string name="dialog_cache_size_title">Розмір кешу для кожного хмарного сховища</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Негайно</string>
 	<string name="lock_timeout_1m">1 хвилина</string>
 	<string name="lock_timeout_2m">2 хвилини</string>
 	<string name="lock_timeout_5m">5 хвилин</string>
 	<string name="lock_timeout_10m">10 хвилин</string>
 	<string name="lock_timeout_never">Ніколи</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Тема</string>
 	<string name="follow_system">Автоматично (як у системі)</string>

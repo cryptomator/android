@@ -157,18 +157,11 @@
 	<string name="notification_update_check_finished_latest">Įdiegta naujausia versija</string>
 	<string name="notification_authenticating">Atliekamas tapatybės nustatymas&#8230;</string>
 	<string name="screen_settings_lru_cache">Podėlis</string>
-	<string name="screen_settings_lru_cache_size">Bendras podėlio dydis</string>
 	<string name="screen_settings_clear_lru_cache_size">Išvalyti podėlį</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="dialog_license_lost_later">Vėliau</string>
 	<!-- lock timeout names -->
 	<string name="lock_timeout_never">Niekada</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stilius</string>
 	<!-- update interval names -->

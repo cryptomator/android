@@ -146,6 +146,8 @@ class LocalNetworkAccessTest {
 		whenever(connectivityManager.defaultProxy).thenReturn(proxy)
 
 		assertDoesNotThrow { access().check("192.168.178.20") }
+		// the proxy might still resolve it
+		assertDoesNotThrow { access().check("nas.local") }
 	}
 
 	@Test
@@ -254,7 +256,7 @@ class LocalNetworkAccessTest {
 				// an Active Directory domain, resolved by unicast DNS
 				"fileserver.corp.local" -> arrayOf(InetAddress.getByName("10.20.0.5"))
 				"nas-v6.example.com" -> arrayOf(InetAddress.getByName("2001:db8:1::30"))
-				// only mDNS could resolve it
+				// unicast DNS can't resolve them
 				"nas.local", "unknown.example.com" -> throw UnknownHostException(host)
 				else -> InetAddress.getAllByName(host)
 			}

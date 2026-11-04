@@ -9,7 +9,6 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
-import java.io.File
 import java.io.OutputStream
 
 internal class SmbCloudContentRepository(cloud: SmbCloud, private val connectionPool: SmbConnectionPool, private val context: Context) : CloudContentRepository<SmbCloud, SmbNode, SmbFolder, SmbFile> {
@@ -55,6 +54,11 @@ internal class SmbCloudContentRepository(cloud: SmbCloud, private val connection
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: SmbFile): SmbFile? {
+		return implFor(file.cloud).metadata(file)
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: SmbFolder): List<SmbNode> {
 		return implFor(folder.cloud).list(folder)
 	}
@@ -80,7 +84,7 @@ internal class SmbCloudContentRepository(cloud: SmbCloud, private val connection
 	}
 
 	@Throws(BackendException::class)
-	override fun read(file: SmbFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	override fun read(file: SmbFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		implFor(file.cloud).read(file, data, progressAware)
 	}
 

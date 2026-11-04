@@ -4,5 +4,6 @@ interface SettingsView : View {
 
 	fun disableAutoUpload()
 	fun refreshUpdateTimeView()
+	fun showCacheSize(size: Long)
 
 }

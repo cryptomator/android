@@ -3,7 +3,10 @@ package org.cryptomator.presentation.presenter
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.ParentFolderIsNullException
+import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.cloud.DataSource
+import org.cryptomator.domain.usecases.cloud.DownloadFilesUseCase
+import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.UploadState
@@ -13,18 +16,16 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.ui.activity.view.TextEditorView
-import org.cryptomator.presentation.util.ContentResolverUtil
-import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.util.file.FileCacheUtils
-import java.io.IOException
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 
 @PerView
 class TextEditorPresenter @Inject constructor( //
 	private val fileCacheUtils: FileCacheUtils,  //
-	private val fileUtil: FileUtil,  //
-	private val contentResolverUtil: ContentResolverUtil,  //
+	private val downloadFilesUseCase: DownloadFilesUseCase,  //
 	private val uploadFilesUseCase: UploadFilesUseCase,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<TextEditorView>(exceptionMappings) {
@@ -104,17 +105,21 @@ class TextEditorPresenter @Inject constructor( //
 		if (didLoadFileContent) {
 			return
 		}
-		val textFileUri = fileUtil.contentUriFor(textFile.get())
-		try {
-			val data = contentResolverUtil.openInputStream(textFileUri)
-			data?.let {
-				existingTextFileContent.set(fileCacheUtils.read(it))
-				view?.displayTextFileContent(existingTextFileContent.get())
-				didLoadFileContent = true
-			}
-		} catch (e: IOException) {
-			showError(e)
-		}
+		view?.showProgress(ProgressModel.GENERIC)
+		val data = ByteArrayOutputStream()
+		downloadFilesUseCase //
+			.withDownloadFiles(listOf(DownloadFile.Builder().setDownloadFile(textFile.get().toCloudNode()).setDataSink(data).build())) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+				override fun onSuccess(files: List<CloudFile>) {
+					existingTextFileContent.set(fileCacheUtils.read(ByteArrayInputStream(data.toByteArray())))
+					view?.displayTextFileContent(existingTextFileContent.get())
+					didLoadFileContent = true
+				}
+
+				override fun onFinished() {
+					view?.showProgress(ProgressModel.COMPLETED)
+				}
+			})
 	}
 
 	fun setTextFile(textFile: CloudFileModel) {
@@ -122,6 +127,6 @@ class TextEditorPresenter @Inject constructor( //
 	}
 
 	init {
-		unsubscribeOnDestroy(uploadFilesUseCase)
+		unsubscribeOnDestroy(downloadFilesUseCase, uploadFilesUseCase)
 	}
 }

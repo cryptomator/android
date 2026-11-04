@@ -26,7 +26,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import java.net.SocketTimeoutException
@@ -133,6 +132,11 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: WebDavFile): WebDavFile? {
+			return webDavImpl.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: WebDavFolder): List<WebDavNode> {
 			return try {
 				webDavImpl.list(folder)
@@ -194,7 +198,7 @@ internal class WebDavCloudContentRepository(private val cloud: WebDavCloud, conn
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: WebDavFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: WebDavFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
 				webDavImpl.read(file, data, progressAware)
 			} catch (e: BackendException) {

@@ -67,12 +67,16 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 		val trialExpiration = sharedPreferencesHandler.trialExpirationDate()
 		val now = System.currentTimeMillis()
 		val sticky = sharedPreferencesHandler.isTrialExpired()
-		val active = trialExpiration > 0 && trialExpiration > now && !sticky
+		val active = isTrialActive(trialExpiration, now, sticky)
 		val expired = trialExpiration > 0 && (trialExpiration <= now || sticky)
 		val formattedDate = if (active || expired) {
 			DateFormat.getDateInstance().format(Date(trialExpiration))
 		} else null
 		return TrialState(active, expired, formattedDate)
+	}
+
+	private fun isTrialActive(trialExpiration: Long, now: Long, sticky: Boolean): Boolean {
+		return trialExpiration > 0 && trialExpiration > now && !sticky
 	}
 
 	data class TrialState(val isActive: Boolean, val isExpired: Boolean, val formattedExpirationDate: String?)
@@ -115,6 +119,15 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 			return vault.hasHubPaidLicense || hasWriteAccess()
 		}
 		return hasWriteAccess()
+	}
+
+	/**
+	 * Like [hasWriteAccessForVault], but doesn't record that the trial expired, see [evaluateTrialState], so that the app
+	 * still tells the user once it is opened. For callers that don't show the license state, e.g. the documents provider.
+	 */
+	fun peekWriteAccessForVault(vault: VaultModel?): Boolean {
+		val writeAccess = hasPaidLicense() || isTrialActive(sharedPreferencesHandler.trialExpirationDate(), System.currentTimeMillis(), sharedPreferencesHandler.isTrialExpired())
+		return writeAccess || (vault?.isHubVault == true && vault.hasHubPaidLicense)
 	}
 
 	fun ensureWriteAccessForVault(activity: Activity, vault: VaultModel?, action: LockedAction): Boolean {

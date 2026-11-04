@@ -126,6 +126,10 @@ class LocalNetworkAccess(
 					return null
 				}
 				val isVpn = connectivityManager.getNetworkCapabilities(network)?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) == true
+				// a VPN's proxy doesn't cover the destinations it excludes from the tunnel
+				if (!isVpn && isProxySet(linkProperties?.httpProxy)) {
+					return null
+				}
 				return ActiveNetwork(
 					linkAddresses = restrictedAddressesOf(linkProperties),
 					vpnRoutes = if (isVpn) linkProperties?.routes.orEmpty() else null,

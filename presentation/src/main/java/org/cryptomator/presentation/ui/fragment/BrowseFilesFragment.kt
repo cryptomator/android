@@ -54,6 +54,11 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 
 	private val refreshListener = SwipeRefreshLayout.OnRefreshListener { browseFilesPresenter.onRefreshTriggered(folder) }
 
+	/**
+	 * The images shown without their thumbnail since the last report, in the order they were bound.
+	 */
+	private val missingThumbnails = LinkedHashSet<CloudFileModel>()
+
 	private val nodeClickListener = object : BrowseFilesAdapter.ItemClickListener {
 		override fun onFolderClicked(cloudFolderModel: CloudFolderModel) {
 			browseFilesPresenter.onFolderClicked(cloudFolderModel)
@@ -79,6 +84,23 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 
 		override fun onSelectedNodesChanged(selectedNodes: Int) {
 			browseFilesPresenter.onSelectedNodesChanged(selectedNodes)
+		}
+
+		override fun onRetryUploadClicked(cloudFile: CloudFileModel) {
+			browseFilesPresenter.onRetryUploadClicked(cloudFile)
+		}
+
+		/**
+		 * Reported once the rows bound together are laid out, so that the images on screen are asked for together.
+		 */
+		override fun onThumbnailMissing(cloudFile: CloudFileModel) {
+			if (missingThumbnails.isEmpty()) {
+				binding.recyclerViewLayout.recyclerView.post {
+					browseFilesPresenter.onThumbnailsMissing(ArrayList(missingThumbnails))
+					missingThumbnails.clear()
+				}
+			}
+			missingThumbnails.add(cloudFile)
 		}
 	}
 
@@ -177,8 +199,7 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 	}
 
 	fun show(nodes: List<CloudNodeModel<*>>?) {
-		cloudNodesAdapter.clear()
-		cloudNodesAdapter.addAll(cloudNodesAdapter.filterNodes(nodes, filterText))
+		cloudNodesAdapter.replaceAll(cloudNodesAdapter.filterNodes(nodes, filterText) ?: emptyList())
 		updateEmptyFolderHint()
 	}
 
@@ -189,6 +210,7 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 	}
 
 	fun showProgress(node: CloudNodeModel<*>?, progress: ProgressModel?) {
+		currentNode(node)?.progress = progress
 		val viewHolder = viewHolderFor(node)
 		if (viewHolder.isPresent) {
 			viewHolder.get().showProgress(progress)
@@ -205,6 +227,7 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 	}
 
 	fun hideProgress(cloudNode: CloudNodeModel<*>?) {
+		currentNode(cloudNode)?.progress = null
 		val viewHolder = viewHolderFor(cloudNode)
 		if (viewHolder.isPresent) {
 			viewHolder.get().hideProgress()
@@ -234,6 +257,15 @@ class BrowseFilesFragment : BaseFragment<FragmentBrowseFilesBinding>(FragmentBro
 	fun remove(cloudNode: List<CloudNodeModel<*>>?) {
 		cloudNodesAdapter.deleteItems(cloudNode)
 		updateEmptyFolderHint()
+	}
+
+	/**
+	 * The node the list holds for [nodeModel]. A view holder can still be bound to the node a listing replaced, until the
+	 * list is laid out again, so a change to the progress is made to both.
+	 */
+	private fun currentNode(nodeModel: CloudNodeModel<*>?): CloudNodeModel<*>? {
+		val position = cloudNodesAdapter.positionOf(nodeModel)
+		return if (position >= 0) cloudNodesAdapter.getItem(position) else null
 	}
 
 	private fun viewHolderFor(nodeModel: CloudNodeModel<*>?): Optional<BrowseFilesAdapter.VaultContentViewHolder> {

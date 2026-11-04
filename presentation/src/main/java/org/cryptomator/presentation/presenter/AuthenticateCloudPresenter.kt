@@ -81,7 +81,6 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	@JvmField
 	@InstanceState
 	var cloudSettingsOpened = false
-
 	private val strategies = arrayOf( //
 		DropboxAuthStrategy(),  //
 		GoogleDriveAuthStrategy(),  //
