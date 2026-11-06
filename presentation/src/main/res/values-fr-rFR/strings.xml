@@ -123,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">Retirer</string>
 	<string name="screen_vault_list_vault_creation_hint">Tapez ici pour créer un nouvel espace chiffré</string>
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licence à vie est %1$d%% de réduction jusqu\'au %2$s</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Ignorer</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Coffre</string>

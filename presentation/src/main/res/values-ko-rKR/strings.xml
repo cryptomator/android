@@ -70,7 +70,7 @@
 	<string name="screen_license_check_subscription_subtitle">연간</string>
 	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
 	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %2$s까지 %1$d%% 할인</string>
-	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 한정 시간 세일</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 기간 한정 세일</string>
 	<string name="screen_license_check_lifetime_subtitle">일회성</string>
 	<string name="screen_license_check_restore_purchase">구매 복원</string>
 	<string name="screen_license_check_terms">이용 약관</string>
@@ -228,6 +228,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
 	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
+	<string name="screen_settings_documents_provider">파일 앱에서 ${vault} 열기</string>
+	<string name="screen_settings_documents_provider_summary">다른 앱이 시스템 파일 선택기를 통해 Vault의 파일을 열고 저장할 수 있도록 허용합니다. 잠긴 Vault는 열릴 때 잠금이 해제됩니다. 이 설정을 끄면 Vault가 숨겨지고 다른 앱에 부여되었던 접근 권한이 제거됩니다.</string>
 	<string name="screen_settings_section_search">검색</string>
 	<string name="screen_settings_live_search">실시간 검색</string>
 	<string name="screen_settings_live_search_summary">검색 내용 입력중 검색 결과 업데이트</string>
@@ -237,6 +239,8 @@
 	<string name="screen_settings_section_auto_lock">자동 잠금</string>
 	<string name="screen_settings_auto_lock_timeout">다음 시간 이후 잠금</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">화면이 꺼졌을 때</string>
+	<string name="screen_settings_auto_lock_gracefully">전송 완료 대기</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">진행 중인 업로드 및 다운로드가 완료될 때까지 기다린 후 자동으로 잠급니다</string>
 	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
@@ -349,6 +353,9 @@
 	<string name="dialog_progress_encryption">암호화 중&#8230;</string>
 	<string name="dialog_progress_decryption">복호화 중&#8230;</string>
 	<string name="action_progress_moving">이동 중&#8230;</string>
+	<string name="screen_file_browser_upload_failed">업로드에 실패했습니다. 탭하여 다시 시도하세요.</string>
+	<string name="documents_provider_upload_failed">업로드에 실패했습니다. 아래로 당겨 다시 시도하세요.</string>
+	<string name="documents_provider_upload_failed_in_folder">이 폴더의 업로드에 실패했습니다. 아래로 당겨 다시 시도하세요.</string>
 	<string name="dialog_lock_vault">잠그기</string>
 	<string name="dialog_accept_ssl_certificate_title">유효하지 않은 SSL 인증서</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL 인증서가 유효하지 않습니다. 인증서를 신뢰하고 계속 진행하겠습니까?</string>
@@ -439,6 +446,7 @@
 	<string name="dialog_no_full_version_message">이 Google 계정에서 기존 구매 내역을 찾을 수 없습니다.</string>
 	<string name="dialog_restore_failed_title">복원 실패함</string>
 	<string name="dialog_restore_failed_message">Play Store에 연결할 수 없습니다. 인터넷 연결 상태를 확인하고 다시 시도해 주세요.</string>
+	<string name="dialog_change_failed_title">%1$s(으)로 변경 실패</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
 	<string name="dialog_hub_user_setup_required_hint">진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">프로필로 가기</string>
