@@ -7,6 +7,7 @@ import org.cryptomator.data.cloud.local.LocalStorageContentRepositoryFactory;
 import org.cryptomator.data.cloud.microsoftgraph.MicrosoftGraphCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.pcloud.PCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.s3.S3CloudContentRepositoryFactory;
+import org.cryptomator.data.cloud.smb.SmbCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.webdav.WebDavCloudContentRepositoryFactory;
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 			PCloudContentRepositoryFactory pCloudFactory, //
 			BoxCloudContentRepositoryFactory boxFactory, //
 			S3CloudContentRepositoryFactory s3Factory, //
+			SmbCloudContentRepositoryFactory smbFactory, //
 			CryptoCloudContentRepositoryFactory cryptoFactory, //
 			LocalStorageContentRepositoryFactory localStorageFactory, //
 			WebDavCloudContentRepositoryFactory webDavFactory) {
@@ -38,6 +40,7 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 				pCloudFactory, //
 				boxFactory, //
 				s3Factory, //
+				smbFactory, //
 				cryptoFactory, //
 				localStorageFactory, //
 				webDavFactory);

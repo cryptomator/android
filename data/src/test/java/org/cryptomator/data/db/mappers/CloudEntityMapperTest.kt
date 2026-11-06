@@ -3,6 +3,7 @@ package org.cryptomator.data.db.mappers
 import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.SharepointCloud
+import org.cryptomator.domain.SmbCloud
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -33,6 +34,25 @@ class CloudEntityMapperTest {
 		assertThat(mapped.siteUrl(), `is`("https://contoso.sharepoint.com/sites/team"))
 		assertThat(mapped.driveId(), `is`("driveId"))
 		assertThat(mapped.driveName(), `is`("Documents"))
+	}
+
+	@Test
+	fun testSmbCloudSurvivesRoundTrip() {
+		val cloud = SmbCloud.aSmbCloud() //
+			.withId(42L) //
+			.withUrl("smb://nas/share/folder") //
+			.withUsername("WORKGROUP\\user") //
+			.withPassword("password") //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as SmbCloud
+
+		assertThat(entity.type, `is`(CloudType.SMB.name))
+		assertThat(mapped.id(), `is`(42L))
+		assertThat(mapped.url(), `is`("smb://nas/share/folder"))
+		assertThat(mapped.username(), `is`("WORKGROUP\\user"))
+		assertThat(mapped.password(), `is`("password"))
 	}
 
 	@Test
