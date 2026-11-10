@@ -35,6 +35,7 @@ import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
+import org.cryptomator.presentation.intent.IntentBuilder
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
@@ -42,6 +43,7 @@ import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
@@ -75,6 +77,10 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	@InstanceState
 	var localNetworkPermissionRequested = false
 
+	// survives the screen being recreated while the cloud settings are open
+	@JvmField
+	@InstanceState
+	var cloudSettingsOpened = false
 	private val strategies = arrayOf( //
 		DropboxAuthStrategy(),  //
 		GoogleDriveAuthStrategy(),  //
@@ -82,7 +88,8 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		PCloudAuthStrategy(), //
 		BoxAuthStrategy(), //
 		WebDAVAuthStrategy(),  //
-		S3AuthStrategy(), //
+		AddOrChangeAuthStrategy(CloudTypeModel.S3) { Intents.s3AddOrChangeIntent().withS3Cloud(it as S3CloudModel) }, //
+		AddOrChangeAuthStrategy(CloudTypeModel.SMB) { Intents.smbAddOrChangeIntent().withSmbCloud(it as SmbCloudModel) }, //
 		LocalStorageAuthStrategy() //
 	)
 
@@ -506,18 +513,19 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		finish()
 	}
 
-	private inner class S3AuthStrategy : AuthStrategy {
-
-		private var authenticationStarted = false
+	/**
+	 * Lets the user correct wrong credentials in the cloud's add or change screen (S3, SMB).
+	 */
+	private inner class AddOrChangeAuthStrategy(private val cloudType: CloudTypeModel, private val addOrChangeIntent: (CloudModel) -> IntentBuilder) : AuthStrategy {
 
 		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.S3
+			return cloud.cloudType() == cloudType
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {
 			when {
 				ExceptionUtil.contains(intent.error(), WrongCredentialsException::class.java) -> {
-					if (!authenticationStarted) {
+					if (!cloudSettingsOpened) {
 						startAuthentication(intent.cloud())
 						Toast.makeText(
 							context(),
@@ -534,8 +542,17 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		}
 
 		private fun startAuthentication(cloud: CloudModel) {
-			authenticationStarted = true
-			startIntent(Intents.s3AddOrChangeIntent().withS3Cloud(cloud as S3CloudModel))
+			cloudSettingsOpened = true
+			requestActivityResult(ActivityResultCallbacks.onCloudSettingsChanged(cloud), addOrChangeIntent(cloud))
+		}
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun onCloudSettingsChanged(result: ActivityResult, cloud: CloudModel) {
+		if (result.isResultOk) {
+			succeedAuthenticationWith(result.intent().getSerializableExtra(CloudConnectionListPresenter.SELECTED_CLOUD) as Cloud)
+		} else {
+			failAuthentication(cloud.name())
 		}
 	}
 

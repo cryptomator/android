@@ -46,6 +46,7 @@ body:
         - pCloud
         - Box
         - S3
+        - SMB
         - Local storage
     validations:
       required: false
