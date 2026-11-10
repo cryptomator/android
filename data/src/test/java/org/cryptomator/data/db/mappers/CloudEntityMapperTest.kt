@@ -3,6 +3,8 @@ package org.cryptomator.data.db.mappers
 import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.SharepointCloud
+import org.cryptomator.domain.WebDavCloud
+import org.cryptomator.domain.WebDavProvider
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -51,5 +53,39 @@ class CloudEntityMapperTest {
 		assertThat(mapped.id(), `is`(42L))
 		assertThat(mapped.userId(), `is`("userId"))
 		assertThat(mapped.username(), `is`("user@example.com"))
+	}
+
+	@Test
+	fun testWebDavProviderSurvivesRoundTrip() {
+		val cloud = WebDavCloud.aWebDavCloudCloud() //
+			.withId(42L) //
+			.withUrl("https://app.koofr.net/dav/Koofr") //
+			.withUsername("user@example.com") //
+			.withPassword("password") //
+			.withProvider(WebDavProvider.KOOFR) //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as WebDavCloud
+
+		assertThat(entity.type, `is`(CloudType.WEBDAV.name))
+		assertThat(entity.webdavProvider, `is`("KOOFR"))
+		assertThat(mapped.provider(), `is`(WebDavProvider.KOOFR))
+	}
+
+	@Test
+	fun testWebDavCloudWithoutProviderSurvivesRoundTrip() {
+		val cloud = WebDavCloud.aWebDavCloudCloud() //
+			.withId(42L) //
+			.withUrl("https://example.org/webdav") //
+			.withUsername("user") //
+			.withPassword("password") //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as WebDavCloud
+
+		assertThat(entity.webdavProvider, `is`(nullValue()))
+		assertThat(mapped.provider(), `is`(nullValue()))
 	}
 }

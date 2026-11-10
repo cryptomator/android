@@ -119,6 +119,31 @@
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
+	<string name="cloud_names_one_and_one_dsl" translatable="false">1&amp;1 Online-Speicher (DSL)</string>
+	<string name="cloud_names_one_and_one_webhosting" translatable="false">1&amp;1 Online-Speicher (Webhosting)</string>
+	<string name="cloud_names_disroot" translatable="false">Disroot</string>
+	<string name="cloud_names_freenetcloud" translatable="false">freenetcloud</string>
+	<string name="cloud_names_gmx" translatable="false">GMX MediaCenter</string>
+	<string name="cloud_names_hidrive_ionos" translatable="false">HiDrive IONOS</string>
+	<string name="cloud_names_hidrive_strato" translatable="false">HiDrive Strato</string>
+	<string name="cloud_names_icedrive" translatable="false">Icedrive</string>
+	<string name="cloud_names_kdrive" translatable="false">kDrive</string>
+	<string name="cloud_names_koofr" translatable="false">Koofr</string>
+	<string name="cloud_names_magentacloud" translatable="false">MagentaCLOUD</string>
+	<string name="cloud_names_mailbox_org" translatable="false">mailbox.org</string>
+	<string name="cloud_names_mail_ru" translatable="false">Mail.Ru</string>
+	<string name="cloud_names_nextcloud" translatable="false">Nextcloud</string>
+	<string name="cloud_names_opencloud" translatable="false">OpenCloud</string>
+	<string name="cloud_names_owncloud" translatable="false">ownCloud</string>
+	<string name="cloud_names_pcloud_eu" translatable="false">pCloud WebDAV (EU)</string>
+	<string name="cloud_names_pcloud_us" translatable="false">pCloud WebDAV (US)</string>
+	<string name="cloud_names_seafile" translatable="false">Seafile</string>
+	<string name="cloud_names_stack" translatable="false">STACK</string>
+	<string name="cloud_names_switchdrive" translatable="false">SWITCHdrive</string>
+	<string name="cloud_names_syncwerk" translatable="false">Syncwerk</string>
+	<string name="cloud_names_web_de" translatable="false">WEB.DE Online-Speicher</string>
+	<string name="cloud_names_woelkli" translatable="false">wölkli</string>
+	<string name="cloud_names_yandex_disk" translatable="false">Yandex Disk</string>
 
 	<!-- # permission -->
 
@@ -249,12 +274,27 @@
 	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
+	<string name="screen_webdav_settings_server_label">Server address</string>
+	<string name="screen_webdav_settings_space_id_label">Space ID</string>
 	<string name="screen_webdav_settings_password_label">Password</string>
 	<string name="screen_webdav_settings_done_button_text">Connect</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Server address can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Server address is invalid.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Space ID can\'t be empty.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_disroot_hint">Use your Disroot username, or your email address if you use your own domain. If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">If two-factor authentication is enabled, append the current one-time code to your password. The code is valid for 30 minutes.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">If two-factor authentication is enabled, append the current one-time code to your password. The code is valid for 60 minutes.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV requires a paid plan. Use the WebDAV access key from your Icedrive account as password.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV isn\'t available on the free plan.</string>
+	<string name="screen_webdav_settings_koofr_hint">Create an app password in your Koofr account and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Create a WebDAV protocol password in your MagentaCLOUD settings and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Create an app token under Settings &gt; App Tokens and use it as password. You find the space ID in the info panel of the space.</string>
+	<string name="screen_webdav_settings_pcloud_hint">WebDAV requires a paid plan and isn\'t available while two-factor authentication is enabled.</string>
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
@@ -368,6 +408,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_box_connections">Box connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>

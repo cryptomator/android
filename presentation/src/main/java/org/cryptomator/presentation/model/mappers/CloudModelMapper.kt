@@ -1,10 +1,10 @@
 package org.cryptomator.presentation.model.mappers
 
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
-import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.CryptoCloudModel
 import org.cryptomator.presentation.model.DropboxCloudModel
 import org.cryptomator.presentation.model.GoogleDriveCloudModel
@@ -24,17 +24,17 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 	}
 
 	override fun toModel(domainObject: Cloud): CloudModel {
-		return when (domainObject.type()?.let { CloudTypeModel.valueOf(it) }) {
-			CloudTypeModel.DROPBOX -> DropboxCloudModel(domainObject)
-			CloudTypeModel.GOOGLE_DRIVE -> GoogleDriveCloudModel(domainObject)
-			CloudTypeModel.LOCAL -> LocalStorageModel(domainObject)
-			CloudTypeModel.ONEDRIVE -> OnedriveCloudModel(domainObject)
-			CloudTypeModel.SHAREPOINT -> SharepointCloudModel(domainObject)
-			CloudTypeModel.PCLOUD -> PCloudModel(domainObject)
-			CloudTypeModel.BOX -> BoxCloudModel(domainObject)
-			CloudTypeModel.S3 -> S3CloudModel(domainObject)
-			CloudTypeModel.CRYPTO -> CryptoCloudModel(domainObject)
-			CloudTypeModel.WEBDAV -> WebDavCloudModel(domainObject)
+		return when (domainObject.type()) {
+			CloudType.DROPBOX -> DropboxCloudModel(domainObject)
+			CloudType.GOOGLE_DRIVE -> GoogleDriveCloudModel(domainObject)
+			CloudType.LOCAL -> LocalStorageModel(domainObject)
+			CloudType.ONEDRIVE -> OnedriveCloudModel(domainObject)
+			CloudType.SHAREPOINT -> SharepointCloudModel(domainObject)
+			CloudType.PCLOUD -> PCloudModel(domainObject)
+			CloudType.BOX -> BoxCloudModel(domainObject)
+			CloudType.S3 -> S3CloudModel(domainObject)
+			CloudType.CRYPTO -> CryptoCloudModel(domainObject)
+			CloudType.WEBDAV -> WebDavCloudModel(domainObject)
 			null -> throw IllegalStateException("The type of the object shouldn't be null")
 		}
 	}

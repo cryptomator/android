@@ -1,9 +1,12 @@
 package org.cryptomator.presentation.ui.fragment
 
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.generator.Fragment
 import org.cryptomator.presentation.databinding.FragmentSetupWebdavBinding
+import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.presenter.WebDavAddOrChangePresenter
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -23,6 +26,12 @@ class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(Fragm
 	private val webDavCloudModel: WebDavCloudModel?
 		get() = arguments?.getSerializable(ARG_WEBDAV_CLOUD) as? WebDavCloudModel
 
+	private val webDavProvider: WebDavProvider?
+		get() = arguments?.getSerializable(ARG_WEBDAV_PROVIDER) as? WebDavProvider
+
+	private val isNewProviderCloud: Boolean
+		get() = webDavProvider != null && webDavCloudModel == null
+
 	override fun setupView() {
 		binding.createCloudButton.setOnClickListener { createCloud() }
 		binding.createCloudButton.setOnEditorActionListener { _, actionId, _ ->
@@ -34,6 +43,20 @@ class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(Fragm
 
 		binding.urlPortEditText.text?.length?.let { binding.urlPortEditText.setSelection(it) }
 		showEditableCloudContent(webDavCloudModel)
+		webDavProvider?.let { showProviderContent(it) }
+	}
+
+	private fun showProviderContent(webDavProvider: WebDavProvider) {
+		val hintResource = CloudTypeModel.valueOf(webDavProvider).webDavHintResource
+		if (hintResource != 0) {
+			binding.hintText.setText(hintResource)
+			binding.hintText.visibility = View.VISIBLE
+		}
+		if (isNewProviderCloud) {
+			binding.urlPortLayout.visibility = View.GONE
+			binding.serverLayout.visibility = if (webDavProvider.requiresServer) View.VISIBLE else View.GONE
+			binding.spaceIdLayout.visibility = if (webDavProvider.requiresSpaceId) View.VISIBLE else View.GONE
+		}
 	}
 
 	private fun showEditableCloudContent(webDavCloudModel: WebDavCloudModel?) {
@@ -61,10 +84,16 @@ class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(Fragm
 
 	private fun createCloud() {
 		val urlPort = binding.urlPortEditText.text.toString().trim()
+		val server = binding.serverEditText.text.toString().trim()
+		val spaceId = binding.spaceIdEditText.text.toString().trim()
 		val username = binding.userNameEditText.text.toString().trim()
 		val password = binding.passwordEditText.text.toString().trim()
 
-		webDavAddOrChangePresenter.checkUserInput(urlPort, username, password, cloudId, certificate)
+		if (isNewProviderCloud) {
+			webDavAddOrChangePresenter.checkProviderInput(server, spaceId, username, password)
+		} else {
+			webDavAddOrChangePresenter.checkUserInput(urlPort, username, password, cloudId, certificate)
+		}
 	}
 
 	fun hideKeyboard() {
@@ -74,11 +103,13 @@ class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(Fragm
 	companion object {
 
 		private const val ARG_WEBDAV_CLOUD = "WEBDAV_CLOUD"
+		private const val ARG_WEBDAV_PROVIDER = "WEBDAV_PROVIDER"
 
-		fun newInstance(cloudModel: WebDavCloudModel?): WebDavAddOrChangeFragment {
+		fun newInstance(cloudModel: WebDavCloudModel?, webDavProvider: WebDavProvider?): WebDavAddOrChangeFragment {
 			val result = WebDavAddOrChangeFragment()
 			val args = Bundle()
 			args.putSerializable(ARG_WEBDAV_CLOUD, cloudModel)
+			args.putSerializable(ARG_WEBDAV_PROVIDER, webDavProvider)
 			result.arguments = args
 			return result
 		}

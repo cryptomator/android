@@ -227,7 +227,8 @@ class CryptomatorDatabaseMigrationTest {
 		Upgrade12To13(context), //
 		Upgrade13To14(sharedPreferencesHandler), //
 		Upgrade14To15(), //
-		Upgrade15To16()
+		Upgrade15To16(), //
+		Upgrade16To17()
 	)
 
 	companion object {
