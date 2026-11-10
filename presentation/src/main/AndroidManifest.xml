@@ -105,7 +105,7 @@
 			android:excludeFromRecents="true"
 			android:exported="true"
 			android:taskAffinity=""
-			android:theme="@android:style/Theme.NoDisplay">
+			android:theme="@style/TransparentPopUp">
 
 			<intent-filter>
 				<data android:scheme="${appAuthRedirectScheme}" />
