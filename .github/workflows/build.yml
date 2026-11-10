@@ -18,6 +18,7 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-java@0f62d2ad8407a414cddd4790bed06fd9ebda0f56 # v1.4.5
         with:
           java-version: 21
