@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
+import org.cryptomator.domain.WebDavProviderVariant
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavCertificateUntrustedAuthenticationException
 import org.cryptomator.domain.usecases.ResultHandler
@@ -125,7 +126,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputIsCheckedWithTheProvidersUrl() {
 		inTest.setWebDavProvider(WebDavProvider.NEXTCLOUD)
 
-		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "", "alice@example.org", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "", null, "alice@example.org", "secret") }
 
 		verify(view).onCheckUserInputSucceeded("https://cloud.example.org/remote.php/webdav", "alice@example.org", "encryptedSecret", null, null)
 	}
@@ -134,7 +135,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithSpaceIdIsCheckedWithTheSpacesUrl() {
 		inTest.setWebDavProvider(WebDavProvider.OPENCLOUD)
 
-		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "space-1", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "space-1", null, "alice", "secret") }
 
 		verify(view).onCheckUserInputSucceeded("https://cloud.example.org/remote.php/dav/spaces/space-1", "alice", "encryptedSecret", null, null)
 	}
@@ -143,7 +144,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithHttpServerAsksBeforeUsingHttp() {
 		inTest.setWebDavProvider(WebDavProvider.SEAFILE)
 
-		checkingProviderInput { inTest.checkProviderInput("http://192.168.178.20:8082", "", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("http://192.168.178.20:8082", "", null, "alice", "secret") }
 
 		verify(view).showAskForHttpDialog("http://192.168.178.20:8082/seafdav", "alice", "encryptedSecret", null, null)
 		verify(view, never()).onCheckUserInputSucceeded(any(), any(), any(), anyOrNull(), anyOrNull())
@@ -153,7 +154,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithoutRequiredServerIsRejected() {
 		inTest.setWebDavProvider(WebDavProvider.NEXTCLOUD)
 
-		checkingProviderInput { inTest.checkProviderInput("", "", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("", "", null, "alice", "secret") }
 
 		verifyInputRejectedWith(R.string.screen_webdav_settings_msg_server_must_not_be_empty)
 	}
@@ -162,16 +163,34 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithoutRequiredSpaceIdIsRejected() {
 		inTest.setWebDavProvider(WebDavProvider.OPENCLOUD)
 
-		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("cloud.example.org", "", null, "alice", "secret") }
 
 		verifyInputRejectedWith(R.string.screen_webdav_settings_msg_space_id_must_not_be_empty)
+	}
+
+	@Test
+	fun testProviderInputWithVariantIsCheckedWithTheUrlOfTheVariant() {
+		inTest.setWebDavProvider(WebDavProvider.ONE_AND_ONE)
+
+		checkingProviderInput { inTest.checkProviderInput("", "", WebDavProviderVariant.ONE_AND_ONE_WEBHOSTING, "alice", "secret") }
+
+		verify(view).onCheckUserInputSucceeded("https://webdav.office.1und1.de", "alice", "encryptedSecret", null, null)
+	}
+
+	@Test
+	fun testProviderInputWithoutRequiredVariantIsRejected() {
+		inTest.setWebDavProvider(WebDavProvider.ONE_AND_ONE)
+
+		checkingProviderInput { inTest.checkProviderInput("", "", null, "alice", "secret") }
+
+		verifyInputRejectedWith(R.string.screen_webdav_settings_msg_variant_must_be_selected)
 	}
 
 	@Test
 	fun testProviderInputWithServerSchemeAndHostInUpperCaseIsNormalized() {
 		inTest.setWebDavProvider(WebDavProvider.STACK)
 
-		checkingProviderInput { inTest.checkProviderInput("HTTPS://Knowledgebase.Stack.Storage/", "", "felix", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("HTTPS://Knowledgebase.Stack.Storage/", "", null, "felix", "secret") }
 
 		verify(view).onCheckUserInputSucceeded("https://knowledgebase.stack.storage/remote.php/webdav", "felix", "encryptedSecret", null, null)
 		verify(view, never()).showAskForHttpDialog(any(), any(), any(), anyOrNull(), anyOrNull())
@@ -181,7 +200,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithSpaceInHttpServerPathAsksWithAnEncodedUrl() {
 		inTest.setWebDavProvider(WebDavProvider.SEAFILE)
 
-		checkingProviderInput { inTest.checkProviderInput("http://nas.local/my cloud", "", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("http://nas.local/my cloud", "", null, "alice", "secret") }
 
 		verify(view).showAskForHttpDialog("http://nas.local/my%20cloud/seafdav", "alice", "encryptedSecret", null, null)
 	}
@@ -190,7 +209,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithBracketsInHttpServerPathAsksBeforeUsingHttp() {
 		inTest.setWebDavProvider(WebDavProvider.SEAFILE)
 
-		checkingProviderInput { inTest.checkProviderInput("http://nas.local/files[1]", "", "alice", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("http://nas.local/files[1]", "", null, "alice", "secret") }
 
 		verify(view).showAskForHttpDialog("http://nas.local/files[1]/seafdav", "alice", "encryptedSecret", null, null)
 	}
@@ -200,7 +219,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithInvalidServerIsRejected(server: String) {
 		inTest.setWebDavProvider(WebDavProvider.STACK)
 
-		checkingProviderInput { inTest.checkProviderInput(server, "", "felix", "secret") }
+		checkingProviderInput { inTest.checkProviderInput(server, "", null, "felix", "secret") }
 
 		verifyInputRejectedWith(R.string.screen_webdav_settings_msg_server_is_invalid)
 	}
@@ -209,7 +228,7 @@ class WebDavAddOrChangePresenterTest {
 	fun testProviderInputWithoutUsernameIsRejected() {
 		inTest.setWebDavProvider(WebDavProvider.KOOFR)
 
-		checkingProviderInput { inTest.checkProviderInput("", "", "", "secret") }
+		checkingProviderInput { inTest.checkProviderInput("", "", null, "", "secret") }
 
 		verifyInputRejectedWith(R.string.screen_webdav_settings_msg_username_must_not_be_empty)
 	}

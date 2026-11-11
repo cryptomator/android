@@ -4,11 +4,11 @@ import java.net.URLEncoder
 
 private const val SERVER = "{server}"
 private const val SPACE_ID = "{space-id}"
+private const val VARIANT = "{variant}"
 
 enum class WebDavProvider(private val urlTemplate: String) {
 
-	ONE_AND_ONE_DSL("https://sd2dav.1und1.de"), //
-	ONE_AND_ONE_WEBHOSTING("https://webdav.office.1und1.de"), //
+	ONE_AND_ONE(VARIANT), //
 	DISROOT("https://cloud.disroot.org/remote.php/webdav"), //
 	FREENETCLOUD("https://webmail.freenet.de/webdav"), //
 	GMX("https://webdav.mc.gmx.net"), //
@@ -23,8 +23,6 @@ enum class WebDavProvider(private val urlTemplate: String) {
 	NEXTCLOUD("$SERVER/remote.php/webdav"), //
 	OPENCLOUD("$SERVER/remote.php/dav/spaces/$SPACE_ID"), //
 	OWNCLOUD("$SERVER/remote.php/webdav"), //
-	PCLOUD_EU("https://ewebdav.pcloud.com"), //
-	PCLOUD_US("https://webdav.pcloud.com"), //
 	SEAFILE("$SERVER/seafdav"), //
 	STACK("$SERVER/remote.php/webdav"), //
 	SWITCHDRIVE("https://drive.switch.ch/remote.php/webdav"), //
@@ -39,8 +37,13 @@ enum class WebDavProvider(private val urlTemplate: String) {
 	val requiresSpaceId: Boolean
 		get() = urlTemplate.contains(SPACE_ID)
 
-	fun url(serverUrl: String, spaceId: String): String {
+	val variants: List<WebDavProviderVariant>
+		get() = WebDavProviderVariant.entries.filter { it.provider == this }
+
+	fun url(serverUrl: String, spaceId: String, variant: WebDavProviderVariant?): String {
+		require(variant == null || variant.provider == this) { "$variant doesn't belong to $this" }
 		return urlTemplate //
+			.replace(VARIANT, variant?.url.orEmpty()) //
 			.replace(SERVER, serverUrl.trimEnd('/')) //
 			.replace(SPACE_ID, encodePathSegment(spaceId))
 	}

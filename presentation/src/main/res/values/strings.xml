@@ -119,8 +119,7 @@
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
-	<string name="cloud_names_one_and_one_dsl" translatable="false">1&amp;1 Online-Speicher (DSL)</string>
-	<string name="cloud_names_one_and_one_webhosting" translatable="false">1&amp;1 Online-Speicher (Webhosting)</string>
+	<string name="cloud_names_one_and_one" translatable="false">1&amp;1 Online-Speicher</string>
 	<string name="cloud_names_disroot" translatable="false">Disroot</string>
 	<string name="cloud_names_freenetcloud" translatable="false">freenetcloud</string>
 	<string name="cloud_names_gmx" translatable="false">GMX MediaCenter</string>
@@ -135,8 +134,6 @@
 	<string name="cloud_names_nextcloud" translatable="false">Nextcloud</string>
 	<string name="cloud_names_opencloud" translatable="false">OpenCloud</string>
 	<string name="cloud_names_owncloud" translatable="false">ownCloud</string>
-	<string name="cloud_names_pcloud_eu" translatable="false">pCloud WebDAV (EU)</string>
-	<string name="cloud_names_pcloud_us" translatable="false">pCloud WebDAV (US)</string>
 	<string name="cloud_names_seafile" translatable="false">Seafile</string>
 	<string name="cloud_names_stack" translatable="false">STACK</string>
 	<string name="cloud_names_switchdrive" translatable="false">SWITCHdrive</string>
@@ -276,6 +273,9 @@
 	<string name="screen_webdav_settings_username_label">Username</string>
 	<string name="screen_webdav_settings_server_label">Server address</string>
 	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contract</string>
+	<string name="screen_webdav_settings_one_and_one_dsl" translatable="false">DSL</string>
+	<string name="screen_webdav_settings_one_and_one_webhosting" translatable="false">Webhosting</string>
 	<string name="screen_webdav_settings_password_label">Password</string>
 	<string name="screen_webdav_settings_done_button_text">Connect</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
@@ -285,6 +285,7 @@
 	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Server address can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_server_is_invalid">Server address is invalid.</string>
 	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Space ID can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Select one of the options.</string>
 	<string name="screen_webdav_settings_app_password_with_2fa_hint">If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
 	<string name="screen_webdav_settings_disroot_hint">Use your Disroot username, or your email address if you use your own domain. If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
 	<string name="screen_webdav_settings_hidrive_ionos_hint">If two-factor authentication is enabled, append the current one-time code to your password. The code is valid for 30 minutes.</string>
@@ -294,7 +295,6 @@
 	<string name="screen_webdav_settings_koofr_hint">Create an app password in your Koofr account and use it instead of your account password.</string>
 	<string name="screen_webdav_settings_magentacloud_hint">Create a WebDAV protocol password in your MagentaCLOUD settings and use it instead of your account password.</string>
 	<string name="screen_webdav_settings_opencloud_hint">Create an app token under Settings &gt; App Tokens and use it as password. You find the space ID in the info panel of the space.</string>
-	<string name="screen_webdav_settings_pcloud_hint">WebDAV requires a paid plan and isn\'t available while two-factor authentication is enabled.</string>
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>

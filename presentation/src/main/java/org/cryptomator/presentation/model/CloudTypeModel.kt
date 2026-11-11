@@ -70,8 +70,7 @@ enum class CloudTypeModel(builder: Builder) {
 			.withVaultSelectedImageResource(R.drawable.local_fs_vault_selected) //
 			.withMultiInstances()
 	),  //
-	ONE_AND_ONE_DSL(WebDavProvider.ONE_AND_ONE_DSL, R.string.cloud_names_one_and_one_dsl, R.drawable.webdav_one_and_one, R.drawable.webdav_one_and_one_vault, R.drawable.webdav_one_and_one_vault_selected),  //
-	ONE_AND_ONE_WEBHOSTING(WebDavProvider.ONE_AND_ONE_WEBHOSTING, R.string.cloud_names_one_and_one_webhosting, R.drawable.webdav_one_and_one, R.drawable.webdav_one_and_one_vault, R.drawable.webdav_one_and_one_vault_selected),  //
+	ONE_AND_ONE(WebDavProvider.ONE_AND_ONE, R.string.cloud_names_one_and_one, R.drawable.webdav_one_and_one, R.drawable.webdav_one_and_one_vault, R.drawable.webdav_one_and_one_vault_selected),  //
 	DISROOT(WebDavProvider.DISROOT, R.string.cloud_names_disroot, R.drawable.webdav_disroot, R.drawable.webdav_disroot_vault, R.drawable.webdav_disroot_vault_selected, R.string.screen_webdav_settings_disroot_hint),  //
 	FREENETCLOUD(WebDavProvider.FREENETCLOUD, R.string.cloud_names_freenetcloud, R.drawable.webdav_freenetcloud, R.drawable.webdav_freenetcloud_vault, R.drawable.webdav_freenetcloud_vault_selected),  //
 	GMX(WebDavProvider.GMX, R.string.cloud_names_gmx, R.drawable.webdav_gmx, R.drawable.webdav_gmx_vault, R.drawable.webdav_gmx_vault_selected),  //
@@ -86,8 +85,6 @@ enum class CloudTypeModel(builder: Builder) {
 	NEXTCLOUD(WebDavProvider.NEXTCLOUD, R.string.cloud_names_nextcloud, R.drawable.webdav_nextcloud, R.drawable.webdav_nextcloud_vault, R.drawable.webdav_nextcloud_vault_selected, R.string.screen_webdav_settings_app_password_with_2fa_hint),  //
 	OPENCLOUD(WebDavProvider.OPENCLOUD, R.string.cloud_names_opencloud, R.drawable.webdav_opencloud, R.drawable.webdav_opencloud_vault, R.drawable.webdav_opencloud_vault_selected, R.string.screen_webdav_settings_opencloud_hint),  //
 	OWNCLOUD(WebDavProvider.OWNCLOUD, R.string.cloud_names_owncloud, R.drawable.webdav_owncloud, R.drawable.webdav_owncloud_vault, R.drawable.webdav_owncloud_vault_selected, R.string.screen_webdav_settings_app_password_with_2fa_hint),  //
-	PCLOUD_EU(WebDavProvider.PCLOUD_EU, R.string.cloud_names_pcloud_eu, R.drawable.pcloud, R.drawable.pcloud_vault, R.drawable.pcloud_vault_selected, R.string.screen_webdav_settings_pcloud_hint),  //
-	PCLOUD_US(WebDavProvider.PCLOUD_US, R.string.cloud_names_pcloud_us, R.drawable.pcloud, R.drawable.pcloud_vault, R.drawable.pcloud_vault_selected, R.string.screen_webdav_settings_pcloud_hint),  //
 	SEAFILE(WebDavProvider.SEAFILE, R.string.cloud_names_seafile, R.drawable.webdav_seafile, R.drawable.webdav_seafile_vault, R.drawable.webdav_seafile_vault_selected),  //
 	STACK(WebDavProvider.STACK, R.string.cloud_names_stack, R.drawable.webdav_stack, R.drawable.webdav_stack_vault, R.drawable.webdav_stack_vault_selected),  //
 	SWITCHDRIVE(WebDavProvider.SWITCHDRIVE, R.string.cloud_names_switchdrive, R.drawable.webdav_switchdrive, R.drawable.webdav_switchdrive_vault, R.drawable.webdav_switchdrive_vault_selected),  //

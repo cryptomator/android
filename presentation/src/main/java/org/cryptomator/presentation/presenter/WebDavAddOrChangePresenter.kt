@@ -4,6 +4,7 @@ import android.widget.Toast
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
+import org.cryptomator.domain.WebDavProviderVariant
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
@@ -37,19 +38,20 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 		this.webDavProvider = webDavProvider
 	}
 
-	fun checkProviderInput(server: String, spaceId: String, username: String, password: String) {
+	fun checkProviderInput(server: String, spaceId: String, variant: WebDavProviderVariant?, username: String, password: String) {
 		val provider = webDavProvider ?: throw IllegalStateException("No WebDAV provider set")
 		val serverUrl = serverUrl(server)
 		val statusMessage = when {
 			provider.requiresServer && server.isEmpty() -> getString(R.string.screen_webdav_settings_msg_server_must_not_be_empty)
 			provider.requiresSpaceId && spaceId.isEmpty() -> getString(R.string.screen_webdav_settings_msg_space_id_must_not_be_empty)
 			provider.requiresServer && serverUrl == null -> getString(R.string.screen_webdav_settings_msg_server_is_invalid)
+			provider.variants.isNotEmpty() && variant == null -> getString(R.string.screen_webdav_settings_msg_variant_must_be_selected)
 			else -> null
 		}
 		if (statusMessage != null) {
 			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
 		} else {
-			checkUserInput(provider.url(serverUrl.orEmpty(), spaceId), username, password, null, null)
+			checkUserInput(provider.url(serverUrl.orEmpty(), spaceId, variant), username, password, null, null)
 		}
 	}
 
