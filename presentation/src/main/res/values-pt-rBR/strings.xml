@@ -186,12 +186,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de usuário</string>
+	<string name="screen_webdav_settings_server_label">Endereço do servidor</string>
+	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contrato</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<string name="screen_webdav_settings_done_button_text">Conectar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL não pode estar vazia.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL inválida.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de usuário não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">O endereço do servidor não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Endereço de servidor inválido.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">O Space ID não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Selecione uma das opções.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Se a autenticação em duas etapas estiver ativada, crie uma senha para o aplicativo e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_disroot_hint">Use seu nome de usuário do Desroot ou seu endereço de e-mail se você usar seu próprio domínio. Se a autenticação em duas etapas estiver ativada, crie uma senha para o aplicativo e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Se a autenticação de dois fatores estiver ativada, anexe o código único atual à sua senha. O código é válido por 30 minutos.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Se a autenticação de dois fatores estiver ativada, anexe o código único atual à sua senha. O código é válido por 60 minutos.</string>
+	<string name="screen_webdav_settings_icedrive_hint">O WebDAV requer um plano pago. Use a chave de acesso WebDAV da sua conta Icedrive como senha.</string>
+	<string name="screen_webdav_settings_kdrive_hint">O WebDAV está indisponível no plano gratuito.</string>
+	<string name="screen_webdav_settings_koofr_hint">Crie uma senha do aplicativo na sua conta Koofr e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Crie uma senha do protocolo WebDAV nas configurações do MagentaCLOUD e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Crie um token de aplicativo em Configurações &gt; Tokens de Aplicativo e use-o como senha. Você encontra o Space ID no painel de informações do Space.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de exibição</string>
 	<string name="screen_s3_settings_access_key_label">Chave de Acesso</string>
@@ -273,6 +289,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">conexões do OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Conexões com SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">conexões da WebDAV</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s conexões</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões do pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Conexões Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões do S3</string>
