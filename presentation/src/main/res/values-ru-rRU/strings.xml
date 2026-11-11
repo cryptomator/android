@@ -187,12 +187,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Логин</string>
+	<string name="screen_webdav_settings_server_label">Адрес сервера</string>
+	<string name="screen_webdav_settings_space_id_label">ID области</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Договор</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Подключиться</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Некорректный URL.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Логин (имя пользователя) не может быть пустым.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Адрес сервера не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Некорректный адрес сервера.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">ID области не может быть пустым.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Выберите один из вариантов.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Если двухфакторная аутентификация включена, создайте пароль приложения и используйте его вместо пароля учётной записи.</string>
+	<string name="screen_webdav_settings_disroot_hint">Используйте логин Disroot, или адрес электронной почты, если вы используете свой собственный домен. Если включена двухфакторная аутентификация, создайте пароль приложения и используйте его вместо пароля учётной записи.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Если включена двухфакторная аутентификация, добавьте текущий одноразовый код к паролю. Код действителен в течение 30 минут.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Если включена двухфакторная аутентификация, добавьте текущий одноразовый код к паролю. Код действителен в течение 60 минут.</string>
+	<string name="screen_webdav_settings_icedrive_hint">Для WebDAV требуется платный план. Используйте в качестве пароля ключ доступа к WebDAV из вашего аккаунта Icedrive.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV недоступен на бесплатном плане.</string>
+	<string name="screen_webdav_settings_koofr_hint">Создайте пароль приложения в своей учётной записи Koofr и используйте его вместо пароля учётной записи.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Создайте пароль для протокола WebDAV в настройках MagentaCLOUD и используйте его вместо пароля учётной записи.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Создайте токен приложения в меню \'Настройки &gt; Токены приложений\' и используйте его в качестве пароля. ID пространства находится в информационной панели.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Отображаемое имя</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступа</string>
@@ -274,6 +290,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Соединения с SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">Подключений: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Локальные места хранения</string>
