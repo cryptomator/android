@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.intent;
 
+import org.cryptomator.domain.WebDavProvider;
 import org.cryptomator.generator.Intent;
 import org.cryptomator.generator.Optional;
 import org.cryptomator.presentation.model.WebDavCloudModel;
@@ -10,4 +11,7 @@ public interface WebDavAddOrChangeIntent {
 
 	@Optional
 	WebDavCloudModel webDavCloud();
+
+	@Optional
+	WebDavProvider webDavProvider();
 }

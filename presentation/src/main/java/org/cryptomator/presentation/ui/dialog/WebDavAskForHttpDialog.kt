@@ -7,12 +7,12 @@ import androidx.fragment.app.DialogFragment
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.DialogAskForHttpBinding
-import java.net.URI
+import org.cryptomator.presentation.util.WebDavUrl
 
 @Dialog
 class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback, DialogAskForHttpBinding>(DialogAskForHttpBinding::inflate) {
 
-	private lateinit var uri: URI
+	private lateinit var url: String
 	private lateinit var username: String
 	private lateinit var password: String
 
@@ -25,7 +25,7 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback, Dialo
 	}
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
-		uri = requireArguments().getSerializable(URI_ARG) as URI
+		url = requireArguments().getString(URL_ARG) as String
 		username = requireArguments().getString(USERNAME_ARG) as String
 		password = requireArguments().getString(PASSWORD_ARG) as String
 		cloudId = requireArguments().getString(CLOUD_ID_ARG)?.let { java.lang.Long.getLong(it) }
@@ -34,7 +34,7 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback, Dialo
 			.setTitle(R.string.dialog_http_security_title) //
 			.setNeutralButton(
 				getString(R.string.dialog_unable_to_share_positive_button)
-			) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, uriWithDesiredProtocol(binding.cbSelectHttp.isChecked), cloudId, certificate) }
+			) { _: DialogInterface, _: Int -> callback?.onAksForHttpFinished(username, password, urlWithDesiredProtocol(binding.cbSelectHttp.isChecked), cloudId, certificate) }
 		return builder.create()
 	}
 
@@ -42,40 +42,22 @@ class WebDavAskForHttpDialog : BaseDialog<WebDavAskForHttpDialog.Callback, Dialo
 		// empty
 	}
 
-	private fun uriWithDesiredProtocol(switchToHttps: Boolean): String {
-		return if (switchToHttps && uri.scheme != "https") {
-			uriSwitchedToHttps()
-		} else {
-			uri.toString()
-		}
-	}
-
-	private fun uriSwitchedToHttps(): String {
-		val newUri = StringBuilder("https://")
-		newUri.append(uri.host)
-		appendPort(newUri)
-		newUri.append(uri.rawPath)
-		return newUri.toString()
-	}
-
-	private fun appendPort(newUri: StringBuilder) {
-		if (uri.port != -1 && uri.port != 80) {
-			newUri.append(':').append(uri.port)
-		}
+	private fun urlWithDesiredProtocol(switchToHttps: Boolean): String {
+		return if (switchToHttps) WebDavUrl.switchedToHttps(url) else url
 	}
 
 	companion object {
 
-		private const val URI_ARG = "uri"
+		private const val URL_ARG = "url"
 		private const val USERNAME_ARG = "username"
 		private const val PASSWORD_ARG = "password"
 		private const val CLOUD_ID_ARG = "cloudId"
 		private const val CERTIFICATE_ARG = "certificate"
 
-		fun newInstance(uri: URI, username: String, password: String, cloudId: Long?, certificate: String?): DialogFragment {
+		fun newInstance(url: String, username: String, password: String, cloudId: Long?, certificate: String?): DialogFragment {
 			val dialog = WebDavAskForHttpDialog()
 			val args = Bundle()
-			args.putSerializable(URI_ARG, uri)
+			args.putString(URL_ARG, url)
 			args.putSerializable(USERNAME_ARG, username)
 			args.putSerializable(PASSWORD_ARG, password)
 			args.putSerializable(CLOUD_ID_ARG, "" + cloudId)

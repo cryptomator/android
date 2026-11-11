@@ -9,6 +9,7 @@ public class WebDavCloud implements Cloud {
 	private final String username;
 	private final String password;
 	private final String certificate;
+	private final WebDavProvider provider;
 
 	private WebDavCloud(Builder builder) {
 		this.id = builder.id;
@@ -16,6 +17,7 @@ public class WebDavCloud implements Cloud {
 		this.username = builder.username;
 		this.password = builder.password;
 		this.certificate = builder.certificate;
+		this.provider = builder.provider;
 	}
 
 	public static Builder aWebDavCloudCloud() {
@@ -28,7 +30,8 @@ public class WebDavCloud implements Cloud {
 				.withUrl(webDavCloud.url()) //
 				.withUsername(webDavCloud.username()) //
 				.withPassword(webDavCloud.password()) //
-				.withCertificate(webDavCloud.certificate());
+				.withCertificate(webDavCloud.certificate()) //
+				.withProvider(webDavCloud.provider());
 	}
 
 	@Override
@@ -64,6 +67,10 @@ public class WebDavCloud implements Cloud {
 
 	public String certificate() {
 		return certificate;
+	}
+
+	public WebDavProvider provider() {
+		return provider;
 	}
 
 	@Override
@@ -114,6 +121,7 @@ public class WebDavCloud implements Cloud {
 		private String url;
 		private String username;
 		private String certificate;
+		private WebDavProvider provider;
 
 		private Builder() {
 		}
@@ -140,6 +148,11 @@ public class WebDavCloud implements Cloud {
 
 		public Builder withCertificate(String certificate) {
 			this.certificate = certificate;
+			return this;
+		}
+
+		public Builder withProvider(WebDavProvider provider) {
+			this.provider = provider;
 			return this;
 		}
 

@@ -28,6 +28,10 @@ class CloudSettingsFragment : BaseFragment<FragmentCloudSettingsBinding>(Fragmen
 		cloudSettingsPresenter.loadClouds()
 	}
 
+	override fun loadContentSilent() {
+		cloudSettingsPresenter.loadClouds()
+	}
+
 	override fun setupView() {
 		setupRecyclerView()
 	}
