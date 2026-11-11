@@ -186,12 +186,19 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de utilizador</string>
+	<string name="screen_webdav_settings_server_label">Endereço do servidor</string>
+	<string name="screen_webdav_settings_space_id_label">ID do espaço</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contrato</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<string name="screen_webdav_settings_done_button_text">Ligar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">O URL (endereço) não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">O URL (endereço) é inválido.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de utilizador não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A palavra-passe não pode estar vazia.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">O endereço do servidor não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Endereço do servidor é inválido.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">ID do Espaço não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Seleccione uma das opções.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome para exibição</string>
 	<string name="screen_s3_settings_access_key_label">Chave de acesso</string>
