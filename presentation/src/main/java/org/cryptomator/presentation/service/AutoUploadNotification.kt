@@ -110,6 +110,12 @@ class AutoUploadNotification(private val context: Context, private val amountOfP
 		showErrorWithMessage(context.getString(R.string.notification_auto_upload_permission_not_granted))
 	}
 
+	/** Notifies the user that the auto upload failed because the device is out of storage space. */
+	fun showNoSpaceLeftNotification() {
+		Timber.tag("AutoUploadNotification").i("Show no space left on device notification")
+		showErrorWithMessage(context.getString(R.string.notification_auto_upload_no_space_left))
+	}
+
 	fun showWrongCredentialNotification(authenticationException: AuthenticationException) {
 		val startTheActivity = Intent(context, AutoUploadRefreshTokenActivity::class.java)
 		startTheActivity.action = ACTION_MAIN
