@@ -305,6 +305,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">A régi jelszó nem lehet üres.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Az új jelszó nem lehet üres.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Az új jelszó nem egyezik az ismételten begépelt jelszóval.</string>
+	<string name="dialog_recovery_key_password_positive_button">Megmutatás</string>
+	<string name="dialog_recovery_key_copy_button">Másolás</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">A titkosított tároló nem található: %1$s</string>
 	<string name="dialog_vault_not_found_message">A tárolót átnevezték, áthelyezték vagy törölték. Távolítsa el ezt a titkosított tárolót a listáról, majd adja hozzá újra a folytatáshoz. Eltávolítja most?</string>
