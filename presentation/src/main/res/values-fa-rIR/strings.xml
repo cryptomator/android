@@ -200,6 +200,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">رمز عبور فعلی نمی‌تواند خالی باشد.</string>
 	<string name="dialog_change_password_msg_new_password_empty">رمز عبور جدید نمی‌تواند خالی باشد.</string>
 	<string name="dialog_change_password_msg_password_mismatch">رمز عبور جدید با تکرار آن مطابقت ندارد.</string>
+	<string name="dialog_recovery_key_password_positive_button">نشان</string>
+	<string name="dialog_recovery_key_copy_button">کپی</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">خزانه %1$s پیدا نشد</string>
 	<string name="dialog_vault_not_found_message">نام خزانه تغییر پیدا کرده، منتقل شده یا حذف شده است. برای ادامه این خزانه را از لیست حذف کرده و دوباره اضافه کنید. اکنون حذف شود؟</string>
