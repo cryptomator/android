@@ -305,6 +305,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Gammalt lösenord får inte vara tomt.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nytt lösenord får inte vara tomt.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Det nya lösenordet stämmer inte överens med bekräftelsen.</string>
+	<string name="dialog_recovery_key_password_positive_button">Visa</string>
+	<string name="dialog_recovery_key_copy_button">Kopiera</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Valvet %1$s hittades inte</string>
 	<string name="dialog_vault_not_found_message">Valvet har döpts om, flyttats eller tagits bort. Ta bort detta valv från listan och lägg till det igen för att fortsätta. Ta bort nu?</string>
