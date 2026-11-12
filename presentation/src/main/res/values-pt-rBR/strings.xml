@@ -322,6 +322,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">A senha antiga não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_new_password_empty">A nova senha não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_password_mismatch">A nova senha é diferente da digitada.</string>
+	<string name="dialog_recovery_key_password_positive_button">Mostrar</string>
+	<string name="dialog_recovery_key_copy_button">Copiar</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
 	<string name="dialog_vault_not_found_message">O cofre pode ter sido renomeado, movido ou apagado. Remova-o da lista e adicione ele novamente para prosseguir. Remover agora?</string>
