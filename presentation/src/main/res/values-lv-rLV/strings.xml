@@ -271,6 +271,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Iepriekšējā parole nevar būt tukša.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Jaunā parole nevar būt tukša.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Jaunā parole neatbilst atkārtoti ievadītajai parolei.</string>
+	<string name="dialog_recovery_key_password_positive_button">Rādīt</string>
+	<string name="dialog_recovery_key_copy_button">Ievietot starpliktuvē</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Glabātava %1$s nav atrasta</string>
 	<string name="dialog_vault_not_found_message">Glabātava tika pārdēvēta, pārvietota vai izdzēsta. Lai turpinātu, tā ir jānoņem no saraksta un jāpievieno atkārtoti. Noņemt tagad?</string>
