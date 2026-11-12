@@ -264,6 +264,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Kata sandi lama tidak boleh kosong.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Kata sandi baru tidak boleh kosong.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Kata sandi baru tidak cocok dengan kata sandi yang diketik ulang.</string>
+	<string name="dialog_recovery_key_password_positive_button">Tampilkan</string>
+	<string name="dialog_recovery_key_copy_button">Salin</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s tidak ditemukan</string>
 	<string name="dialog_vault_not_found_message">Vault telah diganti namanya, dipindahkan, atau dihapus. Hapus vauly ini dari daftar dan tambahkan lagi untuk melanjutkan. Hapus sekarang?</string>
