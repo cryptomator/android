@@ -249,6 +249,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Staro geslo ne sme biti prazno.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Novo geslo ne sme biti prazno.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Ponovno natipkano geslo se ne ujema.</string>
+	<string name="dialog_recovery_key_password_positive_button">Prikaži</string>
+	<string name="dialog_recovery_key_copy_button">Kopiraj</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Trezorja %1$s ne najdem</string>
 	<string name="dialog_vault_not_found_message">Trezor je bil preimenovan, premaknjen ali izbrisan. Za nadaljevanje odstranite ta trezor s seznama in ga znova dodajte. Odstranim zdaj?</string>
