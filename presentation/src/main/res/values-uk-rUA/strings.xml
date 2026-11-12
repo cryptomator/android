@@ -190,17 +190,27 @@
 	<string name="screen_webdav_settings_url_port_label">URL-адреса</string>
 	<string name="screen_webdav_settings_username_label">Ім’я користувача</string>
 	<string name="screen_webdav_settings_server_label">Адреса сервера</string>
-	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_space_id_label">ID простору</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Договір</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-адреса не може бути порожньою.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Неприпустима URL-адреса.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле імені користувача не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
-	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Адреса сервера не може бути порожня.</string>
-	<string name="screen_webdav_settings_msg_server_is_invalid">Адреса сервера недійсна.</string>
-	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Поле «Space ID» не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Адреса сервера не може бути порожньою.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Адреса сервера некоректна.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Поле «ID простору» не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_variant_must_be_selected">Виберіть один із варіантів.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Якщо увімкнено двофакторну автентифікацію, створіть пароль додатку й використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_disroot_hint">Використовуйте своє ім’я користувача Disroot або адресу електронної пошти, якщо у вас власний домен. Якщо увімкнено двофакторну автентифікацію, створіть пароль додатку й використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Якщо увімкнено двофакторну автентифікацію, додайте в кінець пароля поточний одноразовий код. Код дійсний протягом 30 хвилин.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Якщо увімкнено двофакторну автентифікацію, додайте в кінець пароля поточний одноразовий код. Код дійсний протягом 60 хвилин.</string>
+	<string name="screen_webdav_settings_icedrive_hint">Для роботи WebDAV потрібен платний тарифний план. Використовуйте ключ доступу WebDAV зі свого облікового запису Icedrive як пароль.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV недоступний на безплатному тарифному плані.</string>
+	<string name="screen_webdav_settings_koofr_hint">Створіть пароль додатку у своєму обліковому записі Koofr і використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Створіть пароль протоколу WebDAV у налаштуваннях MagentaCLOUD і використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Створіть токен додатку в розділі «Налаштування» &gt; «Токени додатків» і використовуйте його як пароль. ID простору можна знайти на інформаційній панелі простору.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Відображуване ім’я</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
@@ -282,6 +292,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">З\'єднань: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
@@ -314,8 +325,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Поле «Старий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Поле «Новий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Новий пароль не збігається з підтвердженим паролем.</string>
+	<string name="dialog_recovery_key_password_hint">Введіть пароль для «%1$s», щоб показати його ключ відновлення.</string>
 	<string name="dialog_recovery_key_password_positive_button">Показати</string>
+	<string name="dialog_recovery_key_title">Ключ відновлення</string>
+	<string name="dialog_recovery_key_description">Ключ відновлення — це ваш єдиний спосіб відновити доступ до «%1$s», якщо ви втратите пароль:</string>
+	<string name="dialog_recovery_key_storage_hint">Зберігайте його в надійному місці, наприклад у менеджері паролів або роздрукованим на папері.</string>
 	<string name="dialog_recovery_key_copy_button">Копіювати</string>
+	<string name="dialog_recovery_key_copied">Ключ відновлення скопійовано</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Сховище %1$s не знайдено</string>
 	<string name="dialog_vault_not_found_message">Сховище було перейменовано, переміщено або видалено. Вилучіть це сховище зі списку та додайте його знову, щоб продовжити. Вилучити зараз?</string>
