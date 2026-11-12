@@ -322,6 +322,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Het oude wachtwoord kan niet leeg zijn.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nieuw wachtwoord kan niet leeg zijn.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nieuw wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
+	<string name="dialog_recovery_key_password_positive_button">Toon</string>
+	<string name="dialog_recovery_key_copy_button">Kopieer</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Kluis %1$s niet gevonden</string>
 	<string name="dialog_vault_not_found_message">De kluis is hernoemd, verplaatst of verwijderd. Verwijder deze kluis uit de lijst en voeg opnieuw toe om verder te gaan. Nu verwijderen?</string>
