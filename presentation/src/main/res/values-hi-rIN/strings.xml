@@ -238,6 +238,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">पुराना पासवर्ड खाली नहीं हो सकता |</string>
 	<string name="dialog_change_password_msg_new_password_empty">नया पासवर्ड खाली नहीं हो सकता |</string>
 	<string name="dialog_change_password_msg_password_mismatch">नया पासवर्ड दोबारा टाइप किये गए पासवर्ड से मेल नहीं खाता।</string>
+	<string name="dialog_recovery_key_password_positive_button">दिखाएँ</string>
+	<string name="dialog_recovery_key_copy_button">कॉपी करें</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">तिजोरी %1$s नहीं मिली |</string>
 	<string name="dialog_vault_not_found_message">तिजोरी का नाम बदल दिया गया है, स्थानांतरित कर दिया गया है या हटा दिया गया है। इस वॉल्ट को सूची से हटाएं और आगे बढ़ने के लिए इसे फिर से जोड़ें। अभी हटाएं?</string>
