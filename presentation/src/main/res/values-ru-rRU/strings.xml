@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Создать новое хранилище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Добавить имеющееся хранилище</string>
 	<string name="screen_vault_list_vault_action_delete">Удалить</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Показать ключ восстановления</string>
 	<string name="screen_vault_list_vault_creation_hint">Нажмите здесь, чтобы создать новое хранилище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успешно изменён</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Отклонить</string>
@@ -322,8 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Старый пароль не может быть пустым.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Новый пароль не может быть пустым.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Новый пароль не совпадает с повтором пароля.</string>
+	<string name="dialog_recovery_key_password_hint">Введите пароль для \"%1$s\", чтобы показать его ключ восстановления.</string>
 	<string name="dialog_recovery_key_password_positive_button">Показать</string>
+	<string name="dialog_recovery_key_title">Ключ восстановления</string>
+	<string name="dialog_recovery_key_description">При утере пароля вернуть доступ к \"%1$s\" можно только с помощью ключа восстановления:</string>
+	<string name="dialog_recovery_key_storage_hint">Храните его в безопасном месте, например, в менеджере паролей.</string>
 	<string name="dialog_recovery_key_copy_button">Скопировать</string>
+	<string name="dialog_recovery_key_copied">Ключ восстановления скопирован</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Хранилище %1$s не найдено</string>
 	<string name="dialog_vault_not_found_message">Хранилище было переименовано, перемещено или удалено. Удалите это хранилище из списка и добавьте снова, чтобы продолжить. Удалить?</string>
