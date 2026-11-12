@@ -321,6 +321,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">이전 비밀번호를 입력하십시오.</string>
 	<string name="dialog_change_password_msg_new_password_empty">신규 비밀번호를 입력하십시오.</string>
 	<string name="dialog_change_password_msg_password_mismatch">비밀번호가 일치하지 않습니다.</string>
+	<string name="dialog_recovery_key_password_positive_button">보기</string>
+	<string name="dialog_recovery_key_copy_button">복사</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s을(를) 찾을 수 없음</string>
 	<string name="dialog_vault_not_found_message">이 Vault는 이름이 변경됐거나, 경로가 옮겨졌거나, 삭제되었습니다. 이 Vault를 목록에서 삭제하고 다시 추가하여 계속 진행하십시오. 지금 삭제하시겠습니까?</string>
