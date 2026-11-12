@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Créer un nouveau coffre-fort</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ajouter un coffre-fort existant</string>
 	<string name="screen_vault_list_vault_action_delete">Retirer</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Afficher la clé de récupération</string>
 	<string name="screen_vault_list_vault_creation_hint">Tapez ici pour créer un nouvel espace chiffré</string>
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 La licence à vie est %1$d%% de réduction jusqu\'au %2$s</string>
@@ -322,8 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">L\'ancien mot de passe ne peut pas être vide.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Le nouveau mot de passe ne peut pas être vide.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Le nouveau mot de passe ne correspond pas au mot de passe retapé.</string>
-	<string name="dialog_recovery_key_password_positive_button">Montrer</string>
+	<string name="dialog_recovery_key_password_hint">Entrez le mot de passe de \"%1$s\" pour afficher sa clé de récupération.</string>
+	<string name="dialog_recovery_key_password_positive_button">Afficher</string>
+	<string name="dialog_recovery_key_title">Clé de récupération</string>
+	<string name="dialog_recovery_key_description">La clé de récupération est votre seul moyen de restaurer l\'accès à \"%1$s\" si vous perdez votre mot de passe :</string>
+	<string name="dialog_recovery_key_storage_hint">Gardez-la dans un endroit très sécurisé, par exemple dans un gestionnaire de mots de passe ou imprimé sur papier.</string>
 	<string name="dialog_recovery_key_copy_button">Copier</string>
+	<string name="dialog_recovery_key_copied">Clé de récupération copiée</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Coffre-fort %1$s introuvable</string>
 	<string name="dialog_vault_not_found_message">Le coffre-fort a été renommé, déplacé ou supprimé. Supprimez ce coffre-fort de la liste et ajoutez-le à nouveau pour continuer. Supprimer maintenant ?</string>
