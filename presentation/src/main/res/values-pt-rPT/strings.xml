@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Criar novo cofre</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adicionar cofre existente</string>
 	<string name="screen_vault_list_vault_action_delete">Remover</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Mostrar chave de recuperação</string>
 	<string name="screen_vault_list_vault_creation_hint">Toque aqui para criar um novo cofre</string>
 	<string name="screen_vault_list_change_password_successful">Palavra-passe alterada com sucesso</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 A licença vitalícia está com um desconto de %1$d%% até %2$s</string>
@@ -312,8 +313,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Palavra-passe antiga não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nova palavra-passe não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_password_mismatch">A nova palavra-passe não corresponde à digitada no outro campo.</string>
+	<string name="dialog_recovery_key_password_hint">Inserir a palavra-passe de \"%1$s\" para mostrar a chave de recuperação.</string>
 	<string name="dialog_recovery_key_password_positive_button">Mostrar</string>
+	<string name="dialog_recovery_key_title">Chave de recuperação</string>
+	<string name="dialog_recovery_key_description">A chave de recuperação é o único meio de restaurar o acesso a \"%1$s\" caso perca a sua palavra-passe:</string>
+	<string name="dialog_recovery_key_storage_hint">Guarde-a num local seguro, por exemplo, num gestor de palavras-passe ou impressa em papel.</string>
 	<string name="dialog_recovery_key_copy_button">Copiar</string>
+	<string name="dialog_recovery_key_copied">Chave de recuperação copiada</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
 	<string name="dialog_vault_not_found_message">O cofre foi renomeado, movido ou apagado. Remova este cofre da lista e adicione-o novamente para prosseguir. Remover agora?</string>
