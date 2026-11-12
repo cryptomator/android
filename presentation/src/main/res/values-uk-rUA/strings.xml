@@ -307,6 +307,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Поле «Старий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Поле «Новий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Новий пароль не збігається з підтвердженим паролем.</string>
+	<string name="dialog_recovery_key_password_positive_button">Показати</string>
+	<string name="dialog_recovery_key_copy_button">Копіювати</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Сховище %1$s не знайдено</string>
 	<string name="dialog_vault_not_found_message">Сховище було перейменовано, переміщено або видалено. Вилучіть це сховище зі списку та додайте його знову, щоб продовжити. Вилучити зараз?</string>
