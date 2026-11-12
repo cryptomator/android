@@ -86,8 +86,8 @@ class CloudRepositoryImpl implements CloudRepository {
 	}
 
 	@Override
-	public void create(CloudFolder location, CharSequence password) throws BackendException {
-		cryptoCloudFactory.create(location, password);
+	public String create(CloudFolder location, CharSequence password) throws BackendException {
+		return cryptoCloudFactory.create(location, password);
 	}
 
 	@Override
@@ -126,6 +126,11 @@ class CloudRepositoryImpl implements CloudRepository {
 	@Override
 	public boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
 		return cryptoCloudFactory.isVaultPasswordValid(vault, unverifiedVaultConfig, password);
+	}
+
+	@Override
+	public String recoveryKey(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
+		return cryptoCloudFactory.recoveryKey(vault, unverifiedVaultConfig, password);
 	}
 
 	@Override

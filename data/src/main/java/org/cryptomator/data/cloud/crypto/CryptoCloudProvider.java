@@ -11,7 +11,7 @@ import org.cryptomator.domain.usecases.vault.UnlockToken;
 
 public interface CryptoCloudProvider {
 
-	void create(CloudFolder location, CharSequence password) throws BackendException;
+	String create(CloudFolder location, CharSequence password) throws BackendException;
 
 	Vault unlock(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password, Flag cancelledFlag) throws BackendException;
 
@@ -22,6 +22,8 @@ public interface CryptoCloudProvider {
 	Vault unlock(Vault vault, UnverifiedVaultConfig unverifiedVaultConfig, String vaultKeyJwe, String userKeyJwe, Flag cancelledFlag) throws BackendException;
 
 	boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException;
+
+	String recoveryKey(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException;
 
 	void lock(Vault vault);
 

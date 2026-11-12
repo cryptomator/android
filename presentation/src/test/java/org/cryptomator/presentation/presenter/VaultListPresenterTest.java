@@ -12,6 +12,7 @@ import org.cryptomator.domain.usecases.DoUpdateUseCase;
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase;
 import org.cryptomator.domain.usecases.ResultHandler;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
+import org.cryptomator.domain.usecases.vault.CreatedVault;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase;
@@ -33,6 +34,7 @@ import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow;
 import org.cryptomator.util.SharedPreferencesHandler;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -50,6 +52,8 @@ import static java.util.Arrays.asList;
 public class VaultListPresenterTest {
 
 	private static final String A_NEW_VAULT_NAME = "Haribo";
+
+	private static final String A_RECOVERY_KEY = "pathway lift abuse";
 
 	private static final Cloud A_CLOUD = OnedriveCloud //
 			.aOnedriveCloud() //
@@ -145,6 +149,35 @@ public class VaultListPresenterTest {
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);
 		inTest.setView(vaultListView);
+	}
+
+	@Test
+	public void testCreatedVaultIsAddedAndShowsItsRecoveryKey() {
+		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
+
+		ArgumentCaptor<VaultModel> shownFor = ArgumentCaptor.forClass(VaultModel.class);
+		verify(vaultListView).addOrUpdateVault(Mockito.any());
+		verify(vaultListView).showRecoveryKeyDialog(shownFor.capture(), Mockito.eq(A_RECOVERY_KEY));
+		Assertions.assertEquals(AN_UNLOCKED_VAULT.getName(), shownFor.getValue().getName());
+	}
+
+	@Test
+	public void testVaultCreatedWhilePausedShowsItsRecoveryKeyOnResume() {
+		when(sharedPreferencesHandler.hasCompletedWelcomeFlow()).thenReturn(true);
+		when(sharedPreferencesHandler.licenseToken()).thenReturn("token");
+		when(licenseEnforcer.evaluateTrialState()).thenReturn(new LicenseEnforcer.TrialState(false, false, null));
+
+		inTest.pause();
+		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
+
+		verify(vaultListView).addOrUpdateVault(Mockito.any());
+		verify(vaultListView, never()).showRecoveryKeyDialog(Mockito.any(), Mockito.any());
+
+		inTest.resume();
+		inTest.pause();
+		inTest.resume();
+
+		verify(vaultListView, times(1)).showRecoveryKeyDialog(Mockito.any(), Mockito.eq(A_RECOVERY_KEY));
 	}
 
 	@Test
