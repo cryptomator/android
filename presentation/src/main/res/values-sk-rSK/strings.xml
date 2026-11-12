@@ -116,6 +116,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Zobraziť kľúč na obnovenie</string>
 	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Doživotná licencia je zľavnená o %1$d%% do %2$s</string>
@@ -313,8 +314,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Staré heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nové heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
+	<string name="dialog_recovery_key_password_hint">Zadajte heslo pre „%1$s“ a zobrazí sa jeho obnovovací kľúč.</string>
 	<string name="dialog_recovery_key_password_positive_button">Zobraziť</string>
+	<string name="dialog_recovery_key_title">Kľúč na obnovenie</string>
+	<string name="dialog_recovery_key_description">Kľúč na obnovenie je jediný spôsob, ako obnoviť prístup k „%1$s“, ak stratíte heslo:</string>
+	<string name="dialog_recovery_key_storage_hint">Uschovajte si ho na veľmi bezpečnom mieste, napríklad v správcovi hesiel alebo vytlačený na papieri.</string>
 	<string name="dialog_recovery_key_copy_button">Kopírovať</string>
+	<string name="dialog_recovery_key_copied">Kľúč na obnovenie bol skopírovaný</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
 	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstránte tento trezor zo zoznamu a pridajte ho znovu. Odstrániť teraz?</string>
