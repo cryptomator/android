@@ -256,6 +256,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Mật khẩu cũ không được để trống.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Mật khẩu mới không được để trống.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Mật khẩu mới không khớp với mật khẩu đã nhập lại.</string>
+	<string name="dialog_recovery_key_password_positive_button">Hiện</string>
+	<string name="dialog_recovery_key_copy_button">Sao chép</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Không tìm thấy vault %1$s</string>
 	<string name="dialog_vault_not_found_message">Vault đã bị đổi tên, di chuyển hoặc xoá. Xoá vault này khỏi danh sách và thêm lại để tiếp tục. Xoá ngay bây giờ?</string>
