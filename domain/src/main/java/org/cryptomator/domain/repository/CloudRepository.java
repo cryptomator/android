@@ -23,11 +23,13 @@ public interface CloudRepository {
 
 	void delete(Cloud cloud) throws BackendException;
 
-	void create(CloudFolder location, CharSequence password) throws BackendException;
+	String create(CloudFolder location, CharSequence password) throws BackendException;
 
 	Cloud decryptedViewOf(Vault vault) throws BackendException;
 
 	boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException;
+
+	String recoveryKey(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException;
 
 	void lock(Vault vault) throws BackendException;
 

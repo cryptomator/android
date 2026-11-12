@@ -30,6 +30,7 @@ import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
+import org.cryptomator.presentation.ui.dialog.RecoveryKeyDialog
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -212,6 +213,18 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun onChangePasswordClick(vaultModel: VaultModel) {
 		vaultListPresenter.onChangePasswordClicked(vaultModel)
+	}
+
+	override fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String) {
+		showDialog(RecoveryKeyDialog.newInstance(vaultModel.name, recoveryKey))
+	}
+
+	override fun onShowRecoveryKeyClick(vaultModel: VaultModel) {
+		vaultListPresenter.onShowRecoveryKeyClicked(vaultModel)
+	}
+
+	override fun onRecoveryKeyDialogFinished() {
+		// the dialog closes itself and the vault list stays open
 	}
 
 	override fun onRenameClick(vaultModel: VaultModel, newVaultName: String) {

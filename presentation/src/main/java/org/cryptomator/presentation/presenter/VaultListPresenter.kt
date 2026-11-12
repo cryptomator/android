@@ -23,6 +23,7 @@ import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
+import org.cryptomator.domain.usecases.vault.CreatedVault
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase
@@ -102,6 +103,7 @@ class VaultListPresenter @Inject constructor( //
 ) : Presenter<VaultListView>(exceptionMappings) {
 
 	private var vaultAction: VaultAction? = null
+	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
 	private val licenseChangeListener = Consumer<String> { _ ->
 		if (!isPaused) {
 			updateSalePromo()
@@ -128,6 +130,11 @@ class VaultListPresenter @Inject constructor( //
 		}
 
 		showLicenseLostDialogIfNeeded()
+
+		createdVaultAwaitingRecoveryKeyDialog?.let {
+			createdVaultAwaitingRecoveryKeyDialog = null
+			showRecoveryKeyDialog(it)
+		}
 	}
 
 	private fun launchWelcomeFlowIfNeeded(): Boolean {
@@ -624,11 +631,32 @@ class VaultListPresenter @Inject constructor( //
 		view?.closeDialog()
 	}
 
+	fun onCreateVaultCompleted(createdVault: CreatedVault) {
+		onAddOrCreateVaultCompleted(createdVault.vault)
+		if (isPaused) {
+			createdVaultAwaitingRecoveryKeyDialog = createdVault
+		} else {
+			showRecoveryKeyDialog(createdVault)
+		}
+	}
+
+	private fun showRecoveryKeyDialog(createdVault: CreatedVault) {
+		view?.showRecoveryKeyDialog(VaultModel(createdVault.vault), createdVault.recoveryKey)
+	}
+
 	fun onChangePasswordClicked(vaultModel: VaultModel) {
 		Intents
 			.unlockVaultIntent()
 			.withVaultModel(vaultModel)
 			.withVaultAction(UnlockVaultIntent.VaultAction.CHANGE_PASSWORD)
+			.startActivity(this)
+	}
+
+	fun onShowRecoveryKeyClicked(vaultModel: VaultModel) {
+		Intents
+			.unlockVaultIntent()
+			.withVaultModel(vaultModel)
+			.withVaultAction(UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY)
 			.startActivity(this)
 	}
 

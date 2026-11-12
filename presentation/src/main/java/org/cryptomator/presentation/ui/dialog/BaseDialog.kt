@@ -31,6 +31,9 @@ abstract class BaseDialog<Callback, VB : ViewBinding>(val bindingFactory: (Layou
 
 	var callback: Callback? = null
 
+	protected var waitingForResponse = false
+		private set
+
 	protected abstract fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog
 	protected abstract fun setupView()
 
@@ -76,6 +79,7 @@ abstract class BaseDialog<Callback, VB : ViewBinding>(val bindingFactory: (Layou
 	}
 
 	fun onWaitForResponse(view: View) {
+		waitingForResponse = true
 		view.isFocusable = false
 		allowClosingDialog(false)
 		enableButtons(false)
@@ -97,6 +101,7 @@ abstract class BaseDialog<Callback, VB : ViewBinding>(val bindingFactory: (Layou
 		get() = requireContext().resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 	fun onErrorResponse(view: View?) {
+		waitingForResponse = false
 		view?.let { it.isFocusableInTouchMode = true }
 		allowClosingDialog(true)
 		enableButtons(true)

@@ -155,6 +155,7 @@
 	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
 	<string name="screen_vault_list_vault_action_rename" translatable="false">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Show recovery key</string>
 	<string name="screen_vault_list_vault_creation_hint">Tap here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Lifetime License is %1$d%% off until %2$s</string>
@@ -414,6 +415,17 @@
 	<string name="dialog_change_password_msg_old_password_empty">Old password can\'t be empty.</string>
 	<string name="dialog_change_password_msg_new_password_empty">New password can\'t be empty.</string>
 	<string name="dialog_change_password_msg_password_mismatch">New password doesn\'t match retyped password.</string>
+
+	<string name="dialog_recovery_key_password_title" translatable="false">@string/screen_vault_list_vault_action_show_recovery_key</string>
+	<string name="dialog_recovery_key_password_hint">Enter the password for \"%1$s\" to show its recovery key.</string>
+	<string name="dialog_recovery_key_password_positive_button">Show</string>
+
+	<string name="dialog_recovery_key_title">Recovery key</string>
+	<string name="dialog_recovery_key_description">The recovery key is your only means to restore access to \"%1$s\" if you lose your password:</string>
+	<string name="dialog_recovery_key_storage_hint">Keep it somewhere very secure, e.g. in a password manager or printed on paper.</string>
+	<string name="dialog_recovery_key_copy_button">Copy</string>
+	<string name="dialog_recovery_key_copied">Recovery key copied</string>
+	<string name="dialog_recovery_key_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>

@@ -26,7 +26,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/tv_message"
-				app:startIconDrawable="@drawable/ic_license_key">
+				app:startIconDrawable="@drawable/ic_key">
 
 				<com.google.android.material.textfield.TextInputEditText
 					android:id="@+id/et_license"
