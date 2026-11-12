@@ -143,6 +143,8 @@
 	<string name="dialog_button_cancel">ரத்து செய்</string>
 	<string name="dialog_enter_password_positive_button">பூட்டுநீக்கு</string>
 	<string name="dialog_change_password_msg_new_password_empty">கடவுச்சொல் காலியாக இருக்கக்கூடாது.</string>
+	<string name="dialog_recovery_key_password_positive_button">காட்டு</string>
+	<string name="dialog_recovery_key_copy_button">நகலெடு</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">நீக்கு</string>
 	<string name="dialog_existing_file_title">கோப்பு ஏற்கனவே உள்ளது</string>
