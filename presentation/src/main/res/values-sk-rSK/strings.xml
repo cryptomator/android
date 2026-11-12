@@ -182,12 +182,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživateľské meno</string>
+	<string name="screen_webdav_settings_server_label">Adresa servera</string>
+	<string name="screen_webdav_settings_space_id_label">ID Priestoru</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Zmluva</string>
 	<string name="screen_webdav_settings_password_label">Heslo</string>
 	<string name="screen_webdav_settings_done_button_text">Pripojiť</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL je neplatná.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Užívateľské meno nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Heslo nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Adresa servera nemôže byť prázdna.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Adresa servera je neplatná.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">ID priestoru nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Vyberte jednu z možností.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Ak je povolené dvojfaktorové overenie, vytvorte heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_disroot_hint">Použite svoje používateľské meno Disroot alebo svoju e-mailovú adresu, ak používate vlastnú doménu. Ak je povolené dvojfaktorové overenie, vytvorte si heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 30 minút.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 60 minút.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV vyžaduje platený program. Ako heslo použite prístupový kľúč WebDAV z vášho účtu Icedrive.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV nie je k dispozícii v bezplatnom pláne.</string>
+	<string name="screen_webdav_settings_koofr_hint">Vytvorte si heslo aplikácie vo svojom účte Koofr a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">V nastaveniach MagentaCLOUD si vytvorte heslo protokolu WebDAV a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Vytvorte token aplikácie v časti Nastavenia &gt; Tokeny aplikácií a použite ho ako heslo. ID priestoru nájdete v informačnom paneli priestoru.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Zobrazované meno</string>
 	<string name="screen_s3_settings_access_key_label">Prístupový kľúč</string>
@@ -265,6 +281,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s pripojení</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
 	<string name="screen_cloud_settings_local_storage_locations">Umiestnenia lokálnych úložísk</string>
