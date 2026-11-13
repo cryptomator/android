@@ -282,8 +282,11 @@
 	<string name="dialog_change_password_msg_old_password_empty">古いパスワードは空にできません。</string>
 	<string name="dialog_change_password_msg_new_password_empty">新しいパスワードは空にできません。</string>
 	<string name="dialog_change_password_msg_password_mismatch">新しいパスワードが再入力されたパスワードと一致しません。</string>
+	<string name="dialog_recovery_key_password_hint">\"%1$s\" の回復キーを表示するためのパスワードを入力してください。</string>
 	<string name="dialog_recovery_key_password_positive_button">表示</string>
 	<string name="dialog_recovery_key_title">回復キー</string>
+	<string name="dialog_recovery_key_description">回復キーは、パスワードを忘れてしまった場合に \"%1$s\" へのアクセスを回復する唯一の手段です。</string>
+	<string name="dialog_recovery_key_storage_hint">パスワードマネージャーに保存する、印刷して保管するなど、極めて安全な場所に保管してください。</string>
 	<string name="dialog_recovery_key_copy_button">コピー</string>
 	<string name="dialog_recovery_key_copied">リカバリーキーをコピーしました</string>
 	<!-- Vault not found -->
