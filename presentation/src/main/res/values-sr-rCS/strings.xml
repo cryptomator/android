@@ -33,6 +33,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Otkaži</string>
 	<string name="dialog_enter_password_positive_button">Otključaj</string>
+	<string name="dialog_recovery_key_password_positive_button">Prikaži</string>
+	<string name="dialog_recovery_key_copy_button">Kopiraj</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Zaključaj</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Zatvori</string>

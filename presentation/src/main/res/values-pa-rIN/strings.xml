@@ -223,6 +223,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">ਪੁਰਾਣਾ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<string name="dialog_change_password_msg_new_password_empty">ਨਵਾਂ ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।</string>
 	<string name="dialog_change_password_msg_password_mismatch">ਨਵਾਂ ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੇ ਪਾਸਵਰਡ ਨਾਲ ਮਿਲਦਾ ਨਹੀ ਹੈ।</string>
+	<string name="dialog_recovery_key_password_positive_button">ਵੇਖਾਓ</string>
+	<string name="dialog_recovery_key_copy_button">ਕਾਪੀ ਕਰੋ</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s ਵਾਲਟ ਨਹੀਂ ਲੱਭਿਆ</string>
 	<string name="dialog_vault_not_found_message">ਵਾਲਟ ਦਾ ਨਾਂ ਬਦਲਿਆ ਗਿਆ, ਹਿਲਾਇਆ ਗਿਆ ਜਾਂ ਹਟਾਇਆ ਗਿਆ ਹੈ। ਸੂਚੀ ਤੋਂ ਇਸ ਵਾਲਟ ਨੂੰ ਹਟਾਓ ਅਤੇ ਜਾਰੀ ਰੱਖਣ ਲਈ ਇਸ ਨੂੰ ਫੇਰ ਜੋੜੋ। ਹੁਣੇ ਹਟਾਉਣਾ ਹੈ?</string>

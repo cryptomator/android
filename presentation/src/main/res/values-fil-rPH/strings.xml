@@ -258,6 +258,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Hindi maaaring walang laman ang lumang password field.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Hindi maaaring walang laman ang bagong password field.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Hindi nagtugma ang bagong password sa ni-retype na password.</string>
+	<string name="dialog_recovery_key_password_positive_button">Ipakita</string>
+	<string name="dialog_recovery_key_copy_button">Kopyahin</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Hindi nahanap ang Vault %1$s</string>
 	<string name="dialog_vault_not_found_message">Ang vault ay pinalitan ng pangalan, inilipat o tinanggal. Alisin ang vault na ito sa listahan at idagdag itong muli upang magpatuloy. Alisin ngayon?</string>

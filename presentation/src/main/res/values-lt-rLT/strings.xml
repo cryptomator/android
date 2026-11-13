@@ -91,6 +91,7 @@
 	<string name="dialog_change_password">Keisti slaptažodį</string>
 	<string name="dialog_change_password_msg_old_password_empty">Senas slaptažodis negali būti tuščias.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Naujas slaptažodis negali būti tuščias.</string>
+	<string name="dialog_recovery_key_copy_button">Kopijuoti</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Šalinti</string>
 	<string name="dialog_existing_file_title">Failas jau yra</string>

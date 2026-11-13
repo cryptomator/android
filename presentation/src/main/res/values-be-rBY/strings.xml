@@ -139,6 +139,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Скасаваць</string>
 	<string name="dialog_enter_password_positive_button">Адамкнуць</string>
+	<string name="dialog_recovery_key_password_positive_button">Паказаць</string>
+	<string name="dialog_recovery_key_copy_button">Капіяваць</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Выдаліць</string>
 	<string name="dialog_unable_to_share_positive_button">Добра</string>

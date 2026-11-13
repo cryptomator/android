@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Criar novo cofre</string>
 	<string name="screen_vault_list_action_add_existing_vault">Adicionar ao cofre existente</string>
 	<string name="screen_vault_list_vault_action_delete">Remover</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Mostrar chave de recuperação</string>
 	<string name="screen_vault_list_vault_creation_hint">Toque aqui para criar um cofre</string>
 	<string name="screen_vault_list_change_password_successful">Senha alterada com sucesso</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Licença Vitalícia é %1$d%% de desconto até %2$s</string>
@@ -186,12 +187,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nome de usuário</string>
+	<string name="screen_webdav_settings_server_label">Endereço do servidor</string>
+	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contrato</string>
 	<string name="screen_webdav_settings_password_label">Senha</string>
 	<string name="screen_webdav_settings_done_button_text">Conectar</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">A URL não pode estar vazia.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL inválida.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">O nome de usuário não pode estar vazio.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A senha não pode estar vazia.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">O endereço do servidor não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Endereço de servidor inválido.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">O Space ID não pode estar vazio.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Selecione uma das opções.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Se a autenticação em duas etapas estiver ativada, crie uma senha para o aplicativo e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_disroot_hint">Use seu nome de usuário do Desroot ou seu endereço de e-mail se você usar seu próprio domínio. Se a autenticação em duas etapas estiver ativada, crie uma senha para o aplicativo e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Se a autenticação de dois fatores estiver ativada, anexe o código único atual à sua senha. O código é válido por 30 minutos.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Se a autenticação de dois fatores estiver ativada, anexe o código único atual à sua senha. O código é válido por 60 minutos.</string>
+	<string name="screen_webdav_settings_icedrive_hint">O WebDAV requer um plano pago. Use a chave de acesso WebDAV da sua conta Icedrive como senha.</string>
+	<string name="screen_webdav_settings_kdrive_hint">O WebDAV está indisponível no plano gratuito.</string>
+	<string name="screen_webdav_settings_koofr_hint">Crie uma senha do aplicativo na sua conta Koofr e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Crie uma senha do protocolo WebDAV nas configurações do MagentaCLOUD e use-a ao invés da senha da sua conta.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Crie um token de aplicativo em Configurações &gt; Tokens de Aplicativo e use-o como senha. Você encontra o Space ID no painel de informações do Space.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nome de exibição</string>
 	<string name="screen_s3_settings_access_key_label">Chave de Acesso</string>
@@ -273,6 +290,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">conexões do OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Conexões com SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">conexões da WebDAV</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s conexões</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões do pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Conexões Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões do S3</string>
@@ -305,6 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">A senha antiga não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_new_password_empty">A nova senha não pode estar vazia.</string>
 	<string name="dialog_change_password_msg_password_mismatch">A nova senha é diferente da digitada.</string>
+	<string name="dialog_recovery_key_password_hint">Digite a senha para mostrar a chave de recuperação de \"%1$s\".</string>
+	<string name="dialog_recovery_key_password_positive_button">Mostrar</string>
+	<string name="dialog_recovery_key_title">Chave de Recuperação</string>
+	<string name="dialog_recovery_key_description">A chave de recuperação é a sua única forma de restaurar o acesso a \"%1$s\" se você perder a sua senha:</string>
+	<string name="dialog_recovery_key_storage_hint">Mantenha-a num lugar muito seguro (p. ex.: num gerenciador de senhas ou impressa em papel).</string>
+	<string name="dialog_recovery_key_copy_button">Copiar</string>
+	<string name="dialog_recovery_key_copied">Chave de recuperação copiada</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cofre %1$s não encontrado</string>
 	<string name="dialog_vault_not_found_message">O cofre pode ter sido renomeado, movido ou apagado. Remova-o da lista e adicione ele novamente para prosseguir. Remover agora?</string>

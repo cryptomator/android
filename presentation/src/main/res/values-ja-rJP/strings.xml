@@ -66,6 +66,7 @@
 	<string name="screen_license_check_trial_active_info">試用版の有効期限: %s</string>
 	<string name="screen_license_check_trial_expired_info">試用版の有効期限が切れました。</string>
 	<string name="screen_welcome_title">ようこそ</string>
+	<string name="screen_welcome_notifications_title">最新情報を入手</string>
 	<string name="screen_welcome_notifications_button">通知を許可する</string>
 	<string name="screen_welcome_notifications_granted">通知を有効にしました。</string>
 	<string name="screen_welcome_continue_button">続行</string>
@@ -101,6 +102,7 @@
 	<string name="screen_vault_list_action_create_new_vault">新しい金庫を作成</string>
 	<string name="screen_vault_list_action_add_existing_vault">既存の金庫を追加</string>
 	<string name="screen_vault_list_vault_action_delete">削除</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">回復キーを表示</string>
 	<string name="screen_vault_list_vault_creation_hint">金庫の作成ためにここをタップ</string>
 	<string name="screen_vault_list_change_password_successful">パスワードが正常に変更されました</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">閉じる</string>
@@ -163,12 +165,14 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">ユーザー名</string>
+	<string name="screen_webdav_settings_server_label">サーバーアドレス</string>
 	<string name="screen_webdav_settings_password_label">パスワード</string>
 	<string name="screen_webdav_settings_done_button_text">接続</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL は空にできません。</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL が無効です。</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">ユーザー名は空にできません。</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">パスワードは空にできません。</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">サーバーアドレスが無効です。</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">表示名</string>
 	<string name="screen_s3_settings_access_key_label">アクセスキー</string>
@@ -278,6 +282,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">古いパスワードは空にできません。</string>
 	<string name="dialog_change_password_msg_new_password_empty">新しいパスワードは空にできません。</string>
 	<string name="dialog_change_password_msg_password_mismatch">新しいパスワードが再入力されたパスワードと一致しません。</string>
+	<string name="dialog_recovery_key_password_hint">\"%1$s\" の回復キーを表示するためのパスワードを入力してください。</string>
+	<string name="dialog_recovery_key_password_positive_button">表示</string>
+	<string name="dialog_recovery_key_title">回復キー</string>
+	<string name="dialog_recovery_key_description">回復キーは、パスワードを忘れてしまった場合に \"%1$s\" へのアクセスを回復する唯一の手段です。</string>
+	<string name="dialog_recovery_key_storage_hint">パスワードマネージャーに保存する、印刷して保管するなど、極めて安全な場所に保管してください。</string>
+	<string name="dialog_recovery_key_copy_button">コピー</string>
+	<string name="dialog_recovery_key_copied">リカバリーキーをコピーしました</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">金庫 %1$s が見つかりません</string>
 	<string name="dialog_vault_not_found_message">金庫の名前が変更、移動または削除されました。この金庫をリストから削除し、再度追加してください。今すぐ削除してもよろしいですか?</string>
@@ -475,6 +486,7 @@
 	<string name="screen_settings_upgrade_to_lifetime">永久ライセンスにアップグレードする</string>
 	<string name="dialog_trial_expired_title">試用期間が終了しました</string>
 	<string name="dialog_trial_expired_unlock">フル バージョンのロックを解除</string>
+	<string name="dialog_license_lost_reenter">ライセンスキーを再入力</string>
 	<string name="dialog_license_lost_later">あとで</string>
 	<string name="dialog_settings_update_check_interval_title">更新確認の間隔</string>
 	<string name="screen_settings_check_updates">更新の確認</string>

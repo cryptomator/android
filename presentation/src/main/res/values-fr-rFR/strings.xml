@@ -121,8 +121,10 @@
 	<string name="screen_vault_list_action_create_new_vault">Créer un nouveau coffre-fort</string>
 	<string name="screen_vault_list_action_add_existing_vault">Ajouter un coffre-fort existant</string>
 	<string name="screen_vault_list_vault_action_delete">Retirer</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Afficher la clé de récupération</string>
 	<string name="screen_vault_list_vault_creation_hint">Tapez ici pour créer un nouvel espace chiffré</string>
 	<string name="screen_vault_list_change_password_successful">Mot de passe modifié avec succès</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licence à vie est %1$d%% de réduction jusqu\'au %2$s</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Ignorer</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Coffre</string>
@@ -185,12 +187,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Nom d\'utilisateur</string>
+	<string name="screen_webdav_settings_server_label">Adresse du serveur</string>
+	<string name="screen_webdav_settings_space_id_label">ID d\'espace</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contrat</string>
 	<string name="screen_webdav_settings_password_label">Mot de passe</string>
 	<string name="screen_webdav_settings_done_button_text">Connexion</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">L\'URL ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL invalide.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Le nom d\'utilisateur ne peut pas être vide.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Le mot de passe ne peut pas être vide.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">L\'adresse du serveur ne peut pas être vide.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">L\'adresse du serveur est invalide.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">L\'identifiant de l\'espace ne peut pas être vide.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Sélectionnez l\'une des options.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Si l\'authentification à deux facteurs est activée, créez un mot de passe de l\'application et utilisez-le au lieu du mot de passe de votre compte.</string>
+	<string name="screen_webdav_settings_disroot_hint">Utilisez votre nom d\'utilisateur Disroot, ou votre adresse e-mail si vous utilisez votre propre domaine. Si l\'authentification à deux facteurs est activée, créez un mot de passe de l\'application et utilisez-le au lieu du mot de passe de votre compte.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Si l\'authentification à deux facteurs est activée, ajoutez le code à usage unique actuel à votre mot de passe. Le code est valide pendant 30 minutes.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Si l\'authentification à deux facteurs est activée, ajoutez le code à usage unique actuel à votre mot de passe. Le code est valide pendant 60 minutes.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV nécessite une offre payante. Utilisez la clé d\'accès WebDAV de votre compte Icedrive comme mot de passe.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV n\'est pas disponible sur l\'offre gratuite.</string>
+	<string name="screen_webdav_settings_koofr_hint">Créez un mot de passe d\'application dans votre compte Koofr et utilisez-le à la place du mot de passe de votre compte.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Créez un mot de passe de protocole WebDAV dans vos paramètres MagentaCLOUD et utilisez-le à la place du mot de passe de votre compte.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Créez un jeton d\'application dans Paramètres &gt; Jetons d\'application et utilisez-le comme mot de passe. Vous trouverez l\'ID de l\'espace dans le panneau d\'information de l\'espace.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Nom Afficher</string>
 	<string name="screen_s3_settings_access_key_label">Clef d’Accès</string>
@@ -272,6 +290,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Connexions OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Connexions SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connexions</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Connexions Box™</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
@@ -304,6 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">L\'ancien mot de passe ne peut pas être vide.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Le nouveau mot de passe ne peut pas être vide.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Le nouveau mot de passe ne correspond pas au mot de passe retapé.</string>
+	<string name="dialog_recovery_key_password_hint">Entrez le mot de passe de \"%1$s\" pour afficher sa clé de récupération.</string>
+	<string name="dialog_recovery_key_password_positive_button">Afficher</string>
+	<string name="dialog_recovery_key_title">Clé de récupération</string>
+	<string name="dialog_recovery_key_description">La clé de récupération est votre seul moyen de restaurer l\'accès à \"%1$s\" si vous perdez votre mot de passe :</string>
+	<string name="dialog_recovery_key_storage_hint">Gardez-la dans un endroit très sécurisé, par exemple dans un gestionnaire de mots de passe ou imprimé sur papier.</string>
+	<string name="dialog_recovery_key_copy_button">Copier</string>
+	<string name="dialog_recovery_key_copied">Clé de récupération copiée</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Coffre-fort %1$s introuvable</string>
 	<string name="dialog_vault_not_found_message">Le coffre-fort a été renommé, déplacé ou supprimé. Supprimez ce coffre-fort de la liste et ajoutez-le à nouveau pour continuer. Supprimer maintenant ?</string>

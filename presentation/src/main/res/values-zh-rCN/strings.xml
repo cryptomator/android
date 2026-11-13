@@ -264,6 +264,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">旧密码不能为空</string>
 	<string name="dialog_change_password_msg_new_password_empty">新密码不能为空</string>
 	<string name="dialog_change_password_msg_password_mismatch">两次密码不匹配</string>
+	<string name="dialog_recovery_key_password_positive_button">显示</string>
+	<string name="dialog_recovery_key_copy_button">复制</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">未找到 %1$s 保险库</string>
 	<string name="dialog_vault_not_found_message">保险库已重命名、移动或删除。请从列表中删除此保险库并重新添加以继续。立即删除它吗？</string>

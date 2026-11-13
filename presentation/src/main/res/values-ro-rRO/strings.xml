@@ -260,6 +260,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Parola veche nu poate fi goală.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Parola nouă nu poate fi goală.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Parola nouă nu se potrivește cu parola reintrodusă.</string>
+	<string name="dialog_recovery_key_password_positive_button">Afișează</string>
+	<string name="dialog_recovery_key_copy_button">Copiază</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Seiful %1$s nu a fost găsit</string>
 	<string name="dialog_vault_not_found_message">Seiful a fost redenumit, mutat sau şters. Vă rugăm sa ștergeți acest seif din listă și adaugați-l din nou pentru a continua. Doriți sa îl ștergeți acum?</string>

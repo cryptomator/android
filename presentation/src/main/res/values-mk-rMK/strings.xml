@@ -32,6 +32,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Откажи</string>
 	<string name="dialog_enter_password_positive_button">Отклучи</string>
+	<string name="dialog_recovery_key_password_positive_button">Покажи</string>
+	<string name="dialog_recovery_key_copy_button">Копирај</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Заклучи</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затвори</string>
