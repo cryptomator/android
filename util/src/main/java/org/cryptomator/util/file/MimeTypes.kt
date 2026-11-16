@@ -23,4 +23,8 @@ class MimeTypes @Inject constructor(private val mimeTypeMap: MimeTypeMap) {
 			null
 		} else fromExtension(filename.substring(lastDot + 1))
 	}
+
+	fun isImage(filename: String): Boolean {
+		return fromFilename(filename)?.mediatype == "image"
+	}
 }

@@ -1,5 +1,6 @@
 package org.cryptomator.presentation.presenter
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,7 @@ import org.cryptomator.domain.usecases.cloud.ProgressState
 import org.cryptomator.generator.BoundCallback
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.generator.Unsubscribable
+import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.exception.PermissionNotGrantedException
 import org.cryptomator.presentation.intent.IntentBuilder
@@ -56,6 +58,7 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	fun pause() {
 		logLifecycle("pause")
 		isPaused = true
+		paused()
 	}
 
 	fun finishWithResult(result: Serializable?) {
@@ -127,6 +130,8 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 	}
 
 	open fun resumed() {}
+
+	open fun paused() {}
 
 	fun destroy() {
 		logLifecycle("destroy")
@@ -224,6 +229,13 @@ abstract class Presenter<V : View> protected constructor(private val exceptionMa
 		permissionsResultCallbacks[requestCode] = callback
 		permissionSnackbarText[requestCode] = permissionSnackbarTextId
 		requestPermissions(missingPermissions, requestCode)
+	}
+
+	/**
+	 * For servers in the local network, see [org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException].
+	 */
+	fun requestLocalNetworkPermission(callback: BoundCallback<*, out PermissionsResult>) {
+		requestPermissions(callback, R.string.permission_snackbar_local_network, Manifest.permission.ACCESS_LOCAL_NETWORK)
 	}
 
 	private fun requestPermissions(missingPermissions: Array<String?>, requestCode: Int) {

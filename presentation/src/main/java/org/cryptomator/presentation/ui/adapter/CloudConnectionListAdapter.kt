@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.databinding.ItemBrowseCloudModelConnectionsBinding
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SharepointCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.comparator.CloudModelComparator
 import org.cryptomator.presentation.ui.adapter.CloudConnectionListAdapter.CloudConnectionHolder
@@ -57,11 +59,17 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 				is OnedriveCloudModel -> {
 					bindOnedriveCloudModel(cloudModel)
 				}
+				is SharepointCloudModel -> {
+					bindSharepointCloudModel(cloudModel)
+				}
 				is WebDavCloudModel -> {
 					bindWebDavCloudModel(cloudModel)
 				}
 				is PCloudModel -> {
 					bindPCloudModel(cloudModel)
+				}
+				is BoxCloudModel -> {
+					bindBoxCloudModel(cloudModel)
 				}
 				is S3CloudModel -> {
 					bindS3loudModel(cloudModel)
@@ -78,6 +86,11 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
 		}
 
+		private fun bindSharepointCloudModel(cloudModel: SharepointCloudModel) {
+			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
+			binding.llCloudConnectionContent.cloudSubText.text = cloudModel.siteAndDriveName()
+		}
+
 		private fun bindWebDavCloudModel(cloudModel: WebDavCloudModel) {
 			try {
 				val uri = Uri.parse(cloudModel.url())
@@ -89,6 +102,11 @@ internal constructor(context: Context) : RecyclerViewBaseAdapter<CloudModel, Clo
 		}
 
 		private fun bindPCloudModel(cloudModel: PCloudModel) {
+			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
+			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
+		}
+
+		private fun bindBoxCloudModel(cloudModel: BoxCloudModel) {
 			binding.llCloudConnectionContent.cloudText.text = cloudModel.username()
 			binding.llCloudConnectionContent.cloudSubText.visibility = View.GONE
 		}

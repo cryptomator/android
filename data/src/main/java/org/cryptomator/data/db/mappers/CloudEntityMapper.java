@@ -1,6 +1,7 @@
 package org.cryptomator.data.db.mappers;
 
 import org.cryptomator.data.db.entities.CloudEntity;
+import org.cryptomator.domain.BoxCloud;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.DropboxCloud;
@@ -9,17 +10,21 @@ import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.S3Cloud;
+import org.cryptomator.domain.SharepointCloud;
 import org.cryptomator.domain.WebDavCloud;
+import org.cryptomator.domain.WebDavProvider;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static org.cryptomator.domain.BoxCloud.aBoxCloud;
 import static org.cryptomator.domain.DropboxCloud.aDropboxCloud;
 import static org.cryptomator.domain.GoogleDriveCloud.aGoogleDriveCloud;
 import static org.cryptomator.domain.LocalStorageCloud.aLocalStorage;
 import static org.cryptomator.domain.OnedriveCloud.aOnedriveCloud;
 import static org.cryptomator.domain.PCloud.aPCloud;
 import static org.cryptomator.domain.S3Cloud.aS3Cloud;
+import static org.cryptomator.domain.SharepointCloud.aSharepointCloud;
 import static org.cryptomator.domain.WebDavCloud.aWebDavCloudCloud;
 
 @Singleton
@@ -54,11 +59,26 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withAccessToken(entity.getAccessToken()) //
 						.withUsername(entity.getUsername()) //
 						.build();
+			case SHAREPOINT:
+				return aSharepointCloud() //
+						.withId(entity.getId()) //
+						.withAccessToken(entity.getAccessToken()) //
+						.withUsername(entity.getUsername()) //
+						.withSiteUrl(entity.getUrl()) //
+						.withDriveId(entity.getSharepointDriveId()) //
+						.withDriveName(entity.getSharepointDriveName()) //
+						.build();
 			case PCLOUD:
 				return aPCloud() //
 						.withId(entity.getId()) //
 						.withUrl(entity.getUrl()) //
 						.withAccessToken(entity.getAccessToken()) //
+						.withUsername(entity.getUsername()) //
+						.build();
+			case BOX:
+				return aBoxCloud() //
+						.withId(entity.getId()) //
+						.withUserId(entity.getUrl()) //
 						.withUsername(entity.getUsername()) //
 						.build();
 			case S3:
@@ -78,6 +98,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withUsername(entity.getUsername()) //
 						.withPassword(entity.getAccessToken()) //
 						.withCertificate(entity.getWebdavCertificate()) //
+						.withProvider(entity.getWebdavProvider() == null ? null : WebDavProvider.valueOf(entity.getWebdavProvider())) //
 						.build();
 			default:
 				throw new IllegalStateException("Unhandled enum constant " + type);
@@ -104,10 +125,21 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setAccessToken(((OnedriveCloud) domainObject).accessToken());
 				result.setUsername(((OnedriveCloud) domainObject).username());
 				break;
+			case SHAREPOINT:
+				result.setAccessToken(((SharepointCloud) domainObject).accessToken());
+				result.setUsername(((SharepointCloud) domainObject).username());
+				result.setUrl(((SharepointCloud) domainObject).siteUrl());
+				result.setSharepointDriveId(((SharepointCloud) domainObject).driveId());
+				result.setSharepointDriveName(((SharepointCloud) domainObject).driveName());
+				break;
 			case PCLOUD:
 				result.setAccessToken(((PCloud) domainObject).accessToken());
 				result.setUrl(((PCloud) domainObject).url());
 				result.setUsername(((PCloud) domainObject).username());
+				break;
+			case BOX:
+				result.setUrl(((BoxCloud) domainObject).userId());
+				result.setUsername(((BoxCloud) domainObject).username());
 				break;
 			case S3:
 				result.setUrl(((S3Cloud) domainObject).s3Endpoint());
@@ -122,6 +154,8 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setUrl(((WebDavCloud) domainObject).url());
 				result.setUsername(((WebDavCloud) domainObject).username());
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
+				WebDavProvider provider = ((WebDavCloud) domainObject).provider();
+				result.setWebdavProvider(provider == null ? null : provider.name());
 				break;
 			default:
 				throw new IllegalStateException("Unhandled enum constant " + domainObject.type());

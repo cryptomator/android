@@ -1,4 +1,5 @@
 # From https://github.com/signalapp/Signal-Android
 
-#deb http://snapshot.debian.org/archive/debian-security/20220816T110409Z/ bullseye/updates main
-deb http://snapshot.debian.org/archive/debian/20240522T144944Z/ unstable main
+deb https://snapshot.ubuntu.com/ubuntu/20261009T000000Z/ noble main universe
+deb https://snapshot.ubuntu.com/ubuntu/20261009T000000Z/ noble-security main universe
+deb https://snapshot.ubuntu.com/ubuntu/20261009T000000Z/ noble-updates main universe

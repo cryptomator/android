@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本与 %2$s 中的不同</string>
 	<string name="error_vault_key_invalid">%1$s 与此 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">加载保险库配置时发生常规错误</string>
-	<string name="error_file_not_found_after_opening_using_3party">切换回 Cryptomator 后，本地文件不再存在。期间所做可能的改动无法传回云端。</string>
 	<string name="error_no_such_bucket">没有这样的 bucket</string>
 	<string name="error_masterkey_location_not_supported">尚不支持自定义 Masterkey 路径</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">无法找到 F-Droid 应用程序。可能未安装？</string>
@@ -41,6 +40,29 @@
 	<string name="error_hub_invalid_setup_code">账户密钥无效</string>
 	<string name="error_hub_invalid_version">不支持的 Hub 版本</string>
 	<string name="error_hub_unlock_pre_31">Hub 仅支持 Android 12 及以上版本。</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">家庭成员共享</string>
+	<string name="screen_license_check_benefit_write_access">保险库写入访问权限</string>
+	<string name="screen_license_check_benefit_support">开源开发</string>
+	<string name="screen_license_check_title_full_version">解锁完整版</string>
+	<string name="screen_license_check_trial_title">30 天免费试用</string>
+	<string name="screen_license_check_trial_price">免费版</string>
+	<string name="screen_license_check_trial_subtitle">30 天</string>
+	<string name="screen_license_check_subscription_title">按年订阅</string>
+	<string name="screen_license_check_subscription_subtitle">按年</string>
+	<string name="screen_license_check_lifetime_title">终身许可证</string>
+	<string name="screen_license_check_lifetime_subtitle">一次付费</string>
+	<string name="screen_license_check_restore_purchase">恢复购买</string>
+	<string name="screen_license_check_terms">使用条款</string>
+	<string name="screen_license_check_privacy">隐私政策</string>
+	<string name="screen_license_check_trial_status_active">进行中</string>
+	<string name="screen_license_check_trial_status_expired">已到期</string>
+	<string name="screen_license_check_trial_expired_info">您的试用期已结束。</string>
+	<string name="screen_welcome_title">欢迎使用</string>
+	<string name="screen_welcome_continue_button">继续</string>
+	<string name="screen_welcome_screen_lock_button">设置屏幕锁定</string>
+	<string name="next">下一步</string>
+	<string name="back">后退</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">本地存储</string>
@@ -71,6 +93,7 @@
 	<string name="screen_vault_list_vault_action_delete">删除</string>
 	<string name="screen_vault_list_vault_creation_hint">新建保险库</string>
 	<string name="screen_vault_list_change_password_successful">密码修改成功</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">放弃</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">保险库</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">选择 Masterkey 或保险库文件</string>
@@ -203,8 +226,6 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">高级设置</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">打开 Microsoft 文件的解决方法</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">使用写入权限在 Microsoft 应用中打开文件</string>
 	<string name="screen_settings_background_unlock_preparation_label">快速解锁</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">提示输入密码或生物识别认证时后台下载保险库配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解锁状态</string>
@@ -311,7 +332,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外。\n\n请记得要尽快关闭调试模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">请注意</string>
 	<string name="dialog_debug_mode_positive_button">启用</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">由于 Microsoft 应用中的 bug，要将文件共享到公共文件夹中才能对其进行编辑。一旦 Cryptomator 继续运行，可公开访问的相应文件将再次被删除，但 Cryptomator 无法影响此文件在此期间发生的情况。请确保您在激活此选项时了解此行为。该问题仅适用于 Microsoft 文件类型\n\nCryptomator 将在激活选项后重新启动</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此设置是一项安全功能，可防止其他应用程序诱骗用户进行他们不希望进行的操作。\n\n禁用此设置，即表示您确认<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">已了解风险</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">请注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">关闭</string>
@@ -354,6 +374,7 @@
 	<string name="dialog_no_more_images_to_display">已到达文件夹末尾&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 的证书已更新</string>
 	<string name="dialog_pcloud_credentials_updated">如果您打算添加一个新的 pCloud 账户，请点击此链接 <a href="https://www.pcloud.com">www.pcloud.com</a>，登出当前账户，然后点击此应用中的 \'+\' 来创建新的云连接</string>
+	<string name="dialog_enter_sharepoint_url_title">输入 SharePoint 链接</string>
 	<string name="dialog_cbc_password_vaults_migration_title">需要迁移保险库密码</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">由于安全性能增强，每个保险库都会要求您进行两次生物识别验证，以重新加密您的保险库密码。这是继续使用最新技术保护您的保险库密码所必需的。如果您不希望这样做，存储的密码将被删除。</string>
 	<string name="dialog_cbc_password_vaults_migration_action">迁移</string>
@@ -371,6 +392,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">此 Cryptomator Hub 实例许可证无效，请联系 Hub 管理员升级或者续订许可证</string>
 	<string name="dialog_hub_vault_archived_title">私密库已存档</string>
 	<string name="dialog_hub_vault_archived_hint">此保险库已存档且无法解锁。要想解锁，必须由其所有者取消存档</string>
+	<string name="dialog_restore_successful_title">恢复成功</string>
+	<string name="dialog_no_full_version_title">未购买完整版</string>
 	<string name="dialog_hub_user_setup_required_title">需要用户设置</string>
 	<string name="dialog_hub_user_setup_required_hint">要继续，请完成 Hub 用户中心所需的步骤</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">前往个人中心</string>
@@ -426,30 +449,22 @@
 	<string name="notification_update_check_finished_latest">已安装最新版本</string>
 	<string name="notification_authenticating">正在验证 &#8230;</string>
 	<string name="screen_settings_lru_cache">缓存</string>
-	<string name="screen_settings_lru_cache_toggle_summary">缓存最近在本地加密的访问文件，用以下次快速加载</string>
-	<string name="screen_settings_lru_cache_size">缓存总大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除缓存</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">更改将在下次应用重启时生效</string>
-	<string name="screen_settings_license">已授权给</string>
+	<string name="screen_settings_license_title_unlock">解锁完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">管理订阅</string>
+	<string name="screen_settings_upgrade_to_lifetime">升级到终生版</string>
+	<string name="dialog_trial_expired_unlock">解锁完整版</string>
+	<string name="dialog_license_lost_later">稍后再说</string>
 	<string name="dialog_settings_update_check_interval_title">更新检查频率</string>
 	<string name="screen_settings_check_updates">检查更新</string>
 	<string name="screen_settings_last_check_updates">上次检查 %1$s</string>
-	<string name="dialog_cache_size_title">每个云端缓存大小</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">立即</string>
 	<string name="lock_timeout_1m">1 分钟</string>
 	<string name="lock_timeout_2m">2 分钟</string>
 	<string name="lock_timeout_5m">5 分钟</string>
 	<string name="lock_timeout_10m">10 分钟</string>
 	<string name="lock_timeout_never">从不</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">主题</string>
 	<string name="follow_system">自动 (跟随系统)</string>

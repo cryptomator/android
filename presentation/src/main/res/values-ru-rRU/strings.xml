@@ -7,6 +7,7 @@
 	<string name="error_authentication_failed">Ошибка аутентификации</string>
 	<string name="error_authentication_failed_re_authenticate">Ошибка аутентификации, войдите с помощью %1$s</string>
 	<string name="error_no_network_connection">Нет подключения к сети</string>
+	<string name="error_purchase_not_available">Покупка недоступна. Повторите попытку позже.</string>
 	<string name="error_invalid_passphrase">Неверный пароль</string>
 	<string name="error_file_or_folder_exists">Файл или папка уже существует.</string>
 	<string name="error_vault_version_not_supported">Версия хранилища %1$s не поддерживается. Это хранилище было создано либо в устаревшей, либо в более новой версии Cryptomator.</string>
@@ -31,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не совпадает с %2$s</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
-	<string name="error_file_not_found_after_opening_using_3party">Локальный файл больше не существует после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
 	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
@@ -41,6 +41,58 @@
 	<string name="error_hub_invalid_setup_code">Неверный ключ учётной записи.</string>
 	<string name="error_hub_invalid_version">Неподдерживаемая версия хаба.</string>
 	<string name="error_hub_unlock_pre_31">Хаб поддерживается только на Android 12 и новее.</string>
+	<string name="error_hub_not_trustworthy">Хаб не является надёжным.</string>
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Обновите свою лицензию на хаб, чтобы разрешить запись в это хранилище.</string>
+	<string name="toast_purchase_revoked_refunded">Ваша бессрочная покупка была возвращена. Теперь у вас доступ только для чтения.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Ваша подписка больше не активна. Теперь у вас доступ только для чтения.</string>
+	<string name="screen_license_check_locked_create_vault">Разблокируйте полную версию для создания хранилищ</string>
+	<string name="screen_license_check_locked_upload_files">Разблокируйте полную версию для загрузки файлов</string>
+	<string name="screen_license_check_locked_create_folder">Разблокируйте полную версию для создания папок</string>
+	<string name="screen_license_check_locked_create_text_file">Разблокируйте полную версию для создания текстовых файлов</string>
+	<string name="screen_license_check_locked_share_node">Разблокируйте полную версию, чтобы делиться файлами и папками</string>
+	<string name="screen_license_check_locked_rename_node">Разблокируйте полную версию для переименования файлов и папок</string>
+	<string name="screen_license_check_locked_move_node">Разблокируйте полную версию для перемещения файлов и папок</string>
+	<string name="screen_license_check_locked_delete_node">Разблокируйте полную версию для удаления файлов и папок</string>
+	<string name="screen_license_check_title">Разблокировать доступ на запись</string>
+	<string name="screen_license_check_benefit_title">Ваши преимущества</string>
+	<string name="screen_license_check_benefit_family_sharing">Семейный доступ</string>
+	<string name="screen_license_check_benefit_write_access">Возможна запись в хранилища</string>
+	<string name="screen_license_check_benefit_support">Разработка ПО с открытым кодом</string>
+	<string name="screen_license_check_button_purchase">Разблокировать через Google Play</string>
+	<string name="screen_license_check_button_enter_license">Введите лицензионный ключ</string>
+	<string name="screen_license_check_enter_license_action">Введите</string>
+	<string name="screen_license_check_title_full_version">Получить полную версию</string>
+	<string name="screen_license_check_trial_title">30-дневная пробная версия</string>
+	<string name="screen_license_check_trial_price">Бесплатно</string>
+	<string name="screen_license_check_trial_subtitle">на 30 дней</string>
+	<string name="screen_license_check_subscription_title">Годовая подписка</string>
+	<string name="screen_license_check_subscription_subtitle">ежегодно</string>
+	<string name="screen_license_check_lifetime_title">Бессрочная лицензия</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 Скидка %1$d%% до %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Ограниченная продажа</string>
+	<string name="screen_license_check_lifetime_subtitle">разово</string>
+	<string name="screen_license_check_restore_purchase">Восстановить покупку</string>
+	<string name="screen_license_check_terms">Условия использования</string>
+	<string name="screen_license_check_privacy">Политика конфиденциальности</string>
+	<string name="screen_license_check_trial_expiration">Истекает: %s</string>
+	<string name="screen_license_check_trial_status_active">Активно</string>
+	<string name="screen_license_check_trial_status_expired">Истекло</string>
+	<string name="screen_license_check_trial_active_info">Пробный период истекает: %s</string>
+	<string name="screen_license_check_trial_expired_info">Пробный период истёк.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">У вас есть активная подписка. Купите бессрочную лицензию и отмените свою подписку, чтобы переключиться.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Теперь у вас бессрочная лицензия. Чтобы избежать будущих платежей, отмените свою годовую подписку через опцию %1$s в настройках.</string>
+	<string name="screen_welcome_title">Добро пожаловать</string>
+	<string name="screen_welcome_notifications_title">Получать уведомления</string>
+	<string name="screen_welcome_notifications_message">Разрешить уведомления, чтобы Cryptomator мог информировать вас о фоновой активности, автозагрузках или других важных событиях.</string>
+	<string name="screen_welcome_notifications_button">Показывать уведомления</string>
+	<string name="screen_welcome_notifications_granted">Уведомления включены.</string>
+	<string name="screen_welcome_continue_button">Далее</string>
+	<string name="screen_welcome_screen_lock_button">Установка блокировки экрана</string>
+	<string name="screen_welcome_screen_lock_already_set">Блокировка экрана уже установлена.</string>
+	<string name="screen_welcome_intro_body">Благодарим, что вы доверили Cryptomator защиту ваших файлов.\n\nБлагодаря Cryptomator ключ к вашим данным - в ваших руках.\n\nCryptomator шифрует данные быстро и без усилий.</string>
+	<string name="next">Далее</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Локальное хранилище</string>
@@ -71,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">Удалить</string>
 	<string name="screen_vault_list_vault_creation_hint">Нажмите здесь, чтобы создать новое хранилище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успешно изменён</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Отклонить</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Хранилище</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Выберите файл Masterkey или хранилище</string>
@@ -127,6 +180,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Выберите место</string>
 	<string name="screen_cloud_connections_no_connections">Нажмите, чтобы добавить местоположения</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Нет доступных дисков.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Сайт SharePoint не найден. Проверьте URL-адрес.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Похоже, сервер не совместим с WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Не найден файловый менеджер, поддерживающий открытие папок</string>
 	<!-- ## screen: webdav settings -->
@@ -175,14 +230,19 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Блокировать перехват ввода, показывая ложный интерфейс</string>
 	<string name="screen_settings_secure_screen">Блокировать скриншоты</string>
 	<string name="screen_settings_secure_screen_summary">Блокировать скриншоты в списке недавних и внутри приложения</string>
+	<string name="screen_settings_documents_provider">Открыть хранилища в приложении \"Файлы\"</string>
+	<string name="screen_settings_documents_provider_summary">Позволяет другим приложениям открывать и сохранять файлы в ваших хранилищах с помощью системного средства выбора файлов. Заблокированные хранилища разблокируются при открытии. При отключении этого параметра хранилища будут скрыты, а доступ к ним других приложений - удалён.</string>
 	<string name="screen_settings_section_search">Поиск</string>
 	<string name="screen_settings_live_search">Поиск в реальном времени</string>
 	<string name="screen_settings_live_search_summary">Обновлять результаты поиска по мере ввода запроса</string>
 	<string name="screen_settings_glob_search">Искать по шаблону glob</string>
 	<string name="screen_settings_glob_search_summary">Использовать шаблон glob для сопоставлений типа alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Сбросить неизвестные хосты хаба</string>
 	<string name="screen_settings_section_auto_lock">Автоматическая блокировка</string>
 	<string name="screen_settings_auto_lock_timeout">Блокировать через</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Когда экран отключён</string>
+	<string name="screen_settings_auto_lock_gracefully">Перенос данных</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Автоматическая блокировка ожидает завершения отправки и загрузки</string>
 	<string name="screen_settings_section_auto_photo_upload">Автоматическая отправка фото</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Выберите хранилище для отправки</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Включить</string>
@@ -206,14 +266,13 @@
 	<string name="screen_settings_security_label">Советы по безопасности</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Дополнительные настройки</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Обход открытия файлов Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Открывать файлы в приложениях Microsoft с разрешением на запись</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускорить разблокировку</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Загружать конфигурацию хранилища в фоне при запросе пароля или биоаутентификации</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Не блокировать при редактировании</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Соединения с SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
@@ -295,6 +354,9 @@
 	<string name="dialog_progress_encryption">Шифрование&#8230;</string>
 	<string name="dialog_progress_decryption">Расшифровка&#8230;</string>
 	<string name="action_progress_moving">Перемещение&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Ошибка отправки. Нажмите, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed">Ошибка отправки. Потяните вниз, чтобы повторить попытку.</string>
+	<string name="documents_provider_upload_failed_in_folder">Ошибка отправки данных в эту папку. Потяните вниз, чтобы повторить.</string>
 	<string name="dialog_lock_vault">Заблокировать</string>
 	<string name="dialog_accept_ssl_certificate_title">Неверный сертификат SSL</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL-сертификат недействителен. Вы всё равно хотите ему доверять?</string>
@@ -314,7 +376,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft, редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator общедоступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. При активации этой опции убедитесь, что вы знаете об таком поведении. Применимо только к типам файлов Microsoft.\n\nПосле активации Cryptomator будет перезапущен.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
@@ -357,6 +418,12 @@
 	<string name="dialog_no_more_images_to_display">Больше нет изображений для показа&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Учётные данные для \'%1$s\' обновлены</string>
 	<string name="dialog_pcloud_credentials_updated">Если вы намеревались добавить новую учётную запись pCloud, нажмите на этот URL <a href="https://www.pcloud.com">www.pcloud.com</a>, выйдите из текущей учётной записи и снова нажмите \'+\' в этом приложении, чтобы создать новое облачное подключение.</string>
+	<string name="dialog_enter_sharepoint_url_title">Введите URL-адрес SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL-адрес сайта SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Введите адрес вашего сайта SharePoint, например https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Это не адрес сайта SharePoint. Введите его как https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Выбрите диск</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Выберите диск SharePoint, с которым вы хотите работать.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Требуется миграция пароля</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">В связи с повышением безопасности вам будет предложено дважды использовать биометрическую аутентификацию для каждого хранилища для повторного шифрования паролей. Это необходимо, чтобы продолжать защищать ваши пароли с помощью новейших технологий. Если вы не хотите, чтобы это произошло, сохранённые пароли будут удалены.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Миграция</string>
@@ -374,12 +441,21 @@
 	<string name="dialog_hub_license_upgrade_required_hint">У хаба Cryptomator неверная лицензия. Попросите администратора хаба обновить или продлить лицензию.</string>
 	<string name="dialog_hub_vault_archived_title">Хранилище архивировано</string>
 	<string name="dialog_hub_vault_archived_hint">Это хранилище архивировано и не может быть разблокировано. Чтобы разблокировать, владелец хранилища должен его разархивировать.</string>
+	<string name="dialog_restore_successful_title">Успешно восстановлено</string>
+	<string name="dialog_restore_successful_message">Ваша покупка восстановлена и теперь активна на этом устройстве.</string>
+	<string name="dialog_no_full_version_title">Полной версии нет</string>
+	<string name="dialog_no_full_version_message">Мы не смогли\u0027t найти существующую покупку на этой учётной записи Google.</string>
+	<string name="dialog_restore_failed_title">Не удалось восстановить</string>
+	<string name="dialog_restore_failed_message">Мы не смогли\u0027t войти в Play Store. Проверьте подключение и повторите попытку.</string>
+	<string name="dialog_change_failed_title">Не удалось изменить на %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Требуется настройка пользователя</string>
 	<string name="dialog_hub_user_setup_required_hint">Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Перейти в профиль</string>
+	<string name="dialog_hub_check_host_authenticity_title">Доверять этим хостам?</string>
 	<string name="permission_snackbar_auth_local_vault">Для использования локальных хранилищ необходим доступ к месту хранения</string>
 	<string name="permission_snackbar_auth_auto_upload">Для автозагрузки фото у Cryptomator должен быть доступ к месту хранения</string>
 	<string name="permission_snackbar_notifications">Для отображения состояния хранилища Cryptomator требуется разрешение на уведомление</string>
+	<string name="permission_snackbar_local_network">Для подключения к серверам в локальной сети Cryptomater нужен к ней доступ</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -428,31 +504,34 @@
 	<string name="notification_open_writable_file_message">Хранилище разблокировано до завершения редактирования</string>
 	<string name="notification_update_check_finished_latest">Установлена новейшая версия</string>
 	<string name="notification_authenticating">Аутентификация&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Доверенные хосты очищены</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Кэшировать файлы, зашифрованные локально на устройстве, к которым недавно был доступ, для последующего использования при повторном открытии</string>
-	<string name="screen_settings_lru_cache_size">Общий размер кэша</string>
 	<string name="screen_settings_clear_lru_cache_size">Очистить кэш</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Изменения будут применены при следующем перезапуске приложения</string>
-	<string name="screen_settings_license">Зарегистрировано</string>
+	<string name="screen_settings_license_title_unlock">Получить полную версию</string>
+	<string name="screen_settings_license_title_unlocked">Полная версия</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Доступ на запись разблокирован!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Нажмите, чтобы разблокировать доступ на запись</string>
+	<string name="screen_settings_license_summary_write_access_mail">Доступ на запись для %1$s</string>
+	<string name="screen_settings_manage_subscription">Управление подпиской</string>
+	<string name="screen_settings_upgrade_to_lifetime">Обновить до бессрочной подписки</string>
+	<string name="dialog_trial_expired_title">Пробный период истёк</string>
+	<string name="dialog_trial_expired_message">Бесплатный период опробования завершён. Вы можете продолжить в режиме только чтения, либо разблокировать полную версию.</string>
+	<string name="dialog_trial_expired_unlock">Получить полную версию</string>
+	<string name="dialog_trial_expired_continue_read_only">Продолжить в режиме только чтения</string>
+	<string name="dialog_license_lost_title">Введите ключ повторно</string>
+	<string name="dialog_license_lost_message">Предыдущее обновление удалило лицензионный ключ, зарегистрированный на %1$s с этого устройства. Введите его снова, чтобы восстановить доступ на запись. Пока вы этого не сделаете, ваши хранилища будут только для чтения.</string>
+	<string name="dialog_license_lost_reenter">Введите ключ повторно</string>
+	<string name="dialog_license_lost_later">Позже</string>
 	<string name="dialog_settings_update_check_interval_title">Интервал проверки обновлений</string>
 	<string name="screen_settings_check_updates">Проверить обновления</string>
 	<string name="screen_settings_last_check_updates">Последняя проверка %1$s</string>
-	<string name="dialog_cache_size_title">Размер кэша в облаке</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Сразу</string>
 	<string name="lock_timeout_1m">1 мин</string>
 	<string name="lock_timeout_2m">2 мин</string>
 	<string name="lock_timeout_5m">5 мин</string>
 	<string name="lock_timeout_10m">10 мин</string>
 	<string name="lock_timeout_never">Никогда</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Стиль</string>
 	<string name="follow_system">Автоматически (как в системе)</string>

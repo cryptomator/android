@@ -17,10 +17,13 @@ import org.cryptomator.presentation.ui.dialog.BiometricAuthKeyInvalidatedDialog
 import org.cryptomator.presentation.ui.dialog.ChangePasswordDialog
 import org.cryptomator.presentation.ui.dialog.CreateHubDeviceDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.HubCheckHostAuthenticityDialog
 import org.cryptomator.presentation.ui.dialog.HubLicenseUpgradeRequiredDialog
 import org.cryptomator.presentation.ui.dialog.HubUserSetupRequiredDialog
 import org.cryptomator.presentation.ui.dialog.HubVaultAccessForbiddenDialog
 import org.cryptomator.presentation.ui.dialog.HubVaultArchivedDialog
+import org.cryptomator.presentation.ui.dialog.RecoveryKeyDialog
+import org.cryptomator.presentation.ui.dialog.RecoveryKeyPasswordDialog
 import org.cryptomator.presentation.ui.dialog.VaultNotFoundDialog
 import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment
 import org.cryptomator.presentation.util.BiometricAuthentication
@@ -33,12 +36,15 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 	BiometricAuthentication.Callback, //
 	BiometricAuthKeyInvalidatedDialog.Callback, //
 	ChangePasswordDialog.Callback, //
+	RecoveryKeyPasswordDialog.Callback, //
+	RecoveryKeyDialog.Callback, //
 	VaultNotFoundDialog.Callback, //
 	CreateHubDeviceDialog.Callback, //
 	HubUserSetupRequiredDialog.Callback, //
 	HubVaultArchivedDialog.Callback, //
 	HubLicenseUpgradeRequiredDialog.Callback, //
-	HubVaultAccessForbiddenDialog.Callback {
+	HubVaultAccessForbiddenDialog.Callback, //
+	HubCheckHostAuthenticityDialog.Callback {
 
 	@Inject
 	lateinit var presenter: UnlockVaultPresenter
@@ -120,6 +126,14 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 		showDialog(ChangePasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))
 	}
 
+	override fun showRecoveryKeyPasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?) {
+		showDialog(RecoveryKeyPasswordDialog.newInstance(vaultModel, unverifiedVaultConfig))
+	}
+
+	override fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String) {
+		showDialog(RecoveryKeyDialog.newInstance(vaultModel.name, recoveryKey))
+	}
+
 	override fun showCreateHubDeviceDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig) {
 		showDialog(CreateHubDeviceDialog.newInstance(vaultModel, unverifiedVaultConfig))
 	}
@@ -146,6 +160,18 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 
 	override fun onChangePasswordCanceled() {
 		presenter.onChangePasswordCanceled()
+	}
+
+	override fun onShowRecoveryKeyClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, password: String) {
+		presenter.onShowRecoveryKeyClick(vaultModel, unverifiedVaultConfig, password)
+	}
+
+	override fun onShowRecoveryKeyCanceled() {
+		finish()
+	}
+
+	override fun onRecoveryKeyDialogFinished() {
+		finish()
 	}
 
 	override fun onDeleteMissingVaultClicked(vault: Vault) {
@@ -185,6 +211,14 @@ class UnlockVaultActivity : BaseActivity<ActivityUnlockVaultBinding>(ActivityUnl
 	}
 
 	override fun onBiometricAuthKeyInvalidatedDialogFinished() {
+		finish()
+	}
+
+	override fun onHubCheckHostsAllowed(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, vault: Vault) {
+		presenter.onHubCheckHostsAllowed(unverifiedHubVaultConfig, vault)
+	}
+
+	override fun onHubCheckHostsDenied(unverifiedHubVaultConfig: UnverifiedHubVaultConfig) {
 		finish()
 	}
 

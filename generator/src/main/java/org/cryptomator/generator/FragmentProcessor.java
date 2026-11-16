@@ -18,7 +18,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes("org.cryptomator.generator.Fragment")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class FragmentProcessor extends BaseProcessor {
 
 	@Override

@@ -45,9 +45,14 @@ class UnlockHubVault {
 		if (config.getApiLevel() < HUB_MINIMUM_VERSION) {
 			throw new HubInvalidVersionException("Version is " + config.getApiLevel() + " but minimum is " + HUB_MINIMUM_VERSION);
 		}
-		String vaultKeyJwe = hubRepository.getVaultKeyJwe(unverifiedVaultConfig, accessToken);
+		HubRepository.VaultAccess vaultAccess = hubRepository.getVaultAccess(unverifiedVaultConfig, accessToken);
 		HubRepository.DeviceDto device = hubRepository.getDevice(unverifiedVaultConfig, accessToken);
-		return cloudRepository.unlock(vault, unverifiedVaultConfig, vaultKeyJwe, device.getUserPrivateKey(), cancelledFlag);
+		boolean writeAllowed = vaultAccess.getSubscriptionState() == HubRepository.SubscriptionState.ACTIVE;
+		Vault targetVault = Vault.aCopyOf(vault)
+				.withHubVault(true)
+				.withHubPaidLicense(writeAllowed)
+				.build();
+		return cloudRepository.unlock(targetVault, unverifiedVaultConfig, vaultAccess.getVaultKeyJwe(), device.getUserPrivateKey(), cancelledFlag);
 	}
 
 }

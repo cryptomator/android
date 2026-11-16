@@ -4,13 +4,17 @@ import android.widget.Toast
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToS3UseCase
+import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.view.S3AddOrChangeView
+import org.cryptomator.presentation.workflow.PermissionsResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
 
@@ -83,9 +87,20 @@ class S3AddOrChangePresenter @Inject internal constructor( //
 
 				override fun onError(e: Throwable) {
 					view?.showProgress(ProgressModel.COMPLETED)
-					super.onError(e)
+					if (ExceptionUtil.contains(e, LocalNetworkPermissionMissingException::class.java)) {
+						requestLocalNetworkPermission(PermissionsResultCallbacks.s3LocalNetworkPermissionResult(cloud))
+					} else {
+						super.onError(e)
+					}
 				}
 			})
+	}
+
+	@Callback
+	fun s3LocalNetworkPermissionResult(result: PermissionsResult, cloud: S3Cloud) {
+		if (result.granted()) {
+			authenticate(cloud)
+		}
 	}
 
 	private fun onCloudAuthenticated(cloud: Cloud) {

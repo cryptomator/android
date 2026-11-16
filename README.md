@@ -21,7 +21,7 @@ Cryptomator for Android is currently available in the following  distribution ch
 ### Dependencies
 
 * Git
-* JDK 17
+* JDK 21
 * Gradle
 
 ### Run Git and Gradle
@@ -30,11 +30,14 @@ Cryptomator for Android is currently available in the following  distribution ch
 ./gradlew assembleApkstoreDebug
 ```
 
-Before connecting to Dropbox, OneDrive or pCloud you have to provide valid API keys using environment variables:
+Before connecting to Dropbox, OneDrive, SharePoint, pCloud or Box you have to provide valid API keys using environment variables:
 For build type
 
-* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI` or `PCLOUD_CLIENT_ID`
-* **debug**: `DROPBOX_API_KEY_DEBUG`, `ONEDRIVE_API_KEY_DEBUG` and `ONEDRIVE_API_REDIRCT_URI_DEBUG` or `PCLOUD_CLIENT_ID_DEBUG`
+* **release**: `DROPBOX_API_KEY`, `ONEDRIVE_API_KEY` and  `ONEDRIVE_API_REDIRCT_URI`, `ONEDRIVE_API_KEY_FREEMIUM` and  `ONEDRIVE_API_REDIRCT_URI_FREEMIUM`, `PCLOUD_CLIENT_ID`, `BOX_CLIENT_ID` and `BOX_CLIENT_SECRET`
+
+SharePoint uses the same Microsoft app registrations as OneDrive (`ONEDRIVE_API_*`). Each registration additionally needs the delegated Microsoft Graph permission `Sites.ReadWrite.All`, because resolving a site and its document libraries is outside the scope of OneDrive's `Files.ReadWrite`.
+
+The Box app additionally needs `boxsdk-<BOX_CLIENT_ID>://boxsdkoauth2redirect` as redirect URI.
 
 Before connecting to Google Drive you have to create a new project in [Google Cloud Platform](https://console.cloud.google.com) with Google Drive API, credentials including Google Drive scopes (read, write, delete,..) and the fingerprint of the key you use to build the app.
 
@@ -63,13 +66,13 @@ Signer #1 certificate MD5 digest: a34b0b5af30529bf5b096d0e00acefe2
 
 ## Contributing to Cryptomator for Android
 
-Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
+Please read our [contribution guide](https://github.com/cryptomator/.github/blob/main/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
 
 Please make sure before creating a PR, to apply the code style by executing reformat code with optimize imports and rearrange code enabled. The best way to do this is to create a macro for it in android studio and set it to the save shortcut.
 
 ## Code of Conduct
 
-Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](https://github.com/cryptomator/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 

@@ -6,7 +6,7 @@ import org.cryptomator.domain.exception.BackendException
 interface HubRepository {
 
 	@Throws(BackendException::class)
-	fun getVaultKeyJwe(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String): String
+	fun getVaultAccess(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String): VaultAccess
 
 	@Throws(BackendException::class)
 	fun getUser(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String): UserDto
@@ -25,5 +25,11 @@ interface HubRepository {
 	data class ConfigDto(val apiLevel: Int)
 
 	data class UserDto(val id: String, val name: String, val publicKey: String, val privateKey: String, val setupCode: String)
+
+	data class VaultAccess(val vaultKeyJwe: String, val subscriptionState: SubscriptionState)
+
+	enum class SubscriptionState {
+		ACTIVE, INACTIVE
+	}
 
 }

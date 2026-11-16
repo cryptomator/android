@@ -1,41 +1,23 @@
 package org.cryptomator.data.db;
 
-import org.greenrobot.greendao.database.Database;
+import androidx.annotation.NonNull;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import timber.log.Timber;
 
-abstract class DatabaseUpgrade implements Comparable<DatabaseUpgrade> {
-
-	private final int from;
-	private final int to;
+abstract class DatabaseUpgrade extends Migration {
 
 	DatabaseUpgrade(int from, int to) {
-		this.from = from;
-		this.to = to;
-	}
-
-	public int from() {
-		return from;
-	}
-
-	public int to() {
-		return to;
+		super(from, to);
 	}
 
 	@Override
-	public int compareTo(DatabaseUpgrade other) {
-		int compareByFrom = from - other.from;
-		if (compareByFrom != 0) {
-			return compareByFrom;
-		}
-		return to - other.to;
+	public final void migrate(@NonNull SupportSQLiteDatabase db) {
+		Timber.tag("DatabaseUpgrade").i("Running %s (%d -> %d)", getClass().getSimpleName(), startVersion, endVersion);
+		internalMigrate(db);
 	}
 
-	final void applyTo(Database db, int origin) {
-		Timber.tag("DatabaseUpgrade").i("Running %s (%d -> %d)", getClass().getSimpleName(), from, to);
-		internalApplyTo(db, origin);
-	}
-
-	protected abstract void internalApplyTo(Database db, int origin);
+	protected abstract void internalMigrate(SupportSQLiteDatabase db);
 
 }

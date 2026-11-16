@@ -6,13 +6,14 @@ import android.app.admin.DevicePolicyManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
 import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
-import org.cryptomator.data.db.UploadCheckpointDao
+import org.cryptomator.data.db.dao.UploadCheckpointDao
 import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
@@ -20,19 +21,17 @@ import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.license.LicenseNotValidException
 import org.cryptomator.domain.repository.CloudRepository
 import org.cryptomator.domain.repository.VaultRepository
-import org.cryptomator.domain.usecases.DoLicenseCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
-import org.cryptomator.domain.usecases.LicenseCheck
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
+import org.cryptomator.domain.usecases.vault.CreatedVault
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase
@@ -42,7 +41,6 @@ import org.cryptomator.domain.usecases.vault.RemoveStoredVaultPasswordsUseCase
 import org.cryptomator.domain.usecases.vault.RenameVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase
-import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
@@ -56,19 +54,26 @@ import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
-import org.cryptomator.presentation.ui.activity.LicenseCheckActivity
+import org.cryptomator.presentation.service.ProductPrices
+import org.cryptomator.presentation.service.ProductPricesCache
+import org.cryptomator.presentation.service.SalePromo
+import org.cryptomator.presentation.service.resolveSalePromo
+import org.cryptomator.presentation.ui.activity.WelcomeActivity
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog
+import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
 import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
+import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultsRemovedDuringMigrationDialog
@@ -80,6 +85,7 @@ import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.presentation.workflow.Workflow
+import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
 import org.json.JSONArray
@@ -88,6 +94,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.function.Consumer
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -103,10 +110,8 @@ class VaultListPresenter @Inject constructor( //
 	private val createNewVaultWorkflow: CreateNewVaultWorkflow,  //
 	private val saveVaultUseCase: SaveVaultUseCase,  //
 	private val moveVaultPositionUseCase: MoveVaultPositionUseCase, //
-	private val licenseCheckUseCase: DoLicenseCheckUseCase,  //
 	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
 	private val updateUseCase: DoUpdateUseCase,  //
-	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase, //
 	private val listCBCEncryptedPasswordVaultsUseCase: ListCBCEncryptedPasswordVaultsUseCase, //
 	private val removeStoredVaultPasswordsUseCase: RemoveStoredVaultPasswordsUseCase, //
 	private val saveVaultsUseCase: SaveVaultsUseCase, //
@@ -114,7 +119,9 @@ class VaultListPresenter @Inject constructor( //
 	private val fileUtil: FileUtil,  //
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
 	private val cloudFolderModelMapper: CloudFolderModelMapper,  //
+	private val licenseEnforcer: LicenseEnforcer,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
+	private val productPricesCache: ProductPricesCache,  //
 	private val uploadCheckpointDao: UploadCheckpointDao,  //
 	private val uploadUiUpdates: UploadUiUpdates,  //
 	private val vaultRepository: VaultRepository,  //
@@ -129,6 +136,12 @@ class VaultListPresenter @Inject constructor( //
 	private var uploadEventsDisposable: Disposable? = null
 	private var resumeLease: KeepAliveLease? = null
 	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
+	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
+	private val licenseChangeListener = Consumer<String> { _ ->
+		if (!isPaused) {
+			updateSalePromo()
+		}
+	}
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -143,6 +156,88 @@ class VaultListPresenter @Inject constructor( //
 		uploadEventsDisposable = null
 	}
 
+	override fun resumed() {
+		if (launchWelcomeFlowIfNeeded()) {
+			return
+		}
+
+		if (FlavorConfig.isFreemiumFlavor) {
+			val alreadyKnownExpired = sharedPreferencesHandler.isTrialExpired()
+			val trialState = licenseEnforcer.evaluateTrialState()
+			if (!alreadyKnownExpired && trialState.isExpired && !licenseEnforcer.hasPaidLicense()) {
+				view?.showDialog(TrialExpiredDialog.newInstance())
+			}
+			// Invokes the listener right away, so this also evaluates the sale promo on resume.
+			sharedPreferencesHandler.addLicenseChangedListeners(licenseChangeListener)
+		}
+
+		showLicenseLostDialogIfNeeded()
+
+		createdVaultAwaitingRecoveryKeyDialog?.let {
+			createdVaultAwaitingRecoveryKeyDialog = null
+			showRecoveryKeyDialog(it)
+		}
+	}
+
+	private fun launchWelcomeFlowIfNeeded(): Boolean {
+		if (!sharedPreferencesHandler.hasCompletedWelcomeFlow()) {
+			requestActivityResult(
+				ActivityResultCallbacks.welcomeFlowCompleted(),
+				Intent(context(), WelcomeActivity::class.java)
+			)
+			return true
+		}
+		return false
+	}
+
+	// While Accrescent counted as a premium flavor, Upgrade13To14 dropped its users' license token but kept their mail.
+	// Clearing the mail shows the dialog only once and stops Settings from presenting the lost license as active.
+	private fun showLicenseLostDialogIfNeeded() {
+		if (FlavorConfig.isAccrescentFlavor && sharedPreferencesHandler.licenseToken().isEmpty()) {
+			val mail = sharedPreferencesHandler.mail()
+			if (mail.isNotEmpty()) {
+				sharedPreferencesHandler.setMail("")
+				view?.showDialog(LicenseLostDialog.newInstance(mail))
+			}
+		}
+	}
+
+	private fun updateSalePromo() {
+		if (licenseEnforcer.hasPaidLicense()) {
+			view?.hideSalePromoBanner()
+		} else {
+			loadSalePromo()
+		}
+	}
+
+	private fun loadSalePromo() {
+		productPricesCache.queryProductPrices { prices ->
+			activity().runOnUiThread {
+				if (!isPaused) {
+					showOrHideSalePromoBanner(prices)
+				}
+			}
+		}
+	}
+
+	private fun showOrHideSalePromoBanner(prices: ProductPrices) {
+		val salePromo = prices.resolveSalePromo(sharedPreferencesHandler.salePromoDismissedUntil(), System.currentTimeMillis())
+		if (salePromo != null && !licenseEnforcer.hasPaidLicense()) {
+			view?.showSalePromoBanner(salePromo)
+		} else {
+			view?.hideSalePromoBanner()
+		}
+	}
+
+	fun onUnlockFullVersionClicked() {
+		Intents.licenseCheckIntent().startActivity(this)
+	}
+
+	fun onSalePromoBannerDismissed(salePromo: SalePromo) {
+		sharedPreferencesHandler.setSalePromoDismissedUntil(salePromo.endTimeMillis)
+		view?.hideSalePromoBanner()
+	}
+
 	fun onWindowFocusChanged(hasFocus: Boolean) {
 		if (hasFocus) {
 			loadVaultList()
@@ -150,9 +245,13 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun prepareView() {
+		if (launchWelcomeFlowIfNeeded()) {
+			return
+		}
+
 		if (!sharedPreferencesHandler.isScreenLockDialogAlreadyShown) {
 			val keyguardManager = context().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-			if (!keyguardManager.isKeyguardSecure) {
+			if (!keyguardManager.isDeviceSecure) {
 				view?.showDialog(AskForLockScreenDialog.newInstance())
 			}
 			sharedPreferencesHandler.setScreenLockDialogAlreadyShown()
@@ -164,41 +263,11 @@ class VaultListPresenter @Inject constructor( //
 			sharedPreferencesHandler.vaultsRemovedDuringMigration(null)
 		}
 
-		checkLicense()
+		if (FlavorConfig.isApkStoreFlavor && sharedPreferencesHandler.doUpdate()) {
+			checkForAppUpdates()
+		}
 
 		checkPermissions()
-	}
-
-	private fun checkLicense() {
-		if (BuildConfig.FLAVOR == "apkstore" || BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "lite" || BuildConfig.FLAVOR == "accrescent") {
-			licenseCheckUseCase //
-				.withLicense("") //
-				.run(object : NoOpResultHandler<LicenseCheck>() {
-					override fun onSuccess(licenseCheck: LicenseCheck) {
-						if (BuildConfig.FLAVOR == "apkstore" && sharedPreferencesHandler.doUpdate()) {
-							checkForAppUpdates()
-						}
-					}
-
-					override fun onError(e: Throwable) {
-						val license = if (e is LicenseNotValidException) {
-							e.license
-						} else {
-							""
-						}
-						val intent = Intent(context(), LicenseCheckActivity::class.java)
-						intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-						intent.data = Uri.parse(String.format("app://cryptomator/%s", license))
-
-						try {
-							context().startActivity(intent)
-						} catch (e: ActivityNotFoundException) {
-							Toast.makeText(context(), "Please contact the support.", Toast.LENGTH_LONG).show()
-							finish()
-						}
-					}
-				})
-		}
 	}
 
 	private fun checkForAppUpdates() {
@@ -267,13 +336,20 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun checkNotificationPermission() {
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2) {
+		if (shouldRequestNotificationPermission()) {
 			requestPermissions(
 				PermissionsResultCallbacks.requestNotificationPermission(),  //
 				R.string.permission_snackbar_notifications,  //
 				Manifest.permission.POST_NOTIFICATIONS
 			)
+		} else {
+			checkCBCEncryptedVaults()
 		}
+	}
+
+	private fun shouldRequestNotificationPermission(): Boolean {
+		return Build.VERSION.SDK_INT > Build.VERSION_CODES.S_V2 &&
+				ContextCompat.checkSelfPermission(context(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
 	}
 
 	@Callback
@@ -540,7 +616,8 @@ class VaultListPresenter @Inject constructor( //
 				Intents.cloudConnectionListIntent() //
 					.withCloudType(vault.cloudType) //
 					.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
-					.withFinishOnCloudItemClick(true)
+					.withFinishOnCloudItemClick(true) //
+					.withIncludeWebDavProviderClouds(true)
 			)
 		}
 	}
@@ -590,6 +667,11 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	@Callback
+	fun welcomeFlowCompleted(result: ActivityResult) {
+		prepareView()
+	}
+
+	@Callback
 	fun vaultUnlockedVaultList(result: ActivityResult) {
 		val cloud = result.intent().getSerializableExtra(SINGLE_RESULT) as Cloud
 		getRootFolderOf(cloud)
@@ -607,18 +689,13 @@ class VaultListPresenter @Inject constructor( //
 
 	private fun navigateToVaultContent(folder: CloudFolder) {
 		val cryptoCloud = (folder.cloud as CryptoCloud)
-		updateVaultParameterIfChangedRemotelyUseCase //
-			.withVault(cryptoCloud.vault) //
-			.run(object : DefaultResultHandler<Vault>() {
-				override fun onSuccess(vault: Vault) {
-					view?.addOrUpdateVault(VaultModel(vault))
-					view?.showProgress(ProgressModel.COMPLETED)
-					if (checkToStartAutoImageUpload(vault)) {
-						cryptomatorApp.startAutoUpload(cryptoCloud)
-					}
-					checkForInterruptedUpload(vault, folder)
-				}
-			})
+		val vault = cryptoCloud.vault
+		view?.addOrUpdateVault(VaultModel(vault))
+		view?.showProgress(ProgressModel.COMPLETED)
+		if (checkToStartAutoImageUpload(vault)) {
+			cryptomatorApp.startAutoUpload(cryptoCloud)
+		}
+		checkForInterruptedUpload(vault, folder)
 	}
 
 	private fun checkForInterruptedUpload(vault: Vault, folder: CloudFolder) {
@@ -765,11 +842,32 @@ class VaultListPresenter @Inject constructor( //
 		view?.closeDialog()
 	}
 
+	fun onCreateVaultCompleted(createdVault: CreatedVault) {
+		onAddOrCreateVaultCompleted(createdVault.vault)
+		if (isPaused) {
+			createdVaultAwaitingRecoveryKeyDialog = createdVault
+		} else {
+			showRecoveryKeyDialog(createdVault)
+		}
+	}
+
+	private fun showRecoveryKeyDialog(createdVault: CreatedVault) {
+		view?.showRecoveryKeyDialog(VaultModel(createdVault.vault), createdVault.recoveryKey)
+	}
+
 	fun onChangePasswordClicked(vaultModel: VaultModel) {
 		Intents
 			.unlockVaultIntent()
 			.withVaultModel(vaultModel)
 			.withVaultAction(UnlockVaultIntent.VaultAction.CHANGE_PASSWORD)
+			.startActivity(this)
+	}
+
+	fun onShowRecoveryKeyClicked(vaultModel: VaultModel) {
+		Intents
+			.unlockVaultIntent()
+			.withVaultModel(vaultModel)
+			.withVaultAction(UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY)
 			.startActivity(this)
 	}
 
@@ -853,13 +951,11 @@ class VaultListPresenter @Inject constructor( //
 			getVaultListUseCase,  //
 			saveVaultUseCase,  //
 			moveVaultPositionUseCase, //
-			licenseCheckUseCase,  //
 			updateCheckUseCase,  //
 			updateUseCase, //
 			listCBCEncryptedPasswordVaultsUseCase, //
 			removeStoredVaultPasswordsUseCase, //
-			saveVaultsUseCase, //
-			updateVaultParameterIfChangedRemotelyUseCase
+			saveVaultsUseCase
 		)
 	}
 }

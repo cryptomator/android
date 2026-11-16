@@ -1,6 +1,7 @@
 package org.cryptomator.data.db.mappers;
 
 import org.cryptomator.data.db.entities.VaultEntity;
+import org.cryptomator.data.db.entities.VaultWithCloud;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.Vault;
@@ -13,7 +14,7 @@ import javax.inject.Singleton;
 import static org.cryptomator.domain.Vault.aVault;
 
 @Singleton
-public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
+public class VaultEntityMapper extends EntityMapper<VaultWithCloud, Vault> {
 
 	private final CloudEntityMapper cloudEntityMapper;
 
@@ -23,21 +24,22 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 	}
 
 	@Override
-	public Vault fromEntity(VaultEntity entity) throws BackendException {
+	public Vault fromEntity(VaultWithCloud entity) throws BackendException {
+		VaultEntity vault = entity.getVault();
 		return aVault() //
-				.withId(entity.getId()) //
-				.withName(entity.getFolderName()) //
-				.withPath(entity.getFolderPath()) //
+				.withId(vault.getId()) //
+				.withName(vault.getFolderName()) //
+				.withPath(vault.getFolderPath()) //
 				.withCloud(cloudFrom(entity)) //
-				.withCloudType(CloudType.valueOf(entity.getCloudType())) //
-				.withSavedPassword(entity.getPassword(), cryptoModeFrom(entity)) //
-				.withPosition(entity.getPosition()) //
-				.withFormat(entity.getFormat()) //
-				.withShorteningThreshold(entity.getShorteningThreshold()) //
+				.withCloudType(CloudType.valueOf(vault.getCloudType())) //
+				.withSavedPassword(vault.getPassword(), cryptoModeFrom(vault)) //
+				.withPosition(vault.getPosition()) //
+				.withFormat(vault.getFormat()) //
+				.withShorteningThreshold(vault.getShorteningThreshold()) //
 				.build();
 	}
 
-	private Cloud cloudFrom(VaultEntity entity) {
+	private Cloud cloudFrom(VaultWithCloud entity) {
 		if (entity.getFolderCloud() == null) {
 			return null;
 		}
@@ -49,22 +51,26 @@ public class VaultEntityMapper extends EntityMapper<VaultEntity, Vault> {
 	}
 
 	@Override
-	public VaultEntity toEntity(Vault domainObject) {
-		VaultEntity entity = new VaultEntity();
-		entity.setId(domainObject.getId());
-		entity.setFolderPath(domainObject.getPath());
-		entity.setFolderName(domainObject.getName());
-		if (domainObject.getCloud() != null) {
-			entity.setFolderCloud(cloudEntityMapper.toEntity(domainObject.getCloud()));
-		}
-		entity.setCloudType(domainObject.getCloudType().name());
-		entity.setPassword(domainObject.getPassword());
+	public VaultWithCloud toEntity(Vault domainObject) {
+		VaultEntity vault = new VaultEntity();
+		vault.setId(domainObject.getId());
+		vault.setFolderPath(domainObject.getPath());
+		vault.setFolderName(domainObject.getName());
+		vault.setCloudType(domainObject.getCloudType().name());
+		vault.setPassword(domainObject.getPassword());
 		if (domainObject.getPasswordCryptoMode() != null) {
-			entity.setPasswordCryptoMode(domainObject.getPasswordCryptoMode().name());
+			vault.setPasswordCryptoMode(domainObject.getPasswordCryptoMode().name());
 		}
-		entity.setPosition(domainObject.getPosition());
-		entity.setFormat(domainObject.getFormat());
-		entity.setShorteningThreshold(domainObject.getShorteningThreshold());
-		return entity;
+		vault.setPosition(domainObject.getPosition());
+		vault.setFormat(domainObject.getFormat());
+		vault.setShorteningThreshold(domainObject.getShorteningThreshold());
+
+		VaultWithCloud result = new VaultWithCloud();
+		result.setVault(vault);
+		if (domainObject.getCloud() != null) {
+			result.setFolderCloud(cloudEntityMapper.toEntity(domainObject.getCloud()));
+			vault.setFolderCloudId(result.getFolderCloud().getId());
+		}
+		return result;
 	}
 }

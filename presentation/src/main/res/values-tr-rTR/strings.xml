@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s içinde belirtilen sürüm %2$s\'den farklı</string>
 	<string name="error_vault_key_invalid">%1$s, bu %2$s ile eşleşmiyor</string>
 	<string name="error_vault_config_loading">Kasa yapılandırması yüklenirken genel hata</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator\'a geri döndükten sonra yerel dosya artık mevcut değil. Olası değişiklikler buluta geri aktarılamaz.</string>
 	<string name="error_no_such_bucket">Böyle bir kova yok</string>
 	<string name="error_masterkey_location_not_supported">Özel ana anahtar konumu henüz desteklenmiyor</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid uygulamasıyla iletişim kurulamadı. Yüklü değil mi?</string>
@@ -41,6 +40,31 @@
 	<string name="error_hub_invalid_setup_code">Hesap Anahtarı geçersiz.</string>
 	<string name="error_hub_invalid_version">Desteklenmeyen Hub sürümü.</string>
 	<string name="error_hub_unlock_pre_31">Hub yalnızca Android 12 ve üzeri sürümlerde desteklenmektedir.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Aile paylaşımı</string>
+	<string name="screen_license_check_benefit_write_access">Kasalarınıza yazma erişimi</string>
+	<string name="screen_license_check_benefit_support">Açık kaynak geliştirme</string>
+	<string name="screen_license_check_title_full_version">Tam Sürümün Kilidini Aç</string>
+	<string name="screen_license_check_trial_title">30 Günlük Deneme</string>
+	<string name="screen_license_check_trial_price">Ücretsiz</string>
+	<string name="screen_license_check_trial_subtitle">30 gün boyunca</string>
+	<string name="screen_license_check_subscription_title">Yıllık Abonelik</string>
+	<string name="screen_license_check_subscription_subtitle">yıllık</string>
+	<string name="screen_license_check_lifetime_title">Ömür Boyu Kullanım Lisansı</string>
+	<string name="screen_license_check_lifetime_subtitle">bir kez</string>
+	<string name="screen_license_check_restore_purchase">Satın Almayı Geri Yükle</string>
+	<string name="screen_license_check_terms">Kullanım Koşulları</string>
+	<string name="screen_license_check_privacy">Gizlilik Politikası</string>
+	<string name="screen_license_check_trial_status_active">Aktif</string>
+	<string name="screen_license_check_trial_status_expired">Süresi doldu</string>
+	<string name="screen_license_check_trial_expired_info">Deneme süreniz doldu.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">Aktif bir aboneliğiniz mevcut. Geçiş yapmak için ömürlük lisans satın alın ve aboneliğinizi iptal edebilirsiniz.</string>
+	<string name="screen_welcome_title">Hoş geldiniz</string>
+	<string name="screen_welcome_notifications_message">Cryptomator\u0027ın size arka plan aktiviteleri, otomatik yüklemeleri veya diğer önemli olayları haber vermesi için bildirimlere izin verin.</string>
+	<string name="screen_welcome_continue_button">Devam et</string>
+	<string name="screen_welcome_screen_lock_button">Ekran kilidini ayarla</string>
+	<string name="next">İleri</string>
+	<string name="back">Geri</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Yerel depolama</string>
@@ -71,6 +95,7 @@
 	<string name="screen_vault_list_vault_action_delete">Kaldır</string>
 	<string name="screen_vault_list_vault_creation_hint">Yeni kasa oluşturmak için buraya dokunun</string>
 	<string name="screen_vault_list_change_password_successful">Parola başarıyla değiştirildi</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Yoksay</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Kasa</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Ana anahtar veya kasa dosyasını seç</string>
@@ -204,8 +229,6 @@
 	<string name="screen_settings_security_label">Güvenlik ipuçları</string>
 	<string name="screen_settings_section_version">Sürüm</string>
 	<string name="screen_settings_advanced_settings">Gelişmiş Ayarlar</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft dosyalarını açmak için geçici çözüm</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft uygulamalarındaki dosyaları yazma izniyle aç</string>
 	<string name="screen_settings_background_unlock_preparation_label">Kilidi açmayı hızlandır</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Parola veya biyometrik doğrulama girmeniz istendiğinde kasa yapılandırmasını arka planda indirin</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Kilidi açık tut</string>
@@ -312,7 +335,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. dosya adları ve yolları) yazılabilir. Parolalar, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Dikkat</string>
 	<string name="dialog_debug_mode_positive_button">Etkinleştir</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft uygulamalarındaki bir hata nedeniyle, düzenlenecek dosyanın cihazınızdaki herkese açık bir medya klasöründe bu uygulamalarla paylaşılması gerekir. Cryptomator yeniden başlatıldıktan sonra, herkese açık dosya tekrar silinir, ancak Cryptomator bu arada bu dosyaya ne olduğunu etkileyemez. Bu seçeneği etkinleştirirken bu davranışın farkında olduğunuzdan emin olun. Bu sadece Microsoft dosya türleri için geçerli olacaktır.\n\nCryptomator aktivasyondan sonra yeniden başlayacaktır.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Bu ayar bir güvenlik özelliğidir ve diğer uygulamaların kullanıcıları yapmak istemedikleri şeyleri yapmaları için kandırmasını önler.\n\nDevre dışı bırakarak <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">risklerin farkında olduğunuzu</a> onaylamış olursunuz.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Dikkat</string>
 	<string name="dialog_disable_app_obscured_positive_button">Devre dışı bırak</string>
@@ -355,6 +377,7 @@
 	<string name="dialog_no_more_images_to_display">&#8230; göstermek için daha fazla resim yok</string>
 	<string name="dialog_pcloud_credentials_updated_title">%1$s kimlik bilgileri güncellendi</string>
 	<string name="dialog_pcloud_credentials_updated">Yeni bir pCloud hesabı eklemeyi düşünüyorsanız, bu url <a href="https://www.pcloud.com">www.pcloud.com</a> dokunun, mevcut hesaptan çıkın ve yeni bir bulut bağlantısı oluşturmak için \'+\'. tekrar dokunun.</string>
+	<string name="dialog_enter_sharepoint_url_title">SharePoint URL\'si Girin</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Kasa parolası geçişi gerekli</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Güvenlik geliştirmeleri nedeniyle, kasa parolalarınızı yeniden şifrelemek için her kasa için iki kez biyometrik kimlik doğrulamanız istenecektir. Bu, kasa parolalarınızı en son teknoloji ile korumaya devam etmek için gereklidir. Bunun olmasını istemezseniz, saklanan parolalar kaldırılacaktır.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Taşı</string>
@@ -372,6 +395,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub örneğinizin geçersiz bir lisansı var. Lütfen lisansı yükseltmek veya yenilemek için bir Hub yöneticisini bilgilendirin.”</string>
 	<string name="dialog_hub_vault_archived_title">Kasa arşivlendi</string>
 	<string name="dialog_hub_vault_archived_hint">Bu kasa arşivlenmiştir ve kilidi açılamaz. Kilidi açmak için kasa sahibinin arşivi açması gerekir.</string>
+	<string name="dialog_restore_successful_title">Geri Yükleme Başarılı</string>
+	<string name="dialog_no_full_version_title">Tam Sürüm Yok</string>
 	<string name="dialog_hub_user_setup_required_title">Kullanıcı kurulumu gerekli</string>
 	<string name="dialog_hub_user_setup_required_hint">Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Profile Git</string>
@@ -427,30 +452,22 @@
 	<string name="notification_update_check_finished_latest">En son sürüm yüklendi</string>
 	<string name="notification_authenticating">Doğrulanıyor&#8230;</string>
 	<string name="screen_settings_lru_cache">Önbellek</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Yeniden açıldıklarında daha sonra yeniden kullanılmak üzere cihazda yerel olarak şifrelenmiş yakın zamanda erişilen dosyaları önbelleğe alın</string>
-	<string name="screen_settings_lru_cache_size">Toplam önbellek boyutu</string>
 	<string name="screen_settings_clear_lru_cache_size">Önbelleği temizle</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Değişiklikler, uygulama yeniden başlatıldığında uygulanacak</string>
-	<string name="screen_settings_license">Kayıtlı</string>
+	<string name="screen_settings_license_title_unlock">Tam Sürümün Kilidini Aç</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Aboneliği Yönet</string>
+	<string name="dialog_trial_expired_title">Deneme Sona Erdi</string>
+	<string name="dialog_trial_expired_unlock">Tam Sürümün Kilidini Aç</string>
+	<string name="dialog_license_lost_later">Sonra</string>
 	<string name="dialog_settings_update_check_interval_title">Güncelleme kontrol aralığı</string>
 	<string name="screen_settings_check_updates">Güncellemeleri kontrol et</string>
 	<string name="screen_settings_last_check_updates">Son çalıştırma %1$s</string>
-	<string name="dialog_cache_size_title">Bulut başına önbellek boyutu</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Anında</string>
 	<string name="lock_timeout_1m">1 dakika</string>
 	<string name="lock_timeout_2m">2 dakika</string>
 	<string name="lock_timeout_5m">5 dakika</string>
 	<string name="lock_timeout_10m">10 dakika</string>
 	<string name="lock_timeout_never">Asla</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stil</string>
 	<string name="follow_system">Otomatik (sisteme göre)</string>

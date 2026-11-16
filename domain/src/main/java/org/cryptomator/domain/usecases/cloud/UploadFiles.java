@@ -4,11 +4,15 @@ import android.content.Context;
 
 import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
+import org.cryptomator.domain.VaultPath;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentImport;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
+import org.cryptomator.generator.Optional;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
@@ -29,22 +33,29 @@ public class UploadFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
+	private final VaultDocumentRepository vaultDocumentRepository;
 	private final CloudFolder parent;
 	private final List<UploadFile> files;
+	private final boolean optimistic;
 	private Set<String> completedFiles = Collections.emptySet();
 	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
+	private volatile VaultDocumentImport runningImport;
 	private final Flag cancelledFlag = () -> cancelled;
 
 	public UploadFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
+			VaultDocumentRepository vaultDocumentRepository, //
 			@Parameter CloudFolder parent, //
-			@Parameter List<UploadFile> files) {
+			@Parameter List<UploadFile> files, //
+			@Optional @Parameter Boolean optimistic) {
 		this.context = context;
 		this.cloudContentRepository = cloudContentRepository;
+		this.vaultDocumentRepository = vaultDocumentRepository;
 		this.parent = parent;
 		this.files = files;
+		this.optimistic = Boolean.TRUE.equals(optimistic);
 	}
 
 	public void setCompletedFiles(Set<String> completedFiles) {
@@ -55,8 +66,15 @@ public class UploadFiles {
 		this.fileUploadedCallback = fileUploadedCallback;
 	}
 
+	/**
+	 * Cancels the import that is running, if {@link #execute(ProgressAware)} is. Imports that are done are kept.
+	 */
 	public void onCancel() {
 		cancelled = true;
+		VaultDocumentImport running = runningImport;
+		if (running != null) {
+			running.cancel();
+		}
 	}
 
 	public List<CloudFile> execute(ProgressAware<UploadState> progressAware) throws BackendException {
@@ -78,11 +96,32 @@ public class UploadFiles {
 			if (completedFiles.contains(file.getFileName())) {
 				continue;
 			}
-			CloudFile uploadedFile = upload(file, progressAware);
-			uploadedFiles.add(uploadedFile);
-			fileUploadedCallback.onFileUploaded(file.getFileName(), uploadedFile);
+			// looked up for each file, since the folder may be renamed while the files before are uploaded
+			VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(parent);
+			CloudFile uploaded = vaultFolder != null ? importIntoVault(vaultFolder, file, progressAware) : upload(file, progressAware);
+			// an optimistic upload of a file that has been deleted meanwhile has no result
+			if (uploaded != null) {
+				uploadedFiles.add(uploaded);
+			}
+			fileUploadedCallback.onFileUploaded(file.getFileName(), uploaded);
 		}
 		return uploadedFiles;
+	}
+
+	private CloudFile importIntoVault(VaultPath folder, UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {
+		DataSource dataSource = CancelAwareDataSource.wrap(uploadFile.getDataSource(), cancelledFlag);
+		// an optimistic upload goes on after execute() has returned, so its progress only reaches the listeners
+		ProgressAware<UploadState> importProgress = optimistic ? ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD : progressAware;
+		VaultDocumentImport vaultImport = vaultDocumentRepository.importFile(folder, uploadFile.getFileName(), dataSource, uploadFile.getReplacing(), false, optimistic, importProgress);
+		runningImport = vaultImport;
+		if (cancelled) {
+			vaultImport.cancel();
+		}
+		try {
+			return optimistic ? vaultImport.cachedNode() : vaultImport.await().getNode();
+		} finally {
+			runningImport = null;
+		}
 	}
 
 	private CloudFile upload(UploadFile uploadFile, ProgressAware<UploadState> progressAware) throws BackendException {

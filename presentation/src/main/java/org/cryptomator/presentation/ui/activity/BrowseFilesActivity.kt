@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.view.Menu
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import org.cryptomator.presentation.intent.ChooseCloudNodeSettings
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.BROWSE_FILES
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.MOVE_CLOUD_NODE
 import org.cryptomator.presentation.intent.ChooseCloudNodeSettings.NavigationMode.SELECT_ITEMS
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.CloudNodeModel
@@ -70,6 +72,9 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	@Inject
 	lateinit var browseFilesPresenter: BrowseFilesPresenter
 
+	@Inject
+	lateinit var licenseEnforcer: LicenseEnforcer
+
 	@InjectIntent
 	lateinit var browseFilesIntent: BrowseFilesIntent
 
@@ -82,6 +87,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	override fun setupView() {
 		setupToolbar()
 		setupNavigationMode()
+		setupBackPressedCallback()
 	}
 
 	private fun setupNavigationMode() {
@@ -119,31 +125,43 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	override fun onResume() {
 		super.onResume()
 
+		// one receiver, also after several resumes
+		finishActivityDueToScreenLockEventReceiver?.let {
+			LocalBroadcastManager.getInstance(this).unregisterReceiver(it)
+		}
 		finishActivityDueToScreenLockEventReceiver = object : BroadcastReceiver() {
 			override fun onReceive(context: Context, intent: Intent) {
-				finish()
+				if (browseFilesPresenter.onVaultsLocked()) {
+					finish()
+				}
 			}
 		}.also { LocalBroadcastManager.getInstance(this).registerReceiver(it, IntentFilter(CryptorsService.SCREEN_AND_VAULT_LOCKED)) }
 	}
 
-	override fun onBackPressed() {
-		browseFilesPresenter.onBackPressed()
-		when {
-			isNavigationMode(SELECT_ITEMS) -> {
-				browseFilesPresenter.disableSelectionMode()
-			}
-			supportFragmentManager.backStackEntryCount > 0 -> {
-				supportFragmentManager.popBackStack()
-			}
-			hasCloudNodeSettings() && isNavigationMode(MOVE_CLOUD_NODE) && browseFilesFragment().folder.hasParent() -> {
-				browseFilesFragment().folder.parent?.let {
-					createBackStackFor(it)
-				} ?: throw ParentFolderIsNullException(browseFilesFragment().folder.name)
-			}
-			else -> {
-				super.onBackPressed()
+	private val backPressedCallback = object : OnBackPressedCallback(true) {
+		override fun handleOnBackPressed() {
+			browseFilesPresenter.onBackPressed()
+			when {
+				isNavigationMode(SELECT_ITEMS) -> {
+					browseFilesPresenter.disableSelectionMode()
+				}
+				supportFragmentManager.backStackEntryCount > 0 -> {
+					supportFragmentManager.popBackStack()
+				}
+				hasCloudNodeSettings() && isNavigationMode(MOVE_CLOUD_NODE) && browseFilesFragment().folder.hasParent() -> {
+					browseFilesFragment().folder.parent?.let {
+						createBackStackFor(it)
+					} ?: throw ParentFolderIsNullException(browseFilesFragment().folder.name)
+				}
+				else -> {
+					performDefaultBackPressed(this)
+				}
 			}
 		}
+	}
+
+	private fun setupBackPressedCallback() {
+		onBackPressedDispatcher.addCallback(this, backPressedCallback)
 	}
 
 	private fun isNavigationMode(navigationMode: ChooseCloudNodeSettings.NavigationMode): Boolean = this.navigationMode == navigationMode
@@ -184,25 +202,28 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 			true
 		}
 		R.id.action_delete_items -> {
-			showConfirmDeleteNodeDialog(browseFilesFragment().selectedCloudNodes)
+			guardWriteAccess(LicenseEnforcer.LockedAction.DELETE_NODE) {
+				showConfirmDeleteNodeDialog(browseFilesFragment().selectedCloudNodes)
+			}
 			true
 		}
 		R.id.action_move_items -> {
-			browseFilesPresenter.onMoveNodesClicked(
-				folder, //
-				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>
-			)
+			guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) {
+				browseFilesPresenter.onMoveNodesClicked(
+					folder, //
+					browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>
+				)
+			}
 			true
 		}
 		R.id.action_export_items -> {
-			browseFilesPresenter.onExportNodesClicked( //
-				browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>, //
-				BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER
-			)
+			browseFilesPresenter.onExportNodesClicked(browseFilesFragment().selectedCloudNodes as ArrayList<CloudNodeModel<*>>)
 			true
 		}
 		R.id.action_share_items -> {
-			browseFilesPresenter.onShareNodesClicked(browseFilesFragment().selectedCloudNodes)
+			guardWriteAccess(LicenseEnforcer.LockedAction.SHARE_NODE) {
+				browseFilesPresenter.onShareNodesClicked(browseFilesFragment().selectedCloudNodes)
+			}
 			true
 		}
 		R.id.action_sort_az -> {
@@ -327,11 +348,11 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onExportFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onExportFileClicked(cloudFile, BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER)
+		browseFilesPresenter.onExportFileClicked(cloudFile)
 	}
 
 	override fun onExportFileAfterAppChooserClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onExportFileClicked(cloudFile, BrowseFilesPresenter.EXPORT_AFTER_APP_CHOOSER)
+		browseFilesPresenter.onExportFileClicked(cloudFile)
 	}
 
 	override fun onExportCancelled() {
@@ -356,7 +377,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onExportFolderClicked(cloudFolderModel: CloudFolderModel) {
-		browseFilesPresenter.onExportFolderClicked(cloudFolderModel, BrowseFilesPresenter.EXPORT_TRIGGERED_BY_USER)
+		browseFilesPresenter.onExportFolderClicked(cloudFolderModel)
 	}
 
 	override fun onReplaceCanceled() {
@@ -464,7 +485,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onCreateNewFolderClicked() {
-		showCreateFolderDialog()
+		guardWriteAccess(LicenseEnforcer.LockedAction.CREATE_FOLDER) { showCreateFolderDialog() }
 	}
 
 	private fun showCreateFolderDialog() {
@@ -472,7 +493,9 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onUploadFilesClicked(folder: CloudFolderModel) {
-		browseFilesPresenter.onUploadFilesClicked(folder)
+		guardWriteAccess(LicenseEnforcer.LockedAction.UPLOAD_FILES, folder) {
+			browseFilesPresenter.onUploadFilesClicked(folder)
+		}
 	}
 
 	override fun onUploadFolderClicked(folder: CloudFolderModel) {
@@ -480,15 +503,17 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onCreateNewTextFileClicked() {
-		browseFilesPresenter.onCreateNewTextFileClicked()
+		guardWriteAccess(LicenseEnforcer.LockedAction.CREATE_TEXT_FILE) {
+			browseFilesPresenter.onCreateNewTextFileClicked()
+		}
 	}
 
 	override fun onRenameFileClicked(cloudFile: CloudFileModel) {
-		onRenameCloudNodeClicked(cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.RENAME_NODE) { onRenameCloudNodeClicked(cloudFile) }
 	}
 
 	override fun onRenameFolderClicked(cloudFolderModel: CloudFolderModel) {
-		onRenameCloudNodeClicked(cloudFolderModel)
+		guardWriteAccess(LicenseEnforcer.LockedAction.RENAME_NODE) { onRenameCloudNodeClicked(cloudFolderModel) }
 	}
 
 	private fun onRenameCloudNodeClicked(cloudNodeModel: CloudNodeModel<*>) {
@@ -496,15 +521,15 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onDeleteNodeClicked(cloudFile: CloudNodeModel<*>) {
-		showConfirmDeleteNodeDialog(listOf(cloudFile))
+		guardWriteAccess(LicenseEnforcer.LockedAction.DELETE_NODE) { showConfirmDeleteNodeDialog(listOf(cloudFile)) }
 	}
 
 	override fun onShareFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onShareFileClicked(cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.SHARE_NODE) { browseFilesPresenter.onShareFileClicked(cloudFile) }
 	}
 
 	override fun onMoveFileClicked(cloudFile: CloudFileModel) {
-		browseFilesPresenter.onMoveNodeClicked(folder, cloudFile)
+		guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) { browseFilesPresenter.onMoveNodeClicked(folder, cloudFile) }
 	}
 
 	override fun onOpenWithTextFileClicked(cloudFile: CloudFileModel) {
@@ -516,7 +541,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onMoveFolderClicked(cloudFolderModel: CloudFolderModel) {
-		browseFilesPresenter.onMoveNodeClicked(folder, cloudFolderModel)
+		guardWriteAccess(LicenseEnforcer.LockedAction.MOVE_NODE) { browseFilesPresenter.onMoveNodeClicked(folder, cloudFolderModel) }
 	}
 
 	private fun createBackStackFor(sourceParent: CloudFolderModel) {
@@ -564,6 +589,16 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 
 	private fun browseFilesFragment(): BrowseFilesFragment = getCurrentFragment(R.id.fragment_container) as BrowseFilesFragment
 
+	private inline fun guardWriteAccess(
+		action: LicenseEnforcer.LockedAction,
+		folder: CloudFolderModel = browseFilesFragment().folder,
+		block: () -> Unit
+	) {
+		if (licenseEnforcer.ensureWriteAccessForVault(this, folder.vault(), action)) {
+			block()
+		}
+	}
+
 	override fun onCreateNewTextFileClicked(fileName: String) {
 		browseFilesPresenter.onCreateNewTextFileClicked(browseFilesFragment().folder, fileName)
 	}
@@ -610,15 +645,15 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		showDialog(NoDirFileOrEmptyDialog.newInstance(cryptoFolderName, cloudFolderPath))
 	}
 
-	override fun updateActiveFolderDueToAuthenticationProblem(folder: CloudFolderModel) {
+	override fun updateActiveFolder(folder: CloudFolderModel) {
 		browseFilesFragment().folder = folder
 	}
 
 	override fun navigateFolderBackBecauseSymlink() {
-		onBackPressed()
+		onBackPressedDispatcher.onBackPressed()
 	}
 
 	override fun navigateFolderBackBecauseNoDirFile() {
-		onBackPressed()
+		onBackPressedDispatcher.onBackPressed()
 	}
 }

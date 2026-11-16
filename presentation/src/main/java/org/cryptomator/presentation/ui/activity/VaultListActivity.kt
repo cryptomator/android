@@ -15,11 +15,13 @@ import org.cryptomator.presentation.databinding.ActivityLayoutObscureAwareBindin
 import org.cryptomator.presentation.intent.Intents.browseFilesIntent
 import org.cryptomator.presentation.intent.Intents.settingsIntent
 import org.cryptomator.presentation.intent.VaultListIntent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.presenter.VaultListPresenter
 import org.cryptomator.presentation.service.OpenWritableFileNotification
+import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.bottomsheet.AddVaultBottomSheet
 import org.cryptomator.presentation.ui.bottomsheet.SettingsVaultBottomSheet
@@ -28,7 +30,10 @@ import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.BetaConfirmationDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog
+import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
+import org.cryptomator.presentation.ui.dialog.RecoveryKeyDialog
 import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
+import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
 import org.cryptomator.presentation.ui.dialog.VaultDeleteConfirmationDialog
@@ -50,10 +55,15 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	CBCPasswordVaultsMigrationDialog.Callback, //
 	CancelUploadAndLockDialog.Callback, //
 	ResumeUploadDialog.Callback, //
-	BiometricAuthenticationMigration.Callback {
+	BiometricAuthenticationMigration.Callback, //
+	TrialExpiredDialog.Callback, //
+	LicenseLostDialog.Callback {
 
 	@Inject
 	lateinit var vaultListPresenter: VaultListPresenter
+
+	@Inject
+	lateinit var licenseEnforcer: LicenseEnforcer
 
 	@InjectIntent
 	lateinit var vaultListIntent: VaultListIntent
@@ -88,7 +98,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	private fun hideNotification() {
-		OpenWritableFileNotification(context(), Uri.EMPTY).hide()
+		OpenWritableFileNotification(context()).hide()
 	}
 
 	private fun releaseEditingLease() {
@@ -157,6 +167,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListFragment().hideVaultCreationHint()
 	}
 
+	override fun showSalePromoBanner(salePromo: SalePromo) {
+		vaultListFragment().showSalePromoBanner(salePromo)
+	}
+
+	override fun hideSalePromoBanner() {
+		vaultListFragment().hideSalePromoBanner()
+	}
+
 	override fun deleteVaultFromAdapter(vaultId: Long) {
 		vaultListFragment().deleteVaultFromAdapter(vaultId)
 	}
@@ -186,6 +204,9 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	override fun onCreateVault() {
+		if (!licenseEnforcer.ensureWriteAccess(this, LicenseEnforcer.LockedAction.CREATE_VAULT)) {
+			return
+		}
 		vaultListPresenter.onCreateVault()
 	}
 
@@ -206,6 +227,18 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListPresenter.onChangePasswordClicked(vaultModel)
 	}
 
+	override fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String) {
+		showDialog(RecoveryKeyDialog.newInstance(vaultModel.name, recoveryKey))
+	}
+
+	override fun onShowRecoveryKeyClick(vaultModel: VaultModel) {
+		vaultListPresenter.onShowRecoveryKeyClicked(vaultModel)
+	}
+
+	override fun onRecoveryKeyDialogFinished() {
+		// the dialog closes itself and the vault list stays open
+	}
+
 	override fun onRenameClick(vaultModel: VaultModel, newVaultName: String) {
 		vaultListPresenter.renameVault(vaultModel, newVaultName)
 	}
@@ -216,6 +249,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun onAskForLockScreenFinished(setScreenLock: Boolean) {
 		vaultListPresenter.onAskForLockScreenFinished(setScreenLock)
+	}
+
+	override fun onUnlockFullVersionClicked() {
+		vaultListPresenter.onUnlockFullVersionClicked()
+	}
+
+	override fun onReenterLicenseClicked() {
+		vaultListPresenter.onUnlockFullVersionClicked()
 	}
 
 	private fun vaultListFragment(): VaultListFragment = //

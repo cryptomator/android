@@ -71,6 +71,12 @@
 			app:drawableStartCompat="@drawable/ic_swap_horiz" />
 
 		<TextView
+			android:id="@+id/show_recovery_key"
+			style="@style/AppTheme.ListItem"
+			android:text="@string/screen_vault_list_vault_action_show_recovery_key"
+			app:drawableStartCompat="@drawable/ic_key" />
+
+		<TextView
 			android:id="@+id/et_rename"
 			style="@style/AppTheme.ListItem"
 			android:text="@string/screen_vault_list_vault_action_rename"

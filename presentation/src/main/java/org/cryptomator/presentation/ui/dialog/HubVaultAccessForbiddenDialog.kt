@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
-import android.view.KeyEvent
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
@@ -19,16 +18,12 @@ class HubVaultAccessForbiddenDialog : BaseDialog<HubVaultAccessForbiddenDialog.C
 		builder //
 			.setTitle(R.string.dialog_hub_vault_access_forbidden_title) //
 			.setNeutralButton(getString(R.string.dialog_hub_vault_access_forbidden_neutral_button)) { _: DialogInterface, _: Int -> callback?.onVaultAccessForbiddenDialogFinished() } //
-			.setOnKeyListener { _, keyCode, _ ->
-				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dialog?.dismiss()
-					callback?.onVaultAccessForbiddenDialogFinished()
-					true
-				} else {
-					false
-				}
-			}
 		return builder.create()
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		callback?.onVaultAccessForbiddenDialogFinished()
 	}
 
 	public override fun setupView() {

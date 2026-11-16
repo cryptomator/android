@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">La versión especificada en %1$s es diferente de %2$s</string>
 	<string name="error_vault_key_invalid">%1$s no coincide con este %2$s</string>
 	<string name="error_vault_config_loading">Error general al cargar la configuración de la bóveda</string>
-	<string name="error_file_not_found_after_opening_using_3party">El archivo local ya no está presente después de volver a Cryptomator. Los posibles cambios no se pueden propagar a la nube.</string>
 	<string name="error_no_such_bucket">El bucket no existe</string>
 	<string name="error_masterkey_location_not_supported">Ubicación personalizada Masterkey aún no soportada</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Error al comunicarse con la aplicación F-Droid. ¿No está instalada?</string>
@@ -41,6 +40,33 @@
 	<string name="error_hub_invalid_setup_code">La Account Key no es válida.</string>
 	<string name="error_hub_invalid_version">Versión de Hub no soportada.</string>
 	<string name="error_hub_unlock_pre_31">Hub solo es compatible con Android 12 o superior.</string>
+	<string name="error_hub_not_trustworthy">Hub no es fiable.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Cuota familiar</string>
+	<string name="screen_license_check_benefit_write_access">Acceso de escritura a sus bóvedas</string>
+	<string name="screen_license_check_benefit_support">Desarrollo de código abierto</string>
+	<string name="screen_license_check_title_full_version">Desbloquear versión completa</string>
+	<string name="screen_license_check_trial_title">Prueba de 30 días</string>
+	<string name="screen_license_check_trial_price">Gratis</string>
+	<string name="screen_license_check_trial_subtitle">por 30 días</string>
+	<string name="screen_license_check_subscription_title">Suscripción anual</string>
+	<string name="screen_license_check_subscription_subtitle">anual</string>
+	<string name="screen_license_check_lifetime_title">Licencia vitalicia</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% de descuento hasta %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Oferta por tiempo limitado</string>
+	<string name="screen_license_check_lifetime_subtitle">pago único</string>
+	<string name="screen_license_check_restore_purchase">Restaurar compra</string>
+	<string name="screen_license_check_terms">Términos de uso</string>
+	<string name="screen_license_check_privacy">Política de privacidad</string>
+	<string name="screen_license_check_trial_status_active">Activa</string>
+	<string name="screen_license_check_trial_status_expired">Expirada</string>
+	<string name="screen_license_check_trial_expired_info">Su prueba ha expirado.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Ahora tienes una licencia de por vida. Para evitar cargos futuros, cancela tu suscripción anual a través de la opción %1$s en Ajustes.</string>
+	<string name="screen_welcome_title">Bienvenido</string>
+	<string name="screen_welcome_continue_button">Continuar</string>
+	<string name="screen_welcome_screen_lock_button">Establecer bloqueo de pantalla</string>
+	<string name="next">Siguiente</string>
+	<string name="back">Volver</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Almacenamiento local</string>
@@ -71,6 +97,8 @@
 	<string name="screen_vault_list_vault_action_delete">Eliminar</string>
 	<string name="screen_vault_list_vault_creation_hint">Pulse aquí para crear una bóveda nueva</string>
 	<string name="screen_vault_list_change_password_successful">Contraseña cambiada con éxito</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licencia de por vida tiene %1$d%% de descuento hasta %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Descartar</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Bóveda</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Seleccionar archivo masterkey o bóveda</string>
@@ -125,6 +153,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Elegir ubicación</string>
 	<string name="screen_cloud_connections_no_connections">Pulse aquí para añadir ubicaciones</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">No hay unidades disponibles.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">El sitio de SharePoint no se ha encontrado. Por favor, compruebe la URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">El servidor no parece ser compatible con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">No se encontró ningún administrador de archivos que admita la apertura de directorios</string>
 	<!-- ## screen: webdav settings -->
@@ -178,6 +208,7 @@
 	<string name="screen_settings_live_search_summary">Actualizar los resultados de la búsqueda mientras se ingresa la consulta</string>
 	<string name="screen_settings_glob_search">Buscar usando el patrón glob</string>
 	<string name="screen_settings_glob_search_summary">Usar la coincidencia de patrón glob como alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Restablecer hosts de Hub Desconocidos</string>
 	<string name="screen_settings_section_auto_lock">Bloqueo automático</string>
 	<string name="screen_settings_auto_lock_timeout">Bloquear después de</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Cuando la pantalla está desactivada</string>
@@ -204,16 +235,16 @@
 	<string name="screen_settings_security_label">Consejos de seguridad</string>
 	<string name="screen_settings_section_version">Versión</string>
 	<string name="screen_settings_advanced_settings">Ajustes avanzados</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Solución para abrir archivos de Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Abrir archivos en apps de Microsoft con permiso de lectura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Acelerar desbloqueo</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Descarga la configuración de la bóveda en segundo plano mientras se le pide ingresar la contraseña o la autenticación biométrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantener desbloqueado</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantener las bóvedas desbloqueadas durante la edición de archivos</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Conexiones de OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Conexiones de SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Conexiones de WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">Conexiones de pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Conexiones Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexiones S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Ubicaciones de almacenamiento local</string>
 	<string name="screen_cloud_settings_log_in_to">Iniciar sesión en</string>
@@ -312,7 +343,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">En este modo, los datos sensibles pueden ser escritos en un archivo de registro de su dispositivo (por ejemplo, nombres de archivos y rutas). Las contraseñas, las cookies, etc., se excluyen explícitamente.\n\nRecuerde desactivar el modo de depuración tan pronto como sea posible.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aviso</string>
 	<string name="dialog_debug_mode_positive_button">Activar</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Debido a un error en las aplicaciones de Microsoft, el archivo que se va a editar debe compartirse con estas aplicaciones en una carpeta de medios públicos en su dispositivo. Una vez que se reanude Cryptomator, el archivo de acceso público se elimina nuevamente, pero Cryptomator no puede influir en lo que sucedió con este archivo mientras tanto. Asegúrese de conocer este comportamiento al activar esta opción. Esto solo se aplicará a los tipos de archivos de Microsoft.\n\nCryptomator se reiniciará después de la activación.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Esta opción es una función de seguridad y evita que otras aplicaciones engañen a los usuarios para que hagan cosas que no quieren hacer.\n\nAl desactivarla, confirma que es <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">consciente de los riesgos</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aviso</string>
 	<string name="dialog_disable_app_obscured_positive_button">Desactivar</string>
@@ -355,6 +385,12 @@
 	<string name="dialog_no_more_images_to_display">No hay más imágenes para mostrar&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Credenciales de \'%1$s\' actualizadas</string>
 	<string name="dialog_pcloud_credentials_updated">Si desea añadir una cuenta pCloud nueva, pulse en esta url <a href="https://www.pcloud.com">www.pcloud.com</a>, cierre la sesión de la cuenta actual y pulse de nuevo en \'+\' de esta aplicación para crear una conexión nueva en la nube.</string>
+	<string name="dialog_enter_sharepoint_url_title">Introduzca la URL de SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL del sitio SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Introduzca la dirección de su sitio SharePoint, p. ej., https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Esta no es la dirección de un sitio de SharePoint. Por favor, introduzca una como https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Seleccione unidad</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Seleccione la unidad SharePoint con la que desea trabajar.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Migración de contraseña de bóveda requerida</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Debido a las mejoras de seguridad, se le pedirá la autenticación biométrica dos veces por cada bóveda para volver a cifrar sus contraseñas de bóveda. Esto es necesario para continuar protegiendo sus contraseñas de bóveda con la última tecnología. Si no desea que esto suceda, se eliminarán las contraseñas almacenadas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrar</string>
@@ -372,9 +408,12 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Su instancia de Cryptomator Hub tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.\"</string>
 	<string name="dialog_hub_vault_archived_title">Bóveda archivada</string>
 	<string name="dialog_hub_vault_archived_hint">Esta bóveda está archivada y no puede ser desbloqueada. Para desbloquearla, el propietario de la bóveda debe desarchivarla.</string>
+	<string name="dialog_restore_successful_title">Restauración exitosa</string>
+	<string name="dialog_no_full_version_title">Sin versión completa</string>
 	<string name="dialog_hub_user_setup_required_title">Configuración de usuario requerida</string>
 	<string name="dialog_hub_user_setup_required_hint">Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ir al Perfil</string>
+	<string name="dialog_hub_check_host_authenticity_title">¿Confiar en estos hosts?</string>
 	<string name="permission_snackbar_auth_local_vault">Cryptomator necesita acceso de almacenamiento para usar bóvedas locales</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator necesita acceso de almacenamiento para cargar fotos automáticamente</string>
 	<string name="permission_snackbar_notifications">Cryptomator necesita permisos de notificación para mostrar el estado de la bóveda por ejemplo</string>
@@ -426,31 +465,27 @@
 	<string name="notification_open_writable_file_message">La bóveda permanece desbloqueada hasta finalizar la edición</string>
 	<string name="notification_update_check_finished_latest">Última versión instalada</string>
 	<string name="notification_authenticating">Autenticando&#8230;</string>
+	<string name="notification_cleared_trusted_hosts">Hosts de confianza limpiados</string>
 	<string name="screen_settings_lru_cache">Caché</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Almacene en caché los archivos cifrados localmente a los que accedió recientemente en el dispositivo para su posterior reutilización cuando se vuelvan a abrir</string>
-	<string name="screen_settings_lru_cache_size">Tamaño total de la caché</string>
 	<string name="screen_settings_clear_lru_cache_size">Vaciar la caché</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Los cambios se aplicarán en el próximo reinicio de la aplicación</string>
-	<string name="screen_settings_license">Registrado para</string>
+	<string name="screen_settings_license_title_unlock">Desbloquear versión completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Gestionar suscripción</string>
+	<string name="screen_settings_upgrade_to_lifetime">Actualice a una suscripción vitalicia</string>
+	<string name="dialog_trial_expired_unlock">Desbloquear versión completa</string>
+	<string name="dialog_license_lost_title">Vuelva a introducir la clave de licencia</string>
+	<string name="dialog_license_lost_message">Una actualización anterior eliminó la clave de licencia registrada en %1$s de este dispositivo. Vuelva a introducirla para restaurar el acceso de escritura. Hasta entonces, las bóvedas son de solo lectura.</string>
+	<string name="dialog_license_lost_reenter">Vuelva a introducir la clave de licencia</string>
+	<string name="dialog_license_lost_later">Más tarde</string>
 	<string name="dialog_settings_update_check_interval_title">Actualizar intervalo de verificación</string>
 	<string name="screen_settings_check_updates">Comprobar actualizaciones</string>
 	<string name="screen_settings_last_check_updates">Última ejecución %1$s</string>
-	<string name="dialog_cache_size_title">Tamaño de la caché por nube</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instantáneo</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minutos</string>
 	<string name="lock_timeout_5m">5 minutos</string>
 	<string name="lock_timeout_10m">10 minutos</string>
 	<string name="lock_timeout_never">Nunca</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Estilo</string>
 	<string name="follow_system">Automático (seguir sistema)</string>

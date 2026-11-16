@@ -24,7 +24,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 
@@ -78,6 +77,15 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 		override fun exists(node: DropboxNode): Boolean {
 			return try {
 				cloud.exists(node)
+			} catch (e: DbxException) {
+				throw FatalBackendException(e)
+			}
+		}
+
+		@Throws(BackendException::class)
+		override fun metadata(file: DropboxFile): DropboxFile? {
+			return try {
+				cloud.metadata(file)
 			} catch (e: DbxException) {
 				throw FatalBackendException(e)
 			}
@@ -154,9 +162,9 @@ internal class DropboxCloudContentRepository(private val cloud: DropboxCloud, co
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: DropboxFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: DropboxFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
-				cloud.read(file, encryptedTmpFile, data, progressAware)
+				cloud.read(file, data, progressAware)
 			} catch (e: IOException) {
 				mapToNoSuchCloudFileExceptionIfMatches(e, file)?.let { throw it } ?: throw FatalBackendException(e)
 			} catch (e: DbxException) {

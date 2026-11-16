@@ -31,10 +31,12 @@
 	<string name="error_vault_version_mismatch">نسخه تعیین شده در %1$s با %2$s متفاوت است</string>
 	<string name="error_vault_key_invalid">%1$s با این %2$s مطابقت ندارد</string>
 	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی مخزن</string>
-	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر موجود نیست. تغییرات احتمالی را نمی توان به فضای ابری اضافه کرد.</string>
 	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
 	<string name="error_masterkey_location_not_supported">مکان سفارشی برای کلید اصلی هم اکنون پشتیبانی نمی‌شود</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid ناموفق بود. نصب نشده است؟</string>
+	<!-- # read-only & purchases -->
+	<string name="next">بعدی</string>
+	<string name="back">بازگشت</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">فضای ذخیره‌سازی محلی</string>
@@ -65,6 +67,7 @@
 	<string name="screen_vault_list_vault_action_delete">حذف</string>
 	<string name="screen_vault_list_vault_creation_hint">برای ایجاد یک مخزن جدید، اینجا را ضربه بزنید</string>
 	<string name="screen_vault_list_change_password_successful">رمز عبور با موفقیت تغییر یافت</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">لغو</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">مخزن</string>
 	<string name="screen_file_browser_create_new_vault_button_text">اینجا قرار دهید</string>
@@ -212,6 +215,7 @@
 	<string name="dialog_file_name_hint">نام فایل</string>
 	<string name="dialog_lock_vault">قفل</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ببند</string>
+	<string name="dialog_enter_license_decline_button">انصراف</string>
 	<string name="dialog_sym_link_back_button">بازگشت</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -220,7 +224,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

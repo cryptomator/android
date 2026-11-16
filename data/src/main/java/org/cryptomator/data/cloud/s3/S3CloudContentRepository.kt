@@ -4,12 +4,14 @@ import android.content.Context
 import org.cryptomator.data.cloud.InterceptingCloudContentRepository
 import org.cryptomator.data.cloud.s3.S3CloudApiExceptions.isAccessProblem
 import org.cryptomator.data.cloud.s3.S3CloudApiExceptions.isNoSuchBucketException
+import org.cryptomator.data.util.LocalNetworkAccessDeniedException
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.domain.exception.ForbiddenException
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchBucketException
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
@@ -17,7 +19,6 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import org.cryptomator.util.ExceptionUtil
-import java.io.File
 import java.io.IOException
 import java.io.OutputStream
 import io.minio.MinioClient
@@ -28,8 +29,15 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, client: Mini
 	@Throws(BackendException::class)
 	override fun throwWrappedIfRequired(e: Exception) {
 		throwNoSuchBucketExceptionIfRequired(e)
+		throwLocalNetworkPermissionMissingExceptionIfRequired(e)
 		throwConnectionErrorIfRequired(e)
 		throwWrongCredentialsExceptionIfRequired(e)
+	}
+
+	private fun throwLocalNetworkPermissionMissingExceptionIfRequired(e: Exception) {
+		if (ExceptionUtil.contains(e, LocalNetworkAccessDeniedException::class.java)) {
+			throw LocalNetworkPermissionMissingException(cloud)
+		}
 	}
 
 	@Throws(NoSuchBucketException::class)
@@ -101,6 +109,11 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, client: Mini
 		}
 
 		@Throws(BackendException::class)
+		override fun metadata(file: S3File): S3File? {
+			return cloud.metadata(file)
+		}
+
+		@Throws(BackendException::class)
 		override fun list(folder: S3Folder): List<S3Node> {
 			return try {
 				cloud.list(folder)
@@ -146,7 +159,7 @@ internal class S3CloudContentRepository(private val cloud: S3Cloud, client: Mini
 		}
 
 		@Throws(BackendException::class)
-		override fun read(file: S3File, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+		override fun read(file: S3File, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 			try {
 				cloud.read(file, data, progressAware)
 			} catch (e: IOException) {

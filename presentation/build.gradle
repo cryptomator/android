@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'de.mannodermaus.android-junit'
 
 if (!liteFlavor()) {
 	apply from: 'prebuild.gradle'
@@ -33,21 +33,21 @@ android {
 		versionCode globalConfiguration["androidVersionCode"]
 		versionName globalConfiguration["androidVersionName"]
 
-		multiDexEnabled true
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_17
-		targetCompatibility JavaVersion.VERSION_17
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 
 		coreLibraryDesugaringEnabled true
 	}
 
-	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
 	buildFeatures {
 		viewBinding true
 		buildConfig true
+		resValues true
 	}
 
 	defaultConfig.manifestPlaceholders = [
@@ -63,8 +63,9 @@ android {
 
 			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
 			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID')]
 		}
 
 		debug {
@@ -74,12 +75,12 @@ android {
 			minifyEnabled false
 			shrinkResources false
 
-			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID_DEBUG') + "\""
+			buildConfigField "String", "DROPBOX_API_KEY", "\"" + getApiKey('DROPBOX_API_KEY') + "\""
+			buildConfigField "String", "PCLOUD_CLIENT_ID", "\"" + getApiKey('PCLOUD_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
 
-			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY_DEBUG'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey()]
+			manifestPlaceholders = [DROPBOX_API_KEY: getApiKey('DROPBOX_API_KEY'), ONEDRIVE_API_KEY_DECODED: getOnedriveApiKey(), BOX_CLIENT_ID: getApiKey('BOX_CLIENT_ID')]
 
-			applicationIdSuffix ".debug"
 			versionNameSuffix '-DEBUG'
 			enableUnitTestCoverage false
 			enableAndroidTestCoverage false
@@ -91,6 +92,13 @@ android {
 	productFlavors {
 		playstore {
 			dimension "version"
+		}
+
+		playstoreiap {
+			dimension "version"
+
+			applicationIdSuffix ".freemium"
+			resValue "string", "app_id", androidApplicationId + applicationIdSuffix
 		}
 
 		apkstore {
@@ -115,23 +123,27 @@ android {
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
+		}
+
+		playstoreiap {
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/playstoreiap/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		lite {
-			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 
 		accrescent {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
 		}
 	}
 
@@ -157,6 +169,17 @@ android {
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies
+	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
+	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def addToFlavors = { flavors, dep, Closure config = null ->
+		flavors.each { flavor ->
+			if (config) {
+				add("${flavor}Implementation", dep, config)
+			} else {
+				add("${flavor}Implementation", dep)
+			}
+		}
+	}
 
 	// custom code generators
 	kapt project(':generator')
@@ -186,49 +209,23 @@ dependencies {
 	implementation dependencies.androidxPreference
 	implementation dependencies.androidxBiometric
 	implementation dependencies.documentFile
+	implementation dependencies.androidxLocalBroadcastManager
 
 	implementation dependencies.appauth
 
 	// cloud
-	playstoreImplementation dependencies.dropboxCore
-	playstoreImplementation dependencies.dropboxAndroid
-	apkstoreImplementation dependencies.dropboxCore
-	apkstoreImplementation dependencies.dropboxAndroid
-	fdroidImplementation dependencies.dropboxCore
-	fdroidImplementation dependencies.dropboxAndroid
-	accrescentImplementation dependencies.dropboxCore
-	accrescentImplementation dependencies.dropboxAndroid
+	addToFlavors(cloudFlavors, dependencies.dropboxCore)
+	addToFlavors(cloudFlavors, dependencies.dropboxAndroid)
 
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	accrescentImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
-	accrescentImplementation dependencies.msgraph
+	addToFlavors(cloudFlavors, dependencies.msgraphAuth)
+	addToFlavors(cloudFlavors, dependencies.msgraph)
 
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
+	addToFlavors(googleFlavors, dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+	addToFlavors(googleFlavors, dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude module: "google-http-client"
@@ -237,10 +234,8 @@ dependencies {
 		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleCLient)
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleAndroidCLient)
 
 	// rest
 	implementation dependencies.rxJava
@@ -249,8 +244,7 @@ dependencies {
 	implementation dependencies.zxcvbn
 	implementation dependencies.rxBinding
 
-	// multidex
-	implementation dependencies.multidex
+	playstoreiapImplementation dependencies.billing
 
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
@@ -291,15 +285,17 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
 }
 
-configurations {
-	all*.exclude group: 'com.google.android', module: 'android'
-	all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+configurations.configureEach {
+	exclude group: 'com.google.android', module: 'android'
+	exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
 def liteFlavor() {

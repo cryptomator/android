@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginHorizontal="16dp"
+	android:layout_marginTop="16dp"
+	android:layout_marginBottom="8dp"
+	android:visibility="gone"
+	app:cardBackgroundColor="?attr/colorPrimary"
+	app:cardCornerRadius="12dp"
+	app:cardElevation="0dp"
+	app:strokeWidth="0dp">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:orientation="horizontal"
+		android:paddingStart="16dp">
+
+		<TextView
+			android:id="@+id/tv_sale_promo"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:paddingVertical="12dp"
+			android:textColor="@color/textColorWhite"
+			android:textSize="14sp" />
+
+		<ImageButton
+			android:id="@+id/btn_dismiss_sale_promo"
+			android:layout_width="48dp"
+			android:layout_height="48dp"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
+			android:contentDescription="@string/screen_vault_list_sale_promo_banner_dismiss"
+			android:src="@drawable/ic_clear" />
+
+	</LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

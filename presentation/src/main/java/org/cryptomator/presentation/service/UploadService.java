@@ -10,7 +10,7 @@ import android.os.Looper;
 
 import androidx.annotation.Nullable;
 
-import org.cryptomator.data.db.UploadCheckpointDao;
+import org.cryptomator.data.db.dao.UploadCheckpointDao;
 import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
@@ -19,6 +19,7 @@ import org.cryptomator.domain.exception.CancellationException;
 import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.domain.usecases.cloud.FileUploadedCallback;
 import org.cryptomator.domain.usecases.cloud.FolderCreatedCallback;
@@ -54,6 +55,7 @@ public class UploadService extends Service {
 
 	private UploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
+	private VaultDocumentRepository vaultDocumentRepository;
 	private UploadCheckpointDao uploadCheckpointDao;
 	private UploadUiUpdates uploadUiUpdates;
 	private FileUtil fileUtil;
@@ -88,7 +90,7 @@ public class UploadService extends Service {
 	public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
 			Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
 		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), cleanupUris, (targetFolder, fileCallback, folderCallback, progressAware) -> {
-			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, targetFolder, files);
+			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, vaultDocumentRepository, targetFolder, files, null);
 			uploadFiles.setCompletedFiles(completedFiles);
 			uploadFiles.setFileUploadedCallback(fileCallback);
 			cancelCallback = uploadFiles::onCancel;
@@ -479,9 +481,11 @@ public class UploadService extends Service {
 		}
 
 		public void init(CloudContentRepository cloudContentRepository,
+				VaultDocumentRepository vaultDocumentRepository,
 				UploadCheckpointDao uploadCheckpointDao, UploadUiUpdates uploadUiUpdates,
 				FileUtil fileUtil, Context context) {
 			UploadService.this.cloudContentRepository = cloudContentRepository;
+			UploadService.this.vaultDocumentRepository = vaultDocumentRepository;
 			UploadService.this.uploadCheckpointDao = uploadCheckpointDao;
 			UploadService.this.uploadUiUpdates = uploadUiUpdates;
 			UploadService.this.fileUtil = fileUtil;

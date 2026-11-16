@@ -14,5 +14,6 @@ interface SharedFilesView : View {
 	fun showReplaceDialog(existingFiles: List<String>, size: Int)
 	fun showChosenLocation(folder: CloudFolderModel)
 	fun showUploadDialog(uploadingFiles: Int)
+	fun setUploadEnabled(enabled: Boolean)
 
 }

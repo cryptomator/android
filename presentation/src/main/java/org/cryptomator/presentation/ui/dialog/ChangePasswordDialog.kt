@@ -2,7 +2,6 @@ package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -54,15 +53,6 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 				}
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			dialog.setOnKeyListener { _, keyCode, _ ->
-					if (keyCode == KeyEvent.KEYCODE_BACK) {
-						dialog.dismiss()
-						callback?.onChangePasswordCanceled()
-						true
-					} else {
-						false
-					}
-				}
 			binding.etOldPassword.requestFocus()
 			binding.etOldPassword.nextFocusForwardId = binding.etNewPassword.id
 			binding.etNewPassword.nextFocusForwardId = binding.etNewRetypePassword.id
@@ -79,6 +69,11 @@ class ChangePasswordDialog : BaseProgressErrorDialog<ChangePasswordDialog.Callba
 					changePasswordButton
 				)
 		}
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		callback?.onChangePasswordCanceled()
 	}
 
 	private fun valid(oldPassword: String, newPassword: String, newRetypedPassword: String): Boolean {

@@ -2,6 +2,9 @@
 <resources>
 	<!-- # app -->
 	<!-- # error messages -->
+	<!-- # read-only & purchases -->
+	<string name="next">Продолжи</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<!-- # permission -->
@@ -9,6 +12,7 @@
 	<string name="snack_bar_action_title_search_next">Продолжи</string>
 	<!-- # screens -->
 	<!-- # screen: vault list -->
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Откажи</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Сеф</string>
 	<!-- ## screen: text editor -->
@@ -31,6 +35,7 @@
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Заклучи</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затвори</string>
+	<string name="dialog_enter_license_decline_button">Откажи</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<!-- # error reports -->
 	<!-- # misc -->
@@ -39,7 +44,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

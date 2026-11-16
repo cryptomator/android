@@ -1,10 +1,12 @@
 package org.cryptomator.presentation.presenter
 
+import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.LocalStorageCloud
 import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.S3Cloud
+import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -12,21 +14,22 @@ import org.cryptomator.domain.usecases.cloud.GetAllCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.LogoutCloudUseCase
 import org.cryptomator.generator.Callback
-import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
+import org.cryptomator.util.FlavorConfig
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
+import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
+import org.cryptomator.presentation.model.SharepointCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
-import java.util.EnumSet
 import javax.inject.Inject
 
 @PerView
@@ -37,15 +40,6 @@ class CloudSettingsPresenter @Inject constructor( //
 	private val cloudModelMapper: CloudModelMapper,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<CloudSettingsView>(exceptionMappings) {
-
-	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
-		CloudTypeModel.CRYPTO,  //
-		CloudTypeModel.LOCAL,  //
-		CloudTypeModel.ONEDRIVE,  //
-		CloudTypeModel.PCLOUD, //
-		CloudTypeModel.S3, //
-		CloudTypeModel.WEBDAV
-	)
 
 	fun loadClouds() {
 		getAllCloudsUseCase.run(CloudsSubscriber())
@@ -99,11 +93,16 @@ class CloudSettingsPresenter @Inject constructor( //
 	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
 		when (cloudTypeModel) {
 			CloudTypeModel.ONEDRIVE -> return context().getString(R.string.screen_cloud_settings_onedrive_connections)
+			CloudTypeModel.SHAREPOINT -> return context().getString(R.string.screen_cloud_settings_sharepoint_connections)
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
+			CloudTypeModel.BOX -> return context().getString(R.string.screen_cloud_settings_box_connections)
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 			else -> {}
+		}
+		if (cloudTypeModel.webDavProvider != null) {
+			return context().getString(R.string.screen_cloud_settings_webdav_provider_connections, context().getString(cloudTypeModel.displayNameResource))
 		}
 		return context().getString(R.string.screen_cloud_settings_title)
 	}
@@ -132,16 +131,19 @@ class CloudSettingsPresenter @Inject constructor( //
 		override fun onSuccess(clouds: List<Cloud>) {
 			val cloudModel = cloudModelMapper.toModels(clouds) //
 				.filter { isSingleLoginCloud(it) } //
-				.filter { cloud -> !((BuildConfig.FLAVOR == "fdroid" || BuildConfig.FLAVOR == "accrescent") && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
+				.filter { cloud -> !(FlavorConfig.excludesGoogleDrive && cloud.cloudType() == CloudTypeModel.GOOGLE_DRIVE) } //
 				.toMutableList() //
 				.also {
 					it.add(aOnedriveCloud())
+					it.add(aSharepointCloud())
 					it.add(aPCloud())
+					it.add(aBoxCloud())
 					it.add(aWebdavCloud())
+					it.addAll(webDavProviderClouds(clouds))
 					it.add(aS3Cloud())
 					it.add(aLocalCloud())
 				}
-				.filter { cloud -> !(BuildConfig.FLAVOR == "lite" && excludeApiCloudsInLite(cloud.cloudType())) } //
+				.filter { cloud -> !(FlavorConfig.isLiteFlavor && excludeApiCloudsInLite(cloud.cloudType())) } //
 			view?.render(cloudModel)
 		}
 
@@ -153,10 +155,16 @@ class CloudSettingsPresenter @Inject constructor( //
 				CloudTypeModel.ONEDRIVE -> {
 					true
 				}
+				CloudTypeModel.SHAREPOINT -> {
+					true
+				}
 				CloudTypeModel.DROPBOX -> {
 					true
 				}
 				CloudTypeModel.PCLOUD -> {
+					true
+				}
+				CloudTypeModel.BOX -> {
 					true
 				}
 				else -> false
@@ -167,12 +175,28 @@ class CloudSettingsPresenter @Inject constructor( //
 			return OnedriveCloudModel(OnedriveCloud.aOnedriveCloud().build())
 		}
 
+		private fun aSharepointCloud(): SharepointCloudModel {
+			return SharepointCloudModel(SharepointCloud.aSharepointCloud().build())
+		}
+
 		private fun aPCloud(): PCloudModel {
 			return PCloudModel(PCloud.aPCloud().build())
 		}
 
+		private fun aBoxCloud(): BoxCloudModel {
+			return BoxCloudModel(BoxCloud.aBoxCloud().build())
+		}
+
 		private fun aWebdavCloud(): WebDavCloudModel {
 			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
+		}
+
+		private fun webDavProviderClouds(clouds: List<Cloud>): List<WebDavCloudModel> {
+			val providersWithConnections = clouds.mapNotNull { (it as? WebDavCloud)?.provider() }
+			return CloudTypeModel.entries //
+				.mapNotNull { it.webDavProvider } //
+				.filter { it in providersWithConnections } //
+				.map { WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().withProvider(it).build()) }
 		}
 
 		private fun aS3Cloud(): S3CloudModel {
@@ -185,7 +209,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	}
 
 	private fun isSingleLoginCloud(cloudModel: CloudModel): Boolean {
-		return !nonSingleLoginClouds.contains(cloudModel.cloudType())
+		return !cloudModel.cloudType().isMultiInstance && cloudModel.cloudType() != CloudTypeModel.CRYPTO
 	}
 
 	init {

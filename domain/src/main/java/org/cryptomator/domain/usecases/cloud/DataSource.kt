@@ -12,6 +12,10 @@ interface DataSource : Serializable, Closeable {
 
 	fun size(context: Context): Long?
 
+	/**
+	 * Opens a new stream on every invocation so that the data can be read more than once, which is required whenever a
+	 * request carrying it has to be repeated. see https://github.com/cryptomator/android/issues/646
+	 */
 	@Throws(IOException::class)
 	fun open(context: Context): InputStream?
 

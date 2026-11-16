@@ -15,6 +15,7 @@ import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.AlreadyExistException
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
 import org.cryptomator.domain.exception.EmptyDirFileException
 import org.cryptomator.domain.exception.NoDirFileException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
@@ -52,12 +53,13 @@ internal class CryptoImplVaultFormatPre7(
 	override fun create(folder: CryptoFolder): CryptoFolder {
 		requireNotNull(folder.dirFile)
 		assertCryptoFolderAlreadyExists(folder)
-		val dirIdInfo = getOrCreateCachingAwareDirIdInfo(folder)
-		val createdCloudFolder = cloudContentRepository.create(dirIdInfo.cloudFolder)
-		val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
-		val createdDirFile = cloudContentRepository.write(folder.dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
-		return folder(folder, createdDirFile).also {
-			addFolderToCache(it, dirIdInfo.withCloudFolder(createdCloudFolder))
+		return withDirIdInfoOfNewFolder(folder) { dirIdInfo ->
+			val createdCloudFolder = createLvl2Dir(dirIdInfo)
+			val dirId = dirIdInfo.id.toByteArray(StandardCharsets.UTF_8)
+			val createdDirFile = cloudContentRepository.write(folder.dirFile, from(dirId), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, dirId.size.toLong())
+			folder(folder, createdDirFile).also {
+				addFolderToCache(it, dirIdInfo.withCloudFolder(createdCloudFolder))
+			}
 		}
 	}
 
@@ -80,13 +82,18 @@ internal class CryptoImplVaultFormatPre7(
 		val longFilenameBytes = longFileName.toByteArray(StandardCharsets.UTF_8)
 		val hash = MessageDigestSupplier.SHA1.get().digest(longFilenameBytes)
 		val shortFileName = BASE32.encodeAsString(hash) + LONG_NAME_FILE_EXT
-		val metadataFile = metadataFile(shortFileName)
-		val data = longFileName.toByteArray(StandardCharsets.UTF_8)
-		try {
-			cloudContentRepository.create(metadataFile.parent)
-		} catch (e: AlreadyExistException) {
+		creatingBelowSharedFolder {
+			val metadataFolder = metadataFile(shortFileName).parent
+			if (!cloudContentRepository.exists(metadataFolder)) {
+				try {
+					cloudContentRepository.create(metadataFolder)
+				} catch (e: AlreadyExistException) {
+				} catch (e: CloudNodeAlreadyExistsException) {
+				}
+			}
 		}
-		cloudContentRepository.write(metadataFile, from(data), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, true, data.size.toLong())
+		val data = longFileName.toByteArray(StandardCharsets.UTF_8)
+		cloudContentRepository.write(metadataFile(shortFileName), from(data), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, true, data.size.toLong())
 		return shortFileName
 	}
 
@@ -94,7 +101,7 @@ internal class CryptoImplVaultFormatPre7(
 	private fun inflate(shortFileName: String): String {
 		val metadataFile = metadataFile(shortFileName)
 		val out = ByteArrayOutputStream()
-		cloudContentRepository.read(metadataFile, null, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(metadataFile, out, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return String(out.toByteArray(), StandardCharsets.UTF_8)
 	}
 
@@ -165,15 +172,7 @@ internal class CryptoImplVaultFormatPre7(
 		} else if (ciphertextName.startsWith(DIR_PREFIX)) {
 			folder(cryptoFolder, cleartextName, cloudFile)
 		} else {
-			val cleartextSize = cloudFile.size?.let {
-				val ciphertextSizeWithoutHeader: Long = it - cryptor().fileHeaderCryptor().headerSize()
-				if (ciphertextSizeWithoutHeader >= 0) {
-					cryptor().fileContentCryptor().cleartextSize(ciphertextSizeWithoutHeader)
-				} else {
-					null
-				}
-			}
-			file(cryptoFolder, cleartextName, cloudFile, cleartextSize)
+			file(cryptoFolder, cleartextName, cloudFile, cleartextSize(cloudFile))
 		}
 	}
 
@@ -235,6 +234,10 @@ internal class CryptoImplVaultFormatPre7(
 	override fun delete(node: CloudNode) {
 		if (node is CryptoFolder) {
 			requireNotNull(node.dirFile)
+			if (!cloudContentRepository.exists(node.dirFile)) {
+				// e.g. a folder whose creation failed, which left nothing at its name
+				throw NoSuchCloudFileException(node.name)
+			}
 			val cryptoSubfolders = deepCollectSubfolders(node)
 			for (cryptoSubfolder in cryptoSubfolders) {
 				getCachingAwareDirIdInfo(cryptoSubfolder)?.let {

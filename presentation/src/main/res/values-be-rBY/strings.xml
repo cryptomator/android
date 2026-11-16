@@ -15,6 +15,9 @@
 	<string name="error_cloud_already_exists">Воблака ўжо існуе.</string>
 	<string name="error_activity_not_found">Калі ласка, усталюй праграму, што зможа адчыніць гэты файл.</string>
 	<string name="error_server_not_found">Сэрвер ня знойдзены.</string>
+	<!-- # read-only & purchases -->
+	<string name="next">Далей</string>
+	<string name="back">Назад</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Мясцовае сховішча</string>
@@ -45,6 +48,7 @@
 	<string name="screen_vault_list_vault_action_delete">Выдаліць</string>
 	<string name="screen_vault_list_vault_creation_hint">Націсні тут, каб стварыць новую скрабніцу</string>
 	<string name="screen_vault_list_change_password_successful">Пароль паспяхова зменены</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Адхіліць</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Скарбніца</string>
 	<string name="screen_file_browser_create_new_vault_button_text">Размясціць тут</string>
@@ -147,6 +151,7 @@
 	<string name="dialog_file_name_placeholder">text.txt</string>
 	<string name="dialog_lock_vault">Замкнуць</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Зачыніць</string>
+	<string name="dialog_enter_license_decline_button">Скасаваць</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
 	<string name="dialog_hub_vault_access_forbidden_title">Адмова ў доступе</string>
 	<!-- # error reports -->
@@ -158,7 +163,6 @@
 	<!-- notification -->
 	<string name="notification_unlocked">Скарбніцы разамкнёныя: %1$d</string>
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

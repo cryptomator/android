@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import org.greenrobot.greendao.database.Database;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.SupportSQLiteQueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.AUTOINCREMENT;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
@@ -38,8 +40,12 @@ class Sql {
 		return new SqlDeleteBuilder(table);
 	}
 
-	public static SqlUniqueIndexBuilder createUniqueIndex(String indexName) {
-		return new SqlUniqueIndexBuilder(indexName);
+	public static SqlIndexBuilder createUniqueIndex(String indexName) {
+		return new SqlIndexBuilder(indexName, true);
+	}
+
+	public static SqlIndexBuilder createIndex(String indexName) {
+		return new SqlIndexBuilder(indexName, false);
 	}
 
 	public static SqlDropIndexBuilder dropIndex(String index) {
@@ -89,10 +95,6 @@ class Sql {
 		return (column, contentValues) -> contentValues.putNull(column);
 	}
 
-	private static SQLiteDatabase unwrap(Database wrapped) {
-		return (SQLiteDatabase) wrapped.getRawDatabase();
-	}
-
 	public interface ValueHolder {
 
 		void put(String column, ContentValues contentValues);
@@ -111,9 +113,6 @@ class Sql {
 		private final List<String> whereArgs = new ArrayList<>();
 
 		private List<String> columns = new ArrayList<>();
-		private String groupBy;
-		private String having;
-		private String limit;
 
 		public SqlQueryBuilder(String tableName) {
 			this.tableName = tableName;
@@ -132,24 +131,15 @@ class Sql {
 			return this;
 		}
 
-		public SqlQueryBuilder groupBy(String groupBy) {
-			this.groupBy = groupBy;
-			return this;
-		}
-
-		public SqlQueryBuilder having(String having) {
-			this.having = having;
-			return this;
-		}
-
-		public SqlQueryBuilder limit(String limit) {
-			this.limit = limit;
-			return this;
-		}
-
-		public Cursor executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.query(tableName, columns.toArray(new String[columns.size()]), whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]), groupBy, having, limit);
+		public Cursor executeOn(SupportSQLiteDatabase db) {
+			SupportSQLiteQueryBuilder query = SupportSQLiteQueryBuilder.builder(tableName);
+			if (!columns.isEmpty()) {
+				query.columns(columns.toArray(new String[0]));
+			}
+			if (whereClause.length() > 0) {
+				query.selection(whereClause.toString(), whereArgs.toArray(new String[0]));
+			}
+			return db.query(query.create());
 		}
 
 	}
@@ -179,12 +169,11 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
+		public void executeOn(SupportSQLiteDatabase db) {
 			if (contentValues.size() == 0) {
 				throw new IllegalStateException("At least one value must be set");
 			}
-			SQLiteDatabase db = unwrap(wrapped);
-			db.update(tableName, contentValues, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+			db.update(tableName, SQLiteDatabase.CONFLICT_NONE, contentValues, whereClause.toString(), whereArgs.toArray(new String[0]));
 		}
 
 	}
@@ -197,29 +186,30 @@ class Sql {
 			this.index = index;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP INDEX \"%s\"", index));
 		}
 
 	}
 
-	public static class SqlUniqueIndexBuilder {
+	public static class SqlIndexBuilder {
 
 		private final String indexName;
+		private final boolean unique;
 		private final StringBuilder columns = new StringBuilder();
 		private String table;
 
-		private SqlUniqueIndexBuilder(String indexName) {
+		private SqlIndexBuilder(String indexName, boolean unique) {
 			this.indexName = indexName;
+			this.unique = unique;
 		}
 
-		public SqlUniqueIndexBuilder on(String table) {
+		public SqlIndexBuilder on(String table) {
 			this.table = table;
 			return this;
 		}
 
-		public SqlUniqueIndexBuilder asc(String column) {
+		public SqlIndexBuilder asc(String column) {
 			if (columns.length() > 0) {
 				columns.append(',');
 			}
@@ -227,9 +217,8 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			db.execSQL(format("CREATE UNIQUE INDEX \"%s\" ON \"%s\" (%s)", indexName, table, columns));
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.execSQL(format("CREATE %sINDEX \"%s\" ON \"%s\" (%s)", unique ? "UNIQUE " : "", indexName, table, columns));
 		}
 	}
 
@@ -241,8 +230,7 @@ class Sql {
 			this.table = table;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("DROP TABLE \"%s\"", table));
 		}
 
@@ -251,20 +239,47 @@ class Sql {
 	public static class SqlAlterTableBuilder {
 
 		private final String table;
-		private String newName;
 
 		private SqlAlterTableBuilder(String table) {
 			this.table = table;
 		}
 
-		public SqlAlterTableBuilder renameTo(String newName) {
-			this.newName = newName;
-			return this;
+		public SqlRenameTableBuilder renameTo(String newName) {
+			return new SqlRenameTableBuilder(table, newName);
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public SqlAddColumnBuilder addTextColumn(String name) {
+			return new SqlAddColumnBuilder(table, name);
+		}
+	}
+
+	public static class SqlRenameTableBuilder {
+
+		private final String table;
+		private final String newName;
+
+		private SqlRenameTableBuilder(String table, String newName) {
+			this.table = table;
+			this.newName = newName;
+		}
+
+		public void executeOn(SupportSQLiteDatabase db) {
 			db.execSQL(format("ALTER TABLE \"%s\" RENAME TO \"%s\"", table, newName));
+		}
+	}
+
+	public static class SqlAddColumnBuilder {
+
+		private final String table;
+		private final String column;
+
+		private SqlAddColumnBuilder(String table, String column) {
+			this.table = table;
+			this.column = column;
+		}
+
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.execSQL(format("ALTER TABLE \"%s\" ADD COLUMN \"%s\" TEXT", table, column));
 		}
 	}
 
@@ -288,8 +303,7 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
+		public void executeOn(SupportSQLiteDatabase db) {
 			StringBuilder query = new StringBuilder().append("INSERT INTO \"").append(table).append("\" (");
 			appendColumns(query, columns, false);
 			query.append(") SELECT ");
@@ -348,7 +362,7 @@ class Sql {
 		private final String table;
 		private final StringBuilder columns = new StringBuilder();
 
-		private final StringBuilder foreignKeys = new StringBuilder();
+		private final StringBuilder tableConstraints = new StringBuilder();
 
 		private SqlCreateTableBuilder(String table) {
 			this.table = table;
@@ -356,6 +370,14 @@ class Sql {
 
 		public SqlCreateTableBuilder id() {
 			column("_id", INTEGER, PRIMARY_KEY);
+			return this;
+		}
+
+		/**
+		 * Unlike {@link #id()}, ids of deleted rows are never reused.
+		 */
+		public SqlCreateTableBuilder autoIncrementId() {
+			column("_id", INTEGER, PRIMARY_KEY, AUTOINCREMENT);
 			return this;
 		}
 
@@ -400,32 +422,45 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, foreignKeys));
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, tableConstraints));
+		}
+
+		public SqlCreateTableBuilder primaryKey(String... columns) {
+			tableConstraints //
+					.append(", PRIMARY KEY (") //
+					.append(String.join(",", columns)) //
+					.append(")");
+			return this;
 		}
 
 		public SqlCreateTableBuilder foreignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
-			foreignKeys //
+			return foreignKey(new String[] {column}, targetTable, new String[] {"_id"}, behaviours);
+		}
+
+		public SqlCreateTableBuilder foreignKey(String[] columns, String targetTable, String[] targetColumns, ForeignKeyBehaviour... behaviours) {
+			tableConstraints //
 					.append(", CONSTRAINT FK_") //
-					.append(column) //
+					.append(String.join("_", columns)) //
 					.append("_") //
 					.append(targetTable) //
 					.append(" FOREIGN KEY (") //
-					.append(column) //
+					.append(String.join(",", columns)) //
 					.append(") REFERENCES ") //
 					.append(targetTable) //
-					.append("(_id)");
+					.append("(") //
+					.append(String.join(",", targetColumns)) //
+					.append(")");
 
 			for (ForeignKeyBehaviour behaviour : behaviours) {
-				foreignKeys.append(" ").append(behaviour.getText());
+				tableConstraints.append(" ").append(behaviour.getText());
 			}
 
 			return this;
 		}
 
 		public enum ForeignKeyBehaviour {
-			ON_DELETE_SET_NULL("ON DELETE SET NULL");
+			ON_DELETE_SET_NULL("ON DELETE SET NULL"), ON_DELETE_CASCADE("ON DELETE CASCADE"), ON_UPDATE_CASCADE("ON UPDATE CASCADE");
 
 			private final String text;
 
@@ -453,7 +488,7 @@ class Sql {
 		}
 
 		public enum ColumnConstraint {
-			NOT_NULL("NOT NULL"), PRIMARY_KEY("PRIMARY KEY");
+			NOT_NULL("NOT NULL"), PRIMARY_KEY("PRIMARY KEY"), AUTOINCREMENT("AUTOINCREMENT");
 
 			private final String text;
 
@@ -496,9 +531,8 @@ class Sql {
 			return this;
 		}
 
-		public Long executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			return db.insertOrThrow(table, null, contentValues);
+		public Long executeOn(SupportSQLiteDatabase db) {
+			return db.insert(table, SQLiteDatabase.CONFLICT_NONE, contentValues);
 		}
 	}
 
@@ -521,9 +555,8 @@ class Sql {
 			return this;
 		}
 
-		public void executeOn(Database wrapped) {
-			SQLiteDatabase db = unwrap(wrapped);
-			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[whereArgs.size()]));
+		public void executeOn(SupportSQLiteDatabase db) {
+			db.delete(tableName, whereClause.toString(), whereArgs.toArray(new String[0]));
 		}
 	}
 

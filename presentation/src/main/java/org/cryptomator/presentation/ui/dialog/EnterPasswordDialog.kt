@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -48,18 +47,14 @@ class EnterPasswordDialog : BaseProgressErrorDialog<EnterPasswordDialog.Callback
 				binding.etPassword.nextFocusForwardId = button.id
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			dialog.setOnKeyListener { _, keyCode, _ ->
-				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dialog.dismiss()
-					callback?.onUnlockCanceled()
-					callback?.closeDialog()
-					true
-				} else {
-					false
-				}
-			}
 			binding.etPassword.requestFocus()
 		}
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		callback?.onUnlockCanceled()
+		callback?.closeDialog()
 	}
 
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {

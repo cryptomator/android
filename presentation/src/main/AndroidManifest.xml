@@ -5,6 +5,8 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<!-- Required to reach servers in the local network on Android 17+ -->
+	<uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
 	<uses-permission android:name="android.permission.USE_BIOMETRIC" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
@@ -53,6 +55,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
+		<activity
+			android:name=".ui.activity.WelcomeActivity"
+			android:exported="false"
+			android:windowSoftInputMode="adjustPan" />
 
 		<activity android:name=".ui.activity.ChooseCloudServiceActivity" />
 		<activity
@@ -115,7 +122,7 @@
 			android:exported="false" />
 		<activity
 			android:name=".ui.activity.LicensesActivity"
-			android:exported="true" />
+			android:exported="false" />
 		<activity
 			android:name=".ui.activity.SettingsActivity"
 			android:exported="false" />
@@ -141,6 +148,25 @@
 				<data
 					android:host="redirect"
 					android:scheme="pcloudoauth" />
+
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
+			android:name=".ui.activity.AuthenticateBoxActivity"
+			android:configChanges="orientation|keyboard"
+			android:exported="true"
+			android:launchMode="singleTask">
+
+			<intent-filter>
+				<data
+					android:host="boxsdkoauth2redirect"
+					android:scheme="boxsdk-${BOX_CLIENT_ID}" />
 
 				<action android:name="android.intent.action.VIEW" />
 
@@ -191,6 +217,16 @@
 				android:name="android.support.FILE_PROVIDER_PATHS"
 				android:resource="@xml/file_paths" />
 		</provider>
+		<provider
+			android:name="org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider"
+			android:authorities="${applicationId}.documents"
+			android:exported="true"
+			android:grantUriPermissions="true"
+			android:permission="android.permission.MANAGE_DOCUMENTS">
+			<intent-filter>
+				<action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+			</intent-filter>
+		</provider>
 
 		<meta-data
 			android:name="android.max_aspect"
@@ -213,6 +249,10 @@
 			android:enabled="true" />
 
 		<service
+			android:name=".service.IapBillingService"
+			android:enabled="true" />
+
+		<service
 			android:name=".service.UploadService"
 			android:enabled="true"
 			android:exported="false"
@@ -222,18 +262,6 @@
 			android:name=".service.PhotoContentJob"
 			android:exported="true"
 			android:permission="android.permission.BIND_JOB_SERVICE" />
-
-		<receiver
-			android:name=".AutoPhotoUploadReceiver"
-			android:exported="true"
-			android:label="AutoPhotoUploadReceiver">
-			<intent-filter>
-				<action android:name="android.hardware.action.NEW_PICTURE" />
-				<action android:name="com.android.camera.NEW_PICTURE" />
-
-				<data android:mimeType="image/*" />
-			</intent-filter>
-		</receiver>
 
 		<receiver
 			android:name=".BootAwareReceiver"

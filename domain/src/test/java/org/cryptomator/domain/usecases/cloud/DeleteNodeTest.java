@@ -5,6 +5,7 @@ import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudNode;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.repository.CloudContentRepository;
+import org.cryptomator.domain.repository.VaultDocumentRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -63,6 +64,6 @@ public class DeleteNodeTest {
 	}
 
 	private DeleteNodes testCandidate(List<CloudNode> cloudNodes) {
-		return new DeleteNodes(cloudContentRepository, cloudNodes);
+		return new DeleteNodes(cloudContentRepository, mock(VaultDocumentRepository.class), cloudNodes, null);
 	}
 }

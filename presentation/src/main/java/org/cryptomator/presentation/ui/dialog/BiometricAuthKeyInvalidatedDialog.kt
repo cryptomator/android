@@ -1,7 +1,6 @@
 package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
-import android.view.KeyEvent
 import androidx.appcompat.app.AlertDialog
 import org.cryptomator.generator.Dialog
 import org.cryptomator.presentation.R
@@ -19,17 +18,13 @@ class BiometricAuthKeyInvalidatedDialog : BaseDialog<BiometricAuthKeyInvalidated
 	public override fun setupDialog(builder: AlertDialog.Builder): android.app.Dialog {
 		builder //
 			.setTitle(R.string.dialog_biometric_auth_key_invalidated_title) //
-			.setNegativeButton(getString(R.string.dialog_biometric_auth_key_invalidated_neutral_button)) { _: DialogInterface, _: Int -> }
-			.setOnKeyListener { _, keyCode, _ ->
-				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dialog?.dismiss()
-					callback?.onBiometricAuthKeyInvalidatedDialogFinished()
-					true
-				} else {
-					false
-				}
-			}
+			.setNegativeButton(getString(R.string.dialog_biometric_auth_key_invalidated_neutral_button)) { _: DialogInterface, _: Int -> callback?.onBiometricAuthKeyInvalidatedDialogFinished() }
 		return builder.create()
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		callback?.onBiometricAuthKeyInvalidatedDialogFinished()
 	}
 
 	override fun onStart() {

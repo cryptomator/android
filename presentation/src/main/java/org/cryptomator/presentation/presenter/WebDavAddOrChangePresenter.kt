@@ -3,7 +3,10 @@ package org.cryptomator.presentation.presenter
 import android.widget.Toast
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.WebDavCloud
+import org.cryptomator.domain.WebDavProvider
+import org.cryptomator.domain.WebDavProviderVariant
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.ConnectToWebDavUseCase
 import org.cryptomator.generator.Callback
@@ -15,6 +18,8 @@ import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.view.WebDavAddOrChangeView
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
+import org.cryptomator.presentation.workflow.PermissionsResult
+import org.cryptomator.util.ExceptionUtil
 import org.cryptomator.util.crypto.CredentialCryptor
 import javax.inject.Inject
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -26,6 +31,34 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<WebDavAddOrChangeView>(exceptionMappings) {
+
+	private var webDavProvider: WebDavProvider? = null
+
+	fun setWebDavProvider(webDavProvider: WebDavProvider?) {
+		this.webDavProvider = webDavProvider
+	}
+
+	fun checkProviderInput(server: String, spaceId: String, variant: WebDavProviderVariant?, username: String, password: String) {
+		val provider = webDavProvider ?: throw IllegalStateException("No WebDAV provider set")
+		val serverUrl = serverUrl(server)
+		val statusMessage = when {
+			provider.requiresServer && server.isEmpty() -> getString(R.string.screen_webdav_settings_msg_server_must_not_be_empty)
+			provider.requiresSpaceId && spaceId.isEmpty() -> getString(R.string.screen_webdav_settings_msg_space_id_must_not_be_empty)
+			provider.requiresServer && serverUrl == null -> getString(R.string.screen_webdav_settings_msg_server_is_invalid)
+			provider.variants.isNotEmpty() && variant == null -> getString(R.string.screen_webdav_settings_msg_variant_must_be_selected)
+			else -> null
+		}
+		if (statusMessage != null) {
+			Toast.makeText(context(), statusMessage, Toast.LENGTH_SHORT).show()
+		} else {
+			checkUserInput(provider.url(serverUrl.orEmpty(), spaceId, variant), username, password, null, null)
+		}
+	}
+
+	private fun serverUrl(server: String): String? {
+		val serverWithScheme = if (server.contains("://")) server else "https://$server"
+		return serverWithScheme.toHttpUrlOrNull()?.takeIf { it.query == null && it.fragment == null && it.username.isEmpty() && it.password.isEmpty() }?.toString()
+	}
 
 	fun checkUserInput(urlPort: String, username: String, password: String, cloudId: Long?, certificate: String?) {
 		var statusMessage: String? = null
@@ -69,7 +102,8 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 			.aWebDavCloudCloud() //
 			.withUrl(hostPort) //
 			.withUsername(username) //
-			.withPassword(password)
+			.withPassword(password) //
+			.withProvider(webDavProvider)
 
 		if (id != null) {
 			builder = builder.withId(id)
@@ -97,11 +131,20 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 				override fun onError(e: Throwable) {
 					view?.showProgress(ProgressModel.COMPLETED)
-					if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
+					if (ExceptionUtil.contains(e, LocalNetworkPermissionMissingException::class.java)) {
+						requestLocalNetworkPermission(PermissionsResultCallbacks.webDavLocalNetworkPermissionResult(cloud))
+					} else if (!authenticationExceptionHandler.handleAuthenticationException(this@WebDavAddOrChangePresenter, e, ActivityResultCallbacks.handledAuthenticationWebDavCloud())) {
 						super.onError(e)
 					}
 				}
 			})
+	}
+
+	@Callback
+	fun webDavLocalNetworkPermissionResult(result: PermissionsResult, cloud: WebDavCloud) {
+		if (result.granted()) {
+			authenticate(cloud)
+		}
 	}
 
 	@Callback

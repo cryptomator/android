@@ -2,7 +2,6 @@ package org.cryptomator.presentation.ui.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -40,15 +39,6 @@ class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Call
 				}
 			}
 			dialog.setCanceledOnTouchOutside(false)
-			dialog.setOnKeyListener { _, keyCode, _ ->
-				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					dialog.dismiss()
-					callback?.onCreateHubDeviceCanceled()
-					true
-				} else {
-					false
-				}
-			}
 			binding.etDeviceName.requestFocus()
 			binding.etDeviceName.nextFocusForwardId = binding.etSetupCode.id
 			createDeviceButton?.let {
@@ -56,6 +46,11 @@ class CreateHubDeviceDialog : BaseProgressErrorDialog<CreateHubDeviceDialog.Call
 				registerOnEditorDoneActionAndPerformButtonClick(binding.etSetupCode) { it }
 			}
 		}
+	}
+
+	override fun onCancel(dialog: DialogInterface) {
+		super.onCancel(dialog)
+		callback?.onCreateHubDeviceCanceled()
 	}
 
 	private fun valid(name: String, setupCode: String): Boolean {

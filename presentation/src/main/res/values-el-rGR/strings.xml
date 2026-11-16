@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Η έκδοση που καθορίστηκε στο %1$s είναι διαφορετική από %2$s</string>
 	<string name="error_vault_key_invalid">%1$s δεν ταιριάζει με αυτό %2$s</string>
 	<string name="error_vault_config_loading">Γενικό σφάλμα κατά τη φόρτωση της ρύθμισης κρύπτης</string>
-	<string name="error_file_not_found_after_opening_using_3party">Το τοπικό αρχείο δεν υπάρχει πλέον μετά την επιστροφή στο Cryptomator. Οι πιθανές αλλαγές δεν μπορούν να μεταδοθούν πίσω στο cloud.</string>
 	<string name="error_no_such_bucket">Δεν υπάρχει τέτοιος κάδος</string>
 	<string name="error_masterkey_location_not_supported">Η προσαρμοσμένη τοποθεσία Masterkey δεν υποστηρίζεται ακόμα</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Αποτυχία επικοινωνίας με την εφαρμογή F-Droid. Δεν έχει εγκατασταθεί;</string>
@@ -41,6 +40,29 @@
 	<string name="error_hub_invalid_setup_code">Το Κλειδί Λογαριασμού δεν είναι έγκυρο.</string>
 	<string name="error_hub_invalid_version">Μη υποστηριζόμενη έκδοση Hub.</string>
 	<string name="error_hub_unlock_pre_31">Το Hub υποστηρίζεται μόνο από Android 12 και πάνω.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_benefit_family_sharing">Οικογενειακή κοινή χρήση</string>
+	<string name="screen_license_check_benefit_write_access">Πρόσβαση εγγραφής στις κρύπτες σας</string>
+	<string name="screen_license_check_benefit_support">Ανοιχτού κώδικα ανάπτυξη</string>
+	<string name="screen_license_check_title_full_version">Ξεκλείδωμα Πλήρους Έκδοσης</string>
+	<string name="screen_license_check_trial_title">Δοκιμή 30-Ημερών</string>
+	<string name="screen_license_check_trial_price">Δωρεάν</string>
+	<string name="screen_license_check_trial_subtitle">για 30 ημέρες</string>
+	<string name="screen_license_check_subscription_title">Ετήσια Συνδρομή</string>
+	<string name="screen_license_check_subscription_subtitle">ετήσια</string>
+	<string name="screen_license_check_lifetime_title">Άδεια Εφ\' όρου ζωής</string>
+	<string name="screen_license_check_lifetime_subtitle">μια φορά</string>
+	<string name="screen_license_check_restore_purchase">Επαναφορά Αγοράς</string>
+	<string name="screen_license_check_terms">Όροι Χρήσης</string>
+	<string name="screen_license_check_privacy">Πολιτική Απορρήτου</string>
+	<string name="screen_license_check_trial_status_active">Ενεργή</string>
+	<string name="screen_license_check_trial_status_expired">Έληξε</string>
+	<string name="screen_license_check_trial_expired_info">Η δοκιμαστική έκδοση έχει λήξει.</string>
+	<string name="screen_welcome_title">Καλώς ήρθατε</string>
+	<string name="screen_welcome_continue_button">Συνέχεια</string>
+	<string name="screen_welcome_screen_lock_button">Ορισμός κλειδώματος οθόνης</string>
+	<string name="next">Επόμενο</string>
+	<string name="back">Πίσω</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Τοπικός αποθηκευτικός χώρος</string>
@@ -71,6 +93,7 @@
 	<string name="screen_vault_list_vault_action_delete">Αφαίρεση</string>
 	<string name="screen_vault_list_vault_creation_hint">Πατήστε εδώ για να δημιουργήσετε μια κρύπτη</string>
 	<string name="screen_vault_list_change_password_successful">Ο κωδικός πρόσβασης άλλαξε επιτυχώς</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Παράβλεψη</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Κρύπτη</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Επιλέξτε masterkey ή αρχείο κρύπτης</string>
@@ -204,8 +227,6 @@
 	<string name="screen_settings_security_label">Συμβουλές ασφαλείας</string>
 	<string name="screen_settings_section_version">Έκδοση</string>
 	<string name="screen_settings_advanced_settings">Ρυθμίσεις για Προχωρημένους</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Λύση ανοίγματος αρχείων Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Άνοιγμα αρχείων σε εφαρμογές Microsoft με άδεια εγγραφής</string>
 	<string name="screen_settings_background_unlock_preparation_label">Επιτάχυνση ξεκλειδώματος</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Λήψη ρυθμίσεων κρύπτης στο παρασκήνιο, ενώ σας ζητείτε να εισάγετε τον κωδικό πρόσβασης ή το βιομετρικό πιστοποιητικό</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Κρατήστε ξεκλείδωτο</string>
@@ -312,7 +333,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Λόγω σφάλματος στις εφαρμογές της Microsoft, το αρχείο που θα επεξεργαστεί πρέπει να μοιραστεί με αυτές τις εφαρμογές σε ένα δημόσιο φάκελο μέσων στη συσκευή σας. Μετά την επανέναρξη του Cryptomator, το δημόσιο προσβάσιμο αρχείο διαγράφεται και πάλι, αλλά το Cryptomator δεν μπορεί να επηρεάσει τι συνέβη σε αυτό το αρχείο εν τω μεταξύ. Βεβαιωθείτε ότι έχετε επίγνωση αυτής της συμπεριφοράς κατά την ενεργοποίηση αυτής της επιλογής. Αυτό θα ισχύει μόνο για τύπους αρχείων Microsoft.\n\nΤο Cryptomator θα κάνει επανεκκίνηση μετά την ενεργοποίηση.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
@@ -355,6 +375,7 @@
 	<string name="dialog_no_more_images_to_display">Δεν υπάρχουν άλλες εικόνες για εμφάνιση&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">Τα διαπιστευτήρια του \'%1$s\' ενημερώθηκαν</string>
 	<string name="dialog_pcloud_credentials_updated">Αν σκοπεύατε να προσθέσετε ένα νέο λογαριασμό pCloud, πατήστε σε αυτό το url <a href="https://www.pcloud.com">www.pcloud. om</a>, αποσυνδεθείτε από τον τρέχοντα λογαριασμό και πατήστε ξανά στο \'+\' σε αυτήν την εφαρμογή για να δημιουργήσετε μια νέα σύνδεση στο cloud.</string>
+	<string name="dialog_enter_sharepoint_url_title">Εισάγετε το URL του SharePoint</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Απαιτείται κωδικός πρόσβασης μετεγκατάστασης κρύπτης</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Λόγω βελτιώσεων ασφαλείας, θα σας ζητηθεί η βιομετρική ταυτοποίησή σας δύο φορές για κάθε κρύπτη για να επανκρυπτογραφήσετε τους κωδικούς πρόσβασης της κρύπτης σας. Αυτό είναι απαραίτητο για να συνεχίσετε να προστατεύετε τους κωδικούς πρόσβασης της κρύπτης σας με την τελευταία τεχνολογία. Αν δεν επιθυμείτε να συμβεί αυτό, οι αποθηκευμένοι κωδικοί πρόσβασης θα αφαιρεθούν.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Μετεγκατάσταση</string>
@@ -372,6 +393,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Η συνεδρία σας στο Cryptomator Hub έχει μη έγκυρη άδεια χρήσης. Ενημερώστε έναν διαχειριστή του Hub για να αναβαθμίσει ή να ανανεώσει την άδεια χρήσης.\"</string>
 	<string name="dialog_hub_vault_archived_title">Η Κρύπτη αρχειοθετήθηκε</string>
 	<string name="dialog_hub_vault_archived_hint">Αυτό η κρύπτη είναι αρχειοθετημένη και δεν μπορεί να ξεκλειδωθεί. Για να την ξεκλειδώσετε, ο κάτοχος της κρύπτης πρέπει να την επαναφέρει.</string>
+	<string name="dialog_restore_successful_title">Επιτυχής Επαναφορά</string>
+	<string name="dialog_no_full_version_title">Χωρίς Πλήρη Έκδοση</string>
 	<string name="dialog_hub_user_setup_required_title">Απαιτείται ρύθμιση χρήστη</string>
 	<string name="dialog_hub_user_setup_required_hint">Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Πηγαίνετε στο Προφίλ</string>
@@ -427,30 +450,21 @@
 	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>
 	<string name="notification_authenticating">Ταυτοποίηση&#8230;</string>
 	<string name="screen_settings_lru_cache">Προσωρινή μνήμη</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Η προσωρινή μνήμη απέκτησε πρόσφατα πρόσβαση σε αρχεία που έχουν κρυπτογραφηθεί τοπικά στη συσκευή για μελλοντική επαναχρησιμοποίηση όταν ανοίξουν ξανά</string>
-	<string name="screen_settings_lru_cache_size">Συνολικό μέγεθος προσωρινής μνήμης</string>
 	<string name="screen_settings_clear_lru_cache_size">Εκκαθάριση προσωρινής μνήμης</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Οι αλλαγές θα εφαρμοστούν στην επόμενη επανεκκίνηση της εφαρμογής</string>
-	<string name="screen_settings_license">Εγγεγραμμένος για</string>
+	<string name="screen_settings_license_title_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_manage_subscription">Διαχείριση Συνδρομής</string>
+	<string name="dialog_trial_expired_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
+	<string name="dialog_license_lost_later">Αργότερα</string>
 	<string name="dialog_settings_update_check_interval_title">Διάστημα ελέγχου ενημερώσεων</string>
 	<string name="screen_settings_check_updates">\'Έλεγχος για ενημερώσεις</string>
 	<string name="screen_settings_last_check_updates">Τελευταίος έλεγχος: %1$s</string>
-	<string name="dialog_cache_size_title">Μέγεθος προσωρινής μνήμης ανά Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Άμεσο</string>
 	<string name="lock_timeout_1m">1 λεπτό</string>
 	<string name="lock_timeout_2m">2 λεπτά</string>
 	<string name="lock_timeout_5m">5 λεπτά</string>
 	<string name="lock_timeout_10m">10 λεπτά</string>
 	<string name="lock_timeout_never">Ποτέ</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Στυλ</string>
 	<string name="follow_system">Αυτόματο (ακολουθήστε το σύστημα)</string>

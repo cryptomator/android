@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import org.cryptomator.generator.Activity
@@ -9,6 +10,7 @@ import org.cryptomator.generator.InjectIntent
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ActivityLayoutBinding
 import org.cryptomator.presentation.intent.TextEditorIntent
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.presenter.TextEditorPresenter
 import org.cryptomator.presentation.ui.activity.view.TextEditorView
 import org.cryptomator.presentation.ui.dialog.UnsavedChangesDialog
@@ -24,8 +26,15 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	@Inject
 	lateinit var textEditorPresenter: TextEditorPresenter
 
+	@Inject
+	lateinit var licenseEnforcer: LicenseEnforcer
+
 	@InjectIntent
 	lateinit var textEditorIntent: TextEditorIntent
+
+	private fun hasWriteAccess(): Boolean {
+		return licenseEnforcer.hasWriteAccess() || textEditorIntent.hubWriteAllowed() == true
+	}
 
 	override val textFileContent: String
 		get() = textEditorFragment().textFileContent
@@ -33,12 +42,23 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	override fun setupView() {
 		textEditorPresenter.setTextFile(textEditorIntent.textFile())
 		setupToolbar()
+		setupBackPressedCallback()
 	}
 
 	override fun createFragment(): Fragment = TextEditorFragment()
 
-	override fun onBackPressed() {
-		textEditorPresenter.onBackPressed()
+	private val backPressedCallback = object : OnBackPressedCallback(true) {
+		override fun handleOnBackPressed() {
+			if (!hasWriteAccess()) {
+				performBackPressed()
+				return
+			}
+			textEditorPresenter.onBackPressed()
+		}
+	}
+
+	private fun setupBackPressedCallback() {
+		onBackPressedDispatcher.addCallback(this, backPressedCallback)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -97,6 +117,8 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 		val searchView = menu.findItem(R.id.action_search).actionView as SearchView
 		searchView.setOnQueryTextListener(this)
 
+		menu.findItem(R.id.action_save_changes).isVisible = hasWriteAccess()
+
 		return super.onPrepareOptionsMenu(menu)
 	}
 
@@ -106,7 +128,7 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	}
 
 	override fun performBackPressed() {
-		super.onBackPressed()
+		performDefaultBackPressed(backPressedCallback)
 	}
 
 	override fun showUnsavedChangesDialog() {
@@ -115,6 +137,9 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 
 	override fun displayTextFileContent(textFileContent: String) {
 		textEditorFragment().displayTextFileContent(textFileContent)
+		if (!hasWriteAccess()) {
+			textEditorFragment().setReadOnly()
+		}
 	}
 
 	override fun onSaveChangesClicked() {
@@ -130,5 +155,4 @@ class TextEditorActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBin
 	}
 
 	private fun textEditorFragment(): TextEditorFragment = getCurrentFragment(R.id.fragment_container) as TextEditorFragment
-
 }

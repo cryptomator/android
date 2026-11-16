@@ -2,6 +2,7 @@ package org.cryptomator.data.repository;
 
 import android.content.Context;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.google.common.io.BaseEncoding;
 import com.nimbusds.jose.JWEObject;
 
@@ -18,12 +19,15 @@ import org.cryptomator.domain.exception.hub.HubUserSetupRequiredException;
 import org.cryptomator.domain.exception.hub.HubVaultAccessForbiddenException;
 import org.cryptomator.domain.exception.hub.HubVaultIsArchivedException;
 import org.cryptomator.domain.repository.HubRepository;
+import org.cryptomator.domain.usecases.AndroidLicenseVerifier;
 import org.cryptomator.util.crypto.HubDeviceCryptor;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.ParseException;
 import java.time.Instant;
 
@@ -35,6 +39,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import timber.log.Timber;
 
 @Singleton
@@ -55,7 +60,7 @@ public class HubRepositoryImpl implements HubRepository {
 	}
 
 	@Override
-	public String getVaultKeyJwe(UnverifiedHubVaultConfig unverifiedHubVaultConfig, String accessToken) throws BackendException {
+	public HubRepository.VaultAccess getVaultAccess(UnverifiedHubVaultConfig unverifiedHubVaultConfig, String accessToken) throws BackendException {
 		var request = new Request.Builder().get() //
 				.header("Authorization", "Bearer " + accessToken) //
 				.header("Hub-Device-ID", getHubDeviceCryptor().getDeviceId()) //
@@ -65,7 +70,7 @@ public class HubRepositoryImpl implements HubRepository {
 			switch (response.code()) {
 				case HttpURLConnection.HTTP_OK:
 					if (response.body() != null) {
-						return response.body().string();
+						return new HubRepository.VaultAccess(response.body().string(), resolveSubscriptionState(response));
 					} else {
 						throw new FatalBackendException("Failed to load JWE, response code good but no body");
 					}
@@ -83,6 +88,28 @@ public class HubRepositoryImpl implements HubRepository {
 		} catch (IOException e) {
 			throw new FatalBackendException(e);
 		}
+	}
+
+	private HubRepository.SubscriptionState resolveSubscriptionState(Response response) {
+		String androidLicense = response.header("Hub-Android-License");
+		if (androidLicense == null || androidLicense.isEmpty()) {
+			return subscriptionStateFromHeader(response.header("Hub-Subscription-State"));
+		}
+		return isAndroidLicenseValid(androidLicense) ? HubRepository.SubscriptionState.ACTIVE : HubRepository.SubscriptionState.INACTIVE;
+	}
+
+	private boolean isAndroidLicenseValid(String androidLicense) {
+		try {
+			AndroidLicenseVerifier.verify(androidLicense, AndroidLicenseVerifier.ANDROID_PUB_KEY);
+			return true;
+		} catch (JWTVerificationException | NoSuchAlgorithmException | InvalidKeySpecException | FatalBackendException e) {
+			Timber.tag("HubRepositoryImpl").e(e, "Failed to validate Android license retrieved from Hub");
+			return false;
+		}
+	}
+
+	private HubRepository.SubscriptionState subscriptionStateFromHeader(String subscriptionHeader) {
+		return "ACTIVE".equalsIgnoreCase(subscriptionHeader) ? HubRepository.SubscriptionState.ACTIVE : HubRepository.SubscriptionState.INACTIVE;
 	}
 
 	@Override

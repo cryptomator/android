@@ -1,6 +1,5 @@
 package org.cryptomator.presentation.presenter
 
-import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.authentication.AuthenticationException
 import org.cryptomator.generator.Callback
@@ -21,15 +20,16 @@ class AutoUploadRefreshTokenPresenter @Inject constructor(
 		authenticationExceptionHandler.handleAuthenticationException( //
 			this@AutoUploadRefreshTokenPresenter,  //
 			authenticationException,  //
-			ActivityResultCallbacks.onAutoUploadCloudAuthenticated(authenticationException.cloud)
+			ActivityResultCallbacks.onAutoUploadCloudAuthenticated()
 		)
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun onAutoUploadCloudAuthenticated(result: ActivityResult, cloud: Cloud) {
+	fun onAutoUploadCloudAuthenticated(result: ActivityResult) {
 		if (result.isResultOk) {
 			val cryptomatorApp = activity().application as CryptomatorApp
-			cryptomatorApp.startAutoUpload(cloud)
+			// the authenticated cloud is the vault's unencrypted backend, so the upload restarts through the vault
+			cryptomatorApp.startAutoUpload()
 		}
 		finish()
 	}

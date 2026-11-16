@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s norādītā versija atšķiras no %2$s</string>
 	<string name="error_vault_key_invalid">%1$s neatbilst %2$s</string>
 	<string name="error_vault_config_loading">Vispārēja kļūda glabātavas konfigurācijas ielādēšanā</string>
-	<string name="error_file_not_found_after_opening_using_3party">Pēc pārslēgšanās atpakaļ uz Cryptomator vietējā datne vairs nav klātesoša. Iespējamās izmaiņas nevar nogādāt atpakaļ mākonī.</string>
 	<string name="error_no_such_bucket">Nav šāda krājuma</string>
 	<string name="error_masterkey_location_not_supported">Pielāgota galvenās atslēgas atrašanās vieta vēl netiek nodrošināta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Neizdevās sazināties ar F-Droid lietotni. Nav uzstādīta?</string>
@@ -41,6 +40,34 @@
 	<string name="error_hub_invalid_setup_code">Konta atslēga ir nederīga.</string>
 	<string name="error_hub_invalid_version">Neatbalstīta Hub versija.</string>
 	<string name="error_hub_unlock_pre_31">Hub tiek atbalstīts tikai Android 12 vai jaunākā.</string>
+	<!-- # read-only & purchases -->
+	<string name="screen_license_check_title">Atslēgt rakstīšanas piekļuvi</string>
+	<string name="screen_license_check_benefit_title">Tavi ieguvumi</string>
+	<string name="screen_license_check_benefit_family_sharing">Koplietošana ar ģimeni</string>
+	<string name="screen_license_check_benefit_write_access">Rakstīšanas piekļuve glabātavām</string>
+	<string name="screen_license_check_benefit_support">Atvērtā pirmkoda izstrāde</string>
+	<string name="screen_license_check_title_full_version">Atslēgt pilno versiju</string>
+	<string name="screen_license_check_trial_title">30 dienu izmēģinājuma versija</string>
+	<string name="screen_license_check_trial_price">Bezmaksas</string>
+	<string name="screen_license_check_trial_subtitle">30 dienas</string>
+	<string name="screen_license_check_subscription_title">Gada abonements</string>
+	<string name="screen_license_check_subscription_subtitle">ik gadu</string>
+	<string name="screen_license_check_lifetime_title">Mūža licence</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% atlaide līdz %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Ierobežots izpārdošanas laiks</string>
+	<string name="screen_license_check_lifetime_subtitle">vienreiz</string>
+	<string name="screen_license_check_restore_purchase">Atjaunot pirkumu</string>
+	<string name="screen_license_check_terms">Izmantošanas nosacījumi</string>
+	<string name="screen_license_check_privacy">Privātuma pamatnostādnes</string>
+	<string name="screen_license_check_trial_status_active">Aktīvs</string>
+	<string name="screen_license_check_trial_status_expired">Beidzies</string>
+	<string name="screen_license_check_trial_expired_info">Izmēģinājuma laiks ir beidzies.</string>
+	<string name="screen_license_check_cancel_subscription_hint">Tev tagad ir licence uz mūžu. Lai izvairītos no nākotnes maksām, iestatījumos jāatceļ savs ikgadējais abonements ar iespēju “%1$s”.</string>
+	<string name="screen_welcome_title">Laipni lūdzam</string>
+	<string name="screen_welcome_continue_button">Turpināt</string>
+	<string name="screen_welcome_screen_lock_button">Iestatīt ekrāna aizslēgšanu</string>
+	<string name="next">Tālāk</string>
+	<string name="back">Atpakaļ</string>
 	<!-- # clouds -->
 	<!-- ## cloud names -->
 	<string name="cloud_names_local_storage">Vietēja krātuve</string>
@@ -71,6 +98,7 @@
 	<string name="screen_vault_list_vault_action_delete">Noņemt</string>
 	<string name="screen_vault_list_vault_creation_hint">Piesist šeit, lai izveidotu jaunu glabātavu</string>
 	<string name="screen_vault_list_change_password_successful">Parole sekmīgi nomainīta</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Atmest</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Glabātava</string>
 	<string name="screen_file_browser_add_existing_vault_extra_text">Atlasīt galvenās atslēgas vai glabātavas datni</string>
@@ -205,8 +233,6 @@
 	<string name="screen_settings_security_label">Drošības norādes</string>
 	<string name="screen_settings_section_version">Versija</string>
 	<string name="screen_settings_advanced_settings">Papildu iestatījumi</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft datņu atvēršanas aprisinājums</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Atvērt datnes Microsoft lietotnēs ar rakstīšanas atļauju</string>
 	<string name="screen_settings_background_unlock_preparation_label">Paātrināt atslēgšanu</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Fonā lejupielādēt glabātavas konfigurāciju, kamēr tiek vaicāts ievadīt paroli vai biometriskos datus</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Paturēt atslēgtu</string>
@@ -313,7 +339,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Uzmanību</string>
 	<string name="dialog_debug_mode_positive_button">Iespējot</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Kļūdas Microsoft lietotnēs dēļ labojamā datne ir jākopīgo ar šīm lietotnēm ierīcē esošā publiskā datu nesēju mapē. Pēc Cryptomator atsākšanas publiski pieejamā datne tiek izdzēsta, bet Cryptomator nevar ietekmēt, kas šajā laikā ir noticis ar šo datni. Jāapzinās šāda uzvedība, kad šī iespēja tiek aktivēta. Tas attieksies tikai uz Microsoft datņu veidiem.\n\nCryptomator pēc aktivēšanas atkārtoti palaidīsies.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Šis iestatījums ir drošības iespēja un liedz citām lietotnēm ar viltu pamudināt lietotājus veikt darbības, kuras viņi nevēlas darīt.\n\nAr atspējošanu tiek apliecināts, ka tiek <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">apzināti riski</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Uzmanību</string>
 	<string name="dialog_disable_app_obscured_positive_button">Atspējot</string>
@@ -356,6 +381,7 @@
 	<string name="dialog_no_more_images_to_display">Vairs nav attēlu, ko parādīt&#8230;</string>
 	<string name="dialog_pcloud_credentials_updated_title">\"%1$s\" pieteikšanās dati atjaunināti</string>
 	<string name="dialog_pcloud_credentials_updated">Ja bija paredzēts pievienot jaunu pCloud kontu, jāpiesit saitei <a href="https://www.pcloud.com">www.pcloud.com</a>, jāatsakās no pašreizējā konta un vēlreiz jāpiesit \"+\" šajā lietotnē, lai izveidotu jaunu mākoņa savienojumu.</string>
+	<string name="dialog_enter_sharepoint_url_title">Jāievada SharePoint URL</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Nepieciešama glabātavas paroles pārcelšana</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Drošības uzlabojumu dēļ katrai glabātavai divreiz tiks vaicāta biometriskā autentificēšanās, lai no jauna šifrētu glabātavu paroles. Tas ir nepiciešams, lai turpinātu aizsargāt glabātavu paroles ar jaunākajām tehnoloģijām. Ja nav vēlēšanas, lai tas notiktu, saglabātās paroles tiks noņemtas.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Pārcelt</string>
@@ -373,6 +399,8 @@
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.\"</string>
 	<string name="dialog_hub_vault_archived_title">Glabātava arhivēta</string>
 	<string name="dialog_hub_vault_archived_hint">Šī glabātava ir arhivēta, un to nevar atslēgt. Lai atslēgtu to, glabātavas īpašniekam tā ir jāatceļ tās arhivēšana.</string>
+	<string name="dialog_restore_successful_title">Sekmīga atjaunošana</string>
+	<string name="dialog_no_full_version_title">Nav pilnā versija</string>
 	<string name="dialog_hub_user_setup_required_title">Nepieciešama lietotāja iestatīšana</string>
 	<string name="dialog_hub_user_setup_required_hint">Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Doties uz profilu</string>
@@ -428,30 +456,27 @@
 	<string name="notification_update_check_finished_latest">Uzstādīta jaunākā versija</string>
 	<string name="notification_authenticating">Autentificē&#8230;</string>
 	<string name="screen_settings_lru_cache">Kešatmiņa</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Kešot nesen atvērtās datnes ierīcē šifrētā veidā atkārtotai izmantošanai vēlāk atkārtotas atvēršanas gadījumā</string>
-	<string name="screen_settings_lru_cache_size">Kopējais kešatmiņas izmērs</string>
 	<string name="screen_settings_clear_lru_cache_size">Notīrīt kešatmiņu</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Izmaiņas tiks pielietotas nākamajā lietotnes palaišanas reizē</string>
-	<string name="screen_settings_license">Reģistrēts</string>
+	<string name="screen_settings_license_title_unlock">Atslēgt pilno versiju</string>
+	<string name="screen_settings_license_title_unlocked">Pilnā versija</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Atslēgta rakstīšanas piekļuve.</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Piesist, lai atslēgut rakstīšanas piekļuvi</string>
+	<string name="screen_settings_license_summary_write_access_mail">Rakstīšanas piekļuve %1$s</string>
+	<string name="screen_settings_manage_subscription">Pārvaldīt abonementu</string>
+	<string name="screen_settings_upgrade_to_lifetime">Uzlabot uz mūža</string>
+	<string name="dialog_trial_expired_title">Izmēģinājums beidzies</string>
+	<string name="dialog_trial_expired_unlock">Atslēgt pilno versiju</string>
+	<string name="dialog_license_lost_later">Vēlāk</string>
 	<string name="dialog_settings_update_check_interval_title">Laiks starp atjauninājumu pārbaudēm</string>
 	<string name="screen_settings_check_updates">Meklēt atjauninājumus</string>
 	<string name="screen_settings_last_check_updates">Pēdējoreiz veikta %1$s</string>
-	<string name="dialog_cache_size_title">Kešatmiņas izmērs vienam mākonim</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Tūlītēja</string>
 	<string name="lock_timeout_1m">1 minūte</string>
 	<string name="lock_timeout_2m">2 minūtes</string>
 	<string name="lock_timeout_5m">5 minūtes</string>
 	<string name="lock_timeout_10m">10 minūtes</string>
 	<string name="lock_timeout_never">Nekad</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Izskats</string>
 	<string name="follow_system">Automātisks (izmantot sistēmas)</string>

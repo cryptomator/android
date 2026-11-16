@@ -1,7 +1,6 @@
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'de.mannodermaus.android-junit'
 
 android {
 	def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -17,16 +16,22 @@ android {
 		buildConfigField "String", "VERSION_NAME", "\"${globalConfiguration["androidVersionName"]}\""
 
 		testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+		javaCompileOptions {
+			annotationProcessorOptions {
+				arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+			}
+		}
 	}
 
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_17
-		targetCompatibility JavaVersion.VERSION_17
+		sourceCompatibility JavaVersion.VERSION_21
+		targetCompatibility JavaVersion.VERSION_21
 
 		coreLibraryDesugaringEnabled true
 	}
 
-	kotlinOptions { jvmTarget = JavaVersion.VERSION_17 }
+	kotlinOptions { jvmTarget = JavaVersion.VERSION_21 }
 	buildFeatures {
 		buildConfig true
 	}
@@ -34,11 +39,15 @@ android {
 		release {
 			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
 			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_SECRET", "\"" + getApiKey('BOX_CLIENT_SECRET') + "\""
 		}
 
 		debug {
-			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY_DEBUG') + "\""
-			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI_DEBUG') + "\""
+			buildConfigField "String", "ONEDRIVE_API_KEY", "\"" + getApiKey('ONEDRIVE_API_KEY') + "\""
+			buildConfigField "String", "ONEDRIVE_API_REDIRCT_URI", "\"" + getApiKey('ONEDRIVE_API_REDIRCT_URI') + "\""
+			buildConfigField "String", "BOX_CLIENT_ID", "\"" + getApiKey('BOX_CLIENT_ID') + "\""
+			buildConfigField "String", "BOX_CLIENT_SECRET", "\"" + getApiKey('BOX_CLIENT_SECRET') + "\""
 		}
 	}
 
@@ -46,6 +55,10 @@ android {
 
 	productFlavors {
 		playstore {
+			dimension "version"
+		}
+
+		playstoreiap {
 			dimension "version"
 		}
 
@@ -67,7 +80,15 @@ android {
 	}
 
 	sourceSets {
+		androidTest {
+			assets.srcDirs += files("$projectDir/schemas".toString())
+		}
+
 		playstore {
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
+		}
+
+		playstoreiap {
 			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/']
 		}
 
@@ -86,10 +107,14 @@ android {
 		accrescent {
 			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroidAccrescent/java/']
 		}
+
+		['testPlaystore', 'testPlaystoreiap', 'testApkstore', 'testFdroid', 'testAccrescent'].each { testSourceSet ->
+			getByName(testSourceSet).java.srcDirs += 'src/testApiKey/java/'
+		}
 	}
 	packagingOptions {
 		resources {
-			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST']
+			excludes += ['META-INF/DEPENDENCIES', 'META-INF/NOTICE.md', 'META-INF/INDEX.LIST', 'META-INF/versions/9/OSGI-INF/MANIFEST.MF']
 		}
 	}
 
@@ -101,10 +126,6 @@ android {
 	namespace 'org.cryptomator.data'
 }
 
-greendao {
-	schemaVersion 14
-}
-
 configurations.all {
 	// Check for updates every build (use for cryptolib snapshot)
 	//resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -112,21 +133,29 @@ configurations.all {
 
 dependencies {
 	def dependencies = rootProject.ext.dependencies
+	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
+	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def addToFlavors = { flavors, dep, Closure config = null ->
+		flavors.each { flavor ->
+			if (config) {
+				add("${flavor}Implementation", dep, config)
+			} else {
+				add("${flavor}Implementation", dep)
+			}
+		}
+	}
 
 	implementation project(':domain')
 	implementation project(':util')
-	playstoreImplementation dependencies.pcloud
-	apkstoreImplementation dependencies.pcloud
-	fdroidImplementation dependencies.pcloud
-	accrescentImplementation dependencies.pcloud
 
 	coreLibraryDesugaring dependencies.coreDesugaring
 
 	// cryptomator
 	implementation dependencies.cryptolib
 
-	// greendao
-	api dependencies.greenDao
+	// room
+	api dependencies.roomRuntime
+	annotationProcessor dependencies.roomCompiler
 	// dagger
 	annotationProcessor dependencies.daggerCompiler
 	implementation dependencies.dagger
@@ -134,63 +163,28 @@ dependencies {
 	implementation dependencies.jsonWebToken
 
 	// cloud
-	playstoreImplementation dependencies.dropboxCore
-	playstoreImplementation dependencies.dropboxAndroid
-	apkstoreImplementation dependencies.dropboxCore
-	apkstoreImplementation dependencies.dropboxAndroid
-	fdroidImplementation dependencies.dropboxCore
-	fdroidImplementation dependencies.dropboxAndroid
-	accrescentImplementation dependencies.dropboxCore
-	accrescentImplementation dependencies.dropboxAndroid
+	addToFlavors(cloudFlavors, dependencies.dropboxCore)
+	addToFlavors(cloudFlavors, dependencies.dropboxAndroid)
 
+	addToFlavors(cloudFlavors, dependencies.msgraphAuth)
+	addToFlavors(cloudFlavors, dependencies.msgraph)
 
-	playstoreImplementation dependencies.msgraphAuth
-	apkstoreImplementation dependencies.msgraphAuth
-	fdroidImplementation dependencies.msgraphAuth
-	accrescentImplementation dependencies.msgraphAuth
-	playstoreImplementation dependencies.msgraph
-	apkstoreImplementation dependencies.msgraph
-	fdroidImplementation dependencies.msgraph
-	accrescentImplementation dependencies.msgraph
+	addToFlavors(cloudFlavors, dependencies.pcloud)
 
 	implementation dependencies.stax
 	api dependencies.minIo
 
-	playstoreImplementation(dependencies.googlePlayServicesAuth) {
+	addToFlavors(googleFlavors, dependencies.googlePlayServicesAuth) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-	apkstoreImplementation(dependencies.googlePlayServicesAuth) {
+	addToFlavors(googleFlavors, dependencies.googleApiServicesDrive) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
-		exclude module: "google-http-client"
 		exclude group: "com.google.http-client", module: "google-http-client"
 	}
-
-	playstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: 'googlehttpclient'
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiServicesDrive) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-	}
-
-	playstoreImplementation(dependencies.googleApiClientAndroid) {
-		exclude module: 'guava-jdk5'
-		exclude module: 'httpclient'
-		exclude module: "google-http-client"
-		exclude module: "jetified-google-http-client"
-		exclude group: "com.google.http-client", module: "google-http-client"
-		exclude group: "com.google.http-client", module: "jetified-google-http-client"
-	}
-	apkstoreImplementation(dependencies.googleApiClientAndroid) {
+	addToFlavors(googleFlavors + ['accrescent'], dependencies.googleApiClientAndroid) {
 		exclude module: 'guava-jdk5'
 		exclude module: 'httpclient'
 		exclude module: "google-http-client"
@@ -199,10 +193,8 @@ dependencies {
 		exclude group: "com.google.http-client", module: "jetified-google-http-client"
 	}
 
-	playstoreImplementation dependencies.trackingFreeGoogleCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleCLient
-	playstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
-	apkstoreImplementation dependencies.trackingFreeGoogleAndroidCLient
+	addToFlavors(googleFlavors, dependencies.trackingFreeGoogleCLient)
+	addToFlavors(googleFlavors + ['accrescent'], dependencies.trackingFreeGoogleAndroidCLient)
 
 	// rest
 	implementation dependencies.rxJava
@@ -219,8 +211,6 @@ dependencies {
 
 	implementation dependencies.documentFile
 
-	implementation dependencies.lruFileCache
-
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 	// test
@@ -229,9 +219,11 @@ dependencies {
 	testRuntimeOnly dependencies.junitEngine
 	testImplementation dependencies.junitParams
 	testRuntimeOnly dependencies.junit4Engine
+	testRuntimeOnly dependencies.junitPlatformLauncher
 	implementation dependencies.androidxTestJunitKtln
 
 	testImplementation dependencies.mockito
+	testImplementation dependencies.mockWebServer
 	testImplementation dependencies.mockitoKotlin
 	testImplementation dependencies.mockitoInline
 	testImplementation dependencies.hamcrest
@@ -241,8 +233,8 @@ dependencies {
 	}
 }
 
-configurations {
-	all*.exclude group: 'com.google.android', module: 'android'
+configurations.configureEach {
+	exclude group: 'com.google.android', module: 'android'
 }
 
 tasks.withType(Test) {

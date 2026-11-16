@@ -2,7 +2,7 @@ package org.cryptomator.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-public class OnedriveCloud implements Cloud {
+public class OnedriveCloud implements MicrosoftGraphCloud {
 
 	private final Long id;
 	private final String accessToken;
@@ -30,12 +30,19 @@ public class OnedriveCloud implements Cloud {
 		return id;
 	}
 
+	@Override
 	public String accessToken() {
 		return accessToken;
 	}
 
+	@Override
 	public String username() {
 		return username;
+	}
+
+	@Override
+	public String driveId() {
+		return null;
 	}
 
 	@Override

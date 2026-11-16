@@ -15,6 +15,7 @@
 	<string name="error_authentication_failed">Authentication failed</string>
 	<string name="error_authentication_failed_re_authenticate">Authentication failed, please login using %1$s</string>
 	<string name="error_no_network_connection">No network connection</string>
+	<string name="error_purchase_not_available">Purchase not available. Please try again later.</string>
 	<string name="error_invalid_passphrase">Wrong password</string>
 	<string name="error_file_or_folder_exists">A file or folder already exists.</string>
 	<string name="error_vault_version_not_supported">Vault version %1$s is unsupported. This vault has been created with an older or newer version of Cryptomator.</string>
@@ -39,7 +40,6 @@
 	<string name="error_vault_version_mismatch">Version specified in %1$s is different to %2$s</string>
 	<string name="error_vault_key_invalid">%1$s does not match with this %2$s</string>
 	<string name="error_vault_config_loading">General error while loading the vault config</string>
-	<string name="error_file_not_found_after_opening_using_3party">Local file isn\'t present anymore after switching back to Cryptomator. Possible changes cannot be propagated back to the cloud.</string>
 	<string name="error_no_such_bucket">No such bucket</string>
 	<string name="error_masterkey_location_not_supported">Custom Masterkey location not supported yet</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Failed to communicate with the F-Droid app. Not installed?</string>
@@ -51,6 +51,61 @@
 	<string name="error_hub_invalid_version">Unsupported Hub version.</string>
 	<string name="error_hub_unlock_pre_31">Hub is only supported on Android 12 and above.</string>
 
+	<string name="error_hub_not_trustworthy">Hub is not trustworthy.</string>
+
+	<!-- # read-only & purchases -->
+	<string name="read_only_reason_hub_inactive">Upgrade your Hub license to enable writing for this vault.</string>
+	<string name="toast_purchase_revoked_refunded">Your lifetime purchase was refunded. You now have read-only access.</string>
+	<string name="toast_purchase_revoked_subscription_inactive">Your subscription is no longer active. You now have read-only access.</string>
+	<string name="screen_license_check_locked_create_vault">Unlock full version to create vaults</string>
+	<string name="screen_license_check_locked_upload_files">Unlock full version to upload files</string>
+	<string name="screen_license_check_locked_create_folder">Unlock full version to create folders</string>
+	<string name="screen_license_check_locked_create_text_file">Unlock full version to create text files</string>
+	<string name="screen_license_check_locked_share_node">Unlock full version to share files or folders</string>
+	<string name="screen_license_check_locked_rename_node">Unlock full version to rename files or folders</string>
+	<string name="screen_license_check_locked_move_node">Unlock full version to move files or folders</string>
+	<string name="screen_license_check_locked_delete_node">Unlock full version to delete files or folders</string>
+	<string name="screen_license_check_title">Unlock write access</string>
+	<string name="screen_license_check_benefit_title">Your benefits</string>
+	<string name="screen_license_check_benefit_family_sharing">Family sharing</string>
+	<string name="screen_license_check_benefit_write_access">Write access to your vaults</string>
+	<string name="screen_license_check_benefit_support">Open-source development</string>
+	<string name="screen_license_check_button_purchase">Unlock via Google Play</string>
+	<string name="screen_license_check_button_enter_license">Enter license key</string>
+	<string name="screen_license_check_enter_license_action">Enter</string>
+	<string name="screen_license_check_title_full_version">Unlock Full Version</string>
+	<string name="screen_license_check_trial_title">30-Day Trial</string>
+	<string name="screen_license_check_trial_price">Free</string>
+	<string name="screen_license_check_trial_subtitle">for 30 days</string>
+	<string name="screen_license_check_subscription_title">Yearly Subscription</string>
+	<string name="screen_license_check_subscription_subtitle">yearly</string>
+	<string name="screen_license_check_lifetime_title">Lifetime License</string>
+	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %1$d%% off until %2$s</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 Limited time sale</string>
+	<string name="screen_license_check_lifetime_subtitle">one-time</string>
+	<string name="screen_license_check_restore_purchase">Restore Purchase</string>
+	<string name="screen_license_check_terms">Terms of Use</string>
+	<string name="screen_license_check_privacy">Privacy Policy</string>
+	<string name="screen_license_check_trial_expiration">Expiration Date: %s</string>
+	<string name="screen_license_check_trial_status_active">Active</string>
+	<string name="screen_license_check_trial_status_expired">Expired</string>
+	<string name="screen_license_check_trial_active_info">Trial expires: %s</string>
+	<string name="screen_license_check_trial_expired_info">Your trial has expired.</string>
+	<string name="screen_license_check_subscription_upgrade_hint">You have an active subscription. Buy the lifetime license and cancel your subscription to switch.</string>
+	<string name="screen_license_check_cancel_subscription_hint">You now have a lifetime license. To avoid future charges, cancel your yearly subscription via the %1$s option in Settings.</string>
+	<string name="screen_welcome_title">Welcome</string>
+	<string name="screen_welcome_notifications_title">Stay notified</string>
+	<string name="screen_welcome_notifications_message">Allow notifications so Cryptomator can inform you about background activity, auto uploads, or other important events.</string>
+	<string name="screen_welcome_notifications_button">Allow notifications</string>
+	<string name="screen_welcome_notifications_granted">Notifications are enabled.</string>
+	<string name="screen_welcome_continue_button">Continue</string>
+	<string name="screen_welcome_screen_lock_button">Set screen lock</string>
+	<string name="screen_welcome_screen_lock_already_set">Screen lock is already set.</string>
+	<string name="screen_welcome_intro_body">Thanks for choosing Cryptomator to protect your files.\n\nWith Cryptomator, the key to your data is in your hands.\n\nCryptomator encrypts your data quickly and easily.</string>
+	<string name="screen_welcome_trial_button" translatable="false">@string/screen_license_check_trial_price</string>
+	<string name="next">Next</string>
+	<string name="back">Back</string>
+
 	<!-- # clouds -->
 
 	<!-- ## cloud names -->
@@ -58,10 +113,34 @@
 	<string name="cloud_names_dropbox" translatable="false">Dropbox</string>
 	<string name="cloud_names_google_drive" translatable="false">Google Drive</string>
 	<string name="cloud_names_onedrive" translatable="false">OneDrive</string>
+	<string name="cloud_names_sharepoint" translatable="false">SharePoint</string>
 	<string name="cloud_names_pcloud" translatable="false">pCloud</string>
+	<string name="cloud_names_box" translatable="false">Box</string>
 	<string name="cloud_names_webdav" translatable="false">WebDAV</string>
 	<string name="cloud_names_s3" translatable="false">S3</string>
 	<string name="cloud_names_local_storage">Local storage</string>
+	<string name="cloud_names_one_and_one" translatable="false">1&amp;1 Online-Speicher</string>
+	<string name="cloud_names_disroot" translatable="false">Disroot</string>
+	<string name="cloud_names_freenetcloud" translatable="false">freenetcloud</string>
+	<string name="cloud_names_gmx" translatable="false">GMX MediaCenter</string>
+	<string name="cloud_names_hidrive_ionos" translatable="false">HiDrive IONOS</string>
+	<string name="cloud_names_hidrive_strato" translatable="false">HiDrive Strato</string>
+	<string name="cloud_names_icedrive" translatable="false">Icedrive</string>
+	<string name="cloud_names_kdrive" translatable="false">kDrive</string>
+	<string name="cloud_names_koofr" translatable="false">Koofr</string>
+	<string name="cloud_names_magentacloud" translatable="false">MagentaCLOUD</string>
+	<string name="cloud_names_mailbox_org" translatable="false">mailbox.org</string>
+	<string name="cloud_names_mail_ru" translatable="false">Mail.Ru</string>
+	<string name="cloud_names_nextcloud" translatable="false">Nextcloud</string>
+	<string name="cloud_names_opencloud" translatable="false">OpenCloud</string>
+	<string name="cloud_names_owncloud" translatable="false">ownCloud</string>
+	<string name="cloud_names_seafile" translatable="false">Seafile</string>
+	<string name="cloud_names_stack" translatable="false">STACK</string>
+	<string name="cloud_names_switchdrive" translatable="false">SWITCHdrive</string>
+	<string name="cloud_names_syncwerk" translatable="false">Syncwerk</string>
+	<string name="cloud_names_web_de" translatable="false">WEB.DE Online-Speicher</string>
+	<string name="cloud_names_woelkli" translatable="false">wölkli</string>
+	<string name="cloud_names_yandex_disk" translatable="false">Yandex Disk</string>
 
 	<!-- # permission -->
 
@@ -98,8 +177,11 @@
 	<string name="screen_vault_list_action_add_existing_vault">Add existing vault</string>
 	<string name="screen_vault_list_vault_action_rename" translatable="false">@string/screen_file_browser_node_action_rename</string>
 	<string name="screen_vault_list_vault_action_delete">Remove</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Show recovery key</string>
 	<string name="screen_vault_list_vault_creation_hint">Tap here to create a new vault</string>
 	<string name="screen_vault_list_change_password_successful">Password successfully changed</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Lifetime License is %1$d%% off until %2$s</string>
+	<string name="screen_vault_list_sale_promo_banner_dismiss">Dismiss</string>
 
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -183,6 +265,8 @@
 	<string name="screen_cloud_settings_option_edit" translatable="false">@string/screen_file_browser_node_action_edit_text</string>
 	<string name="screen_cloud_settings_option_delete" translatable="false">@string/screen_vault_list_vault_action_delete</string>
 	<string name="screen_cloud_connections_no_connections">Tap here to add locations</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">No drives available.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">The SharePoint site could not be found. Please check the URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Server doesn\'t seem to be WebDAV compatible</string>
 	<string name="screen_cloud_local_error_no_content_provider">No file manager found that supports opening directories</string>
 
@@ -190,12 +274,30 @@
 	<string name="screen_webdav_settings_title" translatable="false">@string/cloud_names_webdav</string>
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Username</string>
+	<string name="screen_webdav_settings_server_label">Server address</string>
+	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contract</string>
+	<string name="screen_webdav_settings_one_and_one_dsl" translatable="false">DSL</string>
+	<string name="screen_webdav_settings_one_and_one_webhosting" translatable="false">Webhosting</string>
 	<string name="screen_webdav_settings_password_label">Password</string>
 	<string name="screen_webdav_settings_done_button_text">Connect</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is invalid.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Username can\'t be empty.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Password can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Server address can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Server address is invalid.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Space ID can\'t be empty.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Select one of the options.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_disroot_hint">Use your Disroot username, or your email address if you use your own domain. If two-factor authentication is enabled, create an app password and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">If two-factor authentication is enabled, append the current one-time code to your password. The code is valid for 30 minutes.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">If two-factor authentication is enabled, append the current one-time code to your password. The code is valid for 60 minutes.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV requires a paid plan. Use the WebDAV access key from your Icedrive account as password.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV isn\'t available on the free plan.</string>
+	<string name="screen_webdav_settings_koofr_hint">Create an app password in your Koofr account and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Create a WebDAV protocol password in your MagentaCLOUD settings and use it instead of your account password.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Create an app token under Settings &gt; App Tokens and use it as password. You find the space ID in the info panel of the space.</string>
 
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_title" translatable="false">@string/cloud_names_s3</string>
@@ -246,15 +348,20 @@
 	<string name="screen_settings_block_app_when_obscured_summary">Block intercepting the input and displaying a false user interface</string>
 	<string name="screen_settings_secure_screen">Block screenshots</string>
 	<string name="screen_settings_secure_screen_summary">Block screenshots in the recents list and inside the app</string>
+	<string name="screen_settings_documents_provider">Show vaults in the Files app</string>
+	<string name="screen_settings_documents_provider_summary">Lets other apps open and save files in your vaults through the system file picker. Locked vaults are unlocked when opened. Turning this off hides the vaults and removes the access other apps were given.</string>
 	<string name="screen_settings_section_search">Search</string>
 	<string name="screen_settings_live_search">Live search</string>
 	<string name="screen_settings_live_search_summary">Update search results while entering the query</string>
 	<string name="screen_settings_glob_search">Search using glob pattern</string>
 	<string name="screen_settings_glob_search_summary">Use glob pattern matching like alice.*.jpg</string>
+	<string name="screen_hub_reset_unknown_hub_hosts_title">Reset Unknown Hub Hosts</string>
 
 	<string name="screen_settings_section_auto_lock">Automatic locking</string>
 	<string name="screen_settings_auto_lock_timeout">Lock after</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">When screen is disabled</string>
+	<string name="screen_settings_auto_lock_gracefully">Wait for transfers</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Automatic locking waits until running uploads and downloads have finished</string>
 
 	<string name="screen_settings_section_auto_photo_upload">Automatic photo upload</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Choose vault for upload</string>
@@ -291,8 +398,6 @@
 	<string name="screen_settings_section_version">Version</string>
 
 	<string name="screen_settings_advanced_settings">Advanced Settings</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Workaround opening Microsoft files</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Open files in Microsoft apps with write permission</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerate unlock</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download vault config in the background while prompted to enter the password or biometric auth</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Keep unlocked</string>
@@ -304,8 +409,11 @@
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_title" translatable="false">@string/screen_settings_cloud_settings_label</string>
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
+	<string name="screen_cloud_settings_box_connections">Box connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>
 	<string name="screen_cloud_settings_local_storage_locations">Local storage locations</string>
 	<string name="screen_cloud_settings_log_in_to">Log in to</string>
@@ -350,6 +458,17 @@
 	<string name="dialog_change_password_msg_old_password_empty">Old password can\'t be empty.</string>
 	<string name="dialog_change_password_msg_new_password_empty">New password can\'t be empty.</string>
 	<string name="dialog_change_password_msg_password_mismatch">New password doesn\'t match retyped password.</string>
+
+	<string name="dialog_recovery_key_password_title" translatable="false">@string/screen_vault_list_vault_action_show_recovery_key</string>
+	<string name="dialog_recovery_key_password_hint">Enter the password for \"%1$s\" to show its recovery key.</string>
+	<string name="dialog_recovery_key_password_positive_button">Show</string>
+
+	<string name="dialog_recovery_key_title">Recovery key</string>
+	<string name="dialog_recovery_key_description">The recovery key is your only means to restore access to \"%1$s\" if you lose your password:</string>
+	<string name="dialog_recovery_key_storage_hint">Keep it somewhere very secure, e.g. in a password manager or printed on paper.</string>
+	<string name="dialog_recovery_key_copy_button">Copy</string>
+	<string name="dialog_recovery_key_copied">Recovery key copied</string>
+	<string name="dialog_recovery_key_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s not found</string>
@@ -426,6 +545,9 @@
 	<string name="dialog_progress_encryption">Encrypting&#8230;</string>
 	<string name="dialog_progress_decryption">Decrypting&#8230;</string>
 	<string name="action_progress_moving">Moving&#8230;</string>
+	<string name="screen_file_browser_upload_failed">Upload failed. Tap to retry.</string>
+	<string name="documents_provider_upload_failed">Upload failed. Pull down to retry.</string>
+	<string name="documents_provider_upload_failed_in_folder">An upload in this folder failed. Pull down to retry.</string>
 	<string name="dialog_lock_vault">Lock</string>
 
 	<string name="dialog_accept_ssl_certificate_title">Invalid SSL certificate</string>
@@ -455,10 +577,6 @@
 	<string name="dialog_debug_mode_positive_button">Enable</string>
 	<string name="dialog_debug_mode_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Due to a bug in Microsoft apps, the file to be edited must be shared with these apps in a public media folder on your device. After Cryptomator is resumed, the publicly accessible file is deleted again, but Cryptomator cannot influence what has happened to this file in the meantime. Make sure that you are aware of this behavior when activating this option. This will only apply to Microsoft file types.\n\nCryptomator will restart after activation.</string>
-	<string name="dialog_microsoft_workaround_disclaimer_title" translatable="false">@string/dialog_debug_mode_disclaimer_title</string>
-	<string name="dialog_microsoft_workaround_positive_button" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
-	<string name="dialog_microsoft_workaround_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
 	<string name="dialog_disable_app_obscured_disclaimer_hint">This setting is a security feature and prevents other apps from tricking users into doing things they do not wan\'t to do.\n\nBy disabling, you confirm that you are <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">aware of the risks</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attention</string>
@@ -496,12 +614,12 @@
 	<string name="dialog_biometric_auth_key_invalidated_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
 	<string name="dialog_enter_license_title">Provide a valid license</string>
-	<string name="dialog_enter_license_content">We detected that you installed Cryptomator without using Google Play Store. Provide a valid license, which can be purchased on <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a></string>
+	<string name="dialog_enter_license_content">Purchase a license at <a href="https://cryptomator.org/android/">https://cryptomator.org/android/</a> or enter your existing Android license key.</string>
 	<string name="dialog_enter_license_not_valid_content">The provided license isn\'t valid. Make sure you entered it correctly.</string>
 	<string name="dialog_enter_license_not_valid_content_desktop_supporter_certificate">The provided key is a desktop supporter certificate. Please enter a valid license.</string>
 	<string name="dialog_enter_license_no_content">No license provided. Please enter a valid license.</string>
 	<string name="dialog_enter_license_ok_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
-	<string name="dialog_enter_license_decline_button">Exit</string>
+	<string name="dialog_enter_license_decline_button">Cancel</string>
 
 	<string name="dialog_license_confirmation_title">License confirmation</string>
 	<string name="dialog_license_confirmation_message">Thanks %1$s for providing your valid license.</string>
@@ -532,6 +650,18 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credentials of \'%1$s\' updated</string>
 	<string name="dialog_pcloud_credentials_updated">If you intended to add a new pCloud account, tap on this url <a href="https://www.pcloud.com">www.pcloud.com</a>, log out from the current account and tap again on the \'+\' in this app to create a new cloud connection.</string>
 
+	<string name="dialog_enter_sharepoint_url_title">Enter SharePoint URL</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint site URL</string>
+	<string name="dialog_enter_sharepoint_url_prefill" translatable="false">https://</string>
+	<string name="dialog_enter_sharepoint_url_format">Enter the address of your SharePoint site, e.g. https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">This is not the address of a SharePoint site. Please enter one like https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_positive_button" translatable="false">@string/next</string>
+	<string name="dialog_enter_sharepoint_url_negative_button" translatable="false">@string/dialog_button_cancel</string>
+
+	<string name="dialog_choose_sharepoint_drive_title">Select drive</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Select the SharePoint drive you want to work with.</string>
+	<string name="dialog_choose_sharepoint_drive_negative_button" translatable="false">@string/dialog_button_cancel</string>
+
 	<string name="dialog_cbc_password_vaults_migration_title">Vault password migration required</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">Due to security enhancements, you will be asked for your biometric authentication twice for each vault to re-encrypt your vault passwords. This is necessary to continue to protect your vault passwords with the latest technology. If you do not wish this to happen, the stored passwords will be removed.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migrate</string>
@@ -559,14 +689,33 @@
 	<string name="dialog_hub_vault_archived_hint">This vault is archived and cannot be unlocked. To unlock it, a vault owner must unarchive it.</string>
 	<string name="dialog_hub_vault_archived_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
 
+	<string name="dialog_restore_successful_title">Restore Successful</string>
+	<string name="dialog_restore_successful_message">Your purchase has been restored and is now active on this device.</string>
+	<string name="dialog_restore_successful_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_no_full_version_title">No Full Version</string>
+	<string name="dialog_no_full_version_message">We couldn\u0027t find an existing purchase on this Google account.</string>
+	<string name="dialog_no_full_version_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_restore_failed_title">Restore Failed</string>
+	<string name="dialog_restore_failed_message">We couldn\u0027t reach the Play Store. Please check your connection and try again.</string>
+	<string name="dialog_restore_failed_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
+	<string name="dialog_change_failed_title">Change to %1$s failed</string>
+	<string name="dialog_change_failed_positive_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
 	<string name="dialog_hub_user_setup_required_title">User setup required</string>
 	<string name="dialog_hub_user_setup_required_hint">To proceed, please complete the steps required in your Hub user profile.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Go to Profile</string>
 	<string name="dialog_hub_user_setup_required_negative_button" translatable="false">@string/dialog_button_cancel</string>
 
+	<string name="dialog_hub_check_host_authenticity_title">Trust this hosts?</string>
+	<string name="dialog_hub_check_host_authenticity_neutral_button" translatable="false">@string/dialog_unable_to_share_positive_button</string>
+
 	<string name="permission_snackbar_auth_local_vault">Cryptomator needs storage access to use local vaults</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator needs storage access to use auto photo upload</string>
 	<string name="permission_snackbar_notifications">Cryptomator needs notification permissions to display vault status for example</string>
+	<string name="permission_snackbar_local_network">Cryptomator needs local network access to connect to servers in your local network</string>
 
 	<!-- # error reports -->
 	<string name="error_report_subject" translatable="false">Android Error Report</string>
@@ -618,7 +767,7 @@
 
 	<string name="notification_cancel_auto_upload">Cancel upload</string>
 	<string name="notification_auto_upload_title">Auto photo upload running</string>
-	<string name="notification_auto_upload_message">Uploading %1d/%2d</string>
+	<string name="notification_auto_upload_message">Uploading %1$d/%2$d</string>
 
 	<string name="notification_auto_upload_finished_title">Auto photo upload finished</string>
 	<string name="notification_auto_upload_finished_message">%1$d images uploaded to vault</string>
@@ -669,38 +818,41 @@
 
 	<string name="notification_authenticating">Authenticating&#8230;</string>
 
-	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle" translatable="false">@string/screen_settings_section_auto_photo_upload_toggle</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cache recently accessed files encrypted locally on the device for later reuse when reopened</string>
-	<string name="screen_settings_lru_cache_size">Total cache size</string>
-	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Changes will be applied on next app restart</string>
+	<string name="notification_cleared_trusted_hosts">Cleared trusted hosts</string>
 
-	<string name="screen_settings_license">Registered for</string>
+	<string name="screen_settings_lru_cache">Cache</string>
+	<string name="screen_settings_clear_lru_cache_size">Clear Cache</string>
+
+	<string name="screen_settings_license_title_unlock">Unlock Full Version</string>
+	<string name="screen_settings_license_title_unlocked">Full Version</string>
 	<string name="screen_settings_license_mail">%1$s</string>
+	<string name="screen_settings_license_summary_write_access">Write access unlocked!</string>
+	<string name="screen_settings_license_summary_tap_to_unlock">Tap to unlock write access</string>
+	<string name="screen_settings_license_summary_write_access_mail">Write access for %1$s</string>
+	<string name="screen_settings_license_summary_trial_expires" translatable="false">@string/screen_license_check_trial_active_info</string>
+	<string name="screen_settings_manage_subscription">Manage Subscription</string>
+	<string name="screen_settings_upgrade_to_lifetime">Upgrade to Lifetime</string>
+	<string name="dialog_trial_expired_title">Trial Expired</string>
+	<string name="dialog_trial_expired_message">Your free trial has ended. You can continue in read-only mode or unlock the full version.</string>
+	<string name="dialog_trial_expired_unlock">Unlock Full Version</string>
+	<string name="dialog_trial_expired_continue_read_only">Continue in Read-Only Mode</string>
+	<string name="dialog_license_lost_title">Re-enter License Key</string>
+	<string name="dialog_license_lost_message">A previous update removed the license key registered to %1$s from this device. Re-enter it to restore write access. Until then, your vaults are read-only.</string>
+	<string name="dialog_license_lost_reenter">Re-enter License Key</string>
+	<string name="dialog_license_lost_later">Later</string>
 
 	<string name="dialog_settings_update_check_interval_title">Update check interval</string>
 	<string name="screen_settings_check_updates">Check for updates</string>
 	<string name="screen_settings_last_check_updates">Last run %1$s</string>
 	<string name="screen_settings_last_check_updates_never" translatable="false">@string/lock_timeout_never</string>
 
-	<string name="dialog_cache_size_title">Cache size per Cloud</string>
 
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Instant</string>
 	<string name="lock_timeout_1m">1 minute</string>
 	<string name="lock_timeout_2m">2 minutes</string>
 	<string name="lock_timeout_5m">5 minutes</string>
 	<string name="lock_timeout_10m">10 minutes</string>
 	<string name="lock_timeout_never">Never</string>
-
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Style</string>

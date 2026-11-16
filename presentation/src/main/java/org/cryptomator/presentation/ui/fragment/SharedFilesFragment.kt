@@ -88,4 +88,8 @@ class SharedFilesFragment : BaseFragment<FragmentSharedFilesBinding>(FragmentSha
 		locationsAdapter.setSelectedLocation(if (folder.path.isEmpty()) "/" else folder.path)
 	}
 
+	fun setUploadEnabled(enabled: Boolean) {
+		binding.receiveSaveLayout.saveFiles.isEnabled = enabled
+	}
+
 }

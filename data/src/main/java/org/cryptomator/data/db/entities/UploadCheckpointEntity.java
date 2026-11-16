@@ -1,101 +1,91 @@
 package org.cryptomator.data.db.entities;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Index;
-import org.greenrobot.greendao.annotation.NotNull;
-import org.greenrobot.greendao.annotation.Generated;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
-@Entity(indexes = {@Index(value = "vaultId", unique = true)})
-public class UploadCheckpointEntity extends DatabaseEntity {
+@Entity(tableName = "UPLOAD_CHECKPOINT_ENTITY", //
+		indices = @Index( //
+				name = "IDX_UPLOAD_CHECKPOINT_ENTITY_VAULT_ID", //
+				value = "VAULT_ID", //
+				unique = true))
+public class UploadCheckpointEntity {
 
-	@Id
+	@PrimaryKey(autoGenerate = true)
+	@ColumnInfo(name = "_id")
 	private Long id;
 
-	@NotNull
-	private Long vaultId;
+	@ColumnInfo(name = "VAULT_ID")
+	private long vaultId;
 
-	@NotNull
-	private String type;
+	@NonNull
+	@ColumnInfo(name = "TYPE")
+	private String type = "";
 
-	@NotNull
-	private String targetFolderPath;
+	@NonNull
+	@ColumnInfo(name = "TARGET_FOLDER_PATH")
+	private String targetFolderPath = "";
 
+	@ColumnInfo(name = "SOURCE_FOLDER_URI")
 	private String sourceFolderUri;
 
+	@ColumnInfo(name = "SOURCE_FOLDER_NAME")
 	private String sourceFolderName;
 
+	@ColumnInfo(name = "PENDING_FILE_URIS")
 	private String pendingFileUris;
 
-	@NotNull
-	private String completedFiles;
+	@NonNull
+	@ColumnInfo(name = "COMPLETED_FILES")
+	private String completedFiles = "";
 
-	@NotNull
+	@ColumnInfo(name = "TOTAL_FILE_COUNT")
 	private int totalFileCount;
 
-	@NotNull
+	@ColumnInfo(name = "TIMESTAMP")
 	private long timestamp;
 
+	@ColumnInfo(name = "REPLACING")
 	private boolean replacing;
 
-	@Generated(hash = 1792302708)
-	public UploadCheckpointEntity(Long id, @NotNull Long vaultId,
-			@NotNull String type, @NotNull String targetFolderPath,
-			String sourceFolderUri, String sourceFolderName, String pendingFileUris,
-			@NotNull String completedFiles, int totalFileCount, long timestamp,
-			boolean replacing) {
-		this.id = id;
-		this.vaultId = vaultId;
-		this.type = type;
-		this.targetFolderPath = targetFolderPath;
-		this.sourceFolderUri = sourceFolderUri;
-		this.sourceFolderName = sourceFolderName;
-		this.pendingFileUris = pendingFileUris;
-		this.completedFiles = completedFiles;
-		this.totalFileCount = totalFileCount;
-		this.timestamp = timestamp;
-		this.replacing = replacing;
-	}
-
-	@Generated(hash = 1737881290)
-	public UploadCheckpointEntity() {
-	}
-
-	@Override
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getVaultId() {
-		return this.vaultId;
+	public long getVaultId() {
+		return vaultId;
 	}
 
-	public void setVaultId(Long vaultId) {
+	public void setVaultId(long vaultId) {
 		this.vaultId = vaultId;
 	}
 
+	@NonNull
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(@NonNull String type) {
 		this.type = type;
 	}
 
+	@NonNull
 	public String getTargetFolderPath() {
-		return this.targetFolderPath;
+		return targetFolderPath;
 	}
 
-	public void setTargetFolderPath(String targetFolderPath) {
+	public void setTargetFolderPath(@NonNull String targetFolderPath) {
 		this.targetFolderPath = targetFolderPath;
 	}
 
 	public String getSourceFolderUri() {
-		return this.sourceFolderUri;
+		return sourceFolderUri;
 	}
 
 	public void setSourceFolderUri(String sourceFolderUri) {
@@ -103,7 +93,7 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 	}
 
 	public String getSourceFolderName() {
-		return this.sourceFolderName;
+		return sourceFolderName;
 	}
 
 	public void setSourceFolderName(String sourceFolderName) {
@@ -111,23 +101,24 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 	}
 
 	public String getPendingFileUris() {
-		return this.pendingFileUris;
+		return pendingFileUris;
 	}
 
 	public void setPendingFileUris(String pendingFileUris) {
 		this.pendingFileUris = pendingFileUris;
 	}
 
+	@NonNull
 	public String getCompletedFiles() {
-		return this.completedFiles;
+		return completedFiles;
 	}
 
-	public void setCompletedFiles(String completedFiles) {
+	public void setCompletedFiles(@NonNull String completedFiles) {
 		this.completedFiles = completedFiles;
 	}
 
 	public int getTotalFileCount() {
-		return this.totalFileCount;
+		return totalFileCount;
 	}
 
 	public void setTotalFileCount(int totalFileCount) {
@@ -135,7 +126,7 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 	}
 
 	public long getTimestamp() {
-		return this.timestamp;
+		return timestamp;
 	}
 
 	public void setTimestamp(long timestamp) {
@@ -143,14 +134,10 @@ public class UploadCheckpointEntity extends DatabaseEntity {
 	}
 
 	public boolean isReplacing() {
-		return this.replacing;
+		return replacing;
 	}
 
 	public void setReplacing(boolean replacing) {
 		this.replacing = replacing;
-	}
-
-	public boolean getReplacing() {
-		return this.replacing;
 	}
 }

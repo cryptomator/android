@@ -22,6 +22,12 @@ abstract class Cryptors internal constructor() {
 
 	abstract fun replace(old: Vault, updated: Vault, cryptor: Cryptor)
 
+	/**
+	 * [vault] as it was unlocked, or null if it is locked. Only the unlocked vault knows what the unlock found out, e.g.
+	 * whether a Hub vault has a paid license.
+	 */
+	abstract fun unlockedVault(vault: Vault): Vault?
+
 	class Delegating : Cryptors() {
 
 		private val fallback = Default()
@@ -72,6 +78,11 @@ abstract class Cryptors internal constructor() {
 		}
 
 		@Synchronized
+		override fun unlockedVault(vault: Vault): Vault? {
+			return delegate().unlockedVault(vault)
+		}
+
+		@Synchronized
 		private fun delegate(): Cryptors {
 			return delegate ?: fallback
 		}
@@ -119,24 +130,38 @@ abstract class Cryptors internal constructor() {
 			cryptors[updated] = cryptor
 		}
 
+		override fun unlockedVault(vault: Vault): Vault? {
+			return cryptors.keys.firstOrNull { it == vault }
+		}
+
+		/**
+		 * The listener runs only when vaults were added or removed.
+		 */
 		fun setOnChangeListener(onChangeListener: Runnable) {
 			this.onChangeListener = onChangeListener
 		}
 
 		fun putAll(cryptors: Map<Vault, Cryptor>) {
+			val before = this.cryptors.size
 			this.cryptors.putAll(cryptors)
-			onChangeListener.run()
+			if (this.cryptors.size != before) {
+				onChangeListener.run()
+			}
 		}
 
 		fun destroyAll() {
+			var destroyed = false
 			while (!isEmpty()) {
 				val cryptorIterator = cryptors.values.iterator()
 				while (cryptorIterator.hasNext()) {
 					cryptorIterator.next().destroy()
 					cryptorIterator.remove()
+					destroyed = true
 				}
 			}
-			onChangeListener.run()
+			if (destroyed) {
+				onChangeListener.run()
+			}
 		}
 	}
 }

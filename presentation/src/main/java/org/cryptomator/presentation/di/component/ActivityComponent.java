@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.cryptomator.domain.di.PerView;
 import org.cryptomator.presentation.di.module.ActivityModule;
 import org.cryptomator.presentation.ui.activity.AuthenticateCloudActivity;
+import org.cryptomator.presentation.ui.activity.AuthenticateBoxActivity;
 import org.cryptomator.presentation.ui.activity.AuthenticatePCloudActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadRefreshTokenActivity;
@@ -25,6 +26,7 @@ import org.cryptomator.presentation.ui.activity.SharedFilesActivity;
 import org.cryptomator.presentation.ui.activity.TextEditorActivity;
 import org.cryptomator.presentation.ui.activity.UnlockVaultActivity;
 import org.cryptomator.presentation.ui.activity.VaultListActivity;
+import org.cryptomator.presentation.ui.activity.WelcomeActivity;
 import org.cryptomator.presentation.ui.activity.WebDavAddOrChangeActivity;
 import org.cryptomator.presentation.ui.fragment.AutoUploadChooseVaultFragment;
 import org.cryptomator.presentation.ui.fragment.BiometricAuthSettingsFragment;
@@ -40,6 +42,10 @@ import org.cryptomator.presentation.ui.fragment.TextEditorFragment;
 import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment;
 import org.cryptomator.presentation.ui.fragment.VaultListFragment;
 import org.cryptomator.presentation.ui.fragment.WebDavAddOrChangeFragment;
+import org.cryptomator.presentation.ui.fragment.WelcomeIntroFragment;
+import org.cryptomator.presentation.ui.fragment.WelcomeLicenseFragment;
+import org.cryptomator.presentation.ui.fragment.WelcomeNotificationsFragment;
+import org.cryptomator.presentation.ui.fragment.WelcomeScreenLockFragment;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow;
 
@@ -105,6 +111,8 @@ public interface ActivityComponent {
 
 	void inject(AuthenticatePCloudActivity authenticatePCloudActivity);
 
+	void inject(AuthenticateBoxActivity authenticateBoxActivity);
+
 	void inject(ImagePreviewActivity imagePreviewActivity);
 
 	void inject(ImagePreviewFragment imagePreviewFragment);
@@ -126,5 +134,15 @@ public interface ActivityComponent {
 	void inject(S3AddOrChangeFragment s3AddOrChangeFragment);
 
 	void inject(CryptomatorVariantsActivity cryptomatorVariantsActivity);
+
+	void inject(WelcomeActivity welcomeActivity);
+
+	void inject(WelcomeIntroFragment welcomeIntroFragment);
+
+	void inject(WelcomeLicenseFragment welcomeLicenseFragment);
+
+	void inject(WelcomeNotificationsFragment welcomeNotificationsFragment);
+
+	void inject(WelcomeScreenLockFragment welcomeScreenLockFragment);
 
 }

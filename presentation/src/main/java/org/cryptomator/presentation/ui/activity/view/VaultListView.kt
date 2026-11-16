@@ -2,6 +2,7 @@ package org.cryptomator.presentation.ui.activity.view
 
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.VaultModel
+import org.cryptomator.presentation.service.SalePromo
 import org.cryptomator.presentation.ui.adapter.VaultUploadState
 
 interface VaultListView : View {
@@ -16,11 +17,14 @@ interface VaultListView : View {
 	fun showVaultSettingsDialog(vaultModel: VaultModel)
 	fun showAddVaultBottomSheet()
 	fun showRenameDialog(vaultModel: VaultModel)
+	fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String)
 	fun isVaultLocked(vaultModel: VaultModel): Boolean
 	fun rowMoved(fromPosition: Int, toPosition: Int)
 	fun vaultMoved(vaults: List<VaultModel>)
 	fun migrateCBCEncryptedPasswordVaults(vaults: List<VaultModel>)
 	fun updateUploadStates(states: Map<Long, VaultUploadState>)
 	fun updateVaultUploadState(vaultId: Long, state: VaultUploadState?)
+	fun showSalePromoBanner(salePromo: SalePromo)
+	fun hideSalePromoBanner()
 
 }

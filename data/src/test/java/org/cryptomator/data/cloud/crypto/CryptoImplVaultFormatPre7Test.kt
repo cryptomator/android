@@ -17,6 +17,8 @@ import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.NetworkConnectionException
+import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.ByteArrayDataSource.Companion.from
@@ -33,7 +35,6 @@ import org.mockito.AdditionalMatchers
 import org.mockito.Mockito
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.any
-import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -138,8 +139,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.folder(lvl2Dir, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")).thenReturn(aaFolder)
 		whenever(cloudContentRepository.file(aaFolder, "0dir1")).thenReturn(testDir1)
 		whenever(cloudContentRepository.exists(testDir1)).thenReturn(true)
-		whenever(cloudContentRepository.read(eq(cryptoFolder1.dirFile!!), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder1.dirFile!!), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dirId1.toByteArray()), out)
 			null
 		}
@@ -193,8 +194,8 @@ internal class CryptoImplVaultFormatPre7Test {
 
 		val cryptoFolder3 = CryptoFolder(cryptoFolder1, dir3Name, "/Directory 1/$dir3Name", testDir3DirFile)
 
-		whenever(cloudContentRepository.read(eq(cryptoFolder3.dirFile!!), anyOrNull(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder3.dirFile!!), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream("dir3-id".toByteArray()), out)
 			null
 		}
@@ -217,8 +218,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.file(directory4x250, "name.c9s")).thenReturn(testDir4NameFile)
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base32(), dir4Name, "dir3-id".toByteArray())).thenReturn(dir4Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base32(), dir4Cipher, "dir3-id".toByteArray())).thenReturn(dir4Name)
-		whenever(cloudContentRepository.read(eq(testDir4NameFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(testDir4NameFile), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dir4Cipher.toByteArray(charset("UTF-8"))), out)
 			null
 		}
@@ -242,8 +243,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.file(directory5x250, "name.c9s")).thenReturn(testFile5NameFile)
 		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base32(), file5Name, "dir3-id".toByteArray())).thenReturn(file5Cipher)
 		whenever(fileNameCryptor.decryptFilename(BaseEncoding.base32(), file5Cipher, "dir3-id".toByteArray())).thenReturn(file5Name)
-		whenever(cloudContentRepository.read(eq(testFile5NameFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(testFile5NameFile), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file5Cipher.toByteArray(charset("UTF-8"))), out)
 			null
 		}
@@ -287,8 +288,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(fileHeaderCryptor.decryptHeader(StandardCharsets.UTF_8.encode("hhhhh"))).thenReturn(header)
 		whenever(fileContentCryptor.decryptChunk(eq(StandardCharsets.UTF_8.encode("TOPSECRET!")), any(), eq(header), any()))
 			.then { invocation: InvocationOnMock? -> StandardCharsets.UTF_8.encode("geheim!!") }
-		whenever(cloudContentRepository.read(eq(cryptoFile1.cloudFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFile1.cloudFile), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
 		}
@@ -319,8 +320,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(fileContentCryptor.decryptChunk(eq(StandardCharsets.UTF_8.encode("TOPSECRET!")), any(), eq(header), any()))
 			.then { invocation: InvocationOnMock? -> StandardCharsets.UTF_8.encode("geheim!!") }
 		val cryptoFile15 = CryptoFile(root, file3Name, "/$file3Name", null, testFile3ContentFile)
-		whenever(cloudContentRepository.read(eq(cryptoFile15.cloudFile), any(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFile15.cloudFile), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(file1Content), out)
 			null
 		}
@@ -443,9 +444,71 @@ internal class CryptoImplVaultFormatPre7Test {
 	}
 
 	@Test
+	@DisplayName("file(\"/File 15x250\") keeps the folder of its name's metadata file that is there")
+	@Throws(BackendException::class)
+	fun testLongNameKeepsTheFolderOfItsMetadataFile() {
+		val file15Name = "File " + Strings.repeat("15", 250)
+		val file15Cipher = "file" + Strings.repeat("15", 250)
+		val hash = MessageDigestSupplier.SHA1.get().digest(file15Cipher.toByteArray(StandardCharsets.UTF_8))
+		val shortenedFileName = Base32().encodeAsString(hash) + ".lng"
+		val metadataFile = metadataFile(shortenedFileName)
+		whenever(fileNameCryptor.encryptFilename(BaseEncoding.base32(), file15Name, dirIdRoot.toByteArray())).thenReturn(file15Cipher)
+		whenever(cloudContentRepository.file(aaFolder, shortenedFileName, null)).thenReturn(TestFile(aaFolder, shortenedFileName, "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/$shortenedFileName", null, null))
+		whenever(cloudContentRepository.exists(metadataFile.parent!!)).thenReturn(true)
+
+		inTest.file(root, file15Name)
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(metadataFile.parent!!)
+		Mockito.verify(cloudContentRepository).write(eq(metadataFile), any(), any(), eq(true), any())
+	}
+
+	@Test
 	@DisplayName("create(\"/Directory 3/\")")
 	@Throws(BackendException::class)
 	fun testCreateShortFolder() {
+		val creation = givenShortFolderCreation()
+
+		val cloudFolder: CloudFolder = inTest.create(creation.cryptoFolder)
+
+		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(creation.cryptoFolder))
+		Mockito.verify(cloudContentRepository).create(creation.ddFolder)
+		Mockito.verify(cloudContentRepository).write(eq(creation.dirFile), any(), any(), eq(false), any())
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") looks up the folder of its content again before it creates it")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderLooksUpTheContentFolderAgain() {
+		val creation = givenShortFolderCreation()
+		// as looked up before another creation made the folder above it
+		val stale = TestFolder(d, "stale", "/d/stale")
+		whenever(dirIdCache.put(eq(creation.cryptoFolder), any())).thenReturn(DirIdInfo("dir3-id", stale))
+		whenever(dirIdCache[creation.cryptoFolder]).thenReturn(DirIdInfo("dir3-id", stale))
+
+		inTest.create(creation.cryptoFolder)
+
+		Mockito.verify(cloudContentRepository).create(creation.ddFolder)
+		Mockito.verify(cloudContentRepository, Mockito.never()).create(stale)
+	}
+
+	@Test
+	@DisplayName("create(\"/Directory 3/\") forgets the directory ID of a folder whose creation failed")
+	@Throws(BackendException::class)
+	fun testCreateShortFolderForgetsTheDirIdIfItFails() {
+		val creation = givenShortFolderCreation()
+		whenever(cloudContentRepository.write(eq(creation.dirFile), any(), any(), eq(false), any())).thenThrow(NetworkConnectionException())
+
+		Assertions.assertThrows(NetworkConnectionException::class.java) { inTest.create(creation.cryptoFolder) }
+
+		Mockito.verify(dirIdCache).evict(creation.cryptoFolder)
+	}
+
+	private class ShortFolderCreation(val cryptoFolder: CryptoFolder, val ddFolder: CloudFolder, val dirFile: CloudFile)
+
+	/**
+	 * Prepares creating "/Directory 3", whose dir id is "dir3-id".
+	 */
+	private fun givenShortFolderCreation(): ShortFolderCreation {
 		/*
 		 * <code>
 		 * path/to/vault/d
@@ -475,11 +538,7 @@ internal class CryptoImplVaultFormatPre7Test {
 		// just for the exists check
 		whenever(cloudContentRepository.file(aaFolder, "dir3", null)).thenReturn(TestFile(aaFolder, "dir3", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/dir3", null, null))
 
-		val cloudFolder: CloudFolder = inTest.create(cryptoFolder3)
-
-		MatcherAssert.assertThat(cloudFolder, CoreMatchers.`is`(cryptoFolder3))
-		Mockito.verify(cloudContentRepository).create(ddFolder)
-		Mockito.verify(cloudContentRepository).write(eq(testDir3DirFile), any(), any(), eq(false), any())
+		return ShortFolderCreation(cryptoFolder3, ddFolder, testDir3DirFile)
 	}
 
 	@Test
@@ -594,8 +653,8 @@ internal class CryptoImplVaultFormatPre7Test {
 		val testDir2DirFile = TestFile(bbFolder, "0dir2", "/d/11/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB/0dir2", null, null)
 		val cryptoFolder2 = CryptoFolder(cryptoFolder1, "Directory 2", "/Directory 1/Directory 2", testDir2DirFile)
 
-		whenever(cloudContentRepository.read(eq(cryptoFolder2.dirFile!!), anyOrNull(), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
-			val out = invocationOnMock.getArgument<OutputStream>(2)
+		whenever(cloudContentRepository.read(eq(cryptoFolder2.dirFile!!), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			val out = invocationOnMock.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(dirId2.toByteArray()), out)
 			null
 		}
@@ -662,12 +721,32 @@ internal class CryptoImplVaultFormatPre7Test {
 		whenever(cloudContentRepository.file(aaFolder, shortenedFileName)).thenReturn(testDir3DirFile)
 		whenever(cloudContentRepository.file(testDir3NameFile.parent!!, shortenedFileName, 257L)).thenReturn(testDir3NameFile)
 		whenever<List<*>>(cloudContentRepository.list(ddFolder)).thenReturn(ArrayList<CloudNode>())
+		whenever(cloudContentRepository.exists(testDir3DirFile)).thenReturn(true)
+		whenever(cloudContentRepository.read(eq(testDir3DirFile), any(), any())).thenAnswer { invocationOnMock: InvocationOnMock ->
+			copyStreamToStream(ByteArrayInputStream("dir3-id".toByteArray()), invocationOnMock.getArgument<OutputStream>(1))
+			null
+		}
 
 		inTest.delete(cryptoFolder3)
 
 		Mockito.verify(cloudContentRepository).delete(ddFolder)
 		Mockito.verify(cloudContentRepository).delete(testDir3DirFile)
 		Mockito.verify(dirIdCache).evict(cryptoFolder3)
+	}
+
+	@Test
+	@DisplayName("delete(\"/Directory 3/\") of a folder whose dir file isn't there deletes nothing")
+	@Throws(BackendException::class)
+	fun testDeleteFolderWithoutDirFile() {
+		val dirFile = TestFile(aaFolder, "0dir3", "/d/00/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/0dir3", null, null)
+		// a directory ID looked up for it while it wasn't in the cloud
+		val contentFolder = TestFolder(d, "33", "/d/33")
+		val folder = CryptoFolder(root, "Directory 3", "/Directory 3", dirFile)
+		whenever(dirIdCache[folder]).thenReturn(DirIdInfo("made-up", contentFolder))
+
+		Assertions.assertThrows(NoSuchCloudFileException::class.java) { inTest.delete(folder) }
+
+		Mockito.verify(cloudContentRepository, Mockito.never()).delete(any())
 	}
 
 	@Test

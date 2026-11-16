@@ -22,15 +22,21 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	private val defaultSharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
 	private val lockTimeoutChangedListeners = WeakHashMap<Consumer<LockTimeout>, Void>()
+	private val licenseChangedListeners = WeakHashMap<Consumer<String>, Void>()
 
 	init {
 		defaultSharedPreferences.registerOnSharedPreferenceChangeListener(this)
+		// so that the settings show the timeout that applies instead of one that no longer exists
+		val storedLockTimeout = defaultSharedPreferences.getValue(LOCK_TIMEOUT, ONE_MINUTE.name)
+		if (LockTimeout.fromStored(storedLockTimeout).name != storedLockTimeout) {
+			defaultSharedPreferences.setValue(LOCK_TIMEOUT, LockTimeout.fromStored(storedLockTimeout).name)
+		}
 	}
 
 	val lockTimeout: LockTimeout
 		get() {
 			val value = defaultSharedPreferences.getValue(LOCK_TIMEOUT, ONE_MINUTE.name)
-			return LockTimeout.valueOf(value)
+			return LockTimeout.fromStored(value)
 		}
 
 	val screenStyleMode: Int
@@ -81,6 +87,17 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 	fun setSecureScreen(enabled: Boolean) {
 		defaultSharedPreferences //
 			.setValue(SECURE_SCREEN, enabled)
+	}
+
+	fun documentsProvider(): Boolean {
+		return defaultSharedPreferences.getValue(DOCUMENTS_PROVIDER, true)
+	}
+
+	/**
+	 * Whether automatic locking waits until running uploads and downloads have finished.
+	 */
+	fun lockGracefully(): Boolean {
+		return defaultSharedPreferences.getValue(LOCK_GRACEFULLY, true)
 	}
 
 	fun lockOnScreenOff(): Boolean {
@@ -161,21 +178,29 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		return defaultSharedPreferences.getValue(PHOTO_UPLOAD_INCLUDING_VIDEOS, false)
 	}
 
-	fun useLruCache(): Boolean {
-		return defaultSharedPreferences.getValue(USE_LRU_CACHE, false)
+	fun addLicenseChangedListeners(listener: Consumer<String>) {
+		licenseChangedListeners[listener] = null
+		listener.accept(licenseToken())
+	}
+
+	fun removeLicenseChangedListeners(listener: Consumer<String>) {
+		licenseChangedListeners.remove(listener)
 	}
 
 	override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
-		if (LOCK_TIMEOUT == key) {
-			val lockTimeout = lockTimeout
-			lockTimeoutChangedListeners.keys.forEach { listener ->
-				listener.accept(lockTimeout)
+		when (key) {
+			LOCK_TIMEOUT -> {
+				val lockTimeout = lockTimeout
+				lockTimeoutChangedListeners.keys.forEach { listener ->
+					listener.accept(lockTimeout)
+				}
+			}
+			LICENSE_TOKEN, TRIAL_EXPIRATION_DATE, HAS_RUNNING_SUBSCRIPTION -> {
+				licenseChangedListeners.keys.forEach { listener ->
+					listener.accept(licenseToken())
+				}
 			}
 		}
-	}
-
-	fun lruCacheSize(): Int {
-		return defaultSharedPreferences.getValue(LRU_CACHE_SIZE, "100").toInt() * 1024 * 1024
 	}
 
 	fun mail(): String {
@@ -184,6 +209,65 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 
 	fun setMail(mail: String) {
 		defaultSharedPreferences.setValue(MAIL, mail)
+	}
+
+	fun licenseToken(): String {
+		return defaultSharedPreferences.getValue(LICENSE_TOKEN, "")
+	}
+
+	fun setLicenseToken(licenseToken: String) {
+		defaultSharedPreferences.setValue(LICENSE_TOKEN, licenseToken)
+	}
+
+	fun trialExpirationDate(): Long {
+		return defaultSharedPreferences.getValue(TRIAL_EXPIRATION_DATE, 0L)
+	}
+
+	fun setTrialExpirationDate(date: Long) {
+		defaultSharedPreferences.setValue(TRIAL_EXPIRATION_DATE, date)
+	}
+
+	fun isTrialExpired(): Boolean {
+		return defaultSharedPreferences.getValue(TRIAL_EXPIRED, false)
+	}
+
+	fun setTrialExpired(value: Boolean) {
+		defaultSharedPreferences.setValue(TRIAL_EXPIRED, value)
+	}
+
+	fun purchaseRevokedPending(): Boolean {
+		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_PENDING, false)
+	}
+
+	fun purchaseRevokedReason(): String {
+		return defaultSharedPreferences.getValue(PURCHASE_REVOKED_REASON, "")
+	}
+
+	fun setPurchaseRevokedState(pending: Boolean, reason: String) {
+		defaultSharedPreferences.edit { editor ->
+			editor.putBoolean(PURCHASE_REVOKED_PENDING, pending)
+			editor.putString(PURCHASE_REVOKED_REASON, reason)
+		}
+	}
+
+	fun clearPurchaseRevokedState() {
+		setPurchaseRevokedState(pending = false, reason = "")
+	}
+
+	fun hasRunningSubscription(): Boolean {
+		return defaultSharedPreferences.getValue(HAS_RUNNING_SUBSCRIPTION, false)
+	}
+
+	fun setHasRunningSubscription(value: Boolean) {
+		defaultSharedPreferences.setValue(HAS_RUNNING_SUBSCRIPTION, value)
+	}
+
+	fun salePromoDismissedUntil(): Long {
+		return defaultSharedPreferences.getValue(SALE_PROMO_DISMISSED_UNTIL, 0L)
+	}
+
+	fun setSalePromoDismissedUntil(date: Long) {
+		defaultSharedPreferences.setValue(SALE_PROMO_DISMISSED_UNTIL, date)
 	}
 
 	fun keepUnlockedWhileEditing(): Boolean {
@@ -275,12 +359,34 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, disable)
 	}
 
-	fun setMicrosoftWorkaround(enabled: Boolean) {
-		defaultSharedPreferences.setValue(MICROSOFT_WORKAROUND, enabled)
+	fun hasCompletedWelcomeFlow(): Boolean {
+		return defaultSharedPreferences.getValue(WELCOME_FLOW_COMPLETED, false)
 	}
 
-	fun microsoftWorkaround(): Boolean {
-		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
+	fun setWelcomeFlowCompleted() {
+		defaultSharedPreferences.setValue(WELCOME_FLOW_COMPLETED, true)
+	}
+
+	fun addTrustedHubHosts(host: String) {
+		val hosts = defaultSharedPreferences
+			.getStringSet(TRUSTED_HUB_HOSTS, emptySet())
+			?.toMutableSet() ?: mutableSetOf()
+
+		hosts.add(host)
+
+		defaultSharedPreferences.edit()
+			.putStringSet(TRUSTED_HUB_HOSTS, hosts)
+			.apply()
+	}
+
+	fun getTrustedHubHosts(): Set<String> {
+		return defaultSharedPreferences
+			.getStringSet(TRUSTED_HUB_HOSTS, emptySet())
+			?.toSet() ?: emptySet()
+	}
+
+	fun clearTrustedHubHosts() {
+		defaultSharedPreferences.edit().putStringSet(TRUSTED_HUB_HOSTS, mutableSetOf()).apply()
 	}
 
 	companion object {
@@ -292,6 +398,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val USE_CONFIRMATION_IN_FACE_UNLOCK_AUTHENTICATION = "useConfirmationInFaceUnlockBiometricAuthentication"
 		private const val LOCK_TIMEOUT = "lockTimeout"
 		private const val LOCK_ON_SCREEN_OFF = "lockOnScreenOff"
+		private const val LOCK_GRACEFULLY = "lockGracefully"
 		private const val LIVE_SEARCH = "liveSearch"
 		private const val GLOB_SEARCH = "globSearch"
 		private const val KEEP_UNLOCKED_WHILE_EDITING = "keepUnlockedWhileEditing"
@@ -299,9 +406,17 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val VAULTS_REMOVED_DURING_MIGRATION = "vaultsRemovedDuringMigration"
 		private const val VAULTS_REMOVED_DURING_MIGRATION_TYPE = "vaultsRemovedDuringMigrationType"
 		private const val LAST_UPDATE_CHECK = "lastUpdateCheck"
+		private const val WELCOME_FLOW_COMPLETED = "welcomeFlowCompleted"
+		private const val TRIAL_EXPIRATION_DATE = "trialExpirationDate"
+		private const val TRIAL_EXPIRED = "trialExpired"
+		private const val HAS_RUNNING_SUBSCRIPTION = "hasRunningSubscription"
+		private const val SALE_PROMO_DISMISSED_UNTIL = "salePromoDismissedUntil"
+		private const val PURCHASE_REVOKED_PENDING = "purchaseRevokedPending"
+		private const val PURCHASE_REVOKED_REASON = "purchaseRevokedReason"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"
+		const val DOCUMENTS_PROVIDER = "documentsProvider"
 		const val SCREEN_STYLE_MODE = "screenStyleMode"
 		const val PHOTO_UPLOAD = "photoUpload"
 		const val PHOTO_UPLOAD_INSTANT = "photoUploadInstant"
@@ -309,15 +424,14 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
 		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
-		const val USE_LRU_CACHE = "lruCache"
-		const val LRU_CACHE_SIZE = "lruCacheSize"
-		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
+		const val LICENSE_TOKEN = "licenseToken"
 		const val UPDATE_INTERVAL = "updateInterval"
 		const val CLOUD_SETTINGS = "cloudSettings"
 		const val BIOMETRIC_AUTHENTICATION = "biometricAuthentication"
 		const val CRYPTOMATOR_VARIANTS = "cryptomatorVariants"
 		const val LICENSES_ACTIVITY = "licensesActivity"
+		const val TRUSTED_HUB_HOSTS = "trustedHubHosts"
 	}
 
 	private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {

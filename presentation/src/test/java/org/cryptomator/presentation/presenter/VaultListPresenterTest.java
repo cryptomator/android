@@ -2,7 +2,7 @@ package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
 
-import org.cryptomator.data.db.UploadCheckpointDao;
+import org.cryptomator.data.db.dao.UploadCheckpointDao;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.repository.CloudRepository;
 import org.cryptomator.domain.repository.VaultRepository;
@@ -10,12 +10,12 @@ import org.cryptomator.domain.Cloud;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.Vault;
-import org.cryptomator.domain.usecases.DoLicenseCheckUseCase;
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase;
 import org.cryptomator.domain.usecases.DoUpdateUseCase;
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase;
 import org.cryptomator.domain.usecases.ResultHandler;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
+import org.cryptomator.domain.usecases.vault.CreatedVault;
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase;
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase;
 import org.cryptomator.domain.usecases.vault.ListCBCEncryptedPasswordVaultsUseCase;
@@ -26,11 +26,12 @@ import org.cryptomator.domain.usecases.vault.RenameVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultUseCase;
 import org.cryptomator.domain.usecases.vault.SaveVaultsUseCase;
 import org.cryptomator.domain.usecases.vault.UnlockToken;
-import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase;
 import org.cryptomator.presentation.exception.ExceptionHandlers;
 import org.cryptomator.presentation.R;
+import org.cryptomator.presentation.licensing.LicenseEnforcer;
 import org.cryptomator.presentation.model.VaultModel;
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
+import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.service.UploadUiUpdates;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
 import org.cryptomator.presentation.util.ContentResolverUtil;
@@ -39,6 +40,7 @@ import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow;
 import org.cryptomator.util.SharedPreferencesHandler;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -60,6 +62,8 @@ import static java.util.Arrays.asList;
 public class VaultListPresenterTest {
 
 	private static final String A_NEW_VAULT_NAME = "Haribo";
+
+	private static final String A_RECOVERY_KEY = "pathway lift abuse";
 
 	private static final Cloud A_CLOUD = OnedriveCloud //
 			.aOnedriveCloud() //
@@ -114,17 +118,17 @@ public class VaultListPresenterTest {
 	private CreateNewVaultWorkflow createNewVaultWorkflow = Mockito.mock(CreateNewVaultWorkflow.class);
 	private SaveVaultUseCase saveVaultUseCase = Mockito.mock(SaveVaultUseCase.class);
 	private MoveVaultPositionUseCase moveVaultPositionUseCase = Mockito.mock(MoveVaultPositionUseCase.class);
-	private DoLicenseCheckUseCase doLicenceCheckUsecase = Mockito.mock(DoLicenseCheckUseCase.class);
 	private DoUpdateCheckUseCase updateCheckUseCase = Mockito.mock(DoUpdateCheckUseCase.class);
 	private DoUpdateUseCase updateUseCase = Mockito.mock(DoUpdateUseCase.class);
-	private UpdateVaultParameterIfChangedRemotelyUseCase updateVaultParameterIfChangedRemotelyUseCase = Mockito.mock(UpdateVaultParameterIfChangedRemotelyUseCase.class);
 	private ListCBCEncryptedPasswordVaultsUseCase listCBCEncryptedPasswordVaultsUseCase = Mockito.mock(ListCBCEncryptedPasswordVaultsUseCase.class);
 	private RemoveStoredVaultPasswordsUseCase removeStoredVaultPasswordsUseCase = Mockito.mock(RemoveStoredVaultPasswordsUseCase.class);
 	private SaveVaultsUseCase saveVaultsUseCase = Mockito.mock(SaveVaultsUseCase.class);
 	private NetworkConnectionCheck networkConnectionCheck = Mockito.mock(NetworkConnectionCheck.class);
 	private FileUtil fileUtil = Mockito.mock(FileUtil.class);
 	private AuthenticationExceptionHandler authenticationExceptionHandler = Mockito.mock(AuthenticationExceptionHandler.class);
+	private LicenseEnforcer licenseEnforcer = Mockito.mock(LicenseEnforcer.class);
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
+	private ProductPricesCache productPricesCache = Mockito.mock(ProductPricesCache.class);
 	private UploadCheckpointDao uploadCheckpointDao = Mockito.mock(UploadCheckpointDao.class);
 	private UploadUiUpdates uploadUiUpdates = Mockito.mock(UploadUiUpdates.class);
 	private VaultRepository vaultRepository = Mockito.mock(VaultRepository.class);
@@ -139,7 +143,7 @@ public class VaultListPresenterTest {
 		RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
 		when(uploadUiUpdates.activeVaultIds()).thenReturn(Collections.emptySet());
 		when(uploadUiUpdates.vaultEvents()).thenReturn(Flowable.never());
-		when(uploadCheckpointDao.findAllVaultIdsWithCheckpoints()).thenReturn(Collections.emptySet());
+		when(uploadCheckpointDao.findAllVaultIdsWithCheckpoints()).thenReturn(Collections.emptyList());
 		inTest = new VaultListPresenter(getVaultListUseCase, //
 				deleteVaultUseCase, //
 				renameVaultUseCase, //
@@ -150,10 +154,8 @@ public class VaultListPresenterTest {
 				createNewVaultWorkflow, //
 				saveVaultUseCase, //
 				moveVaultPositionUseCase, //
-				doLicenceCheckUsecase, //
 				updateCheckUseCase, //
 				updateUseCase, //
-				updateVaultParameterIfChangedRemotelyUseCase, //
 				listCBCEncryptedPasswordVaultsUseCase, //
 				removeStoredVaultPasswordsUseCase, //
 				saveVaultsUseCase, //
@@ -161,7 +163,9 @@ public class VaultListPresenterTest {
 				fileUtil, //
 				authenticationExceptionHandler, //
 				cloudNodeModelMapper, //
+				licenseEnforcer, //
 				sharedPreferencesHandler, //
+				productPricesCache, //
 				uploadCheckpointDao, //
 				uploadUiUpdates, //
 				vaultRepository, //
@@ -170,6 +174,35 @@ public class VaultListPresenterTest {
 				exceptionMappings);
 		when(vaultListView.activity()).thenReturn(activity);
 		inTest.setView(vaultListView);
+	}
+
+	@Test
+	public void testCreatedVaultIsAddedAndShowsItsRecoveryKey() {
+		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
+
+		ArgumentCaptor<VaultModel> shownFor = ArgumentCaptor.forClass(VaultModel.class);
+		verify(vaultListView).addOrUpdateVault(Mockito.any());
+		verify(vaultListView).showRecoveryKeyDialog(shownFor.capture(), Mockito.eq(A_RECOVERY_KEY));
+		Assertions.assertEquals(AN_UNLOCKED_VAULT.getName(), shownFor.getValue().getName());
+	}
+
+	@Test
+	public void testVaultCreatedWhilePausedShowsItsRecoveryKeyOnResume() {
+		when(sharedPreferencesHandler.hasCompletedWelcomeFlow()).thenReturn(true);
+		when(sharedPreferencesHandler.licenseToken()).thenReturn("token");
+		when(licenseEnforcer.evaluateTrialState()).thenReturn(new LicenseEnforcer.TrialState(false, false, null));
+
+		inTest.pause();
+		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
+
+		verify(vaultListView).addOrUpdateVault(Mockito.any());
+		verify(vaultListView, never()).showRecoveryKeyDialog(Mockito.any(), Mockito.any());
+
+		inTest.resume();
+		inTest.pause();
+		inTest.resume();
+
+		verify(vaultListView, times(1)).showRecoveryKeyDialog(Mockito.any(), Mockito.eq(A_RECOVERY_KEY));
 	}
 
 	@Test
