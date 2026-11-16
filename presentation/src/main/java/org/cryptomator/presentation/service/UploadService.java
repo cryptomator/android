@@ -3,48 +3,32 @@ package org.cryptomator.presentation.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
 import androidx.annotation.Nullable;
 
-import org.cryptomator.data.db.dao.UploadCheckpointDao;
+import org.cryptomator.data.db.entities.UploadCheckpointEntity;
 import org.cryptomator.domain.Cloud;
-import org.cryptomator.domain.CloudFile;
 import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.exception.BackendException;
 import org.cryptomator.domain.exception.CancellationException;
-import org.cryptomator.domain.exception.FatalBackendException;
 import org.cryptomator.domain.exception.MissingCryptorException;
 import org.cryptomator.domain.repository.CloudContentRepository;
 import org.cryptomator.domain.repository.VaultDocumentRepository;
-import org.cryptomator.domain.usecases.ProgressAware;
-import org.cryptomator.domain.usecases.cloud.FileUploadedCallback;
-import org.cryptomator.domain.usecases.cloud.FolderCreatedCallback;
-import org.cryptomator.domain.usecases.cloud.UploadFile;
-import org.cryptomator.domain.usecases.cloud.UploadFiles;
+import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.domain.usecases.cloud.UploadFolderFiles;
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure;
-import org.cryptomator.domain.usecases.cloud.UploadState;
 import org.cryptomator.presentation.CryptomatorApp;
-import org.cryptomator.presentation.model.CloudFileModel;
-import org.cryptomator.presentation.model.CloudFolderModel;
-import org.cryptomator.presentation.util.FileIcon;
-import org.cryptomator.presentation.util.FileUtil;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import timber.log.Timber;
 
@@ -53,23 +37,26 @@ public class UploadService extends Service {
 	private static final String ACTION_CANCEL_UPLOAD = "CANCEL_UPLOAD";
 	private static final String EXTRA_CANCEL_VAULT_ID = "cancelVaultId";
 
+	private final Handler mainHandler = new Handler(Looper.getMainLooper());
 	private UploadNotification notification;
 	private CloudContentRepository cloudContentRepository;
 	private VaultDocumentRepository vaultDocumentRepository;
-	private UploadCheckpointDao uploadCheckpointDao;
+	private VaultRepository vaultRepository;
+	private UploadCheckpoints uploadCheckpoints;
 	private UploadUiUpdates uploadUiUpdates;
-	private FileUtil fileUtil;
 	private Context appContext;
 	private Thread worker;
-	private volatile boolean cancelled;
 	private volatile Runnable cancelCallback;
 	private volatile long currentVaultId = -1L;
 	private final Set<Long> cancelledVaultIds = ConcurrentHashMap.newKeySet();
 	private volatile long startTimeNotificationDelay;
 	private volatile long elapsedTimeNotificationDelay = 0L;
-	private volatile List<Uri> cleanupUris = Collections.emptyList();
 	private volatile KeepAliveLease uploadLease;
 
+	/**
+	 * Guards the queue, the worker's state and the vaults {@link UploadUiUpdates} tracks as active, so that each vault has
+	 * at most one upload queued or running.
+	 */
 	private final Object queueLock = new Object();
 	private final Queue<QueuedUpload> pendingUploads = new LinkedList<>();
 	private boolean workerRunning = false;
@@ -87,49 +74,44 @@ public class UploadService extends Service {
 		return cancelIntent;
 	}
 
-	public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
-			Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, files.size(), cleanupUris, (targetFolder, fileCallback, folderCallback, progressAware) -> {
-			UploadFiles uploadFiles = new UploadFiles(appContext, cloudContentRepository, vaultDocumentRepository, targetFolder, files, null);
-			uploadFiles.setCompletedFiles(completedFiles);
-			uploadFiles.setFileUploadedCallback(fileCallback);
-			cancelCallback = uploadFiles::onCancel;
-			if (cancelled) {
-				throw new CancellationException();
-			}
-			uploadFiles.execute(progressAware);
-		});
+	public UploadAdmission startFolderUpload(Cloud cloud, UploadFolderStructure folderStructure, long vaultId, String targetFolderPath, String sourceFolderUri, boolean replacing) {
+		UploadCheckpointEntity checkpoint = new UploadCheckpointEntity();
+		checkpoint.setVaultId(vaultId);
+		checkpoint.setTargetFolderPath(targetFolderPath);
+		checkpoint.setSourceFolderUri(sourceFolderUri);
+		checkpoint.setSourceFolderName(folderStructure.getFolderName());
+		checkpoint.setTotalFileCount(folderStructure.totalFileCount());
+		checkpoint.setReplacing(replacing);
+		return admit(cloud, folderStructure, checkpoint, false);
 	}
 
-	public void startFolderUpload(Cloud cloud, String targetFolderPath, UploadFolderStructure folderStructure,
-			Set<String> completedFiles, long vaultId) {
-		startUpload(cloud, targetFolderPath, completedFiles, vaultId, folderStructure.totalFileCount(), Collections.emptyList(), (targetFolder, fileCallback, folderCallback, progressAware) -> {
-			UploadFolderFiles uploadFolderFiles = new UploadFolderFiles(appContext, cloudContentRepository, targetFolder, folderStructure);
-			uploadFolderFiles.setCompletedFiles(completedFiles);
-			uploadFolderFiles.setFileUploadedCallback(fileCallback);
-			uploadFolderFiles.setFolderCreatedCallback(folderCallback);
-			cancelCallback = uploadFolderFiles::onCancel;
-			if (cancelled) {
-				throw new CancellationException();
-			}
-			uploadFolderFiles.execute(progressAware);
-		});
+	public UploadAdmission resumeFolderUpload(Cloud cloud, UploadFolderStructure folderStructure, UploadCheckpointEntity checkpoint) {
+		return admit(cloud, folderStructure, checkpoint, true);
 	}
 
-	private void startUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
-			long vaultId, int totalFiles, List<Uri> cleanupUris, UploadTask uploadTask) {
-		QueuedUpload upload = new QueuedUpload(cloud, targetFolderPath, completedFiles, vaultId, totalFiles, uploadTask, cleanupUris);
-		emitVaultActive(vaultId);
+	/**
+	 * @param resume whether {@code checkpoint} is the stored one of an interrupted upload, otherwise it is stored unless the
+	 * vault has a checkpoint already
+	 */
+	private UploadAdmission admit(Cloud cloud, UploadFolderStructure folderStructure, UploadCheckpointEntity checkpoint, boolean resume) {
+		long vaultId = checkpoint.getVaultId();
 		synchronized (queueLock) {
+			if (uploadUiUpdates.isVaultActive(vaultId) || (!resume && !uploadCheckpoints.createIfAbsent(checkpoint))) {
+				return UploadAdmission.BUSY;
+			}
+			// a cancellation only concerns the uploads that existed when it was requested
+			cancelledVaultIds.remove(vaultId);
+			uploadUiUpdates.markVaultActive(vaultId);
+			QueuedUpload upload = new QueuedUpload(cloud, checkpoint, folderStructure);
 			if (workerRunning) {
 				pendingUploads.add(upload);
 				Timber.tag("UploadService").i("Upload queued (another in progress)");
-				return;
+			} else {
+				workerRunning = true;
+				startWorker(upload);
 			}
-			workerRunning = true;
-			cancelled = false;
 		}
-		startWorker(upload);
+		return UploadAdmission.ACCEPTED;
 	}
 
 	private void startWorker(QueuedUpload initial) {
@@ -139,104 +121,98 @@ public class UploadService extends Service {
 		worker = new Thread(() -> {
 			QueuedUpload current = initial;
 			boolean isFirst = true;
-			try {
-				while (current != null) {
-					if (lease != null) {
-						lease.renew();
-					}
-					boolean success = processUpload(current, isFirst);
-					if (!success && cancelled) {
-						break;
-					}
-					isFirst = false;
-					synchronized (queueLock) {
-						current = pendingUploads.poll();
-					}
-				}
-			} finally {
-				drainAndCleanupQueue();
-				synchronized (queueLock) {
-					workerRunning = false;
-				}
+			while (current != null) {
 				if (lease != null) {
-					lease.release();
+					lease.renew();
 				}
-				uploadLease = null;
-				stopForeground(STOP_FOREGROUND_DETACH);
-				stopSelf();
+				processUpload(current, isFirst);
+				isFirst = false;
+				synchronized (queueLock) {
+					current = pendingUploads.poll();
+					if (current == null) {
+						stopWorker(lease);
+					}
+				}
 			}
 		});
 		worker.start();
 	}
 
-	private boolean processUpload(QueuedUpload upload, boolean isFirst) {
-		this.currentVaultId = upload.vaultId;
-		this.cleanupUris = upload.cleanupUris;
-
-		notification = new UploadNotification(appContext, upload.totalFiles);
-		if (isFirst) {
-			startForeground(UploadNotification.NOTIFICATION_ID, notification.getNotification());
+	/**
+	 * Requires {@link #queueLock}. An upload accepted afterwards then starts a new worker, which this worker's teardown
+	 * leaves alone.
+	 */
+	private void stopWorker(KeepAliveLease lease) {
+		workerRunning = false;
+		if (lease != null) {
+			lease.release();
 		}
-		notification.show();
+		uploadLease = null;
+		stopForeground(STOP_FOREGROUND_DETACH);
+		stopSelf();
+	}
 
-		FolderKey folderKey = new FolderKey(upload.vaultId, upload.targetFolderPath);
+	private void processUpload(QueuedUpload upload, boolean isFirst) {
+		this.currentVaultId = upload.vaultId;
+
+		UploadNotification uploadNotification = new UploadNotification(appContext, upload.totalFiles);
+		notification = uploadNotification;
+		if (isFirst) {
+			startForeground(UploadNotification.NOTIFICATION_ID, uploadNotification.getNotification());
+		}
+		uploadNotification.show();
 
 		try {
-			if (cancelled) {
-				return false;
-			}
-			if (cancelledVaultIds.remove(upload.vaultId)) {
-				uploadCheckpointDao.deleteByVaultId(upload.vaultId);
-				emitVaultFinished(upload.vaultId);
-				return false;
-			}
+			throwIfCancelled(upload.vaultId);
+			Set<String> completedFiles = uploadCheckpoints.completedFiles(upload.vaultId);
 			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
 					? cloudContentRepository.root(upload.cloud)
 					: cloudContentRepository.resolve(upload.cloud, upload.targetFolderPath);
 
-			FileUploadedCallback fileCallback = createCheckpointCallback(upload.vaultId, upload.completedFiles, folderKey);
-			FolderCreatedCallback folderCallback = createFolderCreatedCallback(folderKey);
-			ProgressAware<UploadState> progressAware = progress -> updateNotification(progress.asPercentage());
+			UploadFolderFiles uploadFolderFiles = new UploadFolderFiles(appContext, cloudContentRepository, vaultDocumentRepository, vaultRepository, targetFolder, upload.folderStructure);
+			uploadFolderFiles.setCompletedFiles(completedFiles);
+			uploadFolderFiles.setFileUploadedCallback(relativePath -> {
+				uploadCheckpoints.recordCompleted(upload.vaultId, relativePath);
+				mainHandler.post(uploadNotification::updateFinishedFile);
+			});
+			cancelCallback = uploadFolderFiles::onCancel;
+			// a cancellation that arrived before the callback was set
+			throwIfCancelled(upload.vaultId);
+			uploadFolderFiles.execute(progress -> updateNotification(uploadNotification, progress.asPercentage()));
 
-			upload.uploadTask.execute(targetFolder, fileCallback, folderCallback, progressAware);
-
-			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
-			emitUploadFinished(folderKey);
-			emitVaultFinished(upload.vaultId);
-			notification.showUploadFinished(upload.totalFiles - upload.completedFiles.size());
+			uploadCheckpoints.delete(upload.vaultId);
+			int uploadedCount = upload.totalFiles - completedFiles.size();
+			mainHandler.post(() -> uploadNotification.showUploadFinished(uploadedCount));
 			Timber.tag("UploadService").i("Upload completed");
-			return true;
 		} catch (CancellationException e) {
-			clearSnapshot(folderKey);
-			uploadCheckpointDao.deleteByVaultId(upload.vaultId);
-			cancelledVaultIds.remove(upload.vaultId);
-			emitVaultFinished(upload.vaultId);
+			uploadCheckpoints.delete(upload.vaultId);
 			Timber.tag("UploadService").i("Upload canceled by user");
-			return false;
 		} catch (MissingCryptorException e) {
-			clearSnapshot(folderKey);
-			emitVaultFinished(upload.vaultId);
-			notification.showVaultLockedDuringUpload();
+			mainHandler.post(uploadNotification::showVaultLockedDuringUpload);
 			Timber.tag("UploadService").e(e, "Vault locked during upload");
-			return false;
-		} catch (BackendException | FatalBackendException e) {
-			clearSnapshot(folderKey);
-			emitVaultFinished(upload.vaultId);
-			notification.showGeneralErrorDuringUpload();
+		} catch (BackendException | RuntimeException e) {
+			mainHandler.post(uploadNotification::showGeneralErrorDuringUpload);
 			Timber.tag("UploadService").e(e, "Upload failed");
-			return false;
 		} finally {
-			deleteCleanupUris();
+			cancelCallback = null;
+			cancelledVaultIds.remove(upload.vaultId);
+			finishVault(upload.vaultId);
 		}
 	}
 
-	private void drainAndCleanupQueue() {
-		List<QueuedUpload> abandoned;
-		synchronized (queueLock) {
-			abandoned = new ArrayList<>(pendingUploads);
-			pendingUploads.clear();
+	private void throwIfCancelled(long vaultId) {
+		if (cancelledVaultIds.contains(vaultId)) {
+			throw new CancellationException();
 		}
-		abandoned.forEach(this::cleanupAbandonedUpload);
+	}
+
+	/**
+	 * Requires {@link #queueLock}.
+	 */
+	private List<QueuedUpload> drainQueue() {
+		List<QueuedUpload> drained = new ArrayList<>(pendingUploads);
+		pendingUploads.clear();
+		return drained;
 	}
 
 	private void drainQueueForVault(long vaultId) {
@@ -255,148 +231,40 @@ public class UploadService extends Service {
 	}
 
 	private void cleanupAbandonedUpload(QueuedUpload upload) {
-		uploadCheckpointDao.deleteByVaultId(upload.vaultId);
-		emitVaultFinished(upload.vaultId);
-		deleteTempFiles(upload.cleanupUris);
+		uploadCheckpoints.delete(upload.vaultId);
+		finishVault(upload.vaultId);
 	}
 
-	private interface UploadTask {
-		void execute(CloudFolder targetFolder, FileUploadedCallback fileCallback,
-				FolderCreatedCallback folderCallback,
-				ProgressAware<UploadState> progressAware) throws BackendException;
+	private void finishVault(long vaultId) {
+		synchronized (queueLock) {
+			uploadUiUpdates.markVaultFinished(vaultId);
+		}
 	}
 
 	private static class QueuedUpload {
 		final Cloud cloud;
 		final String targetFolderPath;
-		final Set<String> completedFiles;
+		final UploadFolderStructure folderStructure;
 		final long vaultId;
 		final int totalFiles;
-		final UploadTask uploadTask;
-		final List<Uri> cleanupUris;
 
-		QueuedUpload(Cloud cloud, String targetFolderPath, Set<String> completedFiles,
-				long vaultId, int totalFiles, UploadTask uploadTask, List<Uri> cleanupUris) {
+		QueuedUpload(Cloud cloud, UploadCheckpointEntity checkpoint, UploadFolderStructure folderStructure) {
 			this.cloud = cloud;
-			this.targetFolderPath = targetFolderPath;
-			this.completedFiles = completedFiles;
-			this.vaultId = vaultId;
-			this.totalFiles = totalFiles;
-			this.uploadTask = uploadTask;
-			this.cleanupUris = cleanupUris;
+			this.targetFolderPath = checkpoint.getTargetFolderPath();
+			this.folderStructure = folderStructure;
+			this.vaultId = checkpoint.getVaultId();
+			this.totalFiles = checkpoint.getTotalFileCount();
 		}
 	}
 
-	private FileUploadedCallback createCheckpointCallback(long vaultId, Set<String> completedFiles, FolderKey folderKey) {
-		Set<String> uploadedSoFar = new HashSet<>(completedFiles);
-		return (relativePath, file) -> {
-			uploadedSoFar.add(relativePath);
-			try {
-				String json = toJsonArray(uploadedSoFar);
-				uploadCheckpointDao.updateCompletedFiles(vaultId, json);
-			} catch (Exception e) {
-				Timber.tag("UploadService").w(e, "Failed to update checkpoint");
-			}
-			// Only emit for direct children of the target folder.
-			// Flat uploads: relativePath is just the filename (no "/").
-			// Folder uploads: files inside the folder always have "/" — they're not direct children.
-			if (!relativePath.contains("/")) {
-				emitFileCreated(folderKey, file);
-			}
-			new Handler(Looper.getMainLooper()).post(() -> {
-				if (notification != null) {
-					notification.updateFinishedFile();
-				}
-			});
-		};
-	}
-
-	private FolderCreatedCallback createFolderCreatedCallback(FolderKey folderKey) {
-		// Only emit for the root folder (direct child of target).
-		// The root folder's relativePath has no "/"; subfolders do.
-		return (relativePath, folder) -> {
-			if (!relativePath.contains("/")) {
-				emitFolderCreated(folderKey, folder);
-			}
-		};
-	}
-
-	private void emitFileCreated(FolderKey folderKey, CloudFile file) {
-		if (fileUtil != null) {
-			CloudFileModel model = new CloudFileModel(file, FileIcon.fileIconFor(file.getName(), fileUtil));
-			emitEvent(new UploadUiEvent.NodeCreated(folderKey, model));
-		}
-	}
-
-	private void emitFolderCreated(FolderKey folderKey, CloudFolder folder) {
-		emitEvent(new UploadUiEvent.NodeCreated(folderKey, new CloudFolderModel(folder)));
-	}
-
-	private void emitUploadFinished(FolderKey folderKey) {
-		emitEvent(new UploadUiEvent.UploadFinished(folderKey));
-	}
-
-	private void emitEvent(UploadUiEvent event) {
-		safeEmit(() -> uploadUiUpdates.emit(event), "Failed to emit upload event");
-	}
-
-	private void clearSnapshot(FolderKey folderKey) {
-		if (uploadUiUpdates != null) {
-			uploadUiUpdates.clear(folderKey);
-		}
-	}
-
-	private void emitVaultActive(long vaultId) {
-		safeEmit(() -> uploadUiUpdates.markVaultActive(vaultId), "Failed to emit vault active event");
-	}
-
-	private void emitVaultFinished(long vaultId) {
-		safeEmit(() -> uploadUiUpdates.markVaultFinished(vaultId), "Failed to emit vault finished event");
-	}
-
-	private void safeEmit(Runnable action, String errorMessage) {
-		if (uploadUiUpdates != null) {
-			try {
-				action.run();
-			} catch (Exception e) {
-				Timber.tag("UploadService").w(e, errorMessage);
-			}
-		}
-	}
-
-	private String toJsonArray(Set<String> items) {
-		return items.stream()
-				.map(item -> "\"" + item.replace("\"", "\\\"") + "\"")
-				.collect(Collectors.joining(",", "[", "]"));
-	}
-
-	private void deleteCleanupUris() {
-		List<Uri> uris = cleanupUris;
-		cleanupUris = Collections.emptyList();
-		deleteTempFiles(uris);
-	}
-
-	private void deleteTempFiles(List<Uri> uris) {
-		for (Uri uri : uris) {
-			try {
-				File file = new File(uri.getPath());
-				if (file.delete()) {
-					Timber.tag("UploadService").d("Cleaned up temp file: %s", uri);
-				}
-			} catch (Exception e) {
-				Timber.tag("UploadService").w(e, "Failed to clean up temp file");
-			}
-		}
-	}
-
-	private void updateNotification(int asPercentage) {
+	private void updateNotification(UploadNotification uploadNotification, int asPercentage) {
 		KeepAliveLease lease = uploadLease;
 		if (lease != null) {
 			lease.renew();
 		}
-		if (elapsedTimeNotificationDelay > 200 && !cancelled) {
-			new Handler(Looper.getMainLooper()).post(() -> {
-				notification.update(asPercentage);
+		if (elapsedTimeNotificationDelay > 200) {
+			mainHandler.post(() -> {
+				uploadNotification.update(asPercentage);
 				startTimeNotificationDelay = System.currentTimeMillis();
 				elapsedTimeNotificationDelay = 0;
 			});
@@ -428,8 +296,12 @@ public class UploadService extends Service {
 				}
 			} else {
 				Timber.tag("UploadService").i("Received cancel upload");
-				drainAndCleanupQueue();
-				cancelled = true;
+				List<QueuedUpload> abandoned;
+				synchronized (queueLock) {
+					abandoned = drainQueue();
+					cancelledVaultIds.addAll(uploadUiUpdates.activeVaultIds());
+				}
+				abandoned.forEach(this::cleanupAbandonedUpload);
 				Runnable cancel = cancelCallback;
 				if (cancel != null) {
 					cancel.run();
@@ -482,28 +354,23 @@ public class UploadService extends Service {
 
 		public void init(CloudContentRepository cloudContentRepository,
 				VaultDocumentRepository vaultDocumentRepository,
-				UploadCheckpointDao uploadCheckpointDao, UploadUiUpdates uploadUiUpdates,
-				FileUtil fileUtil, Context context) {
+				VaultRepository vaultRepository,
+				UploadCheckpoints uploadCheckpoints, UploadUiUpdates uploadUiUpdates,
+				Context context) {
 			UploadService.this.cloudContentRepository = cloudContentRepository;
 			UploadService.this.vaultDocumentRepository = vaultDocumentRepository;
-			UploadService.this.uploadCheckpointDao = uploadCheckpointDao;
+			UploadService.this.vaultRepository = vaultRepository;
+			UploadService.this.uploadCheckpoints = uploadCheckpoints;
 			UploadService.this.uploadUiUpdates = uploadUiUpdates;
-			UploadService.this.fileUtil = fileUtil;
 			UploadService.this.appContext = context;
 		}
 
-		public void startFileUpload(Cloud cloud, String targetFolderPath, List<UploadFile> files,
-				Set<String> completedFiles, long vaultId, List<Uri> cleanupUris) {
-			UploadService.this.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris);
+		public UploadAdmission startFolderUpload(Cloud cloud, UploadFolderStructure folderStructure, long vaultId, String targetFolderPath, String sourceFolderUri, boolean replacing) {
+			return UploadService.this.startFolderUpload(cloud, folderStructure, vaultId, targetFolderPath, sourceFolderUri, replacing);
 		}
 
-		public void startFolderUpload(Cloud cloud, String targetFolderPath, UploadFolderStructure folderStructure,
-				Set<String> completedFiles, long vaultId) {
-			UploadService.this.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId);
-		}
-
-		public UploadCheckpointDao getUploadCheckpointDao() {
-			return UploadService.this.uploadCheckpointDao;
+		public UploadAdmission resumeFolderUpload(Cloud cloud, UploadFolderStructure folderStructure, UploadCheckpointEntity checkpoint) {
+			return UploadService.this.resumeFolderUpload(cloud, folderStructure, checkpoint);
 		}
 	}
 }

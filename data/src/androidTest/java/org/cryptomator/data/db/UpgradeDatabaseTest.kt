@@ -1209,14 +1209,10 @@ class UpgradeDatabaseTest {
 		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
 			.integer("_id", 1) //
 			.integer("VAULT_ID", 42) //
-			.text("TYPE", "folder") //
 			.text("TARGET_FOLDER_PATH", "/Documents") //
 			.text("SOURCE_FOLDER_URI", "content://tree/uri") //
 			.text("SOURCE_FOLDER_NAME", "Photos") //
-			.text("PENDING_FILE_URIS", null) //
-			.text("COMPLETED_FILES", "[\"file1.txt\"]") //
 			.integer("TOTAL_FILE_COUNT", 5) //
-			.integer("TIMESTAMP", 1700000000) //
 			.bool("REPLACING", true) //
 			.executeOn(db)
 
@@ -1224,15 +1220,21 @@ class UpgradeDatabaseTest {
 			it.moveToFirst()
 			Assert.assertThat(it.getInt(it.getColumnIndex("_id")), CoreMatchers.`is`(1))
 			Assert.assertThat(it.getInt(it.getColumnIndex("VAULT_ID")), CoreMatchers.`is`(42))
-			Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`("folder"))
 			Assert.assertThat(it.getString(it.getColumnIndex("TARGET_FOLDER_PATH")), CoreMatchers.`is`("/Documents"))
 			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_URI")), CoreMatchers.`is`("content://tree/uri"))
 			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_NAME")), CoreMatchers.`is`("Photos"))
-			Assert.assertThat(it.isNull(it.getColumnIndex("PENDING_FILE_URIS")), CoreMatchers.`is`(true))
-			Assert.assertThat(it.getString(it.getColumnIndex("COMPLETED_FILES")), CoreMatchers.`is`("[\"file1.txt\"]"))
 			Assert.assertThat(it.getInt(it.getColumnIndex("TOTAL_FILE_COUNT")), CoreMatchers.`is`(5))
-			Assert.assertThat(it.getLong(it.getColumnIndex("TIMESTAMP")), CoreMatchers.`is`(1700000000L))
 			Assert.assertThat(it.getInt(it.getColumnIndex("REPLACING")), CoreMatchers.`is`(1))
+		}
+
+		Sql.insertInto("UPLOAD_CHECKPOINT_FILE_ENTITY") //
+			.integer("VAULT_ID", 42) //
+			.text("PATH", "Photos/a.jpg") //
+			.executeOn(db)
+
+		Sql.query("UPLOAD_CHECKPOINT_FILE_ENTITY").where("VAULT_ID", Sql.eq(42)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("PATH")), CoreMatchers.`is`("Photos/a.jpg"))
 		}
 	}
 
@@ -1261,11 +1263,10 @@ class UpgradeDatabaseTest {
 		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
 			.integer("_id", 1) //
 			.integer("VAULT_ID", 42) //
-			.text("TYPE", "files") //
 			.text("TARGET_FOLDER_PATH", "/path") //
-			.text("COMPLETED_FILES", "[]") //
+			.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+			.text("SOURCE_FOLDER_NAME", "Photos") //
 			.integer("TOTAL_FILE_COUNT", 1) //
-			.integer("TIMESTAMP", 1000) //
 			.bool("REPLACING", false) //
 			.executeOn(db)
 
@@ -1273,11 +1274,10 @@ class UpgradeDatabaseTest {
 			Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
 				.integer("_id", 2) //
 				.integer("VAULT_ID", 42) //
-				.text("TYPE", "folder") //
 				.text("TARGET_FOLDER_PATH", "/other") //
-				.text("COMPLETED_FILES", "[]") //
+				.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+				.text("SOURCE_FOLDER_NAME", "Photos") //
 				.integer("TOTAL_FILE_COUNT", 2) //
-				.integer("TIMESTAMP", 2000) //
 				.bool("REPLACING", false) //
 				.executeOn(db)
 			Assert.fail("Expected constraint violation for duplicate VAULT_ID")

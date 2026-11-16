@@ -5,6 +5,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
@@ -64,10 +65,7 @@ class StreamHelperTest {
 		}
 		val output: OutputStream = mock()
 
-		try {
-			StreamHelper.copy(input, output)
-		} catch (_: IOException) {
-		}
+		assertThrows<IOException> { StreamHelper.copy(input, output) }
 
 		verify(input).close()
 		verify(output).close()
@@ -83,10 +81,7 @@ class StreamHelperTest {
 			on { write(any<ByteArray>(), any(), any()) } doThrow IOException("write failed")
 		}
 
-		try {
-			StreamHelper.copy(input, output)
-		} catch (_: IOException) {
-		}
+		assertThrows<IOException> { StreamHelper.copy(input, output) }
 
 		verify(input).close()
 		verify(output).close()

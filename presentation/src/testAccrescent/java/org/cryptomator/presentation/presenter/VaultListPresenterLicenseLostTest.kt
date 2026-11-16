@@ -3,6 +3,8 @@ package org.cryptomator.presentation.presenter
 import android.app.Activity
 import android.os.Bundle
 import org.cryptomator.data.util.NetworkConnectionCheck
+import org.cryptomator.domain.repository.CloudRepository
+import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
@@ -20,6 +22,8 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.ProductPricesCache
+import org.cryptomator.presentation.service.UploadCheckpoints
+import org.cryptomator.presentation.service.UploadUiUpdates
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
 import org.cryptomator.presentation.util.FileUtil
@@ -65,6 +69,10 @@ class VaultListPresenterLicenseLostTest {
 			Mockito.mock(LicenseEnforcer::class.java),
 			sharedPreferencesHandler,
 			Mockito.mock(ProductPricesCache::class.java),
+			Mockito.mock(UploadCheckpoints::class.java),
+			Mockito.mock(UploadUiUpdates::class.java),
+			Mockito.mock(VaultRepository::class.java),
+			Mockito.mock(CloudRepository::class.java),
 			Mockito.mock(ExceptionHandlers::class.java)
 		)
 		Mockito.doReturn(Mockito.mock(Activity::class.java)).`when`(vaultListView).activity()

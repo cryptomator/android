@@ -5,9 +5,19 @@ import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
+import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.Vault
+import org.cryptomator.domain.VaultPath
 import org.cryptomator.domain.exception.BackendException
+import org.cryptomator.domain.exception.CancellationException
 import org.cryptomator.domain.exception.CloudNodeAlreadyExistsException
+import org.cryptomator.domain.exception.MissingCryptorException
 import org.cryptomator.domain.repository.CloudContentRepository
+import org.cryptomator.domain.repository.VaultDocumentChange
+import org.cryptomator.domain.repository.VaultDocumentChangeResult
+import org.cryptomator.domain.repository.VaultDocumentImport
+import org.cryptomator.domain.repository.VaultDocumentRepository
+import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.util.Optional
 import org.hamcrest.CoreMatchers.`is`
@@ -15,12 +25,18 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
+import org.mockito.kotlin.any as anyArg
+import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.doAnswer
+import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.same
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -32,6 +48,9 @@ class UploadFolderFilesTest {
 
 	private val context: Context = mock()
 	private var cloudContentRepository: CloudContentRepository<Cloud, CloudNode, CloudFolder, CloudFile> = mock()
+	private val vaultDocumentRepository: VaultDocumentRepository = mock()
+	private val vaultRepository: VaultRepository = mock()
+	private val vaultFolder = VaultPath(Vault.aVault().withId(1L).withName("vault").withPath("/vault").withCloudType(CloudType.LOCAL).withPosition(0).build(), "target")
 	private val parent: CloudFolder = mock()
 	private val createdFolder: CloudFolder = mock()
 	private val createdSubfolder: CloudFolder = mock()
@@ -68,7 +87,7 @@ class UploadFolderFilesTest {
 				.build()
 		)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 
 		whenever(cloudContentRepository.file(createdFolder, "file.txt", fileSize)).thenReturn(targetFile)
 		whenever(
@@ -116,7 +135,7 @@ class UploadFolderFilesTest {
 		)
 		structure.addSubfolder(subfolder)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 
 		whenever(cloudContentRepository.folder(createdFolder, "sub")).thenReturn(subfolderToCreate)
 		whenever(cloudContentRepository.create(subfolderToCreate)).thenReturn(createdSubfolder)
@@ -160,7 +179,7 @@ class UploadFolderFilesTest {
 	fun testUploadEmptyFolder() {
 		val structure = UploadFolderStructure("testFolder")
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 
 		val result = inTest.execute(progressAware)
 
@@ -239,7 +258,7 @@ class UploadFolderFilesTest {
 				.build()
 		)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 		inTest.setCompletedFiles(setOf("testFolder/file1.txt"))
 
 		whenever(cloudContentRepository.file(createdFolder, "file2.txt", fileSize)).thenReturn(targetFile)
@@ -276,7 +295,7 @@ class UploadFolderFilesTest {
 				.build()
 		)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 		inTest.setFileUploadedCallback(callback)
 
 		whenever(cloudContentRepository.file(createdFolder, "file.txt", fileSize)).thenReturn(targetFile)
@@ -292,7 +311,7 @@ class UploadFolderFilesTest {
 
 		inTest.execute(progressAware)
 
-		verify(callback).onFileUploaded(eq("testFolder/file.txt"), same(resultFile))
+		verify(callback).onFileUploaded("testFolder/file.txt")
 	}
 
 	@Test
@@ -315,7 +334,7 @@ class UploadFolderFilesTest {
 		val structure = UploadFolderStructure("testFolder")
 		structure.addSubfolder(subfolder)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 		inTest.setFileUploadedCallback(callback)
 
 		whenever(cloudContentRepository.folder(createdFolder, "sub")).thenReturn(subfolderToCreate)
@@ -333,7 +352,7 @@ class UploadFolderFilesTest {
 
 		inTest.execute(progressAware)
 
-		verify(callback).onFileUploaded(eq("testFolder/sub/deep.txt"), same(resultFile))
+		verify(callback).onFileUploaded("testFolder/sub/deep.txt")
 	}
 
 	@Test
@@ -354,7 +373,7 @@ class UploadFolderFilesTest {
 
 		whenever(cloudContentRepository.create(folderToCreate)).thenThrow(CloudNodeAlreadyExistsException("testFolder"))
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 
 		whenever(cloudContentRepository.file(folderToCreate, "file.txt", fileSize)).thenReturn(targetFile)
 		whenever(
@@ -400,7 +419,7 @@ class UploadFolderFilesTest {
 		val structure = UploadFolderStructure("testFolder")
 		structure.addSubfolder(subfolder)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 		inTest.setCompletedFiles(setOf("testFolder/sub/subfile1.txt"))
 
 		whenever(cloudContentRepository.folder(createdFolder, "sub")).thenReturn(subfolderToCreate)
@@ -447,7 +466,7 @@ class UploadFolderFilesTest {
 				.build()
 		)
 
-		val inTest = UploadFolderFiles(context, cloudContentRepository, parent, structure)
+		val inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, structure)
 		inTest.setFileUploadedCallback(callback)
 
 		val existingTarget: CloudFile = mock()
@@ -477,8 +496,8 @@ class UploadFolderFilesTest {
 
 		assertThat(result.size, `is`(1))
 		assertThat(result[0], `is`(resultFile))
-		verify(callback).onFileUploaded(eq("testFolder/existing.txt"), eq(null))
-		verify(callback).onFileUploaded(eq("testFolder/new.txt"), same(resultFile))
+		verify(callback).onFileUploaded("testFolder/existing.txt")
+		verify(callback).onFileUploaded("testFolder/new.txt")
 	}
 
 	@Test
@@ -509,6 +528,113 @@ class UploadFolderFilesTest {
 
 		assertThat(root.files[0].replacing, `is`(true))
 		assertThat(root.subfolders[0].files[0].replacing, `is`(true))
+	}
+
+	@Test
+	fun `a folder in a vault is created through the vault cache and its files are imported into it`() {
+		val createdPath = givenFolderCreatedInVault()
+		vaultImport { VaultDocumentChangeResult(createdPath.resolve("file.txt"), resultFile) }
+
+		val result = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+
+		assertThat(result, `is`(listOf(resultFile)))
+		verify(vaultDocumentRepository).importFile(eq(createdPath), eq("file.txt"), any(DataSource::class.java), eq(false), eq(false), eq(false), same(progressAware))
+		verifyNoMoreInteractions(cloudContentRepository)
+	}
+
+	@Test
+	fun `a folder that exists in the vault already is reused, for example when an interrupted upload is resumed`() {
+		val existingPath = vaultFolder.resolve("testFolder")
+		whenever(vaultDocumentRepository.currentPathOf(parent)).thenReturn(vaultFolder)
+		whenever(vaultDocumentRepository.createFolder(vaultFolder, "testFolder", false)).thenThrow(CloudNodeAlreadyExistsException("testFolder"))
+		whenever(vaultDocumentRepository.currentPathOf(folderToCreate)).thenReturn(existingPath)
+		vaultImport { VaultDocumentChangeResult(existingPath.resolve("file.txt"), resultFile) }
+
+		UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+
+		verify(vaultDocumentRepository).importFile(eq(existingPath), eq("file.txt"), any(DataSource::class.java), eq(false), eq(false), eq(false), same(progressAware))
+		verify(cloudContentRepository, never()).create(any(CloudFolder::class.java))
+	}
+
+	@Test
+	fun `canceling cancels the running import`() {
+		givenFolderCreatedInVault()
+		lateinit var inTest: UploadFolderFiles
+		val vaultImport = vaultImport {
+			inTest.onCancel()
+			throw CancellationException()
+		}
+		inTest = UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile())
+
+		assertThrows<CancellationException> { inTest.execute(progressAware) }
+
+		verify(vaultImport).cancel()
+	}
+
+	@Test
+	fun `locking the vault while a folder is created ends the upload instead of waiting for the next unlock`() {
+		whenever(vaultDocumentRepository.currentPathOf(parent)).thenReturn(vaultFolder)
+		// the creation stays pending while the vault is locked
+		val creation: VaultDocumentChange<CloudFolder> = mock()
+		whenever(vaultDocumentRepository.createFolder(vaultFolder, "testFolder", false)).thenReturn(creation)
+		doThrow(MissingCryptorException()).whenever(vaultRepository).assertUnlocked(vaultFolder.vault)
+
+		assertThrows<MissingCryptorException> {
+			UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+		}
+	}
+
+	@Test
+	fun `an import the vault lock stopped ends the upload as locked, not as canceled`() {
+		givenFolderCreatedInVault()
+		vaultImport { throw CancellationException() }
+		doThrow(MissingCryptorException()).whenever(vaultRepository).assertUnlocked(vaultFolder.vault)
+
+		assertThrows<MissingCryptorException> {
+			UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+		}
+	}
+
+	@Test
+	fun `an import that failed because the vault lock destroyed the cryptor while encrypting ends the upload as locked`() {
+		givenFolderCreatedInVault()
+		vaultImport { throw IllegalStateException("Key has been destroyed") }
+		doThrow(MissingCryptorException()).whenever(vaultRepository).assertUnlocked(vaultFolder.vault)
+
+		assertThrows<MissingCryptorException> {
+			UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+		}
+	}
+
+	@Test
+	fun `an import that failed while the vault stays unlocked ends the upload with its failure`() {
+		givenFolderCreatedInVault()
+		vaultImport { throw IllegalStateException("failure") }
+
+		assertThrows<IllegalStateException> {
+			UploadFolderFiles(context, cloudContentRepository, vaultDocumentRepository, vaultRepository, parent, folderWithFile()).execute(progressAware)
+		}
+	}
+
+	private fun givenFolderCreatedInVault(): VaultPath {
+		val createdPath = vaultFolder.resolve("testFolder")
+		whenever(vaultDocumentRepository.currentPathOf(parent)).thenReturn(vaultFolder)
+		val creation: VaultDocumentChange<CloudFolder> = mock { on { await(anyArg(), anyArg()) } doAnswer { VaultDocumentChangeResult(createdPath, createdFolder) } }
+		whenever(vaultDocumentRepository.createFolder(vaultFolder, "testFolder", false)).thenReturn(creation)
+		whenever(vaultDocumentRepository.currentPathOf(createdFolder)).thenReturn(createdPath)
+		return createdPath
+	}
+
+	private fun folderWithFile(): UploadFolderStructure {
+		val structure = UploadFolderStructure("testFolder")
+		structure.addFile(UploadFile.Builder().withFileName("file.txt").withDataSource(dataSourceWithBytes(0, 3, 3)).thatIsReplacing(false).build())
+		return structure
+	}
+
+	private fun vaultImport(result: () -> VaultDocumentChangeResult<CloudFile>): VaultDocumentImport {
+		val vaultImport: VaultDocumentImport = mock { on { await(anyArg(), anyArg()) } doAnswer { result() } }
+		whenever(vaultDocumentRepository.importFile(anyArg(), anyArg(), anyOrNull(), anyArg(), anyArg(), anyArg(), anyArg())).thenReturn(vaultImport)
+		return vaultImport
 	}
 
 	private fun dataSourceWithBytes(value: Int, amount: Long, size: Long?): DataSource {

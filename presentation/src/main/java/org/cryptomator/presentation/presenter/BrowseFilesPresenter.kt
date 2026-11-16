@@ -11,8 +11,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.cryptomator.data.db.dao.UploadCheckpointDao
-import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudFolder
@@ -80,12 +78,11 @@ import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.model.mappers.CloudNodeModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressStateModelMapper
-import org.cryptomator.presentation.service.FolderKey
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.service.OpenWritableFileNotification
-import org.cryptomator.presentation.service.UploadUiEvent
-import org.cryptomator.presentation.service.UploadUiUpdates
+import org.cryptomator.presentation.service.UploadAdmission
+import org.cryptomator.presentation.service.UploadCheckpoints
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
@@ -149,8 +146,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val shareFileHelper: ShareFileHelper,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val licenseEnforcer: LicenseEnforcer, //
-	private val uploadCheckpointDao: UploadCheckpointDao,  //
-	private val uploadUiUpdates: UploadUiUpdates,  //
+	private val uploadCheckpoints: UploadCheckpoints,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
@@ -162,7 +158,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	private var resumedAfterAuthentication = false
 	private var folderStructureDisposable: Disposable? = null
-	private var uploadEventsDisposable: Disposable? = null
 	private var pickerLease: KeepAliveLease? = null
 	private var pendingFolderUpload: UploadFolderStructure? = null
 	private var pendingFolderSourceUri: Uri? = null
@@ -431,7 +426,6 @@ class BrowseFilesPresenter @Inject constructor( //
 					} else {
 						showCloudNodesCollectionInView(cloudNodes)
 					}
-					subscribeToUploadEvents(cloudFolderModel)
 					view?.showLoading(false)
 				}
 
@@ -859,8 +853,6 @@ class BrowseFilesPresenter @Inject constructor( //
 		pickerLease = null
 		folderStructureDisposable?.dispose()
 		folderStructureDisposable = null
-		uploadEventsDisposable?.dispose()
-		uploadEventsDisposable = null
 	}
 
 	private fun endExternalEditing() {
@@ -1090,7 +1082,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	fun uploadFilesAndReplaceExistingFiles() {
 		pendingFolderUpload?.let { folder ->
 			folder.setAllReplacing(true)
-			uploadFolder(folder, pendingFolderSourceUri, replacing = true)
+			uploadFolder(folder, requireNotNull(pendingFolderSourceUri), replacing = true)
 			clearPendingFolderUpload()
 			return
 		}
@@ -1100,7 +1092,7 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	fun uploadFilesAndSkipExistingFiles() {
 		pendingFolderUpload?.let { folder ->
-			uploadFolder(folder, pendingFolderSourceUri)
+			uploadFolder(folder, requireNotNull(pendingFolderSourceUri))
 			clearPendingFolderUpload()
 			return
 		}
@@ -1261,14 +1253,12 @@ class BrowseFilesPresenter @Inject constructor( //
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
 		intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-		intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
 		intent = Intent.createChooser(intent, context().getString(R.string.screen_file_browser_upload_files_chooser_title))
 		requestActivityResult(ActivityResultCallbacks.selectedFiles(), intent)
 	}
 
 	fun onUploadCanceled() {
 		uploadFilesUseCase.cancel()
-		context().startService(org.cryptomator.presentation.service.UploadService.cancelUploadIntent(context()))
 	}
 
 	@Callback(dispatchResultOkOnly = false)
@@ -1277,15 +1267,7 @@ class BrowseFilesPresenter @Inject constructor( //
 			releasePickerLease()
 			return
 		}
-		val fileUris = getFileUrisFromIntent(result.intent())
-		fileUris.forEach { uri ->
-			try {
-				context().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-			} catch (e: SecurityException) {
-				Timber.tag("BrowseFilesPresenter").d(e, "Could not persist URI permission: %s", uri)
-			}
-		}
-		prepareSelectedFilesForUpload(fileUris)
+		prepareSelectedFilesForUpload(getFileUrisFromIntent(result.intent()))
 	}
 
 	private fun getFileUrisFromIntent(intent: Intent): List<Uri> {
@@ -1336,10 +1318,11 @@ class BrowseFilesPresenter @Inject constructor( //
 			releasePickerLease()
 			return
 		}
-		context().contentResolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+		uploadCheckpoints.takeReadAccess(treeUri)
 		lastSelectedFolderUri = treeUri
 		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: run {
 			releasePickerLease()
+			releaseFolderReadAccess(treeUri)
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
@@ -1351,6 +1334,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (folderStructure.totalFileCount() == 0) {
 					releasePickerLease()
+					releaseFolderReadAccess(treeUri)
 					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 					return@subscribe
 				}
@@ -1363,44 +1347,34 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 			}, { e ->
 				releasePickerLease()
+				releaseFolderReadAccess(treeUri)
 				view?.showProgress(ProgressModel.COMPLETED)
 				showError(e)
 			})
 	}
 
-	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri? = null, replacing: Boolean = false) {
-		val location = uploadLocation ?: return releasePickerLease()
-		val locationNode = location.toCloudNode()
-		val cloud = locationNode.cloud ?: return releasePickerLease()
-		val vaultId = location.vault()?.toVault()?.id ?: return releasePickerLease()
-		val targetFolderPath = locationNode.path
-
-		saveCheckpoint(vaultId, "folder", targetFolderPath, folderStructure.totalFileCount()) {
-			this.sourceFolderUri = sourceFolderUri?.toString()
-			this.sourceFolderName = folderStructure.folderName
-			this.isReplacing = replacing
-		}
-
+	private fun uploadFolder(folderStructure: UploadFolderStructure, sourceFolderUri: Uri, replacing: Boolean = false) {
 		releasePickerLease()
-		dispatchUpload(vaultId) {
-			cryptomatorApp.startFolderUpload(cloud, targetFolderPath, folderStructure, emptySet(), vaultId)
+		val location = uploadLocation
+		val locationNode = location?.toCloudNode()
+		val cloud = locationNode?.cloud
+		val vaultId = location?.vault()?.toVault()?.id
+		if (locationNode == null || cloud == null || vaultId == null) {
+			releaseFolderReadAccess(sourceFolderUri)
+			return
 		}
+
+		val admission = cryptomatorApp.startFolderUpload(cloud, folderStructure, vaultId, locationNode.path, sourceFolderUri.toString(), replacing)
+		if (admission != UploadAdmission.ACCEPTED) {
+			releaseFolderReadAccess(sourceFolderUri)
+		}
+		view?.showProgress(ProgressModel.COMPLETED)
+		view?.showMessage(admission.refusalMessage ?: R.string.notification_upload_started)
+		uploadLocation = null
 	}
 
-	private fun saveCheckpoint(
-		vaultId: Long, type: String, targetFolderPath: String,
-		totalFileCount: Int, configure: UploadCheckpointEntity.() -> Unit = {}
-	) {
-		val entity = UploadCheckpointEntity().apply {
-			this.vaultId = vaultId
-			this.type = type
-			this.targetFolderPath = targetFolderPath
-			this.completedFiles = "[]"
-			this.totalFileCount = totalFileCount
-			this.timestamp = System.currentTimeMillis()
-			configure()
-		}
-		uploadCheckpointDao.insertOrReplace(entity)
+	private fun releaseFolderReadAccess(sourceFolderUri: Uri) {
+		uploadCheckpoints.releaseReadAccessUnlessUsed(sourceFolderUri.toString())
 	}
 
 	private fun releasePickerLease() {
@@ -1409,6 +1383,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onUploadReplaceCanceled() {
+		pendingFolderSourceUri?.let(::releaseFolderReadAccess)
 		clearPendingFolderUpload()
 		releasePickerLease()
 	}
@@ -1416,41 +1391,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private fun clearPendingFolderUpload() {
 		pendingFolderUpload = null
 		pendingFolderSourceUri = null
-	}
-
-	private fun subscribeToUploadEvents(folder: CloudFolderModel) {
-		uploadEventsDisposable?.dispose()
-		val vaultId = folder.vault()?.toVault()?.id ?: return
-		val folderKey = FolderKey(vaultId, folder.toCloudNode().path)
-
-		// Subscribe first, then apply snapshot to avoid missing events emitted between
-		// snapshot read and subscribe. Duplicates are harmless (addOrUpdateCloudNode is idempotent).
-		uploadEventsDisposable = uploadUiUpdates.eventsFor(folderKey)
-			.observeOn(AndroidSchedulers.mainThread())
-			.subscribe({ event ->
-				when (event) {
-					is UploadUiEvent.NodeCreated -> view?.addOrUpdateCloudNode(event.node)
-					is UploadUiEvent.UploadFinished -> uploadUiUpdates.clear(event.folderKey)
-				}
-			}, { e ->
-				Timber.tag("BrowseFilesPresenter").e(e, "Upload event stream error")
-			})
-
-		uploadUiUpdates.snapshot(folderKey).forEach { node ->
-			view?.addOrUpdateCloudNode(node)
-		}
-	}
-
-	private fun dispatchUpload(vaultId: Long, dispatch: () -> Boolean) {
-		if (dispatch()) {
-			view?.showProgress(ProgressModel.COMPLETED)
-			view?.showMessage(R.string.notification_upload_started)
-		} else {
-			uploadCheckpointDao.deleteByVaultId(vaultId)
-			view?.showProgress(ProgressModel.COMPLETED)
-			view?.showMessage(R.string.error_upload_service_unavailable)
-		}
-		uploadLocation = null
 	}
 
 	private fun moveIntentFor(parent: CloudFolderModel, sourceNodes: List<CloudNodeModel<*>>): IntentBuilder {

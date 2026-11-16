@@ -11,6 +11,7 @@ internal class Upgrade17To18 @Inject constructor() : DatabaseUpgrade(17, 18) {
 		db.beginTransaction()
 		try {
 			createUploadCheckpointEntity(db)
+			createUploadCheckpointFileEntity(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
@@ -21,20 +22,24 @@ internal class Upgrade17To18 @Inject constructor() : DatabaseUpgrade(17, 18) {
 		Sql.createTable("UPLOAD_CHECKPOINT_ENTITY") //
 			.autoIncrementId() //
 			.requiredInt("VAULT_ID") //
-			.requiredText("TYPE") //
 			.requiredText("TARGET_FOLDER_PATH") //
-			.optionalText("SOURCE_FOLDER_URI") //
-			.optionalText("SOURCE_FOLDER_NAME") //
-			.optionalText("PENDING_FILE_URIS") //
-			.requiredText("COMPLETED_FILES") //
+			.requiredText("SOURCE_FOLDER_URI") //
+			.requiredText("SOURCE_FOLDER_NAME") //
 			.requiredInt("TOTAL_FILE_COUNT") //
-			.requiredInt("TIMESTAMP") //
 			.requiredBool("REPLACING") //
 			.executeOn(db)
 
 		Sql.createUniqueIndex("IDX_UPLOAD_CHECKPOINT_ENTITY_VAULT_ID") //
 			.on("UPLOAD_CHECKPOINT_ENTITY") //
 			.asc("VAULT_ID") //
+			.executeOn(db)
+	}
+
+	private fun createUploadCheckpointFileEntity(db: SupportSQLiteDatabase) {
+		Sql.createTable("UPLOAD_CHECKPOINT_FILE_ENTITY") //
+			.requiredInt("VAULT_ID") //
+			.requiredText("PATH") //
+			.primaryKey("VAULT_ID", "PATH") //
 			.executeOn(db)
 	}
 }

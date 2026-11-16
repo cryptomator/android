@@ -6,15 +6,14 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.net.Uri
 import android.os.Build
 import android.os.IBinder
 import androidx.appcompat.app.AppCompatDelegate
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
-import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
@@ -35,6 +34,7 @@ import org.cryptomator.presentation.service.PendingCallbackQueue
 import org.cryptomator.presentation.service.ProductInfo
 import org.cryptomator.presentation.service.PurchaseRevokedToastObserver
 import org.cryptomator.presentation.service.RestoreOutcome
+import org.cryptomator.presentation.service.UploadAdmission
 import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
@@ -244,9 +244,9 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 				uploadServiceBinder?.init(
 					applicationComponent.cloudContentRepository(),
 					applicationComponent.vaultDocumentRepository(),
-					applicationComponent.uploadCheckpointDao(),
+					applicationComponent.vaultRepository(),
+					applicationComponent.uploadCheckpoints(),
 					applicationComponent.uploadUiUpdates(),
-					applicationComponent.fileUtil(),
 					_applicationContext
 				)
 			}
@@ -258,24 +258,20 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		}, BIND_AUTO_CREATE)
 	}
 
-	fun startFileUpload(cloud: Cloud, targetFolderPath: String, files: List<UploadFile>,
-			completedFiles: Set<String>, vaultId: Long, cleanupUris: List<Uri> = emptyList()): Boolean {
-		val binder = uploadServiceBinder ?: run {
-			Timber.tag("App").e("Upload service not connected, file upload request dropped")
-			return false
-		}
-		binder.startFileUpload(cloud, targetFolderPath, files, completedFiles, vaultId, cleanupUris)
-		return true
-	}
-
-	fun startFolderUpload(cloud: Cloud, targetFolderPath: String, folderStructure: UploadFolderStructure,
-			completedFiles: Set<String>, vaultId: Long): Boolean {
+	fun startFolderUpload(cloud: Cloud, folderStructure: UploadFolderStructure, vaultId: Long, targetFolderPath: String, sourceFolderUri: String, replacing: Boolean): UploadAdmission {
 		val binder = uploadServiceBinder ?: run {
 			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
-			return false
+			return UploadAdmission.UNAVAILABLE
 		}
-		binder.startFolderUpload(cloud, targetFolderPath, folderStructure, completedFiles, vaultId)
-		return true
+		return binder.startFolderUpload(cloud, folderStructure, vaultId, targetFolderPath, sourceFolderUri, replacing)
+	}
+
+	fun resumeFolderUpload(cloud: Cloud, folderStructure: UploadFolderStructure, checkpoint: UploadCheckpointEntity): UploadAdmission {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload resume dropped")
+			return UploadAdmission.UNAVAILABLE
+		}
+		return binder.resumeFolderUpload(cloud, folderStructure, checkpoint)
 	}
 
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {

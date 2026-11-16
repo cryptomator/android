@@ -14,9 +14,10 @@ import org.cryptomator.data.db.entities.CloudEntity;
 import org.cryptomator.data.db.entities.DocumentMetadataEntity;
 import org.cryptomator.data.db.entities.UpdateCheckEntity;
 import org.cryptomator.data.db.entities.UploadCheckpointEntity;
+import org.cryptomator.data.db.entities.UploadCheckpointFileEntity;
 import org.cryptomator.data.db.entities.VaultEntity;
 
-@Database(entities = {CloudEntity.class, UpdateCheckEntity.class, VaultEntity.class, DocumentMetadataEntity.class, CachedFileEntity.class, UploadCheckpointEntity.class}, version = CryptomatorDatabase.VERSION)
+@Database(entities = {CloudEntity.class, UpdateCheckEntity.class, VaultEntity.class, DocumentMetadataEntity.class, CachedFileEntity.class, UploadCheckpointEntity.class, UploadCheckpointFileEntity.class}, version = CryptomatorDatabase.VERSION)
 public abstract class CryptomatorDatabase extends RoomDatabase {
 
 	static final String NAME = "Cryptomator";

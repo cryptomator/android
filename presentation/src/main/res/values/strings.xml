@@ -809,6 +809,9 @@
 	<string name="dialog_resume_upload_discard">Discard</string>
 	<string name="dialog_resume_upload_permission_lost">Cannot resume: access to the source folder has been lost.</string>
 	<string name="error_upload_service_unavailable">Could not start upload. Please try again.</string>
+	<string name="error_upload_vault_busy">Another upload to this vault is in progress or waiting to be resumed.</string>
+	<string name="vault_upload_in_progress" translatable="false">@string/dialog_cancel_upload_lock_title</string>
+	<string name="vault_upload_interrupted" translatable="false">@string/notification_upload_interrupted_title</string>
 
 	<string name="notification_cancel_open_writable_file" translatable="false">@string/dialog_button_cancel</string>
 	<string name="notification_open_writable_file_title">Open writable file</string>

@@ -499,7 +499,9 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onUploadFolderClicked(folder: CloudFolderModel) {
-		browseFilesPresenter.onUploadFolderClicked(folder)
+		guardWriteAccess(LicenseEnforcer.LockedAction.UPLOAD_FILES, folder) {
+			browseFilesPresenter.onUploadFolderClicked(folder)
+		}
 	}
 
 	override fun onCreateNewTextFileClicked() {

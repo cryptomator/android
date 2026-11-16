@@ -97,15 +97,18 @@ internal constructor() : RecyclerViewBaseAdapter<VaultModel, VaultsAdapter.OnIte
 				VaultUploadState.ACTIVE -> {
 					binding.uploadIndicator.setImageResource(R.drawable.ic_upload_arrow_animated)
 					binding.uploadIndicator.clearColorFilter()
+					binding.uploadIndicator.contentDescription = itemView.context.getString(R.string.vault_upload_in_progress)
 					binding.uploadIndicator.visibility = View.VISIBLE
 					(binding.uploadIndicator.drawable as? AnimatedVectorDrawable)?.start()
 				}
 				VaultUploadState.RESUMABLE -> {
 					binding.uploadIndicator.setImageResource(R.drawable.ic_upload_arrow)
 					binding.uploadIndicator.setColorFilter(ContextCompat.getColor(itemView.context, R.color.textColorLight))
+					binding.uploadIndicator.contentDescription = itemView.context.getString(R.string.vault_upload_interrupted)
 					binding.uploadIndicator.visibility = View.VISIBLE
 				}
 				null -> {
+					binding.uploadIndicator.contentDescription = null
 					binding.uploadIndicator.visibility = View.GONE
 				}
 			}

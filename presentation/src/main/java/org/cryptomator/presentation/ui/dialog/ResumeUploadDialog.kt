@@ -21,8 +21,8 @@ class ResumeUploadDialog : BaseDialog<ResumeUploadDialog.Callback, DialogResumeU
 		val vaultId = requireArguments().getLong(ARG_VAULT_ID)
 		val completedCount = requireArguments().getInt(ARG_COMPLETED_COUNT)
 		val totalCount = requireArguments().getInt(ARG_TOTAL_COUNT)
+		isCancelable = false
 		builder //
-			.setCancelable(false) //
 			.setTitle(R.string.dialog_resume_upload_title) //
 			.setMessage(getString(R.string.dialog_resume_upload_message, completedCount, totalCount)) //
 			.setPositiveButton(R.string.dialog_resume_upload_resume) { _: DialogInterface, _: Int -> callback?.onResumeUploadConfirmed(vaultId) } //

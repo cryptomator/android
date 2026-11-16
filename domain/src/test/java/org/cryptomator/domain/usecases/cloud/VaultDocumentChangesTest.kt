@@ -26,6 +26,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
+import java.util.concurrent.TimeUnit
 
 class VaultDocumentChangesTest {
 
@@ -203,6 +204,8 @@ class VaultDocumentChangesTest {
 			override fun cachedNode(): T? = cachedNode
 
 			override fun await(): VaultDocumentChangeResult<T> = awaited()
+
+			override fun await(timeout: Long, unit: TimeUnit): VaultDocumentChangeResult<T> = awaited()
 		}
 	}
 }

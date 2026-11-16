@@ -29,7 +29,9 @@ class KeepAliveLease internal constructor(
 
 	@JvmOverloads
 	fun renew(ttlMs: Long = defaultTtlMs) {
-		if (released.get()) return
+		if (released.get()) {
+			return
+		}
 		val now = SystemClock.elapsedRealtime()
 		val cap = hardMaxMs?.let { createdAt + it } ?: Long.MAX_VALUE
 		expiresAt = minOf(now + ttlMs, cap)

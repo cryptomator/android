@@ -21,31 +21,19 @@ public class UploadCheckpointEntity {
 	private long vaultId;
 
 	@NonNull
-	@ColumnInfo(name = "TYPE")
-	private String type = "";
-
-	@NonNull
 	@ColumnInfo(name = "TARGET_FOLDER_PATH")
 	private String targetFolderPath = "";
 
+	@NonNull
 	@ColumnInfo(name = "SOURCE_FOLDER_URI")
-	private String sourceFolderUri;
-
-	@ColumnInfo(name = "SOURCE_FOLDER_NAME")
-	private String sourceFolderName;
-
-	@ColumnInfo(name = "PENDING_FILE_URIS")
-	private String pendingFileUris;
+	private String sourceFolderUri = "";
 
 	@NonNull
-	@ColumnInfo(name = "COMPLETED_FILES")
-	private String completedFiles = "";
+	@ColumnInfo(name = "SOURCE_FOLDER_NAME")
+	private String sourceFolderName = "";
 
 	@ColumnInfo(name = "TOTAL_FILE_COUNT")
 	private int totalFileCount;
-
-	@ColumnInfo(name = "TIMESTAMP")
-	private long timestamp;
 
 	@ColumnInfo(name = "REPLACING")
 	private boolean replacing;
@@ -67,15 +55,6 @@ public class UploadCheckpointEntity {
 	}
 
 	@NonNull
-	public String getType() {
-		return type;
-	}
-
-	public void setType(@NonNull String type) {
-		this.type = type;
-	}
-
-	@NonNull
 	public String getTargetFolderPath() {
 		return targetFolderPath;
 	}
@@ -84,37 +63,22 @@ public class UploadCheckpointEntity {
 		this.targetFolderPath = targetFolderPath;
 	}
 
+	@NonNull
 	public String getSourceFolderUri() {
 		return sourceFolderUri;
 	}
 
-	public void setSourceFolderUri(String sourceFolderUri) {
+	public void setSourceFolderUri(@NonNull String sourceFolderUri) {
 		this.sourceFolderUri = sourceFolderUri;
 	}
 
+	@NonNull
 	public String getSourceFolderName() {
 		return sourceFolderName;
 	}
 
-	public void setSourceFolderName(String sourceFolderName) {
+	public void setSourceFolderName(@NonNull String sourceFolderName) {
 		this.sourceFolderName = sourceFolderName;
-	}
-
-	public String getPendingFileUris() {
-		return pendingFileUris;
-	}
-
-	public void setPendingFileUris(String pendingFileUris) {
-		this.pendingFileUris = pendingFileUris;
-	}
-
-	@NonNull
-	public String getCompletedFiles() {
-		return completedFiles;
-	}
-
-	public void setCompletedFiles(@NonNull String completedFiles) {
-		this.completedFiles = completedFiles;
 	}
 
 	public int getTotalFileCount() {
@@ -123,14 +87,6 @@ public class UploadCheckpointEntity {
 
 	public void setTotalFileCount(int totalFileCount) {
 		this.totalFileCount = totalFileCount;
-	}
-
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	public boolean isReplacing() {

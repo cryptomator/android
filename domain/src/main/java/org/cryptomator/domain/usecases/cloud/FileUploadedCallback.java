@@ -1,11 +1,12 @@
 package org.cryptomator.domain.usecases.cloud;
 
-import org.cryptomator.domain.CloudFile;
-
 public interface FileUploadedCallback {
 
-	void onFileUploaded(String relativePath, CloudFile file);
+	/**
+	 * Called when the file at {@code relativePath} has been uploaded, or skipped because its name was taken.
+	 */
+	void onFileUploaded(String relativePath);
 
-	FileUploadedCallback NO_OP = (relativePath, file) -> {
+	FileUploadedCallback NO_OP = relativePath -> {
 	};
 }

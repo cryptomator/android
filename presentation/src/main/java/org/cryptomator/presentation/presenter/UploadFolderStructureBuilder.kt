@@ -4,8 +4,8 @@ import androidx.documentfile.provider.DocumentFile
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 
-fun buildUploadFolderStructure(documentFile: DocumentFile): UploadFolderStructure {
-	val structure = UploadFolderStructure(documentFile.name ?: "folder")
+fun buildUploadFolderStructure(documentFile: DocumentFile, folderName: String = documentFile.name ?: "folder"): UploadFolderStructure {
+	val structure = UploadFolderStructure(folderName)
 	documentFile.listFiles().forEach { child ->
 		when {
 			child.isDirectory -> {

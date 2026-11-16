@@ -96,8 +96,7 @@ class BrowseFilesPresenterTest {
 		shareFileHelper = mock(),
 		sharedPreferencesHandler = mock(),
 		licenseEnforcer = mock(),
-		uploadCheckpointDao = mock(),
-		uploadUiUpdates = mock(),
+		uploadCheckpoints = mock(),
 		exceptionMappings = mock()
 	).also { it.view = view }
 

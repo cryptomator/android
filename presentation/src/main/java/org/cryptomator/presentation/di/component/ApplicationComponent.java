@@ -5,7 +5,6 @@ import android.content.Context;
 import org.cryptomator.data.cloud.crypto.CryptorsModule;
 import org.cryptomator.data.db.CryptomatorDatabase;
 import org.cryptomator.data.db.DatabaseModule;
-import org.cryptomator.data.db.dao.UploadCheckpointDao;
 import org.cryptomator.data.documents.DocumentContentCache;
 import org.cryptomator.data.documents.DocumentMetadataCache;
 import org.cryptomator.data.documents.DocumentsModule;
@@ -27,6 +26,7 @@ import org.cryptomator.domain.repository.VaultRepository;
 import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.service.ProductPricesCache;
+import org.cryptomator.presentation.service.UploadCheckpoints;
 import org.cryptomator.presentation.service.UploadUiUpdates;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
@@ -81,7 +81,7 @@ public interface ApplicationComponent {
 
 	ProductPricesCache productPricesCache();
 
-	UploadCheckpointDao uploadCheckpointDao();
+	UploadCheckpoints uploadCheckpoints();
 
 	UploadUiUpdates uploadUiUpdates();
 

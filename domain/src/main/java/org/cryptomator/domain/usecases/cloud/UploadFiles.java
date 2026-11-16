@@ -22,14 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static java.io.File.createTempFile;
 
 @UseCase
-public class UploadFiles {
+class UploadFiles {
 
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
@@ -37,8 +35,6 @@ public class UploadFiles {
 	private final CloudFolder parent;
 	private final List<UploadFile> files;
 	private final boolean optimistic;
-	private Set<String> completedFiles = Collections.emptySet();
-	private FileUploadedCallback fileUploadedCallback = FileUploadedCallback.NO_OP;
 
 	private volatile boolean cancelled;
 	private volatile VaultDocumentImport runningImport;
@@ -56,14 +52,6 @@ public class UploadFiles {
 		this.parent = parent;
 		this.files = files;
 		this.optimistic = Boolean.TRUE.equals(optimistic);
-	}
-
-	public void setCompletedFiles(Set<String> completedFiles) {
-		this.completedFiles = completedFiles;
-	}
-
-	public void setFileUploadedCallback(FileUploadedCallback fileUploadedCallback) {
-		this.fileUploadedCallback = fileUploadedCallback;
 	}
 
 	/**
@@ -93,9 +81,6 @@ public class UploadFiles {
 	private List<CloudFile> upload(ProgressAware<UploadState> progressAware) throws BackendException {
 		List<CloudFile> uploadedFiles = new ArrayList<>();
 		for (UploadFile file : files) {
-			if (completedFiles.contains(file.getFileName())) {
-				continue;
-			}
 			// looked up for each file, since the folder may be renamed while the files before are uploaded
 			VaultPath vaultFolder = vaultDocumentRepository.currentPathOf(parent);
 			CloudFile uploaded = vaultFolder != null ? importIntoVault(vaultFolder, file, progressAware) : upload(file, progressAware);
@@ -103,7 +88,6 @@ public class UploadFiles {
 			if (uploaded != null) {
 				uploadedFiles.add(uploaded);
 			}
-			fileUploadedCallback.onFileUploaded(file.getFileName(), uploaded);
 		}
 		return uploadedFiles;
 	}
@@ -150,11 +134,16 @@ public class UploadFiles {
 		File dir = context.getCacheDir();
 		try {
 			File target = createTempFile("upload", "tmp", dir);
-			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
-			OutputStream out = new FileOutputStream(target);
-			StreamHelper.copy(in, out);
-			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
-			return target;
+			try {
+				InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
+				OutputStream out = new FileOutputStream(target);
+				StreamHelper.copy(in, out);
+				dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
+				return target;
+			} catch (IOException e) {
+				target.delete();
+				throw e;
+			}
 		} catch (IOException e) {
 			throw new FatalBackendException(e);
 		}
