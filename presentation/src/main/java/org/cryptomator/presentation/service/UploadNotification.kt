@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_MAIN
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.ui.activity.VaultListActivity
@@ -21,7 +22,10 @@ class UploadNotification(private val context: Context, private val totalFiles: I
 
 	private val builder: NotificationCompat.Builder
 	private var notificationManager: NotificationManager? = null
-	private var completedFiles = 0
+	/**
+	 * The number of files uploaded so far, including those an earlier attempt of the upload completed.
+	 */
+	var completedFiles = 0
 
 	init {
 		this.notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -95,23 +99,23 @@ class UploadNotification(private val context: Context, private val totalFiles: I
 
 	fun showUploadInterrupted() {
 		Timber.tag("UploadNotification").i("Show upload interrupted notification")
-		showErrorWithMessage(context.getString(R.string.notification_upload_interrupted_message))
+		showEndedWithMessage(R.string.notification_upload_interrupted_title, context.getString(R.string.notification_upload_interrupted_message))
 	}
 
 	fun showVaultLockedDuringUpload() {
 		Timber.tag("UploadNotification").i("Show vault locked during upload notification")
-		showErrorWithMessage(context.getString(R.string.notification_upload_failed_vault_locked))
+		showEndedWithMessage(R.string.notification_upload_failed_title, context.getString(R.string.notification_upload_failed_vault_locked))
 	}
 
 	fun showGeneralErrorDuringUpload() {
 		Timber.tag("UploadNotification").i("Show general error during upload notification")
-		showErrorWithMessage(context.getString(R.string.notification_upload_failed_general_error))
+		showEndedWithMessage(R.string.notification_upload_failed_title, context.getString(R.string.notification_upload_failed_general_error))
 	}
 
-	private fun showErrorWithMessage(message: String) {
+	private fun showEndedWithMessage(@StringRes title: Int, message: String) {
 		builder
 			.setContentIntent(startTheActivity())
-			.setContentTitle(context.getString(R.string.notification_upload_failed_title))
+			.setContentTitle(context.getString(title))
 			.setContentText(message)
 			.setProgress(0, 0, false)
 			.setAutoCancel(true)

@@ -45,7 +45,6 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.service.UploadCheckpoints
-import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.presentation.service.UploadUiUpdates
 import org.cryptomator.presentation.service.VaultUploadEvent
 import org.cryptomator.presentation.ui.adapter.VaultUploadState
@@ -484,7 +483,7 @@ class VaultListPresenter @Inject constructor( //
 			.withCloud(cloud) //
 			.run(object : DefaultResultHandler<CloudFolder>() {
 				override fun onSuccess(folder: CloudFolder) {
-					navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
+					checkForInterruptedUpload((folder.cloud as CryptoCloud).vault, folder)
 				}
 			})
 	}
@@ -565,7 +564,7 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onCancelUploadAndLockConfirmed(vaultId: Long) {
-		context().startService(UploadService.cancelUploadForVaultIntent(context(), vaultId))
+		cryptomatorApp.cancelFolderUpload(vaultId)
 		lockVault(VaultModel(vaultRepository.load(vaultId)))
 	}
 
@@ -718,6 +717,11 @@ class VaultListPresenter @Inject constructor( //
 			}
 
 			val vault = vaultRepository.load(vaultId)
+			// the write access may have ended while the prompt was open; the checkpoint is kept for later
+			if (!licenseEnforcer.hasWriteAccessForVault(VaultModel(vault))) {
+				navigatePendingAfterResume()
+				return
+			}
 			val cloud = cloudRepository.decryptedViewOf(vault)
 
 			resumeLease = cryptomatorApp.acquireLease(LeaseReason.UPLOAD, 2 * 60 * 1000L, tag = "resume")

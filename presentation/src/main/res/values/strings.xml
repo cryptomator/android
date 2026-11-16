@@ -791,7 +791,7 @@
 		<item quantity="other">%1$d files uploaded to vault</item>
 	</plurals>
 	<string name="notification_upload_interrupted_title">Upload interrupted</string>
-	<string name="notification_upload_interrupted_message">Upload was interrupted. Unlock vault to resume.</string>
+	<string name="notification_upload_interrupted_message">Upload was interrupted. Open the vault to resume.</string>
 	<string name="notification_upload_failed_title">Upload failed</string>
 	<string name="notification_upload_failed_general_error">An error occurred during upload.</string>
 	<string name="notification_upload_failed_vault_locked">Vault locked during upload.</string>

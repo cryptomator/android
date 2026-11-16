@@ -81,8 +81,6 @@ import org.cryptomator.presentation.model.mappers.ProgressStateModelMapper
 import org.cryptomator.presentation.service.KeepAliveLease
 import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.service.OpenWritableFileNotification
-import org.cryptomator.presentation.service.UploadAdmission
-import org.cryptomator.presentation.service.UploadCheckpoints
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
 import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
@@ -146,7 +144,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val shareFileHelper: ShareFileHelper,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val licenseEnforcer: LicenseEnforcer, //
-	private val uploadCheckpoints: UploadCheckpoints,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<BrowseFilesView>(exceptionMappings) {
 
@@ -1318,11 +1315,9 @@ class BrowseFilesPresenter @Inject constructor( //
 			releasePickerLease()
 			return
 		}
-		uploadCheckpoints.takeReadAccess(treeUri)
 		lastSelectedFolderUri = treeUri
 		val documentFile = DocumentFile.fromTreeUri(context(), treeUri) ?: run {
 			releasePickerLease()
-			releaseFolderReadAccess(treeUri)
 			return
 		}
 		view?.showProgress(ProgressModel.GENERIC)
@@ -1334,7 +1329,6 @@ class BrowseFilesPresenter @Inject constructor( //
 				view?.showProgress(ProgressModel.COMPLETED)
 				if (folderStructure.totalFileCount() == 0) {
 					releasePickerLease()
-					releaseFolderReadAccess(treeUri)
 					view?.showMessage(R.string.screen_file_browser_nothing_to_upload)
 					return@subscribe
 				}
@@ -1347,7 +1341,6 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 			}, { e ->
 				releasePickerLease()
-				releaseFolderReadAccess(treeUri)
 				view?.showProgress(ProgressModel.COMPLETED)
 				showError(e)
 			})
@@ -1360,21 +1353,13 @@ class BrowseFilesPresenter @Inject constructor( //
 		val cloud = locationNode?.cloud
 		val vaultId = location?.vault()?.toVault()?.id
 		if (locationNode == null || cloud == null || vaultId == null) {
-			releaseFolderReadAccess(sourceFolderUri)
 			return
 		}
 
 		val admission = cryptomatorApp.startFolderUpload(cloud, folderStructure, vaultId, locationNode.path, sourceFolderUri.toString(), replacing)
-		if (admission != UploadAdmission.ACCEPTED) {
-			releaseFolderReadAccess(sourceFolderUri)
-		}
 		view?.showProgress(ProgressModel.COMPLETED)
 		view?.showMessage(admission.refusalMessage ?: R.string.notification_upload_started)
 		uploadLocation = null
-	}
-
-	private fun releaseFolderReadAccess(sourceFolderUri: Uri) {
-		uploadCheckpoints.releaseReadAccessUnlessUsed(sourceFolderUri.toString())
 	}
 
 	private fun releasePickerLease() {
@@ -1383,7 +1368,6 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	fun onUploadReplaceCanceled() {
-		pendingFolderSourceUri?.let(::releaseFolderReadAccess)
 		clearPendingFolderUpload()
 		releasePickerLease()
 	}

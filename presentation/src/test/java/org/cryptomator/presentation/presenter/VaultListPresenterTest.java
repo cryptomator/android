@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.repository.CloudRepository;
@@ -34,6 +35,7 @@ import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.service.UploadCheckpoints;
 import org.cryptomator.presentation.service.UploadUiUpdates;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
+import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
@@ -43,6 +45,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 
 import java.util.Collections;
@@ -309,12 +312,11 @@ public class VaultListPresenterTest {
 	public void testOnVaultLockClickedDoesNotLockWhenUploadActive() {
 		when(uploadUiUpdates.activeVaultIds()).thenReturn(Collections.singleton(AN_UNLOCKED_VAULT.getId()));
 
-		try {
+		try (MockedConstruction<Bundle> ignored = Mockito.mockConstruction(Bundle.class)) {
 			inTest.onVaultLockClicked(AN_UNLOCKED_VAULT_MODEL);
-		} catch (RuntimeException e) {
-			// CancelUploadAndLockDialog.newInstance() uses Bundle which is not mocked
 		}
 
+		verify(vaultListView).showDialog(Mockito.any(CancelUploadAndLockDialog.class));
 		verify(lockVaultUseCase, never()).withVault(Mockito.any());
 	}
 

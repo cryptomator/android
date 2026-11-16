@@ -23,9 +23,11 @@ import org.cryptomator.domain.usecases.cloud.UploadFolderStructure;
 import org.cryptomator.presentation.CryptomatorApp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,7 +37,6 @@ import timber.log.Timber;
 public class UploadService extends Service {
 
 	private static final String ACTION_CANCEL_UPLOAD = "CANCEL_UPLOAD";
-	private static final String EXTRA_CANCEL_VAULT_ID = "cancelVaultId";
 
 	private final Handler mainHandler = new Handler(Looper.getMainLooper());
 	private UploadNotification notification;
@@ -48,7 +49,7 @@ public class UploadService extends Service {
 	private Thread worker;
 	private volatile Runnable cancelCallback;
 	private volatile long currentVaultId = -1L;
-	private final Set<Long> cancelledVaultIds = ConcurrentHashMap.newKeySet();
+	private final Map<Long, StopReason> stopRequests = new ConcurrentHashMap<>();
 	private volatile long startTimeNotificationDelay;
 	private volatile long elapsedTimeNotificationDelay = 0L;
 	private volatile KeepAliveLease uploadLease;
@@ -64,13 +65,6 @@ public class UploadService extends Service {
 	public static Intent cancelUploadIntent(Context context) {
 		Intent cancelIntent = new Intent(context, UploadService.class);
 		cancelIntent.setAction(ACTION_CANCEL_UPLOAD);
-		return cancelIntent;
-	}
-
-	public static Intent cancelUploadForVaultIntent(Context context, long vaultId) {
-		Intent cancelIntent = new Intent(context, UploadService.class);
-		cancelIntent.setAction(ACTION_CANCEL_UPLOAD);
-		cancelIntent.putExtra(EXTRA_CANCEL_VAULT_ID, vaultId);
 		return cancelIntent;
 	}
 
@@ -99,8 +93,8 @@ public class UploadService extends Service {
 			if (uploadUiUpdates.isVaultActive(vaultId) || (!resume && !uploadCheckpoints.createIfAbsent(checkpoint))) {
 				return UploadAdmission.BUSY;
 			}
-			// a cancellation only concerns the uploads that existed when it was requested
-			cancelledVaultIds.remove(vaultId);
+			// a stop only concerns the uploads that existed when it was requested
+			stopRequests.remove(vaultId);
 			uploadUiUpdates.markVaultActive(vaultId);
 			QueuedUpload upload = new QueuedUpload(cloud, checkpoint, folderStructure);
 			if (workerRunning) {
@@ -125,12 +119,12 @@ public class UploadService extends Service {
 				if (lease != null) {
 					lease.renew();
 				}
-				processUpload(current, isFirst);
+				boolean canceled = processUpload(current, isFirst);
 				isFirst = false;
 				synchronized (queueLock) {
 					current = pendingUploads.poll();
 					if (current == null) {
-						stopWorker(lease);
+						stopWorker(lease, canceled);
 					}
 				}
 			}
@@ -141,30 +135,40 @@ public class UploadService extends Service {
 	/**
 	 * Requires {@link #queueLock}. An upload accepted afterwards then starts a new worker, which this worker's teardown
 	 * leaves alone.
+	 *
+	 * @param lastCanceled whether the user canceled the last upload, whose notification is then removed instead of left
 	 */
-	private void stopWorker(KeepAliveLease lease) {
+	private void stopWorker(KeepAliveLease lease, boolean lastCanceled) {
 		workerRunning = false;
 		if (lease != null) {
 			lease.release();
 		}
 		uploadLease = null;
-		stopForeground(STOP_FOREGROUND_DETACH);
+		stopForeground(lastCanceled ? STOP_FOREGROUND_REMOVE : STOP_FOREGROUND_DETACH);
 		stopSelf();
 	}
 
-	private void processUpload(QueuedUpload upload, boolean isFirst) {
+	/**
+	 * Posts the notification changes of the upload to the main thread in the order they are made, so that those of an
+	 * upload that has ended don't overwrite the notification of the next one. Only {@code startForeground} shows the first
+	 * notification of a worker right away.
+	 *
+	 * @return whether the user canceled the upload
+	 */
+	private boolean processUpload(QueuedUpload upload, boolean isFirst) {
 		this.currentVaultId = upload.vaultId;
 
 		UploadNotification uploadNotification = new UploadNotification(appContext, upload.totalFiles);
 		notification = uploadNotification;
-		if (isFirst) {
-			startForeground(UploadNotification.NOTIFICATION_ID, uploadNotification.getNotification());
-		}
-		uploadNotification.show();
-
 		try {
-			throwIfCancelled(upload.vaultId);
+			if (isFirst) {
+				startForeground(UploadNotification.NOTIFICATION_ID, uploadNotification.getNotification());
+			}
+			throwIfStopped(upload.vaultId);
 			Set<String> completedFiles = uploadCheckpoints.completedFiles(upload.vaultId);
+			uploadNotification.setCompletedFiles(completedFiles.size());
+			mainHandler.post(uploadNotification::show);
+
 			CloudFolder targetFolder = upload.targetFolderPath.isEmpty()
 					? cloudContentRepository.root(upload.cloud)
 					: cloudContentRepository.resolve(upload.cloud, upload.targetFolderPath);
@@ -176,69 +180,88 @@ public class UploadService extends Service {
 				mainHandler.post(uploadNotification::updateFinishedFile);
 			});
 			cancelCallback = uploadFolderFiles::onCancel;
-			// a cancellation that arrived before the callback was set
-			throwIfCancelled(upload.vaultId);
-			uploadFolderFiles.execute(progress -> updateNotification(uploadNotification, progress.asPercentage()));
+			// a stop that was requested before the callback was set
+			throwIfStopped(upload.vaultId);
+			int uploadedCount = uploadFolderFiles.execute(progress -> updateNotification(uploadNotification, progress.asPercentage())).size();
 
 			uploadCheckpoints.delete(upload.vaultId);
-			int uploadedCount = upload.totalFiles - completedFiles.size();
 			mainHandler.post(() -> uploadNotification.showUploadFinished(uploadedCount));
 			Timber.tag("UploadService").i("Upload completed");
-		} catch (CancellationException e) {
-			uploadCheckpoints.delete(upload.vaultId);
-			Timber.tag("UploadService").i("Upload canceled by user");
-		} catch (MissingCryptorException e) {
-			mainHandler.post(uploadNotification::showVaultLockedDuringUpload);
-			Timber.tag("UploadService").e(e, "Vault locked during upload");
 		} catch (BackendException | RuntimeException e) {
-			mainHandler.post(uploadNotification::showGeneralErrorDuringUpload);
-			Timber.tag("UploadService").e(e, "Upload failed");
+			// a requested stop decides the outcome, also when a lock of the vault right after it is what ended the upload
+			StopReason stopReason = stopRequests.get(upload.vaultId);
+			if (stopReason == StopReason.CANCELED) {
+				uploadCheckpoints.delete(upload.vaultId);
+				mainHandler.post(uploadNotification::hide);
+				Timber.tag("UploadService").i("Upload canceled by user");
+				return true;
+			} else if (stopReason == StopReason.INTERRUPTED) {
+				mainHandler.post(uploadNotification::showUploadInterrupted);
+				Timber.tag("UploadService").i("Upload interrupted by the foreground service timeout");
+			} else if (e instanceof MissingCryptorException) {
+				mainHandler.post(uploadNotification::showVaultLockedDuringUpload);
+				Timber.tag("UploadService").e(e, "Vault locked during upload");
+			} else {
+				mainHandler.post(uploadNotification::showGeneralErrorDuringUpload);
+				Timber.tag("UploadService").e(e, "Upload failed");
+			}
 		} finally {
 			cancelCallback = null;
-			cancelledVaultIds.remove(upload.vaultId);
+			stopRequests.remove(upload.vaultId);
 			finishVault(upload.vaultId);
 		}
+		return false;
 	}
 
-	private void throwIfCancelled(long vaultId) {
-		if (cancelledVaultIds.contains(vaultId)) {
+	private void throwIfStopped(long vaultId) {
+		if (stopRequests.containsKey(vaultId)) {
 			throw new CancellationException();
 		}
 	}
 
 	/**
-	 * Requires {@link #queueLock}.
+	 * Stops the upload of the vault with {@code vaultId}, or those of all vaults if it is {@code null}. The running upload
+	 * ends at its next step, and queued ones don't start. A canceled upload's checkpoint is deleted, an interrupted one's
+	 * is kept to be resumed.
 	 */
-	private List<QueuedUpload> drainQueue() {
-		List<QueuedUpload> drained = new ArrayList<>(pendingUploads);
-		pendingUploads.clear();
-		return drained;
-	}
-
-	private void drainQueueForVault(long vaultId) {
-		List<QueuedUpload> removed = new ArrayList<>();
+	private void stopUploads(@Nullable Long vaultId, StopReason reason) {
+		Set<Long> vaultIds;
+		List<QueuedUpload> dequeued = new ArrayList<>();
 		synchronized (queueLock) {
+			vaultIds = vaultId != null ? Collections.singleton(vaultId) : uploadUiUpdates.activeVaultIds();
+			for (Long id : vaultIds) {
+				stopRequests.put(id, reason);
+			}
 			Iterator<QueuedUpload> it = pendingUploads.iterator();
 			while (it.hasNext()) {
 				QueuedUpload upload = it.next();
-				if (upload.vaultId == vaultId) {
-					removed.add(upload);
+				if (vaultIds.contains(upload.vaultId)) {
+					dequeued.add(upload);
 					it.remove();
 				}
 			}
 		}
-		removed.forEach(this::cleanupAbandonedUpload);
-	}
-
-	private void cleanupAbandonedUpload(QueuedUpload upload) {
-		uploadCheckpoints.delete(upload.vaultId);
-		finishVault(upload.vaultId);
+		for (QueuedUpload upload : dequeued) {
+			if (reason == StopReason.CANCELED) {
+				uploadCheckpoints.delete(upload.vaultId);
+			}
+			stopRequests.remove(upload.vaultId);
+			finishVault(upload.vaultId);
+		}
+		Runnable cancel = cancelCallback;
+		if (cancel != null && vaultIds.contains(currentVaultId)) {
+			cancel.run();
+		}
 	}
 
 	private void finishVault(long vaultId) {
 		synchronized (queueLock) {
 			uploadUiUpdates.markVaultFinished(vaultId);
 		}
+	}
+
+	private enum StopReason {
+		CANCELED, INTERRUPTED
 	}
 
 	private static class QueuedUpload {
@@ -284,37 +307,28 @@ public class UploadService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Timber.tag("UploadService").i("started");
 		if (isCancelUpload(intent)) {
-			long cancelVaultId = intent.getLongExtra(EXTRA_CANCEL_VAULT_ID, -1L);
-			if (cancelVaultId != -1L) {
-				Timber.tag("UploadService").i("Received cancel for vault %d", cancelVaultId);
-				drainQueueForVault(cancelVaultId);
-				cancelledVaultIds.add(cancelVaultId);
-				Runnable cancel = cancelCallback;
-				long activeVaultId = this.currentVaultId;
-				if (cancel != null && activeVaultId == cancelVaultId) {
-					cancel.run();
-				}
-			} else {
-				Timber.tag("UploadService").i("Received cancel upload");
-				List<QueuedUpload> abandoned;
-				synchronized (queueLock) {
-					abandoned = drainQueue();
-					cancelledVaultIds.addAll(uploadUiUpdates.activeVaultIds());
-				}
-				abandoned.forEach(this::cleanupAbandonedUpload);
-				Runnable cancel = cancelCallback;
-				if (cancel != null) {
-					cancel.run();
-				}
-				hideNotification();
-				synchronized (queueLock) {
-					if (!workerRunning) {
-						stopSelf();
-					}
+			Timber.tag("UploadService").i("Received cancel upload");
+			stopUploads(null, StopReason.CANCELED);
+			hideNotification();
+			synchronized (queueLock) {
+				if (!workerRunning) {
+					stopSelf();
 				}
 			}
 		}
 		return START_NOT_STICKY;
+	}
+
+	/**
+	 * Called once the uploads have used up the time Android 15 grants foreground services of type dataSync. Stops them but
+	 * keeps their checkpoints, so that they can be resumed.
+	 */
+	@Override
+	public void onTimeout(int startId, int fgsType) {
+		Timber.tag("UploadService").i("Foreground service timed out");
+		stopUploads(null, StopReason.INTERRUPTED);
+		stopForeground(STOP_FOREGROUND_DETACH);
+		stopSelf();
 	}
 
 	private boolean isCancelUpload(Intent intent) {
@@ -371,6 +385,14 @@ public class UploadService extends Service {
 
 		public UploadAdmission resumeFolderUpload(Cloud cloud, UploadFolderStructure folderStructure, UploadCheckpointEntity checkpoint) {
 			return UploadService.this.resumeFolderUpload(cloud, folderStructure, checkpoint);
+		}
+
+		/**
+		 * Marks the vault's upload as canceled before returning, so that a lock of the vault right afterwards doesn't leave
+		 * it to be resumed.
+		 */
+		public void cancelFolderUpload(long vaultId) {
+			UploadService.this.stopUploads(vaultId, StopReason.CANCELED);
 		}
 	}
 }

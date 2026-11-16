@@ -274,6 +274,14 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		return binder.resumeFolderUpload(cloud, folderStructure, checkpoint)
 	}
 
+	fun cancelFolderUpload(vaultId: Long) {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload cancel dropped")
+			return
+		}
+		binder.cancelFolderUpload(vaultId)
+	}
+
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {
 		return sharedPreferencesHandler.usePhotoUpload() //
 				&& (!sharedPreferencesHandler.autoPhotoUploadOnlyUsingWifi() || applicationComponent.networkConnectionCheck().checkWifiOnAndConnected())

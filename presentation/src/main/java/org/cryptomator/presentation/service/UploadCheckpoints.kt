@@ -31,9 +31,18 @@ class UploadCheckpoints @Inject constructor(
 	fun vaultIds(): List<Long> = uploadCheckpointDao.findAllVaultIdsWithCheckpoints()
 
 	/**
+	 * Also keeps the read access to the source folder, so that the upload can be resumed after a restart.
+	 *
 	 * @return `false` if the vault has a checkpoint already
 	 */
-	fun createIfAbsent(checkpoint: UploadCheckpointEntity): Boolean = uploadCheckpointDao.insertIfAbsent(checkpoint) != -1L
+	@Synchronized
+	fun createIfAbsent(checkpoint: UploadCheckpointEntity): Boolean {
+		if (exists(checkpoint.vaultId)) {
+			return false
+		}
+		takeReadAccess(checkpoint.sourceFolderUri)
+		return uploadCheckpointDao.insertIfAbsent(checkpoint) != -1L
+	}
 
 	fun completedFiles(vaultId: Long): Set<String> = uploadCheckpointDao.findCompletedFiles(vaultId).toHashSet()
 
@@ -44,22 +53,25 @@ class UploadCheckpoints @Inject constructor(
 	}
 
 	/**
-	 * Keeps the read access to a picked source folder, so that its upload can be resumed after a restart.
-	 */
-	fun takeReadAccess(sourceFolderUri: Uri) {
-		context.contentResolver.takePersistableUriPermission(sourceFolderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-	}
-
-	/**
 	 * Also releases the read access to the source folder, unless another checkpoint or a local storage location uses it.
 	 */
+	@Synchronized
 	fun delete(vaultId: Long) {
 		val sourceFolderUri = uploadCheckpointDao.findSourceFolderUri(vaultId)
 		uploadCheckpointDao.deleteByVaultId(vaultId)
 		sourceFolderUri?.let(::releaseReadAccessUnlessUsed)
 	}
 
-	fun releaseReadAccessUnlessUsed(sourceFolderUri: String) {
+	private fun takeReadAccess(sourceFolderUri: String) {
+		try {
+			context.contentResolver.takePersistableUriPermission(Uri.parse(sourceFolderUri), Intent.FLAG_GRANT_READ_URI_PERMISSION)
+		} catch (e: SecurityException) {
+			// the upload still reads the folder through the picker's grant, but can't be resumed after a restart
+			Timber.tag("UploadCheckpoints").w(e, "Failed to keep the read access to the source folder")
+		}
+	}
+
+	private fun releaseReadAccessUnlessUsed(sourceFolderUri: String) {
 		if (uploadCheckpointDao.countBySourceFolderUri(sourceFolderUri) == 0 && !isLocalStorageLocation(sourceFolderUri)) {
 			try {
 				context.contentResolver.releasePersistableUriPermission(Uri.parse(sourceFolderUri), Intent.FLAG_GRANT_READ_URI_PERMISSION)
