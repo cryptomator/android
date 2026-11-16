@@ -73,6 +73,7 @@ class UpgradeDatabaseTest {
 		Upgrade14To15().migrate(db)
 		Upgrade15To16().migrate(db)
 		Upgrade16To17().migrate(db)
+		Upgrade17To18().migrate(db)
 
 		// the clouds seeded for v1 that no later upgrade removes, and the single update check row
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
@@ -1181,5 +1182,107 @@ class UpgradeDatabaseTest {
 				it.moveToFirst()
 				Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(WebDavProvider.KOOFR.name))
 			}
+	}
+
+	@Test
+	fun upgrade17To18() {
+		LegacyDatabaseV1.createOn(db)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
+		Upgrade13To14(sharedPreferencesHandler).migrate(db)
+		Upgrade14To15().migrate(db)
+		Upgrade15To16().migrate(db)
+		Upgrade16To17().migrate(db)
+
+		Upgrade17To18().migrate(db)
+
+		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("VAULT_ID", 42) //
+			.text("TARGET_FOLDER_PATH", "/Documents") //
+			.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+			.text("SOURCE_FOLDER_NAME", "Photos") //
+			.integer("TOTAL_FILE_COUNT", 5) //
+			.bool("REPLACING", true) //
+			.executeOn(db)
+
+		Sql.query("UPLOAD_CHECKPOINT_ENTITY").where("VAULT_ID", Sql.eq(42)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getInt(it.getColumnIndex("_id")), CoreMatchers.`is`(1))
+			Assert.assertThat(it.getInt(it.getColumnIndex("VAULT_ID")), CoreMatchers.`is`(42))
+			Assert.assertThat(it.getString(it.getColumnIndex("TARGET_FOLDER_PATH")), CoreMatchers.`is`("/Documents"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_URI")), CoreMatchers.`is`("content://tree/uri"))
+			Assert.assertThat(it.getString(it.getColumnIndex("SOURCE_FOLDER_NAME")), CoreMatchers.`is`("Photos"))
+			Assert.assertThat(it.getInt(it.getColumnIndex("TOTAL_FILE_COUNT")), CoreMatchers.`is`(5))
+			Assert.assertThat(it.getInt(it.getColumnIndex("REPLACING")), CoreMatchers.`is`(1))
+		}
+
+		Sql.insertInto("UPLOAD_CHECKPOINT_FILE_ENTITY") //
+			.integer("VAULT_ID", 42) //
+			.text("PATH", "Photos/a.jpg") //
+			.executeOn(db)
+
+		Sql.query("UPLOAD_CHECKPOINT_FILE_ENTITY").where("VAULT_ID", Sql.eq(42)).executeOn(db).use {
+			it.moveToFirst()
+			Assert.assertThat(it.getString(it.getColumnIndex("PATH")), CoreMatchers.`is`("Photos/a.jpg"))
+		}
+	}
+
+	@Test
+	fun upgrade17To18UniqueVaultIdConstraint() {
+		LegacyDatabaseV1.createOn(db)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
+		Upgrade13To14(sharedPreferencesHandler).migrate(db)
+		Upgrade14To15().migrate(db)
+		Upgrade15To16().migrate(db)
+		Upgrade16To17().migrate(db)
+
+		Upgrade17To18().migrate(db)
+
+		Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("VAULT_ID", 42) //
+			.text("TARGET_FOLDER_PATH", "/path") //
+			.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+			.text("SOURCE_FOLDER_NAME", "Photos") //
+			.integer("TOTAL_FILE_COUNT", 1) //
+			.bool("REPLACING", false) //
+			.executeOn(db)
+
+		try {
+			Sql.insertInto("UPLOAD_CHECKPOINT_ENTITY") //
+				.integer("_id", 2) //
+				.integer("VAULT_ID", 42) //
+				.text("TARGET_FOLDER_PATH", "/other") //
+				.text("SOURCE_FOLDER_URI", "content://tree/uri") //
+				.text("SOURCE_FOLDER_NAME", "Photos") //
+				.integer("TOTAL_FILE_COUNT", 2) //
+				.bool("REPLACING", false) //
+				.executeOn(db)
+			Assert.fail("Expected constraint violation for duplicate VAULT_ID")
+		} catch (e: android.database.sqlite.SQLiteConstraintException) {
+			// Expected: unique constraint violation on VAULT_ID
+		}
 	}
 }

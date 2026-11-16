@@ -11,8 +11,10 @@ import android.os.IBinder
 import androidx.appcompat.app.AppCompatDelegate
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
+import org.cryptomator.domain.usecases.cloud.UploadFolderStructure
 import org.cryptomator.presentation.di.HasComponent
 import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.di.component.ApplicationComponent
@@ -26,10 +28,14 @@ import org.cryptomator.presentation.service.AutoUploadNotification
 import org.cryptomator.presentation.service.AutoUploadService
 import org.cryptomator.presentation.service.CryptorsService
 import org.cryptomator.presentation.service.IapBillingService
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
 import org.cryptomator.presentation.service.PendingCallbackQueue
 import org.cryptomator.presentation.service.ProductInfo
 import org.cryptomator.presentation.service.PurchaseRevokedToastObserver
 import org.cryptomator.presentation.service.RestoreOutcome
+import org.cryptomator.presentation.service.UploadAdmission
+import org.cryptomator.presentation.service.UploadService
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
@@ -50,6 +56,9 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 
 	@Volatile
 	private var autoUploadServiceBinder: AutoUploadService.Binder? = null
+
+	@Volatile
+	private var uploadServiceBinder: UploadService.Binder? = null
 
 	@Volatile
 	private var iapBillingServiceBinder: IapBillingService.Binder? = null
@@ -92,20 +101,17 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	}
 
 	private fun launchServices() {
+		launchService("cryptors") { startCryptorsService() }
+		launchService("IAP billing") { startIapBillingService() }
+		launchService("auto upload") { startAutoUploadService() }
+		launchService("upload") { startUploadService() }
+	}
+
+	private fun launchService(name: String, start: () -> Unit) {
 		try {
-			startCryptorsService()
+			start()
 		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch cryptors service")
-		}
-		try {
-			startIapBillingService()
-		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch IAP billing service")
-		}
-		try {
-			startAutoUploadService()
-		} catch (e: IllegalStateException) {
-			Timber.tag("App").e(e, "Failed to launch auto upload service")
+			Timber.tag("App").e(e, "Failed to launch %s service", name)
 		}
 	}
 
@@ -230,6 +236,52 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		}
 	}
 
+	private fun startUploadService() {
+		bindService(Intent(this, UploadService::class.java), object : ServiceConnection {
+			override fun onServiceConnected(name: ComponentName, service: IBinder) {
+				Timber.tag("App").i("Upload service connected")
+				uploadServiceBinder = service as UploadService.Binder
+				uploadServiceBinder?.init(
+					applicationComponent.cloudContentRepository(),
+					applicationComponent.vaultDocumentRepository(),
+					applicationComponent.vaultRepository(),
+					applicationComponent.uploadCheckpoints(),
+					applicationComponent.uploadUiUpdates(),
+					_applicationContext
+				)
+			}
+
+			override fun onServiceDisconnected(name: ComponentName) {
+				Timber.tag("App").i("Upload service disconnected")
+				uploadServiceBinder = null
+			}
+		}, BIND_AUTO_CREATE)
+	}
+
+	fun startFolderUpload(cloud: Cloud, folderStructure: UploadFolderStructure, vaultId: Long, targetFolderPath: String, sourceFolderUri: String, replacing: Boolean): UploadAdmission {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload request dropped")
+			return UploadAdmission.UNAVAILABLE
+		}
+		return binder.startFolderUpload(cloud, folderStructure, vaultId, targetFolderPath, sourceFolderUri, replacing)
+	}
+
+	fun resumeFolderUpload(cloud: Cloud, folderStructure: UploadFolderStructure, checkpoint: UploadCheckpointEntity): UploadAdmission {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload resume dropped")
+			return UploadAdmission.UNAVAILABLE
+		}
+		return binder.resumeFolderUpload(cloud, folderStructure, checkpoint)
+	}
+
+	fun cancelFolderUpload(vaultId: Long) {
+		val binder = uploadServiceBinder ?: run {
+			Timber.tag("App").e("Upload service not connected, folder upload cancel dropped")
+			return
+		}
+		binder.cancelFolderUpload(vaultId)
+	}
+
 	private fun checkToStartAutoImageUpload(sharedPreferencesHandler: SharedPreferencesHandler): Boolean {
 		return sharedPreferencesHandler.usePhotoUpload() //
 				&& (!sharedPreferencesHandler.autoPhotoUploadOnlyUsingWifi() || applicationComponent.networkConnectionCheck().checkWifiOnAndConnected())
@@ -306,9 +358,21 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		return appCryptors.isEmpty()
 	}
 
-	fun suspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.suspendLock()
+	fun acquireLease(reason: LeaseReason, ttlMs: Long, hardMaxMs: Long? = null, tag: String): KeepAliveLease? {
+		return cryptoServiceBinder?.acquireLease(reason, ttlMs, hardMaxMs, tag)
+	}
+
+	@Volatile
+	private var editingLease: KeepAliveLease? = null
+
+	fun acquireEditingLease() {
+		editingLease?.release()
+		editingLease = acquireLease(LeaseReason.EDITING, 4 * 60 * 60 * 1000L, tag = "editing")
+	}
+
+	fun releaseEditingLease() {
+		editingLease?.release()
+		editingLease = null
 	}
 
 	/**
@@ -316,11 +380,6 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	 */
 	fun vaultsUsed() {
 		cryptoServiceBinder?.vaultsUsed()
-	}
-
-	fun unSuspendLock() {
-		val localServiceBinder = cryptoServiceBinder
-		localServiceBinder?.unSuspendLock()
 	}
 
 	companion object {

@@ -16,7 +16,6 @@ import org.cryptomator.generator.Optional;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,8 +29,6 @@ import static java.io.File.createTempFile;
 @UseCase
 class UploadFiles {
 
-	private static final int EOF = -1;
-
 	private final Context context;
 	private final CloudContentRepository cloudContentRepository;
 	private final VaultDocumentRepository vaultDocumentRepository;
@@ -41,12 +38,7 @@ class UploadFiles {
 
 	private volatile boolean cancelled;
 	private volatile VaultDocumentImport runningImport;
-	private final Flag cancelledFlag = new Flag() {
-		@Override
-		public boolean get() {
-			return cancelled;
-		}
-	};
+	private final Flag cancelledFlag = () -> cancelled;
 
 	public UploadFiles(Context context, //
 			CloudContentRepository cloudContentRepository, //
@@ -142,11 +134,16 @@ class UploadFiles {
 		File dir = context.getCacheDir();
 		try {
 			File target = createTempFile("upload", "tmp", dir);
-			InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
-			OutputStream out = new FileOutputStream(target);
-			copy(in, out);
-			dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
-			return target;
+			try {
+				InputStream in = CancelAwareDataSource.wrap(dataSource, cancelledFlag).open(context);
+				OutputStream out = new FileOutputStream(target);
+				StreamHelper.copy(in, out);
+				dataSource.modifiedDate(context).ifPresent(value -> target.setLastModified(value.getTime()));
+				return target;
+			} catch (IOException e) {
+				target.delete();
+				throw e;
+			}
 		} catch (IOException e) {
 			throw new FatalBackendException(e);
 		}
@@ -161,38 +158,6 @@ class UploadFiles {
 				progressAware, //
 				replacing, //
 				size);
-	}
-
-	private void copy(InputStream in, OutputStream out) throws IOException {
-		byte[] buffer = new byte[4096];
-		try {
-			while (copyDidNotReachEof(in, out, buffer)) {
-				// empty
-			}
-		} finally {
-			closeQuietly(in);
-			closeQuietly(out);
-		}
-	}
-
-	private boolean copyDidNotReachEof(InputStream in, OutputStream out, byte[] buffer) throws IOException {
-		int read = in.read(buffer);
-		if (read == EOF) {
-			return false;
-		} else {
-			out.write(buffer, 0, read);
-			return true;
-		}
-	}
-
-	private void closeQuietly(Closeable closeable) {
-		if (closeable != null) {
-			try {
-				closeable.close();
-			} catch (IOException e) {
-				// ignore
-			}
-		}
 	}
 
 }

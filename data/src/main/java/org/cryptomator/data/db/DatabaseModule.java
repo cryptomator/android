@@ -8,6 +8,7 @@ import org.cryptomator.data.db.dao.CachedFileDao;
 import org.cryptomator.data.db.dao.CloudDao;
 import org.cryptomator.data.db.dao.DocumentMetadataDao;
 import org.cryptomator.data.db.dao.UpdateCheckDao;
+import org.cryptomator.data.db.dao.UploadCheckpointDao;
 import org.cryptomator.data.db.dao.VaultDao;
 
 import javax.inject.Singleton;
@@ -48,6 +49,11 @@ public class DatabaseModule {
 	@Provides
 	public UpdateCheckDao provideUpdateCheckDao(CryptomatorDatabase database) {
 		return database.updateCheckDao();
+	}
+
+	@Provides
+	public UploadCheckpointDao provideUploadCheckpointDao(CryptomatorDatabase database) {
+		return database.uploadCheckpointDao();
 	}
 
 	@Provides

@@ -47,7 +47,7 @@
 		android:layout_width="59dp"
 		android:layout_height="59dp"
 		android:layout_centerVertical="true"
-		android:layout_toStartOf="@id/settings"
+		android:layout_toStartOf="@id/upload_indicator"
 		android:background="?android:attr/selectableItemBackground"
 		android:paddingStart="14dp"
 		android:paddingTop="10dp"
@@ -56,6 +56,18 @@
 		android:src="@drawable/ic_lock_open"
 		android:visibility="gone"
 		app:tint="@color/colorPrimary" />
+
+	<ImageView
+		android:id="@+id/upload_indicator"
+		android:layout_width="59dp"
+		android:layout_height="59dp"
+		android:layout_centerVertical="true"
+		android:layout_toStartOf="@id/settings"
+		android:paddingStart="14dp"
+		android:paddingTop="10dp"
+		android:paddingEnd="14dp"
+		android:paddingBottom="10dp"
+		android:visibility="gone" />
 
 	<ImageView
 		android:id="@+id/settings"

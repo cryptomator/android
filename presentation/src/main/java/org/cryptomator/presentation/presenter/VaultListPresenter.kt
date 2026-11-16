@@ -7,16 +7,21 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.core.content.ContextCompat
+import androidx.documentfile.provider.DocumentFile
 import com.google.common.base.Optional
 import org.cryptomator.data.cloud.crypto.CryptoCloud
+import org.cryptomator.data.db.entities.UploadCheckpointEntity
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.repository.CloudRepository
+import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
@@ -37,6 +42,12 @@ import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.CryptomatorApp
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.service.KeepAliveLease
+import org.cryptomator.presentation.service.LeaseReason
+import org.cryptomator.presentation.service.UploadCheckpoints
+import org.cryptomator.presentation.service.UploadUiUpdates
+import org.cryptomator.presentation.service.VaultUploadEvent
+import org.cryptomator.presentation.ui.adapter.VaultUploadState
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.Intents
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -56,7 +67,9 @@ import org.cryptomator.presentation.ui.dialog.AppIsObscuredInfoDialog
 import org.cryptomator.presentation.ui.dialog.AskForLockScreenDialog
 import org.cryptomator.presentation.ui.dialog.CBCPasswordVaultsMigrationDialog
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
+import org.cryptomator.presentation.ui.dialog.CancelUploadAndLockDialog
 import org.cryptomator.presentation.ui.dialog.LicenseLostDialog
+import org.cryptomator.presentation.ui.dialog.ResumeUploadDialog
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
@@ -71,6 +84,10 @@ import org.cryptomator.presentation.workflow.Workflow
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CryptoMode
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.util.function.Consumer
 import javax.inject.Inject
 import timber.log.Timber
@@ -99,10 +116,19 @@ class VaultListPresenter @Inject constructor( //
 	private val licenseEnforcer: LicenseEnforcer,  //
 	private val sharedPreferencesHandler: SharedPreferencesHandler,  //
 	private val productPricesCache: ProductPricesCache,  //
+	private val uploadCheckpoints: UploadCheckpoints,  //
+	private val uploadUiUpdates: UploadUiUpdates,  //
+	private val vaultRepository: VaultRepository,  //
+	private val cloudRepository: CloudRepository,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<VaultListView>(exceptionMappings) {
 
+	private val cryptomatorApp: CryptomatorApp get() = activity().application as CryptomatorApp
 	private var vaultAction: VaultAction? = null
+	private var folderResumeDisposable: Disposable? = null
+	private var uploadEventsDisposable: Disposable? = null
+	private var resumeLease: KeepAliveLease? = null
+	private var pendingNavigationAfterResume: Pair<Vault, CloudFolder>? = null
 	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
 	private val licenseChangeListener = Consumer<String> { _ ->
 		if (!isPaused) {
@@ -112,6 +138,15 @@ class VaultListPresenter @Inject constructor( //
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
+	}
+
+	override fun destroyed() {
+		resumeLease?.release()
+		resumeLease = null
+		folderResumeDisposable?.dispose()
+		folderResumeDisposable = null
+		uploadEventsDisposable?.dispose()
+		uploadEventsDisposable = null
 	}
 
 	override fun resumed() {
@@ -398,6 +433,7 @@ class VaultListPresenter @Inject constructor( //
 			.withVault(vaultModel.toVault()) //
 			.run(object : DefaultResultHandler<Long>() {
 				override fun onSuccess(vaultId: Long) {
+					uploadCheckpoints.delete(vaultId)
 					view?.deleteVaultFromAdapter(vaultId)
 				}
 			})
@@ -447,7 +483,7 @@ class VaultListPresenter @Inject constructor( //
 			.withCloud(cloud) //
 			.run(object : DefaultResultHandler<CloudFolder>() {
 				override fun onSuccess(folder: CloudFolder) {
-					navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
+					checkForInterruptedUpload((folder.cloud as CryptoCloud).vault, folder)
 				}
 			})
 	}
@@ -473,9 +509,45 @@ class VaultListPresenter @Inject constructor( //
 						view?.hideVaultCreationHint()
 					}
 					view?.renderVaultList(vaultModels)
+					refreshUploadStates()
+					subscribeToVaultUploadEvents()
 				}
 			})
 		}
+
+	private fun refreshUploadStates() {
+		val checkpointVaultIds = uploadCheckpoints.vaultIds()
+		val activeVaultIds = uploadUiUpdates.activeVaultIds()
+		val stateMap = mutableMapOf<Long, VaultUploadState>()
+		for (vaultId in activeVaultIds) {
+			stateMap[vaultId] = VaultUploadState.ACTIVE
+		}
+		for (vaultId in checkpointVaultIds) {
+			if (vaultId !in activeVaultIds) {
+				stateMap[vaultId] = VaultUploadState.RESUMABLE
+			}
+		}
+		view?.updateUploadStates(stateMap)
+	}
+
+	private fun subscribeToVaultUploadEvents() {
+		uploadEventsDisposable?.dispose()
+		uploadEventsDisposable = uploadUiUpdates.vaultEvents()
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe({ event ->
+				when (event) {
+					is VaultUploadEvent.Started ->
+						view?.updateVaultUploadState(event.vaultId, VaultUploadState.ACTIVE)
+					is VaultUploadEvent.Finished -> {
+						val hasCheckpoint = uploadCheckpoints.exists(event.vaultId)
+						val state = if (hasCheckpoint) VaultUploadState.RESUMABLE else null
+						view?.updateVaultUploadState(event.vaultId, state)
+					}
+				}
+			}, { e ->
+				Timber.tag("VaultListPresenter").w(e, "Vault upload event stream error")
+			})
+	}
 
 	private fun navigateToVaultContent(vault: Vault, cloudFolder: CloudFolder) {
 		if (!isPaused) {
@@ -484,7 +556,16 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	fun onVaultLockClicked(vault: VaultModel) {
+		if (uploadUiUpdates.activeVaultIds().contains(vault.vaultId)) {
+			view?.showDialog(CancelUploadAndLockDialog.newInstance(vault.vaultId))
+			return
+		}
 		lockVault(vault)
+	}
+
+	fun onCancelUploadAndLockConfirmed(vaultId: Long) {
+		cryptomatorApp.cancelFolderUpload(vaultId)
+		lockVault(VaultModel(vaultRepository.load(vaultId)))
 	}
 
 	fun onVaultClicked(vault: VaultModel) {
@@ -604,11 +685,102 @@ class VaultListPresenter @Inject constructor( //
 		val cryptoCloud = (folder.cloud as CryptoCloud)
 		val vault = cryptoCloud.vault
 		view?.addOrUpdateVault(VaultModel(vault))
-		navigateToVaultContent(vault, folder)
 		view?.showProgress(ProgressModel.COMPLETED)
 		if (checkToStartAutoImageUpload(vault)) {
-			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.startAutoUpload(cryptoCloud)
+		}
+		checkForInterruptedUpload(vault, folder)
+	}
+
+	private fun checkForInterruptedUpload(vault: Vault, folder: CloudFolder) {
+		val checkpoint = if (isResumable(vault)) uploadCheckpoints.find(vault.id) else null
+		if (checkpoint != null) {
+			view?.showDialog(ResumeUploadDialog.newInstance(vault.id, uploadCheckpoints.completedFileCount(vault.id), checkpoint.totalFileCount))
+			pendingNavigationAfterResume = Pair(vault, folder)
+		} else {
+			navigateToVaultContent(vault, folder)
+		}
+	}
+
+	/**
+	 * The checkpoint of an upload that is running or queued isn't one to resume, and resuming writes into the vault.
+	 */
+	private fun isResumable(vault: Vault): Boolean {
+		return !uploadUiUpdates.isVaultActive(vault.id) && licenseEnforcer.hasWriteAccessForVault(VaultModel(vault))
+	}
+
+	fun onResumeUploadConfirmed(vaultId: Long) {
+		try {
+			val checkpoint = uploadCheckpoints.find(vaultId) ?: run {
+				navigatePendingAfterResume()
+				return
+			}
+
+			val vault = vaultRepository.load(vaultId)
+			// the write access may have ended while the prompt was open; the checkpoint is kept for later
+			if (!licenseEnforcer.hasWriteAccessForVault(VaultModel(vault))) {
+				navigatePendingAfterResume()
+				return
+			}
+			val cloud = cloudRepository.decryptedViewOf(vault)
+
+			resumeLease = cryptomatorApp.acquireLease(LeaseReason.UPLOAD, 2 * 60 * 1000L, tag = "resume")
+			handleFolderResume(cloud, checkpoint)
+		} catch (e: Exception) {
+			releaseResumeLease()
+			Timber.tag("VaultListPresenter").e(e, "Failed to resume upload")
+			uploadCheckpoints.delete(vaultId)
+			navigatePendingAfterResume()
+		}
+	}
+
+	private fun handleFolderResume(cloud: Cloud, checkpoint: UploadCheckpointEntity) {
+		val documentFile = DocumentFile.fromTreeUri(context(), Uri.parse(checkpoint.sourceFolderUri))?.takeIf { it.canRead() }
+		if (documentFile == null) {
+			view?.showMessage(R.string.dialog_resume_upload_permission_lost)
+			uploadCheckpoints.delete(checkpoint.vaultId)
+			releaseResumeLease()
+			navigatePendingAfterResume()
+			return
+		}
+		view?.showProgress(ProgressModel.GENERIC)
+		folderResumeDisposable?.dispose()
+		// the completed files are recorded under the name the folder had when the upload started
+		folderResumeDisposable = Single.fromCallable { buildUploadFolderStructure(documentFile, checkpoint.sourceFolderName) }
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.doFinally {
+				releaseResumeLease()
+				navigatePendingAfterResume()
+			}
+			.subscribe({ folderStructure ->
+				view?.showProgress(ProgressModel.COMPLETED)
+				if (checkpoint.isReplacing) {
+					folderStructure.setAllReplacing(true)
+				}
+				cryptomatorApp.resumeFolderUpload(cloud, folderStructure, checkpoint).refusalMessage?.let { view?.showMessage(it) }
+			}, { e ->
+				view?.showProgress(ProgressModel.COMPLETED)
+				Timber.tag("VaultListPresenter").w(e, "Failed to read folder during resume")
+				view?.showMessage(R.string.dialog_resume_upload_permission_lost)
+				uploadCheckpoints.delete(checkpoint.vaultId)
+			})
+	}
+
+	fun onResumeUploadDeclined(vaultId: Long) {
+		uploadCheckpoints.delete(vaultId)
+		navigatePendingAfterResume()
+	}
+
+	private fun releaseResumeLease() {
+		resumeLease?.release()
+		resumeLease = null
+	}
+
+	private fun navigatePendingAfterResume() {
+		pendingNavigationAfterResume?.let { (vault, folder) ->
+			navigateToVaultContent(vault, folder)
+			pendingNavigationAfterResume = null
 		}
 	}
 

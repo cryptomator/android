@@ -11,6 +11,7 @@ import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
 import java.io.OutputStream
+import java.util.concurrent.TimeUnit
 
 /**
  * Changes the nodes of unlocked vaults through the cache that the documents provider answers from, so that the app,
@@ -166,6 +167,12 @@ interface VaultDocumentChange<T> {
 	 */
 	@Throws(BackendException::class)
 	fun await(): VaultDocumentChangeResult<T>
+
+	/**
+	 * Like [await], but gives up waiting after [timeout] and returns `null`. The change goes on regardless.
+	 */
+	@Throws(BackendException::class)
+	fun await(timeout: Long, unit: TimeUnit): VaultDocumentChangeResult<T>?
 }
 
 /**

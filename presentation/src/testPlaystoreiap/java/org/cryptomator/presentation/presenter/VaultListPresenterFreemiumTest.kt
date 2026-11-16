@@ -2,6 +2,8 @@ package org.cryptomator.presentation.presenter
 
 import android.app.Activity
 import org.cryptomator.data.util.NetworkConnectionCheck
+import org.cryptomator.domain.repository.CloudRepository
+import org.cryptomator.domain.repository.VaultRepository
 import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
@@ -21,6 +23,8 @@ import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.service.ProductPrices
 import org.cryptomator.presentation.service.ProductPricesCache
 import org.cryptomator.presentation.service.SalePromo
+import org.cryptomator.presentation.service.UploadCheckpoints
+import org.cryptomator.presentation.service.UploadUiUpdates
 import org.cryptomator.presentation.ui.activity.view.VaultListView
 import org.cryptomator.presentation.ui.dialog.TrialExpiredDialog
 import org.cryptomator.presentation.util.FileUtil
@@ -76,6 +80,10 @@ class VaultListPresenterFreemiumTest {
 			licenseEnforcer,
 			sharedPreferencesHandler,
 			productPricesCache,
+			Mockito.mock(UploadCheckpoints::class.java),
+			Mockito.mock(UploadUiUpdates::class.java),
+			Mockito.mock(VaultRepository::class.java),
+			Mockito.mock(CloudRepository::class.java),
 			exceptionMappings
 		)
 		Mockito.doReturn(activity).`when`(vaultListView).activity()

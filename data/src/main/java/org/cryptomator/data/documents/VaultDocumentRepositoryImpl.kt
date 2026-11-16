@@ -30,6 +30,9 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.OutputStream
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 import javax.inject.Singleton
 import dagger.Lazy
@@ -243,6 +246,18 @@ class VaultDocumentRepositoryImpl @Inject constructor(
 			override fun await(): VaultDocumentChangeResult<R> {
 				try {
 					return toResult(result.await())
+				} catch (e: java.util.concurrent.CancellationException) {
+					throw CancellationException(e)
+				}
+			}
+
+			override fun await(timeout: Long, unit: TimeUnit): VaultDocumentChangeResult<R>? {
+				try {
+					return toResult(result.get(timeout, unit))
+				} catch (e: TimeoutException) {
+					return null
+				} catch (e: ExecutionException) {
+					throw e.cause ?: e
 				} catch (e: java.util.concurrent.CancellationException) {
 					throw CancellationException(e)
 				}

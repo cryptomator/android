@@ -12,7 +12,6 @@ import org.cryptomator.domain.usecases.ProgressAware;
 import org.cryptomator.generator.Parameter;
 import org.cryptomator.generator.UseCase;
 
-import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -47,7 +46,7 @@ class DownloadFiles {
 				}
 				downloadedFiles.add(file.getDownloadFile());
 			} finally {
-				closeQuietly(dataSink);
+				StreamHelper.closeQuietly(dataSink);
 			}
 		}
 		return downloadedFiles;
@@ -64,14 +63,6 @@ class DownloadFiles {
 			throw new NoSuchCloudFileException(file.getDownloadFile().getName());
 		} catch (IOException e) {
 			throw new FatalBackendException(e);
-		}
-	}
-
-	private void closeQuietly(Closeable closeable) {
-		try {
-			closeable.close();
-		} catch (IOException e) {
-			// ignore
 		}
 	}
 

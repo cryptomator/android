@@ -13,6 +13,7 @@ class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSh
 
 		fun onCreateNewFolderClicked()
 		fun onUploadFilesClicked(folder: CloudFolderModel)
+		fun onUploadFolderClicked(folder: CloudFolderModel)
 		fun onCreateNewTextFileClicked()
 	}
 
@@ -27,6 +28,10 @@ class VaultContentActionBottomSheet : BaseBottomSheet<VaultContentActionBottomSh
 		}
 		binding.uploadFiles.setOnClickListener {
 			callback?.onUploadFilesClicked(folder)
+			dismiss()
+		}
+		binding.uploadFolder.setOnClickListener {
+			callback?.onUploadFolderClicked(folder)
 			dismiss()
 		}
 		binding.createNewTextFile.setOnClickListener {

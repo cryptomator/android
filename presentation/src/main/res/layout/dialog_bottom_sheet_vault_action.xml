@@ -37,6 +37,12 @@
 			app:drawableStartCompat="@drawable/ic_file_upload_gray" />
 
 		<TextView
+			android:id="@+id/upload_folder"
+			style="@style/AppTheme.ListItem"
+			android:text="@string/screen_file_browser_action_upload_folder"
+			app:drawableStartCompat="@drawable/ic_folder_upload_gray" />
+
+		<TextView
 			android:id="@+id/create_new_folder"
 			style="@style/AppTheme.ListItem"
 			android:text="@string/screen_file_browser_action_create_folder"

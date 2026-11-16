@@ -36,9 +36,9 @@ public class CryptorsService extends Service {
 	private UnlockedNotification notification;
 	private final Consumer<LockTimeout> onLockTimeoutChanged = this::onLockTimeoutChanged;
 	private volatile boolean running = true;
-	private volatile boolean lockSuspended = false;
+	private final KeepAliveLeaseManager leaseManager = new KeepAliveLeaseManager();
 	/**
-	 * Whether the screen went off while transfers were running, so that the vaults lock once they have finished.
+	 * Whether the screen went off while leases were active or transfers were running, so that the vaults lock once the leases have ended and the transfers have finished.
 	 */
 	private volatile boolean screenOffLockPending = false;
 	private final Thread worker = new Thread(new Runnable() {
@@ -47,15 +47,15 @@ public class CryptorsService extends Service {
 			while (running) {
 				try {
 					waitUntilVaultsUnlockedAndInBackground();
-					if (!lockSuspended) {
-						boolean transfersRunning = sharedPreferencesHandler.lockGracefully() && transfersRunning();
+					if (!leaseManager.hasActiveLease()) {
+						boolean transfersRunning = lockWaitsForTransfers();
 						if (transfersRunning) {
 							// a running transfer counts as use, so the timeout runs from when the last one has finished
 							autolockTimeout.used();
 						}
 						if (screenOffLockPending) {
 							if (!transfersRunning) {
-								Timber.tag("CryptorsService").i("Transfers finished after the screen went off");
+								Timber.tag("CryptorsService").i("Leases ended and transfers finished after the screen went off");
 								lockOnScreenOff();
 							}
 						} else if (autolockTimeout.expired()) {
@@ -206,6 +206,10 @@ public class CryptorsService extends Service {
 		return CryptomatorDocumentsProvider.hasTransfers();
 	}
 
+	private boolean lockWaitsForTransfers() {
+		return sharedPreferencesHandler.lockGracefully() && transfersRunning();
+	}
+
 	private void lockOnScreenOff() {
 		screenOffLockPending = false;
 		destroyCryptorsAndHideNotification();
@@ -228,12 +232,9 @@ public class CryptorsService extends Service {
 			onAppInForegroundChanged(appInForeground);
 		}
 
-		public void suspendLock() {
-			lockSuspended = true;
-		}
-
-		public void unSuspendLock() {
-			lockSuspended = false;
+		public KeepAliveLease acquireLease(LeaseReason reason, long ttlMs,
+				Long hardMaxMs, String tag) {
+			return leaseManager.acquire(reason, ttlMs, hardMaxMs, tag);
 		}
 
 		/**
@@ -250,17 +251,17 @@ public class CryptorsService extends Service {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (Intent.ACTION_USER_PRESENT.equals(intent.getAction())) {
-				// the user is back before the transfers finished, the timeout applies again
+				// the user is back before the pending lock happened, so the autolock timeout applies again
 				screenOffLockPending = false;
 			} else if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction()) && //
-					sharedPreferencesHandler.lockOnScreenOff() && //
-					!lockSuspended) {
+					sharedPreferencesHandler.lockOnScreenOff()) {
+				boolean leaseActive = leaseManager.hasActiveLease();
 				// transfers need an unlocked vault, so with none the documents caches aren't asked, which would create them here
-				if (sharedPreferencesHandler.lockGracefully() && !cryptors.isEmpty() && transfersRunning()) {
-					Timber.tag("CryptorsService").i("ScreenLock received, locking once the running transfers have finished");
+				if (!cryptors.isEmpty() && (leaseActive || lockWaitsForTransfers())) {
+					Timber.tag("CryptorsService").i("ScreenLock received, locking once the leases have ended and the running transfers have finished");
 					screenOffLockPending = true;
 					signalVaultsUnlockedAndInBackgroundIfRequired();
-				} else {
+				} else if (!leaseActive) {
 					Timber.tag("CryptorsService").i("ScreenLock received, destroying cryptors and shutting down service");
 					lockOnScreenOff();
 				}

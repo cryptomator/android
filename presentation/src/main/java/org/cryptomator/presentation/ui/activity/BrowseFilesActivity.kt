@@ -333,6 +333,10 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 		ReplaceDialog.withContext(this).show(existingFiles, size)
 	}
 
+	override fun showReplaceFolderDialog(folderName: String) {
+		ReplaceDialog.withContext(this).showForFolder(folderName)
+	}
+
 	override fun showUploadDialog(uploadingFiles: Int) {
 		showDialog(UploadCloudFileDialog.newInstance(uploadingFiles))
 	}
@@ -377,6 +381,7 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	}
 
 	override fun onReplaceCanceled() {
+		browseFilesPresenter.onUploadReplaceCanceled()
 		showProgress(COMPLETED)
 	}
 
@@ -490,6 +495,12 @@ class BrowseFilesActivity : BaseActivity<ActivityLayoutBinding>(ActivityLayoutBi
 	override fun onUploadFilesClicked(folder: CloudFolderModel) {
 		guardWriteAccess(LicenseEnforcer.LockedAction.UPLOAD_FILES, folder) {
 			browseFilesPresenter.onUploadFilesClicked(folder)
+		}
+	}
+
+	override fun onUploadFolderClicked(folder: CloudFolderModel) {
+		guardWriteAccess(LicenseEnforcer.LockedAction.UPLOAD_FILES, folder) {
+			browseFilesPresenter.onUploadFolderClicked(folder)
 		}
 	}
 

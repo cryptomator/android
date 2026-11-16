@@ -17,6 +17,17 @@ class ReplaceDialog private constructor(private val context: Context) {
 		fun onReplaceCanceled()
 	}
 
+	fun showForFolder(folderName: String) {
+		AlertDialog.Builder(context) //
+			.setTitle(ResourceHelper.getString(R.string.dialog_replace_folder_title)) //
+			.setMessage(String.format(ResourceHelper.getString(R.string.dialog_replace_folder_msg), folderName)) //
+			.setPositiveButton(ResourceHelper.getString(R.string.dialog_replace_folder_positive_button)) { _: DialogInterface, _: Int -> callback.onReplacePositiveClicked() } //
+			.setNegativeButton(effectiveReplaceDialogNegativeButton()) { _: DialogInterface, _: Int -> callback.onReplaceNegativeClicked() } //
+			.setNeutralButton(effectiveReplaceDialogNeutralButton()) { _: DialogInterface, _: Int -> callback.onReplaceCanceled() } //
+			.setOnCancelListener { callback.onReplaceCanceled() } //
+			.create().show()
+	}
+
 	fun show(existingFiles: List<String>, uploadingFilesCount: Int) {
 		val existingFilesCount = existingFiles.size
 		val alertDialogBuilder = AlertDialog.Builder(context) //
