@@ -43,8 +43,17 @@ public class CryptoCloudFactory {
 		masterkeyCryptoCloudProvider().create(location, password);
 	}
 
+	/**
+	 * Takes what the unlock found out about {@code vault} from the vault as it was unlocked, e.g. whether a Hub vault has a
+	 * paid license, since a stored vault doesn't know it.
+	 */
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
-		return new CryptoCloud(aCopyOf(vault).build());
+		Vault.Builder decryptedVault = aCopyOf(vault);
+		Vault unlocked = cryptoCloudContentRepositoryFactory.unlockedVault(vault);
+		if (unlocked != null) {
+			decryptedVault.withHubVault(unlocked.isHubVault()).withHubPaidLicense(unlocked.hasHubPaidLicense());
+		}
+		return new CryptoCloud(decryptedVault.build());
 	}
 
 	public Optional<UnverifiedVaultConfig> unverifiedVaultConfig(Vault vault) throws BackendException {

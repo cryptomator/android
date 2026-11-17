@@ -188,7 +188,9 @@ class SharedFilesPresenter @Inject constructor( //
 						AuthenticationState.CHOOSE_LOCATION -> navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
 						AuthenticationState.INIT_ROOT -> {
 							location = cloudFolderModelMapper.toModel(folder)
-							checkForUsedFileNames(folder)
+							if (ensureWriteAccess()) {
+								checkForUsedFileNames(folder)
+							}
 						}
 						else -> {}
 					}
@@ -325,10 +327,7 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onSaveButtonPressed(filesForUpload: List<SharedFileModel>) {
-		if (selectedVault != null && !licenseEnforcer.hasWriteAccessForVault(selectedVault)) {
-			view?.let { v ->
-				licenseEnforcer.ensureWriteAccessForVault(v.activity(), selectedVault, LicenseEnforcer.LockedAction.UPLOAD_FILES)
-			}
+		if (!ensureWriteAccess()) {
 			return
 		}
 		updateFileNames(filesForUpload)
@@ -348,6 +347,22 @@ class SharedFilesPresenter @Inject constructor( //
 	private fun prepareSavingFiles() {
 		location?.let { checkForUsedFileNames(it.toCloudNode()) }
 			?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
+	}
+
+	/**
+	 * Asks with the vault of the chosen [location], which, unlike the [selectedVault] from the vault list, knows what its
+	 * unlock found out, e.g. whether a Hub vault has a paid license. Without a location yet, it is asked again once the
+	 * unlock found the root.
+	 */
+	private fun ensureWriteAccess(): Boolean {
+		val vault = location?.vault() ?: return true
+		if (licenseEnforcer.hasWriteAccessForVault(vault)) {
+			return true
+		}
+		view?.let { v ->
+			licenseEnforcer.ensureWriteAccessForVault(v.activity(), vault, LicenseEnforcer.LockedAction.UPLOAD_FILES)
+		}
+		return false
 	}
 
 	private fun hasInvalidFileNames(filesForUpload: List<SharedFileModel>): Boolean {
@@ -406,6 +421,9 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onVaultSelected(vault: VaultModel?) {
+		if (vault?.vaultId != selectedVault?.vaultId) {
+			location = null
+		}
 		selectedVault = vault
 		view?.setUploadEnabled(vault != null)
 	}

@@ -32,7 +32,7 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3236 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionCode = 3237 // must be getVersionCode(). only at release tag set the actual value
 		androidVersionName = '3.0.0'
 	}
 	repositories {
