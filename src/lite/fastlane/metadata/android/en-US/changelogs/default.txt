@@ -3,4 +3,5 @@
 - Folders and opened files are cached until you clear the cache
 - Saves upload in the background, conflicting changes are kept as a copy
 - Auto-lock counts from the last use and waits for running transfers
+- Fixed Hub unlock from the Files app or a share
 - Updated translations and dependencies

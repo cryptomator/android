@@ -3,4 +3,5 @@
 - Ordner und geöffnete Dateien bleiben bis zum Leeren des Caches gespeichert
 - Speichern lädt im Hintergrund hoch, bei Konflikten bleibt eine Kopie
 - Automatische Sperre zählt ab der letzten Nutzung und wartet auf Übertragungen
+- Hub-Entsperren aus der Dateien-App oder beim Teilen behoben
 - Übersetzungen und Abhängigkeiten aktualisiert
