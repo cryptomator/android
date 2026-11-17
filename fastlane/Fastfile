@@ -285,13 +285,25 @@ platform :android do |options|
     else
       puts "Updating F-Droid"
 
-      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/Cryptomator.apk")
+      # fdroid update takes the added date of a known APK file name from the existing index, so each version needs its own name
+      FileUtils.rm(Dir.glob("repo/*.apk"))
+      FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "repo/org.cryptomator_#{build}.apk")
 
-      sh("cp -r #{fdroidMetadataDir} metadata/org.cryptomator/")
-      FileUtils.cp("metadata/org.cryptomator/en-US/changelogs/default.txt", "metadata/org.cryptomator/en-US/changelogs/#{version}.txt")
-      FileUtils.cp("metadata/org.cryptomator/de-DE/changelogs/default.txt", "metadata/org.cryptomator/de-DE/changelogs/#{version}.txt")
-      sh("fdroid update && fdroid rewritemeta")
-      sh("rm -r metadata/org.cryptomator/")
+      FileUtils.rm_rf("metadata/org.cryptomator")
+      FileUtils.cp_r(fdroidMetadataDir, "metadata/org.cryptomator")
+      for locale in ["en-US", "de-DE", "fr-FR"] do
+        FileUtils.cp("metadata/org.cryptomator/#{locale}/changelogs/default.txt", "metadata/org.cryptomator/#{locale}/changelogs/#{build}.txt")
+      end
+
+      # index-v2 only contains the changelog of a version listed in Builds
+      appMetadata = File.read("metadata/org.cryptomator.yml")
+      begin
+        File.write("metadata/org.cryptomator.yml", appMetadata + "\nBuilds:\n  - versionName: #{version}\n    versionCode: #{build}\n\nCurrentVersion: #{version}\nCurrentVersionCode: #{build}\n")
+        sh("fdroid update")
+      ensure
+        File.write("metadata/org.cryptomator.yml", appMetadata)
+        FileUtils.rm_rf("metadata/org.cryptomator")
+      end
 
       aws_s3(
         bucket: ENV['S3_BUCKET'],
@@ -411,7 +423,7 @@ platform :android do |options|
     FileUtils.cp(lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH], "exodus-test/org.cryptomator.apk")
 
     puts "Check if a tracking library was added"
-    sh("docker run -v $(pwd)/exodus-test/org.cryptomator.apk:/app.apk --rm -i exodusprivacy/exodus-standalone | tail -1 | grep -q 'Found trackers: 0'")
+    sh("docker run -v $(pwd)/exodus-test/org.cryptomator.apk:/app.apk --rm -i docker.io/exodusprivacy/exodus-standalone | tail -1 | grep -q 'Found trackers: 0'")
 
     FileUtils.rm_r("exodus-test")
   end
@@ -430,7 +442,7 @@ platform :android do |options|
     end
 
     puts "Run Fluidattacks. Results are in /src/fastlane/fluidattacks/results.csv"
-    sh("docker run -v $(cd .. && pwd):/src -w /src fluidattacks/cli:amd64 skims scan /src/fastlane/fluidattacks/config.yaml")
+    sh("docker run -v $(cd .. && pwd):/src -w /src docker.io/fluidattacks/cli:amd64 skims scan /src/fastlane/fluidattacks/config.yaml")
 
     if !options[:verifyOnly]
       FileUtils.rm_r("#{fluidattacks_apks_path}")
@@ -475,7 +487,7 @@ platform :android do |options|
     checkVersionCodeSet(alpha:options[:alpha], beta:options[:beta])
 
     fluidattacks_apks_path = "fluidattacks/apks"
-    apk_types = %w[signed fdroid_signed lite_signed playstore_signed]
+    apk_types = %w[signed fdroid_signed lite_signed playstore_signed playstoreiap_signed]
 
     FileUtils.mkdir("#{fluidattacks_apks_path}")
     apk_types.each do |type|

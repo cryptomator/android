@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Посочената версия в %1$s е различна от тази в %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не съвпада с %2$s</string>
 	<string name="error_vault_config_loading">Обща грешка при зареждане на настройките на хранилището</string>
-	<string name="error_file_not_found_after_opening_using_3party">При връщане в Криптоматор местният файл вече не съществува. Евентуалните промени не могат да бъдат синхронизирани с облака.</string>
 	<string name="error_no_such_bucket">Не съществува такъв bucket</string>
 	<string name="error_masterkey_location_not_supported">Все още не се поддържа потребителско местоположение на главния ключ</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Грешка при комуникацията с F-Droid. Приложението инсталирано ли е?</string>
@@ -201,8 +200,6 @@
 	<string name="screen_settings_security_label">Съвети за сигурността</string>
 	<string name="screen_settings_section_version">Издание</string>
 	<string name="screen_settings_advanced_settings">Разширени настройки</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Заобиколен начин за отваряне на файлове на Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Отваряне на файлове в приложения на Microsoft с права за писане</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускоряване на отключването</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Файла с настройката на хранилището се изтегля във фонов режим още на екрана за парола или биометрично удостоверяване</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Оставяне отключено</string>
@@ -237,7 +234,6 @@
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Премахване</string>
 	<string name="dialog_lock_vault">Заключване</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Поради дефект в приложенията на Microsoft, файлът, който трябва да бъде редактиран, трябва да бъде споделен с тези приложения в публична папка на вашето устройство. След възобновяване на работата на Cryptomator, публично достъпният файл се изтрива отново, но Cryptomator не може да повлияе на случващото се с файла междувременно. Преди да включите тук се уверете, че сте наясно с това поведение. Това ще се прилага само за файлове на Microsoft.\n\nСлед включване Cryptomator ще се рестартира.</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Затваряне</string>
 	<string name="dialog_enter_license_decline_button">Отказ</string>
 	<string name="dialog_sym_link_back_button">Назад</string>
@@ -255,7 +251,6 @@
 	<!-- notification -->
 	<string name="notification_auto_upload_failed_due_to_authentication_problem">Докоснете, за да презаредите удостоверяването.</string>
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

@@ -5,14 +5,14 @@
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="wrap_content"
 		android:padding="@dimen/activity_vertical_margin">
 
 		<TextView
+			android:id="@+id/tv_license_lost_message"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/dialog_microsoft_workaround_disclaimer_hint" />
+			android:layout_height="wrap_content" />
 
 	</RelativeLayout>
-</androidx.core.widget.NestedScrollView>
 
+</androidx.core.widget.NestedScrollView>

@@ -15,7 +15,6 @@ import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
 import org.cryptomator.domain.usecases.cloud.DownloadState
 import org.cryptomator.domain.usecases.cloud.UploadState
-import java.io.File
 import java.io.OutputStream
 import java.util.WeakHashMap
 import javax.inject.Inject
@@ -97,6 +96,17 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	@Throws(BackendException::class)
+	override fun metadata(file: CloudFile): CloudFile? {
+		return try {
+			file.cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")
+			delegateFor(file).metadata(file)
+		} catch (e: AuthenticationException) {
+			delegates.remove(file.cloud)
+			throw e
+		}
+	}
+
+	@Throws(BackendException::class)
 	override fun list(folder: CloudFolder): List<CloudNode> {
 		return try {
 			folder.cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")
@@ -154,10 +164,10 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	@Throws(BackendException::class)
-	override fun read(file: CloudFile, encryptedTmpFile: File?, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
+	override fun read(file: CloudFile, data: OutputStream, progressAware: ProgressAware<DownloadState>) {
 		try {
 			file.cloud?.let { networkConnectionCheck.assertConnectionIsPresent(it) } ?: throw IllegalStateException("Parent's cloud shouldn't be null")
-			delegateFor(file).read(file, encryptedTmpFile, data, progressAware)
+			delegateFor(file).read(file, data, progressAware)
 		} catch (e: AuthenticationException) {
 			delegates.remove(file.cloud)
 			throw e

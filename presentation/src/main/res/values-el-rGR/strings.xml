@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Η έκδοση που καθορίστηκε στο %1$s είναι διαφορετική από %2$s</string>
 	<string name="error_vault_key_invalid">%1$s δεν ταιριάζει με αυτό %2$s</string>
 	<string name="error_vault_config_loading">Γενικό σφάλμα κατά τη φόρτωση της ρύθμισης κρύπτης</string>
-	<string name="error_file_not_found_after_opening_using_3party">Το τοπικό αρχείο δεν υπάρχει πλέον μετά την επιστροφή στο Cryptomator. Οι πιθανές αλλαγές δεν μπορούν να μεταδοθούν πίσω στο cloud.</string>
 	<string name="error_no_such_bucket">Δεν υπάρχει τέτοιος κάδος</string>
 	<string name="error_masterkey_location_not_supported">Η προσαρμοσμένη τοποθεσία Masterkey δεν υποστηρίζεται ακόμα</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Αποτυχία επικοινωνίας με την εφαρμογή F-Droid. Δεν έχει εγκατασταθεί;</string>
@@ -228,8 +227,6 @@
 	<string name="screen_settings_security_label">Συμβουλές ασφαλείας</string>
 	<string name="screen_settings_section_version">Έκδοση</string>
 	<string name="screen_settings_advanced_settings">Ρυθμίσεις για Προχωρημένους</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Λύση ανοίγματος αρχείων Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Άνοιγμα αρχείων σε εφαρμογές Microsoft με άδεια εγγραφής</string>
 	<string name="screen_settings_background_unlock_preparation_label">Επιτάχυνση ξεκλειδώματος</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Λήψη ρυθμίσεων κρύπτης στο παρασκήνιο, ενώ σας ζητείτε να εισάγετε τον κωδικό πρόσβασης ή το βιομετρικό πιστοποιητικό</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Κρατήστε ξεκλείδωτο</string>
@@ -336,7 +333,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Προσοχή</string>
 	<string name="dialog_debug_mode_positive_button">Ενεργοποίηση</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Λόγω σφάλματος στις εφαρμογές της Microsoft, το αρχείο που θα επεξεργαστεί πρέπει να μοιραστεί με αυτές τις εφαρμογές σε ένα δημόσιο φάκελο μέσων στη συσκευή σας. Μετά την επανέναρξη του Cryptomator, το δημόσιο προσβάσιμο αρχείο διαγράφεται και πάλι, αλλά το Cryptomator δεν μπορεί να επηρεάσει τι συνέβη σε αυτό το αρχείο εν τω μεταξύ. Βεβαιωθείτε ότι έχετε επίγνωση αυτής της συμπεριφοράς κατά την ενεργοποίηση αυτής της επιλογής. Αυτό θα ισχύει μόνο για τύπους αρχείων Microsoft.\n\nΤο Cryptomator θα κάνει επανεκκίνηση μετά την ενεργοποίηση.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Αυτή η ρύθμιση είναι μια λειτουργία ασφαλείας και αποτρέπει άλλες εφαρμογές από το να ξεγελάσουν τους χρήστες να κάνουν πράγματα που δεν θέλουν να κάνουν.\n\nΜε την απενεργοποίηση, επιβεβαιώνετε ότι γνωρίζετε <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">τους κινδύνους</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Προσοχή</string>
 	<string name="dialog_disable_app_obscured_positive_button">Απενεργοποίηση</string>
@@ -454,32 +450,21 @@
 	<string name="notification_update_check_finished_latest">Τελευταία έκδοση εγκατεστημένη</string>
 	<string name="notification_authenticating">Ταυτοποίηση&#8230;</string>
 	<string name="screen_settings_lru_cache">Προσωρινή μνήμη</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Η προσωρινή μνήμη απέκτησε πρόσφατα πρόσβαση σε αρχεία που έχουν κρυπτογραφηθεί τοπικά στη συσκευή για μελλοντική επαναχρησιμοποίηση όταν ανοίξουν ξανά</string>
-	<string name="screen_settings_lru_cache_size">Συνολικό μέγεθος προσωρινής μνήμης</string>
 	<string name="screen_settings_clear_lru_cache_size">Εκκαθάριση προσωρινής μνήμης</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Οι αλλαγές θα εφαρμοστούν στην επόμενη επανεκκίνηση της εφαρμογής</string>
 	<string name="screen_settings_license_title_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Διαχείριση Συνδρομής</string>
 	<string name="dialog_trial_expired_unlock">Ξεκλείδωμα Πλήρους Έκδοσης</string>
+	<string name="dialog_license_lost_later">Αργότερα</string>
 	<string name="dialog_settings_update_check_interval_title">Διάστημα ελέγχου ενημερώσεων</string>
 	<string name="screen_settings_check_updates">\'Έλεγχος για ενημερώσεις</string>
 	<string name="screen_settings_last_check_updates">Τελευταίος έλεγχος: %1$s</string>
-	<string name="dialog_cache_size_title">Μέγεθος προσωρινής μνήμης ανά Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Άμεσο</string>
 	<string name="lock_timeout_1m">1 λεπτό</string>
 	<string name="lock_timeout_2m">2 λεπτά</string>
 	<string name="lock_timeout_5m">5 λεπτά</string>
 	<string name="lock_timeout_10m">10 λεπτά</string>
 	<string name="lock_timeout_never">Ποτέ</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Στυλ</string>
 	<string name="follow_system">Αυτόματο (ακολουθήστε το σύστημα)</string>

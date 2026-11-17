@@ -161,6 +161,17 @@ internal class LocalStorageAccessFrameworkImpl(private val context: Context, pri
 	}
 
 	@Throws(BackendException::class)
+	fun metadata(file: LocalStorageAccessFile): LocalStorageAccessFile? {
+		return try {
+			listFilesWithNameFilter(file.parent, file.name).getOrNull(0)?.also {
+				idCache.add(it)
+			} as? LocalStorageAccessFile
+		} catch (e: NoSuchCloudFileException) {
+			null
+		}
+	}
+
+	@Throws(BackendException::class)
 	fun list(folder: LocalStorageAccessFolder): List<LocalStorageAccessNode> {
 		val result: MutableList<LocalStorageAccessNode> = ArrayList()
 		contentResolver() //

@@ -5,31 +5,27 @@ import android.net.Uri
 import org.cryptomator.domain.CloudFile
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.di.PerView
-import org.cryptomator.domain.exception.FatalBackendException
-import org.cryptomator.domain.usecases.CopyDataUseCase
+import org.cryptomator.domain.usecases.DownloadFile
 import org.cryptomator.domain.usecases.cloud.DeleteNodesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadFilesUseCase
 import org.cryptomator.domain.usecases.cloud.DownloadState
+import org.cryptomator.domain.usecases.cloud.OpenVaultFilesUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
+import org.cryptomator.presentation.docprovider.documentUri
 import org.cryptomator.presentation.exception.ExceptionHandlers
+import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.ImagePreviewFile
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
 import org.cryptomator.presentation.model.ProgressModel
-import org.cryptomator.presentation.model.mappers.CloudFileModelMapper
 import org.cryptomator.presentation.ui.activity.view.ImagePreviewView
+import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ConfirmDeleteCloudNodeDialog
 import org.cryptomator.presentation.util.ContentResolverUtil
-import org.cryptomator.presentation.util.DownloadFileUtil
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
-import org.cryptomator.util.ExceptionUtil
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -38,67 +34,66 @@ class ImagePreviewPresenter @Inject constructor( //
 	exceptionMappings: ExceptionHandlers,  //
 	private val shareFileHelper: ShareFileHelper,  //
 	private val contentResolverUtil: ContentResolverUtil,  //
-	private val copyDataUseCase: CopyDataUseCase,  //
 	private val downloadFilesUseCase: DownloadFilesUseCase,  //
+	private val openVaultFilesUseCase: OpenVaultFilesUseCase,  //
 	private val deleteNodesUseCase: DeleteNodesUseCase,  //
-	private val downloadFileUtil: DownloadFileUtil,  //
-	private val fileUtil: FileUtil,  //
-	private val cloudFileModelMapper: CloudFileModelMapper
+	private val fileUtil: FileUtil
 ) : Presenter<ImagePreviewView>(exceptionMappings) {
 
 	private var isSystemUiVisible = true
 
+	private val missingImagePreviewFiles = SerialRequests<List<ImagePreviewFile>>({ waiting, next -> waiting + next }, ::openImagePreviewFiles)
+
 	@InstanceState
 	lateinit var pageIndexes: ArrayList<Int>
 
-	fun exportImageToUserSelectedLocation(uri: Uri) {
+	fun hasPageIndexes(): Boolean {
+		return ::pageIndexes.isInitialized
+	}
+
+	fun exportImageToUserSelectedLocation(image: CloudFileModel) {
 		val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
 		intent.addCategory(Intent.CATEGORY_OPENABLE)
 		intent.type = "*/*"
-		intent.putExtra(Intent.EXTRA_TITLE, contentResolverUtil.fileName(uri))
-		requestActivityResult(ActivityResultCallbacks.exportImageToUserSelectedLocation(uri.toString()), intent)
+		intent.putExtra(Intent.EXTRA_TITLE, image.name)
+		requestActivityResult(ActivityResultCallbacks.exportImageToUserSelectedLocation(image), intent)
 	}
 
 	@Callback
-	fun exportImageToUserSelectedLocation(result: ActivityResult, sourceUri: String?) {
-		try {
-			copyFile(
-				contentResolverUtil.openInputStream(Uri.parse(sourceUri)),  //
-				contentResolverUtil.openOutputStream(Uri.parse(result.intent()?.dataString))
-			)
-		} catch (e: FileNotFoundException) {
-			showError(e)
-		}
-	}
-
-	private fun copyFile(source: InputStream?, target: OutputStream?) {
-		if (source == null || target == null) {
-			throw FatalBackendException("Input- or OutputStream is null")
-		}
-		copyDataUseCase //
-			.withSource(source) //
-			.andTarget(target) //
-			.run(object : DefaultResultHandler<Void?>() {
-				override fun onFinished() {
+	fun exportImageToUserSelectedLocation(result: ActivityResult, image: CloudFileModel) {
+		val target = Uri.parse(result.intent()?.dataString)
+		val downloadFile = DownloadFile.Builder() //
+			.setDownloadFile(image.toCloudNode()) //
+			.setDataSink { contentResolverUtil.openOutputStream(target) } //
+			.build()
+		downloadFilesUseCase //
+			.withDownloadFiles(listOf(downloadFile)) //
+			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
+				override fun onSuccess(files: List<CloudFile>) {
 					view?.showMessage(R.string.screen_file_browser_msg_file_exported)
 				}
 			})
 	}
 
-	fun onShareImageClicked(uri: Uri) {
-		shareFileHelper.shareFile(this, uri)
+	fun onShareImageClicked(image: CloudFileModel, uri: Uri) {
+		shareFileHelper.shareFile(this, uri, image.name)
 	}
 
 	fun onDeleteImageClicked(imagePreviewFile: ImagePreviewFile) {
 		view?.showDialog(ConfirmDeleteCloudNodeDialog.newInstance(listOf(imagePreviewFile.cloudFileModel)))
 	}
 
+	/**
+	 * Unlike the browser, the preview waits for the cloud, so that the page of an image goes only once its deletion is
+	 * done, and one the cloud rejects stays.
+	 */
 	fun onDeleteImageConfirmed(imagePreviewFile: ImagePreviewFile, index: Int) {
 		view?.showProgress(ProgressModel.GENERIC)
+		val image = imagePreviewFile.cloudFileModel
 		deleteNodesUseCase
-			.withCloudNodes(listOf(imagePreviewFile.cloudFileModel.toCloudNode()))
-			.run(object : ProgressCompletingResultHandler<List<CloudNode?>?>() {
-				override fun onFinished() {
+			.withCloudNodes(listOf(image.toCloudNode()))
+			.run(object : DefaultResultHandler<List<CloudNode?>?>() {
+				override fun onSuccess(result: List<CloudNode?>?) {
 					view?.showProgress(ProgressModel.COMPLETED)
 					view?.onImageDeleted(index)
 				}
@@ -106,6 +101,10 @@ class ImagePreviewPresenter @Inject constructor( //
 				override fun onError(e: Throwable) {
 					Timber.tag("ImagePreviewPresenter").e(e, "Failed to delete preview image")
 					view?.showProgress(ProgressModel.COMPLETED)
+					if (image.parent?.vault() != null) {
+						view?.showDialog(ChangeFailedDialog.newInstance(image.name))
+					}
+					showError(e)
 				}
 			})
 	}
@@ -119,23 +118,29 @@ class ImagePreviewPresenter @Inject constructor( //
 		isSystemUiVisible = !isSystemUiVisible
 	}
 
+	/**
+	 * The pages next to the shown one ask for their images too, so the images are opened one after another.
+	 */
 	fun onMissingImagePreviewFile(imagePreviewFile: ImagePreviewFile) {
-		downloadFilesUseCase //
-			.withDownloadFiles(downloadFileUtil.createDownloadFilesFor(this, listOf(imagePreviewFile.cloudFileModel))) //
-			.run(object : DefaultProgressAwareResultHandler<List<CloudFile>, DownloadState>() {
-				override fun onSuccess(result: List<CloudFile>) {
-					cloudFileModelMapper.toModel(result[0])
-					imagePreviewFile.uri = fileUtil.contentUriFor(cloudFileModelMapper.toModel(result[0]))
+		missingImagePreviewFiles.request(listOf(imagePreviewFile))
+	}
+
+	private fun openImagePreviewFiles(imagePreviewFiles: List<ImagePreviewFile>, done: () -> Unit) {
+		val imagePreviewFile = imagePreviewFiles.first()
+		openVaultFilesUseCase //
+			.withFiles(listOf(imagePreviewFile.cloudFileModel.toCloudNode())) //
+			.run(object : DefaultProgressAwareResultHandler<List<String>, DownloadState>() {
+				override fun onSuccess(documentIds: List<String>) {
+					imagePreviewFile.uri = documentUri(documentIds[0])
 					view?.showImagePreview(imagePreviewFile)
 					view?.hideProgressBar(imagePreviewFile)
 				}
 
-				override fun onError(e: Throwable) {
-					if (ExceptionUtil.contains(e, IOException::class.java, ExceptionUtil.thatContainsMessage("Stream Closed"))) {
-						// ignore error
-						Timber.tag("ImagePreviewPresenter").d("User swiped to quickly and close the stream before finishing the download.")
+				override fun onFinished() {
+					if (imagePreviewFiles.size > 1) {
+						openImagePreviewFiles(imagePreviewFiles.drop(1), done)
 					} else {
-						super.onError(e)
+						done()
 					}
 				}
 			})
@@ -145,16 +150,11 @@ class ImagePreviewPresenter @Inject constructor( //
 		return fileUtil.getImagePreviewFiles(path)
 	}
 
-	fun getImagePreviewFiles(imagePreviewFileStore: ImagePreviewFilesStore, index: Int): ArrayList<ImagePreviewFile> {
-		val imagePreviewFiles = imagePreviewFileStore.cloudFileModels.mapTo(ArrayList<ImagePreviewFile>()) { ImagePreviewFile(it, null) }
-
-		// first file is already downloaded
-		val cloudFileModel = imagePreviewFileStore.cloudFileModels[index]
-		imagePreviewFiles[index] = ImagePreviewFile(cloudFileModel, fileUtil.contentUriFor(cloudFileModel))
-		return imagePreviewFiles
+	fun getImagePreviewFiles(imagePreviewFileStore: ImagePreviewFilesStore): ArrayList<ImagePreviewFile> {
+		return imagePreviewFileStore.cloudFileModels.mapTo(ArrayList()) { ImagePreviewFile(it, null) }
 	}
 
 	init {
-		unsubscribeOnDestroy(copyDataUseCase, downloadFilesUseCase, deleteNodesUseCase)
+		unsubscribeOnDestroy(downloadFilesUseCase, openVaultFilesUseCase, deleteNodesUseCase)
 	}
 }

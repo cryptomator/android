@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Verzija navedena v %1$s je drugačna od verzije v %2$s</string>
 	<string name="error_vault_key_invalid">%1$s se ne ujema s %2$s</string>
 	<string name="error_vault_config_loading">Napaka pri branju nastavitev trezorja</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka ni več na voljo potem ko ste preklopili nazaj na Cryptomator. Morebitne spremembe ne moremo zapisati nazaj na oblak.</string>
 	<string name="error_no_such_bucket">Ni takšnega bucket-a</string>
 	<string name="error_masterkey_location_not_supported">Poljubna lokacija glavnega ključa še ni podprta</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Ne uspem komunicirat s F-Droid aplikacijo. Morda ni naložena?</string>
@@ -329,8 +328,8 @@
 	<!-- notification -->
 	<string name="screen_settings_license_title_unlock">Odkleni polno različico</string>
 	<string name="dialog_trial_expired_unlock">Odkleni polno različico</string>
+	<string name="dialog_license_lost_later">Pozneje</string>
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

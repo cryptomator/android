@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
+import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.AUTOINCREMENT;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.NOT_NULL;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnConstraint.PRIMARY_KEY;
 import static org.cryptomator.data.db.Sql.SqlCreateTableBuilder.ColumnType.BOOLEAN;
@@ -39,8 +40,12 @@ class Sql {
 		return new SqlDeleteBuilder(table);
 	}
 
-	public static SqlUniqueIndexBuilder createUniqueIndex(String indexName) {
-		return new SqlUniqueIndexBuilder(indexName);
+	public static SqlIndexBuilder createUniqueIndex(String indexName) {
+		return new SqlIndexBuilder(indexName, true);
+	}
+
+	public static SqlIndexBuilder createIndex(String indexName) {
+		return new SqlIndexBuilder(indexName, false);
 	}
 
 	public static SqlDropIndexBuilder dropIndex(String index) {
@@ -187,22 +192,24 @@ class Sql {
 
 	}
 
-	public static class SqlUniqueIndexBuilder {
+	public static class SqlIndexBuilder {
 
 		private final String indexName;
+		private final boolean unique;
 		private final StringBuilder columns = new StringBuilder();
 		private String table;
 
-		private SqlUniqueIndexBuilder(String indexName) {
+		private SqlIndexBuilder(String indexName, boolean unique) {
 			this.indexName = indexName;
+			this.unique = unique;
 		}
 
-		public SqlUniqueIndexBuilder on(String table) {
+		public SqlIndexBuilder on(String table) {
 			this.table = table;
 			return this;
 		}
 
-		public SqlUniqueIndexBuilder asc(String column) {
+		public SqlIndexBuilder asc(String column) {
 			if (columns.length() > 0) {
 				columns.append(',');
 			}
@@ -211,7 +218,7 @@ class Sql {
 		}
 
 		public void executeOn(SupportSQLiteDatabase db) {
-			db.execSQL(format("CREATE UNIQUE INDEX \"%s\" ON \"%s\" (%s)", indexName, table, columns));
+			db.execSQL(format("CREATE %sINDEX \"%s\" ON \"%s\" (%s)", unique ? "UNIQUE " : "", indexName, table, columns));
 		}
 	}
 
@@ -355,7 +362,7 @@ class Sql {
 		private final String table;
 		private final StringBuilder columns = new StringBuilder();
 
-		private final StringBuilder foreignKeys = new StringBuilder();
+		private final StringBuilder tableConstraints = new StringBuilder();
 
 		private SqlCreateTableBuilder(String table) {
 			this.table = table;
@@ -363,6 +370,14 @@ class Sql {
 
 		public SqlCreateTableBuilder id() {
 			column("_id", INTEGER, PRIMARY_KEY);
+			return this;
+		}
+
+		/**
+		 * Unlike {@link #id()}, ids of deleted rows are never reused.
+		 */
+		public SqlCreateTableBuilder autoIncrementId() {
+			column("_id", INTEGER, PRIMARY_KEY, AUTOINCREMENT);
 			return this;
 		}
 
@@ -408,30 +423,44 @@ class Sql {
 		}
 
 		public void executeOn(SupportSQLiteDatabase db) {
-			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, foreignKeys));
+			db.execSQL(format("CREATE TABLE \"%s\" (%s%s)", table, columns, tableConstraints));
+		}
+
+		public SqlCreateTableBuilder primaryKey(String... columns) {
+			tableConstraints //
+					.append(", PRIMARY KEY (") //
+					.append(String.join(",", columns)) //
+					.append(")");
+			return this;
 		}
 
 		public SqlCreateTableBuilder foreignKey(String column, String targetTable, ForeignKeyBehaviour... behaviours) {
-			foreignKeys //
+			return foreignKey(new String[] {column}, targetTable, new String[] {"_id"}, behaviours);
+		}
+
+		public SqlCreateTableBuilder foreignKey(String[] columns, String targetTable, String[] targetColumns, ForeignKeyBehaviour... behaviours) {
+			tableConstraints //
 					.append(", CONSTRAINT FK_") //
-					.append(column) //
+					.append(String.join("_", columns)) //
 					.append("_") //
 					.append(targetTable) //
 					.append(" FOREIGN KEY (") //
-					.append(column) //
+					.append(String.join(",", columns)) //
 					.append(") REFERENCES ") //
 					.append(targetTable) //
-					.append("(_id)");
+					.append("(") //
+					.append(String.join(",", targetColumns)) //
+					.append(")");
 
 			for (ForeignKeyBehaviour behaviour : behaviours) {
-				foreignKeys.append(" ").append(behaviour.getText());
+				tableConstraints.append(" ").append(behaviour.getText());
 			}
 
 			return this;
 		}
 
 		public enum ForeignKeyBehaviour {
-			ON_DELETE_SET_NULL("ON DELETE SET NULL");
+			ON_DELETE_SET_NULL("ON DELETE SET NULL"), ON_DELETE_CASCADE("ON DELETE CASCADE"), ON_UPDATE_CASCADE("ON UPDATE CASCADE");
 
 			private final String text;
 
@@ -459,7 +488,7 @@ class Sql {
 		}
 
 		public enum ColumnConstraint {
-			NOT_NULL("NOT NULL"), PRIMARY_KEY("PRIMARY KEY");
+			NOT_NULL("NOT NULL"), PRIMARY_KEY("PRIMARY KEY"), AUTOINCREMENT("AUTOINCREMENT");
 
 			private final String text;
 

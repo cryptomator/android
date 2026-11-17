@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">%1$s 中指定的版本不同於 %2$s</string>
 	<string name="error_vault_key_invalid">%1$s 與 %2$s 不匹配</string>
 	<string name="error_vault_config_loading">載入加密檔案庫設定時發生錯誤</string>
-	<string name="error_file_not_found_after_opening_using_3party">切換回 Cryptomator 後，本地檔案不再存在。期間發生的更改無法傳回雲端。</string>
 	<string name="error_no_such_bucket">沒有該儲存貯體</string>
 	<string name="error_masterkey_location_not_supported">尚未支援自訂主金鑰位置</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">無法找到F-Droid應用程式。可能未安裝？</string>
@@ -196,6 +195,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">阻止攔截輸入並顯示假的用戶界面</string>
 	<string name="screen_settings_secure_screen">禁用截圖</string>
 	<string name="screen_settings_secure_screen_summary">在對話清單或應用程式內停用畫面擷取功能</string>
+	<string name="screen_settings_documents_provider">在「檔案」App 中顯示加密檔案庫</string>
+	<string name="screen_settings_documents_provider_summary">允許其他 App 透過系統檔案選擇器開啟並儲存加密檔案庫中的檔案。已上鎖的加密檔案庫在開啟時將會解鎖。關閉此功能會隱藏加密檔案庫，並移除其他 App 已獲得的存取權限。</string>
 	<string name="screen_settings_section_search">搜尋</string>
 	<string name="screen_settings_live_search">即時搜尋</string>
 	<string name="screen_settings_live_search_summary">輸入查詢時更新搜索結果</string>
@@ -204,6 +205,8 @@
 	<string name="screen_settings_section_auto_lock">自動鎖定</string>
 	<string name="screen_settings_auto_lock_timeout">在多久後鎖定</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">當螢幕被鎖定</string>
+	<string name="screen_settings_auto_lock_gracefully">等待傳輸完成</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">自動上鎖將會等待進行中的上傳與下載完成</string>
 	<string name="screen_settings_section_auto_photo_upload">自動上傳相片</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">選擇要上傳的加密檔案庫</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">啟用</string>
@@ -227,8 +230,6 @@
 	<string name="screen_settings_security_label">安全提示</string>
 	<string name="screen_settings_section_version">版本</string>
 	<string name="screen_settings_advanced_settings">進階設定</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">開啟 Microsoft 檔案的替代方案</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">使用寫入權限於 Microsoft 應用程式中開啟檔案</string>
 	<string name="screen_settings_background_unlock_preparation_label">加速解鎖</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">在提示輸入密碼或生物識別身份驗證時在後台下載保險庫配置</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">保持解鎖</string>
@@ -316,6 +317,9 @@
 	<string name="dialog_progress_encryption">正在加密中……</string>
 	<string name="dialog_progress_decryption">解密中&#8230;</string>
 	<string name="action_progress_moving">正在移動中……</string>
+	<string name="screen_file_browser_upload_failed">上傳失敗。輕觸以重試。</string>
+	<string name="documents_provider_upload_failed">上傳失敗。下拉以重試。</string>
+	<string name="documents_provider_upload_failed_in_folder">此資料夾中有上傳項目失敗。下拉以重試。</string>
 	<string name="dialog_lock_vault">鎖定</string>
 	<string name="dialog_accept_ssl_certificate_title">無效的 SSL 憑證</string>
 	<string name="dialog_accept_ssl_certificate_hint">這個 SSL 認證無效，您仍要信任它嗎？</string>
@@ -335,7 +339,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。</string>
 	<string name="dialog_debug_mode_disclaimer_title">注意</string>
 	<string name="dialog_debug_mode_positive_button">啟用</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">由於 Microsoft 應用程式中的錯誤，必須將檔案分享到公用資料夾才能進行編輯。一旦 Cryptomator 繼續運作，可以公開存取的相應檔案將再次被刪除，但 Cryptomator 無法影響在此期間該檔案所發生的情況。請確保在啟用此選項時了解此行為。此問題僅適用於 Microsoft 文件類型。\n\n啟用該選項後，Cryptomator 將重新啟動。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">此設定是一項安全功能，可防止其他應用程式欺騙使用者做他們不想做的事情。\n\n如果停用這項功能，請確定你已經<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">了解其風險</a>。</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">注意</string>
 	<string name="dialog_disable_app_obscured_positive_button">停用</string>
@@ -398,6 +401,7 @@
 	<string name="dialog_hub_vault_archived_hint">此加密檔案庫已被封存，無法解鎖。要解鎖，必須由加密檔案庫的擁有者取消封存。</string>
 	<string name="dialog_restore_successful_title">復原成功</string>
 	<string name="dialog_no_full_version_title">沒有完整版</string>
+	<string name="dialog_change_failed_title">變更為 %1$s 失敗</string>
 	<string name="dialog_hub_user_setup_required_title">需要設定使用者</string>
 	<string name="dialog_hub_user_setup_required_hint">請完成您使用者檔案中所需的步驟，以便繼續進行。</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">轉到個人資料</string>
@@ -453,33 +457,22 @@
 	<string name="notification_update_check_finished_latest">已安裝最新版本</string>
 	<string name="notification_authenticating">正在驗證 &#8230;</string>
 	<string name="screen_settings_lru_cache">快取</string>
-	<string name="screen_settings_lru_cache_toggle_summary">把本機上最近開啟的加密檔案加到快取，以便以後重新打開時使用</string>
-	<string name="screen_settings_lru_cache_size">快取總大小</string>
 	<string name="screen_settings_clear_lru_cache_size">清除快取</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">變更將會在應用程式下次重啓後啓用。</string>
 	<string name="screen_settings_license_title_unlock">解鎖完整版</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">管理訂閱</string>
 	<string name="screen_settings_upgrade_to_lifetime">升級到永久方案</string>
 	<string name="dialog_trial_expired_unlock">解鎖完整版</string>
+	<string name="dialog_license_lost_later">以後再說</string>
 	<string name="dialog_settings_update_check_interval_title">檢查更新間隔</string>
 	<string name="screen_settings_check_updates">檢查更新</string>
 	<string name="screen_settings_last_check_updates">上次檢查於%1$s</string>
-	<string name="dialog_cache_size_title">每個雲端快取大小</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">立即</string>
 	<string name="lock_timeout_1m">1分鐘</string>
 	<string name="lock_timeout_2m">2分鐘</string>
 	<string name="lock_timeout_5m">5分鐘</string>
 	<string name="lock_timeout_10m">10分鐘</string>
 	<string name="lock_timeout_never">從不</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">樣式</string>
 	<string name="follow_system">自動（跟隨系統）</string>

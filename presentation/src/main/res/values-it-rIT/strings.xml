@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">La versione specificata in %1$s è diversa da %2$s</string>
 	<string name="error_vault_key_invalid">%1$s non corrisponde a questo %2$s</string>
 	<string name="error_vault_config_loading">Errore generale durante il caricamento della configurazione della cassaforte</string>
-	<string name="error_file_not_found_after_opening_using_3party">Il file locale non è più presente dopo essere tornato a Cryptomator. Le eventuali modifiche non possono essere riprodotte nel cloud.</string>
 	<string name="error_no_such_bucket">Nessun bucket di questo tipo</string>
 	<string name="error_masterkey_location_not_supported">Posizione personalizzata della Chiave Principale non ancora supportata</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Impossibile comunicare con l\'app F-Droid. Forse non è installata?</string>
@@ -124,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">Rimuovi</string>
 	<string name="screen_vault_list_vault_creation_hint">Tocca qui per creare una nuova cassaforte</string>
 	<string name="screen_vault_list_change_password_successful">Password modificata con successo</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 La licenza perpetua è scontata del %1$d%% fino a %2$s</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Ignora</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Cassaforte</string>
@@ -179,6 +179,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Scegli una posizione</string>
 	<string name="screen_cloud_connections_no_connections">Tocca qui per aggiungere posizioni</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nessuna unità disponibile.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">Impossibile trovare il sito di SharePoint. Controlla l\'URL.</string>
 	<string name="screen_cloud_error_webdav_not_supported">Il server non sembra essere compatibile con WebDAV</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nessun file manager trovato che supporta l\'apertura di cartelle</string>
 	<!-- ## screen: webdav settings -->
@@ -259,16 +261,16 @@
 	<string name="screen_settings_security_label">Suggerimenti di sicurezza</string>
 	<string name="screen_settings_section_version">Versione</string>
 	<string name="screen_settings_advanced_settings">Impostazioni Avanzate</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Soluzione per aprire i file Microsoft</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Apri file nelle app Microsoft con i permessi di scrittura</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelera sblocco</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Scarica la configurazione della cassaforte in background quando è stato richiesto di inserire la password o l\'autenticazione biometrica</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Mantieni sbloccato</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Mantieni le cassaforte sbloccate durante la modifica dei file</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">Connessioni OneDrive</string>
+	<string name="screen_cloud_settings_sharepoint_connections">Collegamenti SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connessioni WebDAV</string>
 	<string name="screen_cloud_settings_pcloud_connections">connessioni pCloud</string>
+	<string name="screen_cloud_settings_box_connections">Collegamenti</string>
 	<string name="screen_cloud_settings_s3_connections">Collegamenti S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Posizione di archiviazione locale</string>
 	<string name="screen_cloud_settings_log_in_to">Accedi a</string>
@@ -367,7 +369,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Attenzione</string>
 	<string name="dialog_debug_mode_positive_button">Abilita</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">A causa di un bug nelle applicazioni Microsoft, il file da modificare deve essere condiviso con queste applicazioni in una cartella pubblica sul tuo dispositivo. Dopo aver riavviato Cryptomator, il file accessibile pubblicamente viene nuovamente eliminato, ma Cryptomator non può controllare cosa sia successo a questo file nel frattempo. Assicurati di essere a conoscenza di questo comportamento quando attivi questa opzione. Questo si applica solo ai formati di file Microsoft.\n\nCryptomator si riavvia dopo l\'attivazione.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Questa impostazione è una funzione di sicurezza e impedisce ad altre applicazioni di spingere gli utenti a fare cose che non vogliono.\n\nDisabilitandola confermi di essere <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">consapevole dei rischi</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Attenzione</string>
 	<string name="dialog_disable_app_obscured_positive_button">Disabilita</string>
@@ -411,6 +412,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">Credenziali di \'%1$s\' aggiornate</string>
 	<string name="dialog_pcloud_credentials_updated">Se hai intenzione di aggiungere un nuovo account pCloud, tocca questo url <a href="https://www.pcloud.com">www.pcloud. om</a>, esci dall\'account corrente e tocca di nuovo il \'+\' in questa app per creare una nuova connessione cloud.</string>
 	<string name="dialog_enter_sharepoint_url_title">Inserisci l\'URL di SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_hint">URL del sito di SharePoint</string>
+	<string name="dialog_enter_sharepoint_url_format">Inserisci l\'indirizzo del tuo sito SharePoint, ad esempio https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Questo non è l\'indirizzo di un sito di SharePoint. Per favore inseriscilo come https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Seleziona unità</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Selezionare l\'unità SharePoint con cui si desidera lavorare.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Richiesta migrazione password della cassaforte</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A causa di miglioramenti di sicurezza, ti verrà chiesta l\'autenticazione biometrica due volte per ogni cassaforte per ri-crittografare la password della tua cassaforte. Questo è necessario per continuare a proteggere le password della tua cassaforte con la tecnologia più recente. Se non si desidera che ciò accada, le password memorizzate verranno rimosse.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migra</string>
@@ -491,10 +497,7 @@
 	<string name="notification_authenticating">Autenticazione&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Host attendibili cancellati</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">La cache ha recentemente acceso ai file crittografati localmente sul dispositivo per un riutilizzo successivo quando riaperto</string>
-	<string name="screen_settings_lru_cache_size">Dimensione totale della cache</string>
 	<string name="screen_settings_clear_lru_cache_size">Svuota Cache</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Le modifiche saranno applicate al prossimo riavvio dell\' app</string>
 	<string name="screen_settings_license_title_unlock">Sblocca la Versione Completa</string>
 	<string name="screen_settings_license_title_unlocked">Versione Completa</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -507,24 +510,19 @@
 	<string name="dialog_trial_expired_message">La tua prova gratuita è terminata. Puoi continuare in modalità sola lettura o sbloccare la versione completa.</string>
 	<string name="dialog_trial_expired_unlock">Sblocca la Versione Completa</string>
 	<string name="dialog_trial_expired_continue_read_only">Continua in modalità sola lettura</string>
+	<string name="dialog_license_lost_title">Inserisci di nuovo la Chiave di Licenza</string>
+	<string name="dialog_license_lost_message">Un precedente aggiornamento ha rimosso da questo dispositivo la chiave di licenza registrata a %1$s. Inseriscila di nuovo per ripristinare l\'accesso in scrittura. Fino ad allora, le tue casseforti sono in sola lettura.</string>
+	<string name="dialog_license_lost_reenter">Inserisci di nuovo la Chiave di Licenza</string>
+	<string name="dialog_license_lost_later">Dopo</string>
 	<string name="dialog_settings_update_check_interval_title">Aggiorna intervallo di controllo</string>
 	<string name="screen_settings_check_updates">Controlla aggiornamenti</string>
 	<string name="screen_settings_last_check_updates">Ultima esecuzione %1$s</string>
-	<string name="dialog_cache_size_title">Dimensione cache per Cloud</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Immediato</string>
 	<string name="lock_timeout_1m">1 minuto</string>
 	<string name="lock_timeout_2m">2 minuti</string>
 	<string name="lock_timeout_5m">5 minuti</string>
 	<string name="lock_timeout_10m">10 minuti</string>
 	<string name="lock_timeout_never">Mai</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stile</string>
 	<string name="follow_system">Automatico (segue il sistema)</string>

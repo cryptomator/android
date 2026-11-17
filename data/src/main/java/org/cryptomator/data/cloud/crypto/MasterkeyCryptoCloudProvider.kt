@@ -163,7 +163,7 @@ class MasterkeyCryptoCloudProvider(
 	@Throws(BackendException::class)
 	private fun readKeyFileData(masterkeyFile: CloudFile): ByteArray {
 		val data = ByteArrayOutputStream()
-		cloudContentRepository.read(masterkeyFile, null, data, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(masterkeyFile, data, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		return data.toByteArray()
 	}
 
@@ -231,7 +231,7 @@ class MasterkeyCryptoCloudProvider(
 			legacyMasterkeyFile(vaultLocation)
 		}
 		val dataOutputStream = ByteArrayOutputStream()
-		cloudContentRepository.read(masterkeyFile, null, dataOutputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
+		cloudContentRepository.read(masterkeyFile, dataOutputStream, ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD)
 		val data = dataOutputStream.toByteArray()
 		val vaultVersion: Int
 		if (unverifiedVaultConfig.isPresent) {

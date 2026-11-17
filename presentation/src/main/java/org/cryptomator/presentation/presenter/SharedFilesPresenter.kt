@@ -8,9 +8,11 @@ import org.cryptomator.domain.CloudFolder
 import org.cryptomator.domain.CloudNode
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.di.PerView
+import org.cryptomator.domain.repository.VaultListing
 import org.cryptomator.domain.usecases.GetDecryptedCloudForVaultUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase
+import org.cryptomator.domain.usecases.cloud.ListVaultFolderUseCase
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.UploadFile
 import org.cryptomator.domain.usecases.cloud.UploadFilesUseCase
@@ -47,6 +49,7 @@ class SharedFilesPresenter @Inject constructor( //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase,  //
 	private val uploadFilesUseCase: UploadFilesUseCase,  //
 	private val getCloudListUseCase: GetCloudListUseCase,  //
+	private val listVaultFolderUseCase: ListVaultFolderUseCase,  //
 	private val contentResolverUtil: ContentResolverUtil,  //
 	private val fileCacheUtils: FileCacheUtils,  //
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,  //
@@ -185,7 +188,9 @@ class SharedFilesPresenter @Inject constructor( //
 						AuthenticationState.CHOOSE_LOCATION -> navigateToVaultContent((folder.cloud as CryptoCloud).vault, folder)
 						AuthenticationState.INIT_ROOT -> {
 							location = cloudFolderModelMapper.toModel(folder)
-							checkForUsedFileNames(folder)
+							if (ensureWriteAccess()) {
+								checkForUsedFileNames(folder)
+							}
 						}
 						else -> {}
 					}
@@ -258,8 +263,24 @@ class SharedFilesPresenter @Inject constructor( //
 		filesForUpload.removeAll(existingFilesForUpload)
 	}
 
+	/**
+	 * A folder of a vault is listed from the cloud through the vault's cache, so that the cache knows the names, too.
+	 */
 	private fun checkForUsedFileNames(folder: CloudFolder) {
 		view?.showProgress(ProgressModel.GENERIC)
+		if (cloudFolderModelMapper.toModel(folder).vault() != null) {
+			listVaultFolderUseCase //
+				.withFolder(folder) //
+				.andForceRefresh(true) //
+				.run(object : DefaultResultHandler<VaultListing>() {
+					override fun onSuccess(listing: VaultListing) {
+						// the folder may have been renamed or moved meanwhile, e.g. by another app
+						location = cloudFolderModelMapper.toModel(listing.folder)
+						checkForExistingFilesOrUploadFiles(listing.folder, listing.nodes)
+					}
+				})
+			return
+		}
 		getCloudListUseCase //
 			.withFolder(folder) //
 			.run(object : DefaultResultHandler<List<CloudNode>>() {
@@ -306,10 +327,7 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onSaveButtonPressed(filesForUpload: List<SharedFileModel>) {
-		if (selectedVault != null && !licenseEnforcer.hasWriteAccessForVault(selectedVault)) {
-			view?.let { v ->
-				licenseEnforcer.ensureWriteAccessForVault(v.activity(), selectedVault, LicenseEnforcer.LockedAction.UPLOAD_FILES)
-			}
+		if (!ensureWriteAccess()) {
 			return
 		}
 		updateFileNames(filesForUpload)
@@ -329,6 +347,22 @@ class SharedFilesPresenter @Inject constructor( //
 	private fun prepareSavingFiles() {
 		location?.let { checkForUsedFileNames(it.toCloudNode()) }
 			?: authenticate(selectedVault, AuthenticationState.INIT_ROOT)
+	}
+
+	/**
+	 * Asks with the vault of the chosen [location], which, unlike the [selectedVault] from the vault list, knows what its
+	 * unlock found out, e.g. whether a Hub vault has a paid license. Without a location yet, it is asked again once the
+	 * unlock found the root.
+	 */
+	private fun ensureWriteAccess(): Boolean {
+		val vault = location?.vault() ?: return true
+		if (licenseEnforcer.hasWriteAccessForVault(vault)) {
+			return true
+		}
+		view?.let { v ->
+			licenseEnforcer.ensureWriteAccessForVault(v.activity(), vault, LicenseEnforcer.LockedAction.UPLOAD_FILES)
+		}
+		return false
 	}
 
 	private fun hasInvalidFileNames(filesForUpload: List<SharedFileModel>): Boolean {
@@ -387,6 +421,9 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	fun onVaultSelected(vault: VaultModel?) {
+		if (vault?.vaultId != selectedVault?.vaultId) {
+			location = null
+		}
 		selectedVault = vault
 		view?.setUploadEnabled(vault != null)
 	}
@@ -418,7 +455,8 @@ class SharedFilesPresenter @Inject constructor( //
 			getVaultListUseCase,  //
 			getDecryptedCloudForVaultUseCase,  //
 			uploadFilesUseCase,  //
-			getCloudListUseCase
+			getCloudListUseCase, //
+			listVaultFolderUseCase
 		)
 	}
 }

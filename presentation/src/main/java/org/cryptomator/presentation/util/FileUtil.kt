@@ -2,24 +2,19 @@ package org.cryptomator.presentation.util
 
 import android.content.Context
 import android.net.Uri
-import android.os.Parcelable
 import androidx.core.content.FileProvider
 import org.cryptomator.domain.exception.FatalBackendException
 import org.cryptomator.presentation.model.AutoUploadFilesStore
-import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.ImagePreviewFilesStore
-import org.cryptomator.util.file.LruFileCacheUtil
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InvalidClassException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.io.OutputStream
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -27,38 +22,32 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 
 	private var decryptedFileStorage: File = File(context.cacheDir, "decrypted")
 
+	/**
+	 * Deletes old files in the cache directory, and what earlier versions left behind: the encrypted per-cloud caches in
+	 * `LruCache*` folders and the decrypted copies the workaround for Microsoft apps kept in shared storage.
+	 */
 	fun cleanup() {
-		cleanupDir(context.cacheDir)
-	}
-
-	fun cleanupDecryptedFiles() {
-		if (decryptedFileStorage.exists()) {
-			decryptedFileStorage.listFiles()
-				?.filter { it.name != AUTO_UPLOAD_IMAGE__FILE_NAMES && !it.delete() }
-				?.forEach { Timber.w("Failed to cleanup file in decryptedFileStorage") }
+		// asking for the media folders creates them, so they are deleted again unless something else is in them
+		val mediaDirs = context.externalMediaDirs.filterNotNull()
+		val legacyCaches = context.cacheDir.listFiles { file -> file.isDirectory && file.name.startsWith("LruCache") }.orEmpty().toList()
+		val legacyDecryptedFiles = mediaDirs.map { File(it, "decrypted") }
+		(legacyCaches + legacyDecryptedFiles).forEach { legacy ->
+			if (!legacy.deleteRecursively()) {
+				Timber.w("Failed to delete legacy cache ${legacy.name}")
+			}
 		}
+		mediaDirs.filter { it.list()?.isEmpty() == true }.forEach(File::delete)
+		cleanupDir(context.cacheDir)
 	}
 
 	private fun cleanupDir(directory: File) {
 		directory.listFiles()?.forEach { child ->
 			if (child.isDirectory) {
-				if (!lruCacheFolder(child)) {
-					cleanupDir(child)
-				}
+				cleanupDir(child)
 			} else {
 				cleanupFile(child)
 			}
 		}
-	}
-
-	private fun lruCacheFolder(child: File): Boolean {
-		val lruFileCacheUtil = LruFileCacheUtil(context)
-		LruFileCacheUtil.Cache.values().forEach { cache ->
-			if (lruFileCacheUtil.resolve(cache) == child) {
-				return true
-			}
-		}
-		return false
 	}
 
 	private fun cleanupFile(file: File) {
@@ -68,18 +57,6 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 				Timber.w("Failed to cleanup file in cacheDir")
 			}
 		}
-	}
-
-	@Throws(FileNotFoundException::class)
-	fun newDecryptedData(cloudFile: CloudFileModel): OutputStream {
-		val decryptedFile = fileFor(cloudFile)
-		return FileOutputStream(decryptedFile)
-	}
-
-	fun contentUriFor(cloudFile: CloudFileModel): Uri {
-		val decryptedFile = fileFor(cloudFile)
-		check(decryptedFile.exists()) { "Decrypted cloud file did not exist but was expected to" }
-		return FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", decryptedFile)
 	}
 
 	fun contentUriForNewTempFile(fileName: String): Uri {
@@ -93,47 +70,8 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 		return File(decryptedFileStorage, fileName)
 	}
 
-	fun contentUrisFor(cloudFiles: List<CloudFileModel>): ArrayList<out Parcelable?> {
-		return cloudFiles.mapTo(ArrayList()) { contentUriFor(it) }
-	}
-
-	fun fileFor(cloudFile: CloudFileModel): File {
-		decryptedFileStorage.mkdir()
-		return File(decryptedFileStorage, fileNameLowerCaseExtension(cloudFile))
-	}
-
-	private fun fileNameLowerCaseExtension(cloudFile: CloudFileModel): String {
-		val cloudFileName = cloudFile.name
-		val extension = getExtension(cloudFileName)
-		return if (extension != null) getSimpleFileName(cloudFileName) + "." + extension.lowercase() else cloudFileName
-	}
-
 	fun fileInfo(name: String): FileInfo {
 		return FileInfo(name, mimeTypes)
-	}
-
-	fun getLegacyFileForMicrosoftWorkaround(cloudFile: CloudFileModel): File {
-		return getPublicDecryptedFileStorage()?.let {
-			val publicOfficeFile = File(it, fileNameLowerCaseExtension(cloudFile))
-			fileFor(cloudFile).copyTo(publicOfficeFile, true)
-		} ?: fileFor(cloudFile)
-	}
-
-	private fun getPublicDecryptedFileStorage(): File? {
-		return try {
-			val mediaDir = context.getExternalMediaDirs().first { dir -> dir.startsWith("/storage/emulated/0") }
-			if (mediaDir.canWrite()) {
-				val publicDecryptedFileStorage = File(mediaDir, "decrypted")
-				publicDecryptedFileStorage.mkdir()
-				publicDecryptedFileStorage
-			} else {
-				Timber.tag("FileUtil").e("Media storage isn't writable")
-				null
-			}
-		} catch (e: NoSuchElementException) {
-			Timber.tag("FileUtil").e("Media storage isn't available")
-			null
-		}
 	}
 
 	fun storeImagePreviewFiles(imagePreviewFilesStore: ImagePreviewFilesStore?): String? {
@@ -287,11 +225,6 @@ class FileUtil @Inject constructor(private val context: Context, private val mim
 		private const val CLEANUP_AFTER_MILLISECONDS = 5 * MILLISECONDS_PER_HOUR
 		private const val IMAGE_PREVIEW__FILE_NAMES = "imagePreviewFilenames"
 		private const val AUTO_UPLOAD_IMAGE__FILE_NAMES = "autoUploadImageFileNames"
-
-		private fun getSimpleFileName(fileName: String): String {
-			val extensionSeparatorIndex = fileName.lastIndexOf(".")
-			return if (extensionSeparatorIndex != -1) fileName.substring(0, extensionSeparatorIndex) else fileName
-		}
 
 		fun getExtension(fileName: String): String? {
 			val extensionSeparatorIndex = fileName.lastIndexOf(".")

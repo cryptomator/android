@@ -39,6 +39,13 @@ enum class CloudTypeModel(builder: Builder) {
 			.withVaultSelectedImageResource(R.drawable.pcloud_vault_selected) //
 			.withMultiInstances()
 	),  //
+	BOX(
+		Builder("BOX", R.string.cloud_names_box) //
+			.withCloudImageResource(R.drawable.box) //
+			.withVaultImageResource(R.drawable.box_vault) //
+			.withVaultSelectedImageResource(R.drawable.box_vault_selected) //
+			.withMultiInstances()
+	),  //
 	WEBDAV(
 		Builder("WEBDAV", R.string.cloud_names_webdav) //
 			.withCloudImageResource(R.drawable.webdav) //

@@ -77,12 +77,13 @@ public class PrepareDownloadFiles {
 		}
 	}
 
+	/**
+	 * Creates the target document now, so that its name is taken, but opens it only when the file is downloaded, so that
+	 * a failed export leaves no streams open.
+	 */
 	private DownloadFile createDownloadFile(CloudFile file, Uri documentUri) throws NoSuchCloudFileException, IllegalFileNameException {
-		try {
-			return new DownloadFile.Builder().setDownloadFile(file).setDataSink(contentResolver.openOutputStream(createNewDocumentUri(documentUri, file.getName()))).build();
-		} catch (FileNotFoundException e) {
-			throw new NoSuchCloudFileException(file.getName());
-		}
+		Uri target = createNewDocumentUri(documentUri, file.getName());
+		return new DownloadFile.Builder().setDownloadFile(file).setDataSink(() -> contentResolver.openOutputStream(target)).build();
 	}
 
 	private Uri createNewDocumentUri(Uri parentUri, String fileName) throws IllegalFileNameException, NoSuchCloudFileException {

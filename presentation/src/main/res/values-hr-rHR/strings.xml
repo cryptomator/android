@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Verzija navedena u %1$s je drugačija od one u %2$s</string>
 	<string name="error_vault_key_invalid">%1$s ne odgovara onom u %2$s</string>
 	<string name="error_vault_config_loading">Opća greška kod učitavanja postavki trezora</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokalna datoteka više ne postoji nakon povratka u Cryptomator. Moguće promjene ne mogu se propagirati nazad u oblak.</string>
 	<string name="error_no_such_bucket">Nepostojeća kanta</string>
 	<string name="error_masterkey_location_not_supported">Prilagođena lokacija glavnog ključa još nije podržano</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikacija s aplikacijom F-Droid nije uspjela. Nije instalirana?</string>
@@ -417,32 +416,21 @@
 	<string name="notification_update_check_finished_latest">Najnovija verzija je instalirana</string>
 	<string name="notification_authenticating">Autentikacija&#8230;</string>
 	<string name="screen_settings_lru_cache">Predmemorija</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Predmemorija je nedavno pristupila datotekama šifriranima lokalno na uređaju za kasniju ponovnu upotrebu</string>
-	<string name="screen_settings_lru_cache_size">Ukupna veličina predmemorije</string>
 	<string name="screen_settings_clear_lru_cache_size">Očisti predmemoriju</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Promjene će se primijeniti kod slijedećeg pokretanja aplikacije</string>
 	<string name="screen_settings_license_title_unlock">Otključaj punu verziju</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Upravljaj pretplatom</string>
 	<string name="dialog_trial_expired_unlock">Otključaj punu verziju</string>
+	<string name="dialog_license_lost_later">Kasnije</string>
 	<string name="dialog_settings_update_check_interval_title">Razmak ažuriranja</string>
 	<string name="screen_settings_check_updates">Potraži ažuriranja</string>
 	<string name="screen_settings_last_check_updates">Posljednji put pokrenuto %1$s</string>
-	<string name="dialog_cache_size_title">Veličina predmemorije po oblaku</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Odmah</string>
 	<string name="lock_timeout_1m">1 minuta</string>
 	<string name="lock_timeout_2m">2 minute</string>
 	<string name="lock_timeout_5m">5 minuta</string>
 	<string name="lock_timeout_10m">10 minuta</string>
 	<string name="lock_timeout_never">Nikad</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stil</string>
 	<string name="follow_system">Automatski (slijedi sustav)</string>

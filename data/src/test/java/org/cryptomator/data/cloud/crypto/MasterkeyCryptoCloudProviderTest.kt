@@ -246,10 +246,10 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 		// 1. Read masterkey
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(masterkeyContent.toByteArray()), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(masterKeyFile), eq(null), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
+		}.`when`(cloudContentRepository).read(eq(masterKeyFile), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
 
 		// 2. Create backup
 		val fileName: String = masterKeyFile.name + generate(masterkeyContent.toByteArray()) + CryptoConstants.MASTERKEY_BACKUP_FILE_EXT
@@ -280,7 +280,7 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 		inTest.changePassword(vault, unverifiedVaultConfig, "foo", "bar")
 
-		Mockito.verify(cloudContentRepository).read(eq(masterKeyFile), eq(null), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
+		Mockito.verify(cloudContentRepository).read(eq(masterKeyFile), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
 		Mockito.verify(cloudContentRepository).write(
 			eq(masterKeyBackupFile), any(
 				DataSource::class.java
@@ -357,10 +357,10 @@ internal class MasterkeyCryptoCloudProviderTest {
 
 		// 1. Read masterkey
 		Mockito.doAnswer { invocation: InvocationOnMock ->
-			val out = invocation.getArgument<OutputStream>(2)
+			val out = invocation.getArgument<OutputStream>(1)
 			copyStreamToStream(ByteArrayInputStream(masterkeyContent.toByteArray()), out)
 			null
-		}.`when`(cloudContentRepository).read(eq(masterKeyFile), eq(null), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
+		}.`when`(cloudContentRepository).read(eq(masterKeyFile), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
 		return inTest.isVaultPasswordValid(vault, unverifiedVaultConfig, password)
 	}
 }

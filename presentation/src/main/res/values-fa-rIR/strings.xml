@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">نسخه تعیین شده در %1$s با %2$s متفاوت است</string>
 	<string name="error_vault_key_invalid">%1$s با این %2$s مطابقت ندارد</string>
 	<string name="error_vault_config_loading">خطای عمومی در هنگام بارگذاری پیکربندی مخزن</string>
-	<string name="error_file_not_found_after_opening_using_3party">پس از بازگشت به کریپتوماتور، فایل محلی دیگر موجود نیست. تغییرات احتمالی را نمی توان به فضای ابری اضافه کرد.</string>
 	<string name="error_no_such_bucket">چنین پارامتری وجود ندارد</string>
 	<string name="error_masterkey_location_not_supported">مکان سفارشی برای کلید اصلی هم اکنون پشتیبانی نمی‌شود</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">برقراری ارتباط با برنامه F-Droid ناموفق بود. نصب نشده است؟</string>
@@ -225,7 +224,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<!-- update interval names -->
 </resources>

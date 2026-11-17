@@ -8,13 +8,13 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
-import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import org.cryptomator.data.cloud.crypto.Cryptors
 import org.cryptomator.data.cloud.crypto.CryptorsModule
 import org.cryptomator.data.repository.RepositoryModule
 import org.cryptomator.domain.Cloud
 import org.cryptomator.presentation.di.HasComponent
+import org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider
 import org.cryptomator.presentation.di.component.ApplicationComponent
 import org.cryptomator.presentation.di.component.DaggerApplicationComponent
 import org.cryptomator.presentation.di.module.ApplicationModule
@@ -34,6 +34,7 @@ import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.NoOpActivityLifecycleCallbacks
 import org.cryptomator.util.SharedPreferencesHandler
 import java.lang.ref.WeakReference
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicInteger
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
@@ -42,6 +43,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 
 	private val appCryptors = Cryptors.Delegating()
 	private lateinit var applicationComponent: ApplicationComponent
+	private val applicationComponentInitialized = CountDownLatch(1)
 
 	@Volatile
 	private var cryptoServiceBinder: CryptorsService.Binder? = null
@@ -77,6 +79,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		Timber.tag("App").d("appId %s", BuildConfig.APPLICATION_ID)
 
 		initializeInjector()
+		applicationComponent.vaultDocumentEvents().addListener(CryptomatorDocumentsProvider.ChangeNotifier(contentResolver) { applicationComponent.documentMetadataCache() })
 		launchServices()
 		registerActivityLifecycleCallbacks(serviceNotifier)
 		if (FlavorConfig.isFreemiumFlavor) {
@@ -84,11 +87,6 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		}
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
 		cleanupCache()
-
-		if (sharedPreferencesHandler.microsoftWorkaround()) {
-			val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
-			StrictMode.setVmPolicy(builder.build())
-		}
 
 		RxJavaPlugins.setErrorHandler { e: Throwable? -> Timber.tag("CryptomatorApp").e(e, "BaseErrorHandler detected a problem") }
 	}
@@ -118,7 +116,6 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 				cryptoServiceBinder = service as CryptorsService.Binder
 				cryptoServiceBinder?.let {
 					appCryptors.setDelegate(it.cryptors())
-					it.setFileUtil(applicationComponent.fileUtil())
 				}
 				updateService()
 			}
@@ -140,7 +137,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			override fun onServiceConnected(name: ComponentName, service: IBinder) {
 				Timber.tag("App").i("IAP Billing service connected")
 				iapBillingServiceBinder = service as IapBillingService.Binder
-				iapBillingServiceBinder?.init(Companion.applicationContext)
+				iapBillingServiceBinder?.init(_applicationContext)
 				drainPendingProductDetailsCallbacks()
 			}
 
@@ -196,9 +193,10 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 				autoUploadServiceBinder = service as AutoUploadService.Binder
 				autoUploadServiceBinder?.init( //
 					applicationComponent.cloudContentRepository(),  //
+					applicationComponent.vaultDocumentRepository(),  //
 					applicationComponent.fileUtil(),  //
 					applicationComponent.contentResolverUtil(),  //
-					Companion.applicationContext
+					_applicationContext
 				)
 			}
 
@@ -249,6 +247,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			.repositoryModule(RepositoryModule()) //
 			.cryptorsModule(CryptorsModule(appCryptors)) //
 			.build()
+		applicationComponentInitialized.countDown()
 	}
 
 	private fun cleanupCache() {
@@ -259,10 +258,18 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		if (BuildConfig.DEBUG) {
 			Timber.plant(DebugLogger())
 		}
-		Timber.plant(ReleaseLogger(Companion.applicationContext))
+		Timber.plant(ReleaseLogger(_applicationContext))
 	}
 
 	override fun getComponent(): ApplicationComponent {
+		return applicationComponent
+	}
+
+	/**
+	 * Content providers are queried as soon as they are published, which can be before [onCreate] has built the component.
+	 */
+	fun awaitComponent(): ApplicationComponent {
+		applicationComponentInitialized.await()
 		return applicationComponent
 	}
 
@@ -304,6 +311,13 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		localServiceBinder?.suspendLock()
 	}
 
+	/**
+	 * Starts the automatic locking's timeout over, because another app uses a vault.
+	 */
+	fun vaultsUsed() {
+		cryptoServiceBinder?.vaultsUsed()
+	}
+
 	fun unSuspendLock() {
 		val localServiceBinder = cryptoServiceBinder
 		localServiceBinder?.unSuspendLock()
@@ -311,13 +325,18 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 
 	companion object {
 
-		private lateinit var applicationContext: Context
+		private lateinit var _applicationContext: Context
+
 		fun applicationContext(): Context {
-			return applicationContext
+			return _applicationContext
+		}
+
+		fun isApplicationContextInitialized(): Boolean {
+			return this::_applicationContext.isInitialized
 		}
 	}
 
 	init {
-		Companion.applicationContext = this
+		_applicationContext = this
 	}
 }

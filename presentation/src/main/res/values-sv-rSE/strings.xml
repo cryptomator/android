@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">Version som anges i %1$s är annan än %2$s</string>
 	<string name="error_vault_key_invalid">%1$s matchar inte med %2$s</string>
 	<string name="error_vault_config_loading">Allmänt fel vid inläsning av valvkonfiguration</string>
-	<string name="error_file_not_found_after_opening_using_3party">Lokal fil finns inte längre efter att ha bytt tillbaka till Cryptomator. Eventuella ändringar kan inte synkas tillbaka till molnet.</string>
 	<string name="error_no_such_bucket">Ingen sådan bucket</string>
 	<string name="error_masterkey_location_not_supported">Anpassad Masterkey-plats stöds inte ännu</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Det gick inte att kommunicera med F-Droid-appen. Inte installerad?</string>
@@ -233,8 +232,6 @@
 	<string name="screen_settings_security_label">Säkerhetstips</string>
 	<string name="screen_settings_section_version">Version</string>
 	<string name="screen_settings_advanced_settings">Avancerade inställningar</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Alternativt sätt att öppna Microsoft-filer</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Öppna filer i Microsoft-appar med skrivrättigheter</string>
 	<string name="screen_settings_background_unlock_preparation_label">Accelerera upplåsning</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Ladda ner valvkonfiguration i bakgrunden medan du uppmanas att låsa upp</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Behåll olåst</string>
@@ -341,7 +338,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Observera</string>
 	<string name="dialog_debug_mode_positive_button">Aktivera</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">På grund av ett fel i Microsoft-appar, måste filen som ska redigeras delas med dessa appar i en offentlig mediemapp på din enhet. Efter att Cryptomator återupptas raderas den allmänt tillgängliga filen igen, men Cryptomator kan inte påverka vad som har hänt med filen under tiden. Det är viktigt att du är medveten om detta beteende när du aktiverar detta alternativ. Detta kommer endast att gälla för Microsoft filtyper.\n\nCryptomator startar om efter aktivering.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Den här inställningen är en säkerhetsfunktion som hindrar andra appar från att lura användare att göra saker de inte vill.\n\nGenom att stänga av säkerhetsfunktionen bekräftar du att du är <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">medveten om riskerna</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Observera</string>
 	<string name="dialog_disable_app_obscured_positive_button">Inaktivera</string>
@@ -459,32 +455,21 @@
 	<string name="notification_update_check_finished_latest">Senaste versionen installerad</string>
 	<string name="notification_authenticating">Autentiserar&#8230;</string>
 	<string name="screen_settings_lru_cache">Cache</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Cachen har nyligen kommit åt filer krypterade lokalt på enheten för senare återanvändning när de öppnas igen</string>
-	<string name="screen_settings_lru_cache_size">Total cachestorlek</string>
 	<string name="screen_settings_clear_lru_cache_size">Rensa cachen</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Ändringar kommer att tillämpas vid omstart av appen</string>
 	<string name="screen_settings_license_title_unlock">Lås upp fullversion</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Hantera prenumeration</string>
 	<string name="dialog_trial_expired_unlock">Lås upp fullversion</string>
+	<string name="dialog_license_lost_later">Senare</string>
 	<string name="dialog_settings_update_check_interval_title">Uppdateringsintervall</string>
 	<string name="screen_settings_check_updates">Sök efter uppdateringar</string>
 	<string name="screen_settings_last_check_updates">Senaste körning %1$s</string>
-	<string name="dialog_cache_size_title">Cache-storlek per moln</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Omedelbart</string>
 	<string name="lock_timeout_1m">1 minut</string>
 	<string name="lock_timeout_2m">2 minuter</string>
 	<string name="lock_timeout_5m">5 minuter</string>
 	<string name="lock_timeout_10m">10 minuter</string>
 	<string name="lock_timeout_never">Aldrig</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stil</string>
 	<string name="follow_system">Automatisk (följ systemet)</string>

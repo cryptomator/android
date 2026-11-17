@@ -70,7 +70,6 @@
 	<!-- ## biometric authentication -->
 	<!-- notification -->
 	<!-- lock timeout names -->
-	<!-- cache size names -->
 	<!-- screen scheme mode names -->
 	<string name="light">Svijetlo</string>
 	<string name="dark">Tamno</string>

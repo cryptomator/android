@@ -15,6 +15,8 @@ import org.cryptomator.domain.usecases.DoUpdateCheckUseCase
 import org.cryptomator.domain.usecases.DoUpdateUseCase
 import org.cryptomator.domain.usecases.NoOpResultHandler
 import org.cryptomator.domain.usecases.UpdateCheck
+import org.cryptomator.domain.usecases.cloud.ClearVaultDocumentCacheUseCase
+import org.cryptomator.domain.usecases.cloud.GetVaultDocumentCacheSizeUseCase
 import org.cryptomator.generator.Callback
 import org.cryptomator.presentation.BuildConfig
 import org.cryptomator.presentation.R
@@ -38,12 +40,13 @@ import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.inject.Inject
-import kotlin.system.exitProcess
 import timber.log.Timber
 
 @PerView
 class SettingsPresenter @Inject internal constructor(
 	private val updateCheckUseCase: DoUpdateCheckUseCase,  //
+	private val clearVaultDocumentCacheUseCase: ClearVaultDocumentCacheUseCase,  //
+	private val getVaultDocumentCacheSizeUseCase: GetVaultDocumentCacheSizeUseCase,  //
 	private val updateUseCase: DoUpdateUseCase,  //
 	private val networkConnectionCheck: NetworkConnectionCheck,  //
 	exceptionMappings: ExceptionHandlers,  //
@@ -147,6 +150,22 @@ class SettingsPresenter @Inject internal constructor(
 		}
 	}
 
+	fun onClearCacheClicked() {
+		clearVaultDocumentCacheUseCase.run(object : DefaultResultHandler<Void?>() {
+			override fun onFinished() {
+				refreshCacheSize()
+			}
+		})
+	}
+
+	fun refreshCacheSize() {
+		getVaultDocumentCacheSizeUseCase.run(object : DefaultResultHandler<Long>() {
+			override fun onSuccess(size: Long) {
+				view?.showCacheSize(size)
+			}
+		})
+	}
+
 	fun onCheckUpdateClicked() {
 		if (networkConnectionCheck.isPresent) {
 			updateCheckUseCase //
@@ -204,11 +223,6 @@ class SettingsPresenter @Inject internal constructor(
 					context().startActivity(intent)
 				}
 			})
-	}
-
-	fun restartApp() {
-		// process gets restarted so just exit it
-		exitProcess(0)
 	}
 
 	private inner class CreateErrorReportArchiveTask : AsyncTask<Void?, IOException?, File?>() {
@@ -288,6 +302,6 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	init {
-		unsubscribeOnDestroy(updateCheckUseCase, updateUseCase)
+		unsubscribeOnDestroy(updateCheckUseCase, updateUseCase, clearVaultDocumentCacheUseCase, getVaultDocumentCacheSizeUseCase)
 	}
 }

@@ -1,5 +1,7 @@
 package org.cryptomator.presentation.presenter
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
@@ -12,6 +14,7 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
+import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.data.cloud.crypto.CryptoConstants
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.KeyLoadingStrategy
@@ -28,6 +31,7 @@ import org.cryptomator.domain.exception.hub.HubUserSetupRequiredException
 import org.cryptomator.domain.exception.hub.HubVaultAccessForbiddenException
 import org.cryptomator.domain.exception.hub.HubVaultIsArchivedException
 import org.cryptomator.domain.exception.hub.HubVaultOperationNotSupportedException
+import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
 import org.cryptomator.domain.usecases.vault.CreateHubDeviceUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
@@ -39,9 +43,12 @@ import org.cryptomator.domain.usecases.vault.SaveVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockHubVaultUseCase
 import org.cryptomator.domain.usecases.vault.UnlockToken
 import org.cryptomator.domain.usecases.vault.UnlockVaultUsingMasterkeyUseCase
+import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
+import org.cryptomator.generator.BoundCallback
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
+import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -52,6 +59,7 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.HubCheckHostAuthenticityDialog
+import org.cryptomator.presentation.util.HubAuthRedirects
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.SharedPreferencesHandler
@@ -73,8 +81,11 @@ class UnlockVaultPresenter @Inject constructor(
 	private val createHubDeviceUseCase: CreateHubDeviceUseCase,
 	private val removeStoredVaultPasswordsAndDisableBiometricAuthUseCase: RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase,
 	private val saveVaultUseCase: SaveVaultUseCase,
+	private val updateVaultParameterIfChangedRemotelyUseCase: UpdateVaultParameterIfChangedRemotelyUseCase,
+	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase,
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
+	private val hubAuthRedirects: HubAuthRedirects,
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<UnlockVaultView>(exceptionMappings) {
 
@@ -84,6 +95,19 @@ class UnlockVaultPresenter @Inject constructor(
 	private var retryUnlockHandler: Handler? = null
 	private var pendingUnlock: PendingUnlock? = null
 	private var hubAuthService: AuthorizationService? = null
+	private val closeHubAuthentication = {
+		if (!activity().isFinishing) {
+			activity().startActivity(Intent(activity(), activity().javaClass).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+		}
+	}
+
+	/**
+	 * Set from opening the Hub login until its result is handled, so that a recreated screen waits for that result instead
+	 * of starting the unlock over.
+	 */
+	@JvmField
+	@InstanceState
+	var hubAuthenticationStarted = false
 
 	@InjectIntent
 	lateinit var intent: UnlockVaultIntent
@@ -98,9 +122,13 @@ class UnlockVaultPresenter @Inject constructor(
 			retryUnlockHandler?.removeCallbacksAndMessages(null)
 		}
 		hubAuthService?.dispose()
+		hubAuthRedirects.stopAwaitingRedirect(closeHubAuthentication)
 	}
 
 	fun setup() {
+		if (hubAuthenticationStarted) {
+			return
+		}
 		if (intent.vaultAction() == UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) {
 			view?.getEncryptedPasswordWithBiometricAuthentication(intent.vaultModel())
 			return
@@ -186,9 +214,6 @@ class UnlockVaultPresenter @Inject constructor(
 	fun allowedHubHosts(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, vault: Vault) {
 		when (intent.vaultAction()) {
 			UnlockVaultIntent.VaultAction.UNLOCK -> {
-				if (hubAuthService == null) {
-					hubAuthService = AuthorizationService(context())
-				}
 				view?.showProgress(ProgressModel.GENERIC)
 				unlockHubVault(unverifiedHubVaultConfig, vault)
 			}
@@ -244,11 +269,11 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun unlockHubVault(unverifiedVaultConfig: UnverifiedHubVaultConfig, vault: Vault) {
-		val authIntent = buildHubAuthIntent(unverifiedVaultConfig)
-		requestActivityResult(ActivityResultCallbacks.hubAuthenticationUnlock(vault, unverifiedVaultConfig), authIntent)
+		val authRequest = buildHubAuthRequest(unverifiedVaultConfig)
+		requestHubAuthentication(ActivityResultCallbacks.hubAuthenticationUnlock(vault, unverifiedVaultConfig, authRequest.jsonSerializeString()), authRequest)
 	}
 
-	private fun buildHubAuthIntent(unverifiedVaultConfig: UnverifiedHubVaultConfig): Intent? {
+	private fun buildHubAuthRequest(unverifiedVaultConfig: UnverifiedHubVaultConfig): AuthorizationRequest {
 		val serviceConfig = AuthorizationServiceConfiguration(Uri.parse(unverifiedVaultConfig.authEndpoint.toString()), Uri.parse(unverifiedVaultConfig.tokenEndpoint.toString()))
 		val authRequestBuilder = AuthorizationRequest.Builder(
 			serviceConfig,
@@ -256,26 +281,48 @@ class UnlockVaultPresenter @Inject constructor(
 			ResponseTypeValues.CODE,
 			Uri.parse(CryptoConstants.HUB_REDIRECT_URL)
 		)
-		return hubAuthService?.getAuthorizationRequestIntent(authRequestBuilder.build())
+		return authRequestBuilder.build()
+	}
+
+	/**
+	 * Opens the Hub login in the browser rather than through AppAuth's activity, whose redirect gets lost when the unlock
+	 * runs in another app's task. When [hubAuthRedirects] receives the redirect, this screen relaunches itself on top of
+	 * the login to close it. A screen recreated meanwhile isn't relaunched, so the user closes the login. Closing it
+	 * returns a canceled result, so the callbacks take the redirect from [hubAuthRedirects] in [requestHubAccessToken].
+	 */
+	private fun requestHubAuthentication(callback: BoundCallback<*, out ActivityResult?>, authRequest: AuthorizationRequest) {
+		val browser = hubAuthService().browserDescriptor ?: return showErrorAndFinish(HubAuthenticationFailedException(ActivityNotFoundException()))
+		val authIntent = if (browser.useCustomTab) hubAuthService().createCustomTabsIntentBuilder().build().intent else Intent(Intent.ACTION_VIEW)
+		authIntent.setPackage(browser.packageName).setData(authRequest.toUri())
+		hubAuthenticationStarted = true
+		requestActivityResult(callback, authIntent)
+		hubAuthRedirects.awaitRedirect(closeHubAuthentication)
+	}
+
+	private fun requestHubAccessToken(authRequestJson: String, onAccessToken: (String) -> Unit) {
+		hubAuthenticationStarted = false
+		val authRequest = AuthorizationRequest.jsonDeserialize(authRequestJson)
+		val redirectUri = hubAuthRedirects.takeRedirectUri()
+		when {
+			redirectUri == null || redirectUri.isOpaque -> showErrorAndFinish(HubAuthenticationFailedException())
+			redirectUri.getQueryParameter("error") != null -> showErrorAndFinish(HubAuthenticationFailedException(AuthorizationException.fromOAuthRedirect(redirectUri)))
+			redirectUri.getQueryParameter("state") != authRequest.state -> showErrorAndFinish(HubAuthenticationFailedException(AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH))
+			else -> {
+				val resp = AuthorizationResponse.Builder(authRequest).fromUri(redirectUri).build()
+				hubAuthService().performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
+					token?.accessToken?.let(onAccessToken) ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
+				}
+			}
+		}
+	}
+
+	private fun hubAuthService(): AuthorizationService {
+		return hubAuthService ?: AuthorizationService(context()).also { hubAuthService = it }
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun hubAuthenticationUnlock(result: ActivityResult, vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig) {
-		if (result.isResultOk) {
-			val resp = AuthorizationResponse.fromIntent(result.intent())
-			if (resp != null) {
-				hubAuthService?.performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
-					token?.accessToken?.let {
-						unlockHubVault(vault, unverifiedHubVaultConfig, it)
-					} ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
-				}
-			} else {
-				val ex = AuthorizationException.fromIntent(result.intent())
-				showErrorAndFinish(HubAuthenticationFailedException(ex))
-			}
-		} else {
-			showErrorAndFinish(HubAuthenticationFailedException())
-		}
+	fun hubAuthenticationUnlock(result: ActivityResult, vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, authRequest: String) {
+		requestHubAccessToken(authRequest) { unlockHubVault(vault, unverifiedHubVaultConfig, it) }
 	}
 
 	private fun unlockHubVault(vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String) {
@@ -285,7 +332,7 @@ class UnlockVaultPresenter @Inject constructor(
 			.andAccessToken(accessToken)
 			.run(object : DefaultResultHandler<Cloud>() {
 				override fun onSuccess(cloud: Cloud) {
-					finishWithResult(cloud)
+					finishWithUnlockedVault(cloud)
 				}
 
 				override fun onError(e: Throwable) {
@@ -306,36 +353,24 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onCreateHubDeviceClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {
 		view?.showProgress(ProgressModel.GENERIC)
-		val authIntent = buildHubAuthIntent(unverifiedVaultConfig)
-		requestActivityResult(ActivityResultCallbacks.hubAuthenticationCreateDevice(vaultModel, unverifiedVaultConfig, deviceName, setupCode), authIntent)
+		val authRequest = buildHubAuthRequest(unverifiedVaultConfig)
+		requestHubAuthentication(ActivityResultCallbacks.hubAuthenticationCreateDevice(vaultModel, unverifiedVaultConfig, deviceName, setupCode, authRequest.jsonSerializeString()), authRequest)
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun hubAuthenticationCreateDevice(result: ActivityResult, vault: VaultModel, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {
-		if (result.isResultOk) {
-			val resp = AuthorizationResponse.fromIntent(result.intent())
-			if (resp != null) {
-				hubAuthService?.performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
-					token?.accessToken?.let {
-						createHubDeviceUseCase
-							.withAccessToken(it)
-							.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
-							.andDeviceName(deviceName)
-							.andSetupCode(setupCode)
-							.run(object : DefaultResultHandler<Void?>() {
-								override fun onSuccess(void: Void?) {
-									view?.showProgress(ProgressModel.COMPLETED)
-									unlockHubVault(unverifiedHubVaultConfig, vault.toVault())
-								}
-							})
-					} ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
-				}
-			} else {
-				val ex = AuthorizationException.fromIntent(result.intent())
-				showErrorAndFinish(HubAuthenticationFailedException(ex))
-			}
-		} else {
-			showErrorAndFinish(HubAuthenticationFailedException())
+	fun hubAuthenticationCreateDevice(result: ActivityResult, vault: VaultModel, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String, authRequest: String) {
+		requestHubAccessToken(authRequest) {
+			createHubDeviceUseCase
+				.withAccessToken(it)
+				.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
+				.andDeviceName(deviceName)
+				.andSetupCode(setupCode)
+				.run(object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(void: Void?) {
+						view?.showProgress(ProgressModel.COMPLETED)
+						unlockHubVault(unverifiedHubVaultConfig, vault.toVault())
+					}
+				})
 		}
 	}
 
@@ -478,7 +513,7 @@ class UnlockVaultPresenter @Inject constructor(
 						UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD, UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> {
 							handleUnlockVaultSuccess(token.vault, cloud, password)
 						}
-						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithResult(cloud)
+						UnlockVaultIntent.VaultAction.UNLOCK -> finishWithUnlockedVault(cloud)
 						else -> {}
 					}
 				}
@@ -489,6 +524,46 @@ class UnlockVaultPresenter @Inject constructor(
 					if (view?.isShowingDialog(EnterPasswordDialog::class) == false) {
 						finishWithResult(null)
 					}
+				}
+			})
+	}
+
+	/**
+	 * Stores the format and shortening threshold the vault turned out to have before finishing. An unlock started from the
+	 * Files app has no caller that would store them, and the documents provider opens the vault with the stored format.
+	 * The unlocked vault is only handed back within the app: the Files app, or another app holding a document of the
+	 * vault, just learns that the unlock succeeded.
+	 *
+	 * The vault's pending uploads are resumed now, among them the saves an external editor made while the vault was locked.
+	 * If storing fails, the vault is locked again so that the documents provider never serves it with outdated parameters.
+	 */
+	private fun finishWithUnlockedVault(cloud: Cloud) {
+		val vault = (cloud as CryptoCloud).vault
+		updateVaultParameterIfChangedRemotelyUseCase //
+			.withVault(vault) //
+			.run(object : DefaultResultHandler<Vault>() {
+				override fun onSuccess(storedVault: Vault) {
+					// not unsubscribed on destroy, since the screen closes right away while the uploads are being resumed
+					resumeVaultUploadsUseCase //
+						.withVault(vault) //
+						.run(DefaultResultHandler())
+					if (activity().callingActivity?.packageName == context().packageName) {
+						finishWithResult(cloud)
+					} else {
+						activity().setResult(Activity.RESULT_OK)
+						finish()
+					}
+				}
+
+				override fun onError(e: Throwable) {
+					lockVaultUseCase.withVault(vault).run(object : DefaultResultHandler<Vault>() {
+						override fun onFinished() {
+							showError(e)
+							if (view?.isShowingDialog(EnterPasswordDialog::class) == false) {
+								finishWithResult(null)
+							}
+						}
+					})
 				}
 			})
 	}
@@ -686,7 +761,8 @@ class UnlockVaultPresenter @Inject constructor(
 			prepareUnlockUseCase, //
 			createHubDeviceUseCase, //
 			removeStoredVaultPasswordsAndDisableBiometricAuthUseCase, //
-			saveVaultUseCase
+			saveVaultUseCase, //
+			updateVaultParameterIfChangedRemotelyUseCase
 		)
 	}
 

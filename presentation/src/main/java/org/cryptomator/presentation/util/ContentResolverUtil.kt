@@ -11,6 +11,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.Date
 import javax.inject.Inject
+import timber.log.Timber
 
 class ContentResolverUtil @Inject constructor(context: Context) {
 
@@ -29,15 +30,19 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 	}
 
 	private fun fileModifiedDateForContentUri(uri: Uri): Date? {
-		contentResolver.query(uri, null, null, null, null).use { cursor ->
-			if (cursor != null && cursor.moveToFirst()) {
-				val dateModifiedColumnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
-				if (dateModifiedColumnIndex != -1) {
-					val date = cursor.getLong(dateModifiedColumnIndex)
-					return Date(date);
+		try {
+			contentResolver.query(uri, null, null, null, null).use { cursor ->
+				if (cursor != null && cursor.moveToFirst()) {
+					val dateModifiedColumnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+					if (dateModifiedColumnIndex != -1) {
+						val date = cursor.getLong(dateModifiedColumnIndex)
+						return Date(date);
+					}
 				}
+				return null
 			}
-			return null
+		} catch (e: SecurityException) {
+			return refused(uri, e)
 		}
 	}
 
@@ -95,16 +100,20 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 	}
 
 	private fun fileNameForContentUri(uri: Uri): String? {
-		contentResolver.query(uri, null, null, null, null).use { cursor ->
-			cursor?.let {
-				if (cursor.moveToFirst()) {
-					val nameColumnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-					if (!cursor.isNull(nameColumnIndex)) {
-						return cursor.getString(nameColumnIndex)
+		try {
+			contentResolver.query(uri, null, null, null, null).use { cursor ->
+				cursor?.let {
+					if (cursor.moveToFirst()) {
+						val nameColumnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+						if (!cursor.isNull(nameColumnIndex)) {
+							return cursor.getString(nameColumnIndex)
+						}
 					}
 				}
+				return extractFileNameFrom(uri)
 			}
-			return extractFileNameFrom(uri)
+		} catch (e: SecurityException) {
+			return refused(uri, e)
 		}
 	}
 
@@ -119,20 +128,33 @@ class ContentResolverUtil @Inject constructor(context: Context) {
 	}
 
 	private fun fileSizeForContentUri(uri: Uri): Long? {
-		contentResolver.query(uri, null, null, null, null).use { cursor ->
-			if (cursor != null && cursor.moveToFirst()) {
-				val sizeColumnIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-				if (!cursor.isNull(sizeColumnIndex)) {
-					val size = cursor.getLong(sizeColumnIndex)
-					return if (size == 0L) {
-						// return unknown if zero to work around that for some files the reported
-						// size is zero instead of the actual size
-						return null
-					} else size
+		try {
+			contentResolver.query(uri, null, null, null, null).use { cursor ->
+				if (cursor != null && cursor.moveToFirst()) {
+					val sizeColumnIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+					if (!cursor.isNull(sizeColumnIndex)) {
+						val size = cursor.getLong(sizeColumnIndex)
+						return if (size == 0L) {
+							// return unknown if zero to work around that for some files the reported
+							// size is zero instead of the actual size
+							return null
+						} else size
+					}
 				}
+				return null
 			}
-			return null
+		} catch (e: SecurityException) {
+			return refused(uri, e)
 		}
+	}
+
+	/**
+	 * A provider may refuse to tell about a document, e.g. the app's own documents provider one of a locked vault. Since it
+	 * runs in the app's process, its exception reaches the app directly instead of through the system.
+	 */
+	private fun <T> refused(uri: Uri, e: SecurityException): T? {
+		Timber.tag("ContentResolverUtil").w(e, "Querying %s was refused", uri)
+		return null
 	}
 
 	private fun fileSizeForFileUri(uri: Uri): Long? {

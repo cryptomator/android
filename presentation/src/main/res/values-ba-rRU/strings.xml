@@ -31,7 +31,6 @@
 	<string name="error_vault_version_mismatch">Тәғәйенләнгән %1$s версияһы %2$s версияһынан айырала</string>
 	<string name="error_vault_key_invalid">%1$s менән %2$s тап килмәй</string>
 	<string name="error_vault_config_loading">Һаҡлағыс конфигурацияһын йөкләгәндә дөйөм хата</string>
-	<string name="error_file_not_found_after_opening_using_3party">Cryptomator программаһына кире күскәндән һуң урындағы файл юҡ инде. Буласаҡ үҙгәрештәр кире болотҡа күсерелә алмай.</string>
 	<string name="error_no_such_bucket">Бындай bucket юҡ</string>
 	<string name="error_masterkey_location_not_supported">Ирекле Masterkey урыны терәкләнмәй</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid ҡушымтаһы менән бәйләнешкә инеп булманы. Ҡуйылмағанмы?</string>
@@ -219,8 +218,6 @@
 	<string name="screen_settings_security_label">Хәүефһеҙлек кәңәштәре</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Өҫтәмә көйләүҙәр</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft файлдарын асыуҙың урау юлдары</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft ҡушымталарында файлдарҙы яҙыу рөхсәте менән асыу</string>
 	<string name="screen_settings_background_unlock_preparation_label">Бикте асыуҙы тиҙләтеү</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Серһүҙ йәки биометрик таныу һоралған ваҡытта һаҡлағыс конфигурацияһын артҡы планда күсереп алырға</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Биге асыҡ килеш тот</string>
@@ -327,7 +324,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Иғтибар</string>
 	<string name="dialog_debug_mode_positive_button">Ғәмәлгә индер</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft ҡушымталарындағы хата арҡаһында, төҙәтеләсәк файл йыһазығыҙҙағы дөйөм медиа папкала был ҡушымталар араһында уртаҡлашылырға тейеш. Cryptomator кире асылғандан һуң, уртаҡ файл яңынан юйыла, әммә Cryptomator был файл менән ни булыуына йоғонто яһай алмай. Был параметрҙы активлаштырғанда был хәл тураһында белеүегеҙҙе тикшерегеҙ. Был Microsoft файл төрҙәренә генә ҡағыла.\n\nАктивлаштырғандан һуң Cryptomator яңынан асыла.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Иғтибар</string>
 	<string name="dialog_disable_app_obscured_positive_button">Һүндер</string>
 	<string name="dialog_app_is_obscured_info_title">Ҡушымта йәшерелгән</string>
@@ -426,32 +422,21 @@
 	<string name="notification_update_check_finished_latest">Һуңғы версия ҡуйылған</string>
 	<string name="notification_authenticating">Аутентиклау&#8230;</string>
 	<string name="screen_settings_lru_cache">Кэш</string>
-	<string name="screen_settings_lru_cache_toggle_summary">Йыһазда шифрланған, һуңғы ваҡытта ҡулланылған файлдарҙы аҙаҡтан кире асҡанда ҡулланыр өсөн кэшларға</string>
-	<string name="screen_settings_lru_cache_size">Дөйөм кэш күләме</string>
 	<string name="screen_settings_clear_lru_cache_size">Кэшты таҙартыу</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">Үҙгәрештәр ҡушымтаны ҡайтанан эшләтеп ебәргәндә ҡулланыласаҡ</string>
 	<string name="screen_settings_license_title_unlock">Тулы версияны асыу</string>
 	<string name="screen_settings_license_mail">%1$s</string>
 	<string name="screen_settings_manage_subscription">Яҙылыуҙар менән идара итеү</string>
 	<string name="dialog_trial_expired_unlock">Тулы версияны асыу</string>
+	<string name="dialog_license_lost_later">Аҙаҡтан</string>
 	<string name="dialog_settings_update_check_interval_title">Яңыртыу тикшереү интервалы</string>
 	<string name="screen_settings_check_updates">Яңыртыуҙарҙы тикшереү</string>
 	<string name="screen_settings_last_check_updates">Һуңғы тикшереү %1$s</string>
-	<string name="dialog_cache_size_title">Болот башына кэш күләме</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Шунда уҡ</string>
 	<string name="lock_timeout_1m">1 минут</string>
 	<string name="lock_timeout_2m">2 минут</string>
 	<string name="lock_timeout_5m">5 минут</string>
 	<string name="lock_timeout_10m">10 минут</string>
 	<string name="lock_timeout_never">Бер ҡасан да</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 МБ</string>
-	<string name="cache_size_100m">100 МБ</string>
-	<string name="cache_size_250m">250 МБ</string>
-	<string name="cache_size_500m">500 МБ</string>
-	<string name="cache_size_1000m">1 ГБ</string>
-	<string name="cache_size_5000m">5 ГБ</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Күренеш</string>
 	<string name="follow_system">Автоматик (систамалағы һымаҡ)</string>

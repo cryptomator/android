@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.WebDavCloud
@@ -13,6 +12,7 @@ import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundExcep
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
+import org.cryptomator.domain.usecases.cloud.ReauthenticateBoxUseCase
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyVararg
-import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -84,7 +83,7 @@ class AuthenticateCloudPresenterTest {
 				inTest.resumed()
 				activityCompat.verify({ ActivityCompat.requestPermissions(any(), eq(arrayOf<String?>(Manifest.permission.ACCESS_LOCAL_NETWORK)), any()) }, times(1))
 
-				val state = bundle()
+				val state = instanceStateBundle()
 				InstanceStates.save(inTest, state)
 				val recreated = presenter()
 				InstanceStates.restore(recreated, state)
@@ -138,16 +137,9 @@ class AuthenticateCloudPresenterTest {
 			addOrChangeCloudConnectionUseCase,
 			mock<GetCloudsUseCase>(),
 			mock<GetUsernameUseCase>(),
+			mock<ReauthenticateBoxUseCase>(),
 			mock<AddExistingVaultWorkflow>(),
 			mock<CreateNewVaultWorkflow>()
 		).also { it.view = view }
-	}
-
-	private fun bundle(): Bundle {
-		val values = HashMap<String, Any?>()
-		val bundle = mock<Bundle>()
-		doAnswer { values[it.getArgument(0)] = it.getArgument<Any?>(1) }.whenever(bundle).putBoolean(any(), any())
-		whenever(bundle.getBoolean(any())).thenAnswer { values[it.getArgument(0)] as Boolean? ?: false }
-		return bundle
 	}
 }

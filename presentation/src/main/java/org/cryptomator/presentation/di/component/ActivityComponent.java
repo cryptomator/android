@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.cryptomator.domain.di.PerView;
 import org.cryptomator.presentation.di.module.ActivityModule;
 import org.cryptomator.presentation.ui.activity.AuthenticateCloudActivity;
+import org.cryptomator.presentation.ui.activity.AuthenticateBoxActivity;
 import org.cryptomator.presentation.ui.activity.AuthenticatePCloudActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadChooseVaultActivity;
 import org.cryptomator.presentation.ui.activity.AutoUploadRefreshTokenActivity;
@@ -15,6 +16,7 @@ import org.cryptomator.presentation.ui.activity.CloudConnectionListActivity;
 import org.cryptomator.presentation.ui.activity.CloudSettingsActivity;
 import org.cryptomator.presentation.ui.activity.CreateVaultActivity;
 import org.cryptomator.presentation.ui.activity.CryptomatorVariantsActivity;
+import org.cryptomator.presentation.ui.activity.HubAuthRedirectActivity;
 import org.cryptomator.presentation.ui.activity.ImagePreviewActivity;
 import org.cryptomator.presentation.ui.activity.LicenseCheckActivity;
 import org.cryptomator.presentation.ui.activity.LicensesActivity;
@@ -110,6 +112,8 @@ public interface ActivityComponent {
 
 	void inject(AuthenticatePCloudActivity authenticatePCloudActivity);
 
+	void inject(AuthenticateBoxActivity authenticateBoxActivity);
+
 	void inject(ImagePreviewActivity imagePreviewActivity);
 
 	void inject(ImagePreviewFragment imagePreviewFragment);
@@ -125,6 +129,8 @@ public interface ActivityComponent {
 	void inject(UnlockVaultActivity unlockVaultActivity);
 
 	void inject(UnlockVaultFragment unlockVaultFragment);
+
+	void inject(HubAuthRedirectActivity hubAuthRedirectActivity);
 
 	void inject(S3AddOrChangeActivity s3AddOrChangeActivity);
 

@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">%1$s에 기록된 버전이 %2$s에 기록된 버전과 다릅니다</string>
 	<string name="error_vault_key_invalid">%1$s이(가) %2$s와 동일하지 않습니다</string>
 	<string name="error_vault_config_loading">Vault 설정을 불러오는 중 오류 발생</string>
-	<string name="error_file_not_found_after_opening_using_3party">로컬 파일은 Cryptomator로 돌아온 후 더 이상 존재하지 않습니다. 추가적인 수정 사항이 클라우드에 적용되지 않습니다.</string>
 	<string name="error_no_such_bucket">해당 버킷을 찾을 수 없습니다.</string>
 	<string name="error_masterkey_location_not_supported">사용자 지정 마스터키 경로는 아직 지원하지 않습니다</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">F-Droid 앱을 찾을 수 없습니다. 앱을 설치했는지 확인해주세요.</string>
@@ -124,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">제거</string>
 	<string name="screen_vault_list_vault_creation_hint">여기를 눌러 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 평생 라이선스 %2$s까지 %1$d%% 할인</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">무시</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Vault</string>
@@ -178,6 +178,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">위치 선택</string>
 	<string name="screen_cloud_connections_no_connections">여기를 탭하여 경로 위치 추가</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">사용할 수 있는 드라이브가 없습니다.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">SharePoint 사이트를 찾을 수 없습니다. URL을 확인해 주세요.</string>
 	<string name="screen_cloud_error_webdav_not_supported">WebDAV가 지원되지 않는 서버입니다</string>
 	<string name="screen_cloud_local_error_no_content_provider">디렉터리를 열 수 있는 파일 관리자를 찾을 수 없습니다</string>
 	<!-- ## screen: webdav settings -->
@@ -191,7 +193,7 @@
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">암호를 입력하십시오.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
-	<string name="screen_s3_settings_access_key_label">액세스 키</string>
+	<string name="screen_s3_settings_access_key_label">접근 키</string>
 	<string name="screen_s3_settings_secret_key_label">비밀 키</string>
 	<string name="screen_s3_settings_bucket_label">이미 존재하는 버킷</string>
 	<string name="screen_s3_settings_endpoint_label">엔드포인트</string>
@@ -258,16 +260,16 @@
 	<string name="screen_settings_security_label">보안 수칙</string>
 	<string name="screen_settings_section_version">버전</string>
 	<string name="screen_settings_advanced_settings">고급 설정</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Microsoft 파일에 대한 우회</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Microsoft 앱에서 쓰기 권한으로 파일을 열기</string>
 	<string name="screen_settings_background_unlock_preparation_label">잠금 해제 가속</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">비밀번호 입력 혹은 생체 인증을 진행하는 동안 백그라운드에서 Vault 설정을 다운로드합니다</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">잠금 해제 유지</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">파일을 편집하는 동안 Vault들을 잠금 해제 상태로 유지</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 연결</string>
+	<string name="screen_cloud_settings_box_connections">Box 연결</string>
 	<string name="screen_cloud_settings_s3_connections">S3 연결</string>
 	<string name="screen_cloud_settings_local_storage_locations">로컬 저장소 위치</string>
 	<string name="screen_cloud_settings_log_in_to">로그인</string>
@@ -366,7 +368,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.</string>
 	<string name="dialog_debug_mode_disclaimer_title">주의</string>
 	<string name="dialog_debug_mode_positive_button">활성화</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">Microsoft 앱의 버그로 인해, 편집할 파일이 기기의 공개 미디어 폴더에서 공유되어야 합니다. Cryptomator의 실행이 재개되면 이 공개 접근이 가능한 파일은 다시 삭제되나, Cryptomator는 해당 파일에 어떠한 일이 일어났는지 알 수 없습니다. 이 항목을 활성화할 경우 이러한 동작이 일어남을 숙지하세요. 이것은 Microsoft 파일 형식에만 적용됩니다. \n\n활성화 후 Cryptomator를 다시 시작합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">이 설정은 보안 기능이며, 다른 앱이 사용자가 원치 않는 행동을 하도록 속이는 것을 막습니다.\n\n비활성화 함으로써 <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">위험성에 대해 인지</a>한다는 것을 확인합니다.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">주의</string>
 	<string name="dialog_disable_app_obscured_positive_button">비활성화</string>
@@ -410,6 +411,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">\'%1$s\' 자격증명 업데이트됨</string>
 	<string name="dialog_pcloud_credentials_updated">새 pCloud 계정을 추가하려면 이 링크 <a href="https://www.pcloud.com">www.pcloud.com</a>를 누르고, 현재 계정에서 로그아웃한 뒤 여기에서 \'+\'를 다시 눌러서 추가해주세요.</string>
 	<string name="dialog_enter_sharepoint_url_title">SharePoint URL 입력</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint 사이트 URL</string>
+	<string name="dialog_enter_sharepoint_url_format">SharePoint 사이트 주소를 입력하세요 (예: https://{…}.sharepoint.com/sites/{…}).</string>
+	<string name="dialog_enter_sharepoint_url_invalid">올바른 SharePoint 사이트 주소가 아닙니다. https://{…}.sharepoint.com/sites/{…} 형식으로 입력해 주세요.</string>
+	<string name="dialog_choose_sharepoint_drive_title">드라이브 선택</string>
+	<string name="dialog_choose_sharepoint_drive_hint">작업할 SharePoint 드라이브를 선택하세요.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Vault 비밀번호 이전 필요</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">보안 향상을 위해, Vault 비밀번호를 암호화하도록 생체 인증을 두번 해야 합니다. 최신 기술로 Vault 비밀번호를 보호하기 위해서 필수적입니다. 원치 않는다면 저장된 비밀번호는 제거될 것입니다.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">이전</string>
@@ -421,8 +427,8 @@
 	<string name="dialog_create_hub_device_setup_code_hint">새로운 앱이나 브라우저에서 로그인하기 위해 Account Key가 필요합니다. 프로필에서 찾을 수 있습니다.</string>
 	<string name="dialog_create_hub_device_setup_code_empty">Account Key는 비어 있을 수 없습니다.</string>
 	<string name="dialog_progress_creating_hub_device_setup">기기 만드는 중&#8230;</string>
-	<string name="dialog_hub_vault_access_forbidden_title">액세스 거부됨</string>
-	<string name="dialog_hub_vault_access_forbidden_hint">사용자가 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.\"</string>
+	<string name="dialog_hub_vault_access_forbidden_title">접근 거부됨</string>
+	<string name="dialog_hub_vault_access_forbidden_hint">사용자가 아직 이 저장소에 접근할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.\"</string>
 	<string name="dialog_hub_license_upgrade_required_title">Hub 라이선스 확인하기</string>
 	<string name="dialog_hub_license_upgrade_required_hint">Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 Hub 관리자에게 알리십시오.\"</string>
 	<string name="dialog_hub_vault_archived_title">Vault 아카이브됨</string>
@@ -440,6 +446,7 @@
 	<string name="permission_snackbar_auth_local_vault">Cryptomator에서 로컬 Vault에 접근하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_auth_auto_upload">Cryptomator에서 자동으로 사진을 업로드하기 위해 저장소 접근 권한이 필요합니다.</string>
 	<string name="permission_snackbar_notifications">Cryptomator는 Vault 상태 표시 등의 이유로 알림 권한이 필요합니다</string>
+	<string name="permission_snackbar_local_network">Cryptomator가 로컬 네트워크의 서버에 연결하려면 로컬 네트워크 접근 권한이 필요합니다.</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -490,10 +497,7 @@
 	<string name="notification_authenticating">로그인중&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">신뢰하는 호스트 목록이 삭제됨</string>
 	<string name="screen_settings_lru_cache">캐시</string>
-	<string name="screen_settings_lru_cache_toggle_summary">최근의 사용한 암호화된 파일을 기기에 저장한 후 나중에 파일을 다시 열 때 재사용합니다</string>
-	<string name="screen_settings_lru_cache_size">총 캐시 크기</string>
 	<string name="screen_settings_clear_lru_cache_size">캐시 지우기</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">변경사항은 앱 재시작 후 적용됩니다</string>
 	<string name="screen_settings_license_title_unlock">정식 버전 구입</string>
 	<string name="screen_settings_license_title_unlocked">정식 버전</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -506,24 +510,19 @@
 	<string name="dialog_trial_expired_message">무료 체험판이 만료되었습니다. 읽기 전용 모드로 계속 사용하거나 정식 버전을 잠금 해제할 수 있습니다.</string>
 	<string name="dialog_trial_expired_unlock">정식 버전 구입</string>
 	<string name="dialog_trial_expired_continue_read_only">쓰기 전용 모드로 계속하기</string>
+	<string name="dialog_license_lost_title">라이선스 키 다시 입력</string>
+	<string name="dialog_license_lost_message">이전 업데이트로 인해 %1$s에 등록된 라이선스 키가 이 기기에서 제거되었습니다. 쓰기 권한을 복원하려면 라이선스 키를 다시 입력하세요. 다시 입력하기 전까지 보관함은 읽기 전용입니다.</string>
+	<string name="dialog_license_lost_reenter">라이선스 키 다시 입력</string>
+	<string name="dialog_license_lost_later">다음에 하기</string>
 	<string name="dialog_settings_update_check_interval_title">업데이트 확인 주기</string>
 	<string name="screen_settings_check_updates">업데이트 확인</string>
 	<string name="screen_settings_last_check_updates">마지막 확인 %1$s</string>
-	<string name="dialog_cache_size_title">클라우드당 캐시 크기</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">즉시</string>
 	<string name="lock_timeout_1m">1분</string>
 	<string name="lock_timeout_2m">2분</string>
 	<string name="lock_timeout_5m">5분</string>
 	<string name="lock_timeout_10m">10분</string>
 	<string name="lock_timeout_never">잠그지 않음</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">스타일</string>
 	<string name="follow_system">자동 (시스템 설정 따르기)</string>

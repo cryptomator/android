@@ -32,8 +32,8 @@ def getVersionCode = { ->
 allprojects {
 	ext {
 		androidApplicationId = 'org.cryptomator'
-		androidVersionCode = 3163 // must be getVersionCode(). only at release tag set the actual value
-		androidVersionName = '2.1.0'
+		androidVersionCode = 3237 // must be getVersionCode(). only at release tag set the actual value
+		androidVersionName = '3.0.0'
 	}
 	repositories {
 		mavenCentral()
@@ -41,6 +41,9 @@ allprojects {
 			url "https://maven.google.com"
 		}
 		google()
+	}
+	tasks.withType(Test).configureEach {
+		maxParallelForks = Math.max(1, Runtime.runtime.availableProcessors().intdiv(2))
 	}
 }
 

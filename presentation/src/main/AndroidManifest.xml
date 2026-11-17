@@ -101,6 +101,28 @@
 			android:theme="@style/TransparentPopUp" />
 
 		<activity
+			android:name=".ui.activity.HubAuthRedirectActivity"
+			android:excludeFromRecents="true"
+			android:exported="true"
+			android:taskAffinity=""
+			android:theme="@style/TransparentPopUp">
+
+			<intent-filter>
+				<data android:scheme="${appAuthRedirectScheme}" />
+
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
+			android:name="net.openid.appauth.RedirectUriReceiverActivity"
+			tools:node="remove" />
+
+		<activity
 			android:name=".ui.activity.AutoUploadRefreshTokenActivity"
 			android:exported="false" />
 		<!-- Settings -->
@@ -157,6 +179,25 @@
 		</activity>
 
 		<activity
+			android:name=".ui.activity.AuthenticateBoxActivity"
+			android:configChanges="orientation|keyboard"
+			android:exported="true"
+			android:launchMode="singleTask">
+
+			<intent-filter>
+				<data
+					android:host="boxsdkoauth2redirect"
+					android:scheme="boxsdk-${BOX_CLIENT_ID}" />
+
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.BROWSABLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
 			android:name=".ui.activity.ImagePreviewActivity"
 			android:exported="false"
 			android:theme="@style/FullscreenTheme" />
@@ -197,6 +238,16 @@
 				android:name="android.support.FILE_PROVIDER_PATHS"
 				android:resource="@xml/file_paths" />
 		</provider>
+		<provider
+			android:name="org.cryptomator.presentation.docprovider.CryptomatorDocumentsProvider"
+			android:authorities="${applicationId}.documents"
+			android:exported="true"
+			android:grantUriPermissions="true"
+			android:permission="android.permission.MANAGE_DOCUMENTS">
+			<intent-filter>
+				<action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+			</intent-filter>
+		</provider>
 
 		<meta-data
 			android:name="android.max_aspect"
@@ -226,18 +277,6 @@
 			android:name=".service.PhotoContentJob"
 			android:exported="true"
 			android:permission="android.permission.BIND_JOB_SERVICE" />
-
-		<receiver
-			android:name=".AutoPhotoUploadReceiver"
-			android:exported="true"
-			android:label="AutoPhotoUploadReceiver">
-			<intent-filter>
-				<action android:name="android.hardware.action.NEW_PICTURE" />
-				<action android:name="com.android.camera.NEW_PICTURE" />
-
-				<data android:mimeType="image/*" />
-			</intent-filter>
-		</receiver>
 
 		<receiver
 			android:name=".BootAwareReceiver"

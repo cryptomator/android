@@ -32,7 +32,6 @@
 	<string name="error_vault_version_mismatch">A %1$s -ban megadott verzió eltér a %2$s -tól</string>
 	<string name="error_vault_key_invalid">A(z) %1$s nem egyezik a következővel: %2$s</string>
 	<string name="error_vault_config_loading">Általános hiba a tároló konfigjának betöltése közben</string>
-	<string name="error_file_not_found_after_opening_using_3party">A Cryptomatorra való visszaváltás után a helyi fájl már nem elérhető. Az esetleges változások nem frissíthetik a felhőben lévő fájlt.</string>
 	<string name="error_no_such_bucket">Nem található ilyen adat</string>
 	<string name="error_masterkey_location_not_supported">Az egyéni Masterkey hely választása még nem támogatott</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Nem sikerült kommunikálni az F-Droid alkalmazással. Nincs telepítve?</string>
@@ -124,6 +123,7 @@
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
 	<string name="screen_vault_list_vault_creation_hint">Koppintson ide egy új titkosított tároló létrehozásához</string>
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
+	<string name="screen_vault_list_sale_promo_banner">🔥 Az életre szóló licenc %1$d%% kedvezménnyel kapható %2$s-ig</string>
 	<string name="screen_vault_list_sale_promo_banner_dismiss">Elvet</string>
 	<!-- # screen: file browser -->
 	<string name="screen_file_browser_default_title">Titkosított tároló</string>
@@ -179,6 +179,8 @@
 	<!-- ## screen: cloud connections -->
 	<string name="screen_cloud_connections_title">Válasszon helyt</string>
 	<string name="screen_cloud_connections_no_connections">Koppintson ide helyek hozzáadásához</string>
+	<string name="screen_cloud_connections_msg_no_sharepoint_drives">Nincs elérhető meghajtó.</string>
+	<string name="screen_cloud_connections_msg_sharepoint_site_not_found">A SharePoint-webhely nem található. Kérjük, ellenőrizze az URL-t.</string>
 	<string name="screen_cloud_error_webdav_not_supported">A kiszolgáló nem tűnik WebDAV kompatibilisnek</string>
 	<string name="screen_cloud_local_error_no_content_provider">Nem találtunk fájlkezelőt, mely képes megnyitni könyvtárakat</string>
 	<!-- ## screen: webdav settings -->
@@ -227,6 +229,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">A bevitel elfogásának blokkolása és a hamis felhasználói felület megjelenítése</string>
 	<string name="screen_settings_secure_screen">Képernyőképek letiltása</string>
 	<string name="screen_settings_secure_screen_summary">Képernyőképek letiltása a előzmények listáján és az alkalmazáson belül</string>
+	<string name="screen_settings_documents_provider">Tárolók mutatása a Fájlkezelő applikációban</string>
+	<string name="screen_settings_documents_provider_summary">Lehetővé teszi, hogy más alkalmazások megnyissák és elmentsék a fájlokat a tárolókban a rendszerfájl-választón keresztül. A zárolt tárolókat a rendszer megnyitáskor feloldja. Ennek kikapcsolása elrejti a tárolókat, és eltávolítja a hozzáférést a többi alkalmazás számára.</string>
 	<string name="screen_settings_section_search">Keresés</string>
 	<string name="screen_settings_live_search">Élő keresés</string>
 	<string name="screen_settings_live_search_summary">Frissítse a keresési eredményeket a keresőszavak beírása közben közben</string>
@@ -236,6 +240,8 @@
 	<string name="screen_settings_section_auto_lock">Automatikus zárolás</string>
 	<string name="screen_settings_auto_lock_timeout">Lezárás ennyi idő után</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">Amikor a képernyőt inaktív</string>
+	<string name="screen_settings_auto_lock_gracefully">Várakozás az átvitelre</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">Az automatikus zárolás addig vár, amíg a feltöltések és a letöltések futtatása befejeződik</string>
 	<string name="screen_settings_section_auto_photo_upload">Automatikus képfeltöltés</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">Tároló kiválasztása a feltöltéshez</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">Aktiválás</string>
@@ -259,16 +265,16 @@
 	<string name="screen_settings_security_label">Biztonsági tippek</string>
 	<string name="screen_settings_section_version">Verzió</string>
 	<string name="screen_settings_advanced_settings">Speciális beállítások</string>
-	<string name="screen_settings_microsoft_apps_workaround_label">Megkerülés Microsoft-fájlok megnyitásával</string>
-	<string name="screen_settings_microsoft_apps_workaround_summary">Fájlok megnyitása Microsoft-alkalmazásokban írási engedéllyel</string>
 	<string name="screen_settings_background_unlock_preparation_label">A feloldás felgyorsítása</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Titkosított tároló konfigurációjának letöltése a háttérben a jelszó/biometrikus hitelesítés megadása közben</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Feloldvatartás</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files_summary">Fájlok szerkesztése közben tartsa feloldva a tárolókat</string>
 	<!-- ## screen: cloud settings -->
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive kapcsolatok</string>
+	<string name="screen_cloud_settings_sharepoint_connections">SharePoint kapcsolatok</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV kapcsolat</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud kapcsolatok</string>
+	<string name="screen_cloud_settings_box_connections">Box kapcsolatok</string>
 	<string name="screen_cloud_settings_s3_connections">S3 kapcsolatok</string>
 	<string name="screen_cloud_settings_local_storage_locations">Helyi tárolóhelyek</string>
 	<string name="screen_cloud_settings_log_in_to">Bejelentkezés ide</string>
@@ -348,6 +354,9 @@
 	<string name="dialog_progress_encryption">Titkosítás&#8230;</string>
 	<string name="dialog_progress_decryption">Dekódolás&#8230;</string>
 	<string name="action_progress_moving">Áthelyezés&#8230;</string>
+	<string name="screen_file_browser_upload_failed">A feltöltés sikertelen. Koppintson az újrapróbálkozáshoz.</string>
+	<string name="documents_provider_upload_failed">A feltöltés sikertelen. Húzza le, hogy újrapróbálkozzon.</string>
+	<string name="documents_provider_upload_failed_in_folder">A mappában lévő feltöltés sikertelen. Húzza le, hogy újrapróbálkozzon.</string>
 	<string name="dialog_lock_vault">Zárolás</string>
 	<string name="dialog_accept_ssl_certificate_title">Érvénytelen SSL-tanúsítvány</string>
 	<string name="dialog_accept_ssl_certificate_hint">Az SSL tanúsítvány érvénytelen. El szeretné fogadni ennek ellenére?</string>
@@ -367,7 +376,6 @@
 	<string name="dialog_debug_mode_disclaimer_hint">Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Figyelem</string>
 	<string name="dialog_debug_mode_positive_button">Engedélyezés</string>
-	<string name="dialog_microsoft_workaround_disclaimer_hint">A Microsoft-alkalmazások egy hibája miatt a szerkesztendő fájlt meg kell osztani ezekkel az alkalmazásokkal az eszközön lévő nyilvános médiamappában. Miután a Cryptomator végzett, a nyilvánosan elérhető fájl ismét törlődik, de a Cryptomatornak nincs befolyása arra, hogy mi történik időközben ezzel a fájlal. Győződjön meg róla, hogy tisztában van ezzel a viselkedéssel, amikor bekapcsolja ezt az opciót. Ez csak a Microsoft fájltípusokra vonatkozik.\n\nAz bekapcsolás után a Cryptomator újraindul.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Ez a beállítás egy biztonsági funkció, amely megakadályozza, hogy más alkalmazások megtévesszék a felhasználókat, és olyan dolgokat tegyenek, amelyeket nem akarnak.\n\nA letiltással megerősíti, hogy <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">tisztában van a kockázatokkal</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Figyelem</string>
 	<string name="dialog_disable_app_obscured_positive_button">Letiltás</string>
@@ -411,6 +419,11 @@
 	<string name="dialog_pcloud_credentials_updated_title">A(z) „%1$s” hitelesítő adatai frissítve</string>
 	<string name="dialog_pcloud_credentials_updated">Ha új pCloud fiókot szeretne hozzáadni, koppintson erre az url-re: <a href="https://www.pcloud.com">www.pcloud.com</a>, jelentkezzen ki a jelenlegi fiókból és koppintson újra a \'+\' gombra az appban, hogy új felhő kapcsolatot létesítsen.</string>
 	<string name="dialog_enter_sharepoint_url_title">SharePoint URL megadása</string>
+	<string name="dialog_enter_sharepoint_url_hint">SharePoint-webhely URL</string>
+	<string name="dialog_enter_sharepoint_url_format">Írja be a SharePoint-webhely címét, pl.: https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_enter_sharepoint_url_invalid">Ez nem egy SharePoint-webhely címe. Kérjük, adjon meg egy ilyen formátumú címet: https://{…}.sharepoint.com/sites/{…}.</string>
+	<string name="dialog_choose_sharepoint_drive_title">Válassza ki a meghajtót</string>
+	<string name="dialog_choose_sharepoint_drive_hint">Válassza ki azt a SharePoint-meghajtót, amellyel dolgozni szeretne.</string>
 	<string name="dialog_cbc_password_vaults_migration_title">Tároló jelszó migráció szükséges</string>
 	<string name="dialog_cbc_password_vaults_migration_hint">A biztonsági fejlesztések miatt minden tároló esetében kétszer kérjük a biometrikus hitelesítést a tároló jelszavainak újratitkosításához. Ez szükséges ahhoz, hogy a tároló jelszavait a legújabb technológiával védjük továbbra is. Ha nem kívánja ezt végrehajtani, a tárolt jelszavak eltávolításra kerülnek.</string>
 	<string name="dialog_cbc_password_vaults_migration_action">Migráció</string>
@@ -434,6 +447,7 @@
 	<string name="dialog_no_full_version_message">Nem találtunk meglévő vásárlást ehhez a Google-fiókhoz.</string>
 	<string name="dialog_restore_failed_title">Visszaállítás sikertelen</string>
 	<string name="dialog_restore_failed_message">Nem sikerült elérnünk a Play Áruházat. Kérjük, ellenőrizze az internetkapcsolatát, majd próbálja meg újra.</string>
+	<string name="dialog_change_failed_title">A következő értékre való módosítás sikertelen: %1$s</string>
 	<string name="dialog_hub_user_setup_required_title">Felhasználói profil beállítása szükséges</string>
 	<string name="dialog_hub_user_setup_required_hint">A folytatáshoz kérjük, hajtsa végre a Hub felhasználói profiljában megadott lépéseket.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">Ugrás a Profilhoz</string>
@@ -441,6 +455,7 @@
 	<string name="permission_snackbar_auth_local_vault">A Cryptomatornak tárhely-hozzáférésre van szüksége a titkosított tárolók használatához</string>
 	<string name="permission_snackbar_auth_auto_upload">A Cryptomatornak tárhely-hozzáférésre van szüksége az automatikus fotófeltöltés használatához</string>
 	<string name="permission_snackbar_notifications">A Cryptomatornak értesítési engedélyekre van szüksége például a tároló állapotának megjelenítéséhez</string>
+	<string name="permission_snackbar_local_network">A Cryptomatornak helyi hálózati hozzáférésre van szüksége ahhoz, hogy csatlakozzon a helyi hálózat szervereihez</string>
 	<!-- # error reports -->
 	<!-- # misc -->
 	<!-- ## file size helper -->
@@ -491,10 +506,7 @@
 	<string name="notification_authenticating">Hitelesítés&#8230;</string>
 	<string name="notification_cleared_trusted_hosts">Megbízható gazdagépek törölve</string>
 	<string name="screen_settings_lru_cache">Gyorsítótár</string>
-	<string name="screen_settings_lru_cache_toggle_summary">A készüléken helyileg titkosított, legutóbb megnyitott fájlok gyorsítótárazása a későbbi újbóli megnyitáskor történő újrafelhasználás céljából</string>
-	<string name="screen_settings_lru_cache_size">Gyorsítótár mérete</string>
 	<string name="screen_settings_clear_lru_cache_size">Gyorsítótár törlése</string>
-	<string name="screen_settings_lru_cache_changed__restart_toast">A módosítások az alkalmazás újraindítása után lépnek életbe</string>
 	<string name="screen_settings_license_title_unlock">Teljes verzió feloldása</string>
 	<string name="screen_settings_license_title_unlocked">Teljes verzió</string>
 	<string name="screen_settings_license_mail">%1$s</string>
@@ -507,24 +519,19 @@
 	<string name="dialog_trial_expired_message">Az ingyenes próbaidőszak lejárt. Folytathatja csak olvasási módban, vagy feloldhatja a teljes verziót.</string>
 	<string name="dialog_trial_expired_unlock">Teljes verzió feloldása</string>
 	<string name="dialog_trial_expired_continue_read_only">Folytatási csak olvasási módban</string>
+	<string name="dialog_license_lost_title">A licenckulcs újbóli megadása</string>
+	<string name="dialog_license_lost_message">Egy korábbi frissítés eltávolította a %1$s-hez regisztrált licenckulcsot erről az eszközről. Írja be újra a kulcsot az írási jogosultság visszaállításához. Addig a tárolói csak olvasásra alkalmasak.</string>
+	<string name="dialog_license_lost_reenter">A licenckulcs újbóli megadása</string>
+	<string name="dialog_license_lost_later">Később</string>
 	<string name="dialog_settings_update_check_interval_title">A frissítések ellenőrzési gyakorisága</string>
 	<string name="screen_settings_check_updates">Frissítések keresése</string>
 	<string name="screen_settings_last_check_updates">Utolsó keresés %1$s</string>
-	<string name="dialog_cache_size_title">Felhőnkénti gyorsítótár mérete</string>
 	<!-- lock timeout names -->
-	<string name="lock_timeout_instant">Azonnal</string>
 	<string name="lock_timeout_1m">1 perc</string>
 	<string name="lock_timeout_2m">2 perc</string>
 	<string name="lock_timeout_5m">5 perc</string>
 	<string name="lock_timeout_10m">10 perc</string>
 	<string name="lock_timeout_never">Soha</string>
-	<!-- cache size names -->
-	<string name="cache_size_50m">50 MB</string>
-	<string name="cache_size_100m">100 MB</string>
-	<string name="cache_size_250m">250 MB</string>
-	<string name="cache_size_500m">500 MB</string>
-	<string name="cache_size_1000m">1 GB</string>
-	<string name="cache_size_5000m">5 GB</string>
 	<!-- screen scheme mode names -->
 	<string name="screen_settings_style_mode">Stílus</string>
 	<string name="follow_system">Automatikus (A rendszeren alapuló)</string>

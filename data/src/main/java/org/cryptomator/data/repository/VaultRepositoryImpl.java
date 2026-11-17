@@ -89,4 +89,9 @@ class VaultRepositoryImpl implements VaultRepository {
 		cryptoCloudContentRepositoryFactory.assertCryptorRegisteredFor(vault);
 	}
 
+	@Override
+	public Vault unlockedVault(Vault vault) {
+		return cryptoCloudContentRepositoryFactory.unlockedVault(vault);
+	}
+
 }

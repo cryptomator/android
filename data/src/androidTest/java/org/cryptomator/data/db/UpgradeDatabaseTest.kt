@@ -70,6 +70,7 @@ class UpgradeDatabaseTest {
 		Upgrade12To13(context).migrate(db)
 		Upgrade13To14(sharedPreferencesHandler).migrate(db)
 		Upgrade14To15().migrate(db)
+		Upgrade15To16().migrate(db)
 
 		// the clouds seeded for v1 that no later upgrade removes, and the single update check row
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
