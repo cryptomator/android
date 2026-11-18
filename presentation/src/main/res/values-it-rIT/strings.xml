@@ -301,6 +301,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">La vecchia password non può essere vuota.</string>
 	<string name="dialog_change_password_msg_new_password_empty">La nuova password non può essere vuota.</string>
 	<string name="dialog_change_password_msg_password_mismatch">La nuova password non corrisponde alla password ridigitata.</string>
+	<string name="dialog_recovery_key_password_positive_button">Visualizza</string>
+	<string name="dialog_recovery_key_copy_button">Copia</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Cassaforte %1$s non trovata</string>
 	<string name="dialog_vault_not_found_message">La cassaforte è stata rinominata, spostata o eliminata. Rimuovere questa cassaforte dalla lista e aggiungerla di nuovo per procedere. Rimuovere ora?</string>

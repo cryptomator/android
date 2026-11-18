@@ -256,6 +256,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Иҫке серһүҙ буш була алмай.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Яңы серһүҙ буш була алмай.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Яңы серһүҙ ҡабатлап яҙылған серһүҙ менән тап килмәй.</string>
+	<string name="dialog_recovery_key_password_positive_button">Күрһәт</string>
+	<string name="dialog_recovery_key_copy_button">Күсермәһен ал</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s һаҡлағысы табылманы</string>
 	<string name="dialog_vault_not_found_message">Һаҡлағыстың исеме үҙгәртелгән, күсерелгән йәки юйылған. Дауам итер өсөн уны исемлектән алып ташлағыҙ һәм яңынан өҫтәгеҙ. Хәҙер алып ташларғамы?</string>

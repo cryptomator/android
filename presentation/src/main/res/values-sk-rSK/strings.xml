@@ -116,6 +116,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Zobraziť kľúč na obnovenie</string>
 	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Doživotná licencia je zľavnená o %1$d%% do %2$s</string>
@@ -182,12 +183,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživateľské meno</string>
+	<string name="screen_webdav_settings_server_label">Adresa servera</string>
+	<string name="screen_webdav_settings_space_id_label">ID Priestoru</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Zmluva</string>
 	<string name="screen_webdav_settings_password_label">Heslo</string>
 	<string name="screen_webdav_settings_done_button_text">Pripojiť</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL je neplatná.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Užívateľské meno nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Heslo nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Adresa servera nemôže byť prázdna.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Adresa servera je neplatná.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">ID priestoru nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Vyberte jednu z možností.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Ak je povolené dvojfaktorové overenie, vytvorte heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_disroot_hint">Použite svoje používateľské meno Disroot alebo svoju e-mailovú adresu, ak používate vlastnú doménu. Ak je povolené dvojfaktorové overenie, vytvorte si heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 30 minút.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 60 minút.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV vyžaduje platený program. Ako heslo použite prístupový kľúč WebDAV z vášho účtu Icedrive.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV nie je k dispozícii v bezplatnom pláne.</string>
+	<string name="screen_webdav_settings_koofr_hint">Vytvorte si heslo aplikácie vo svojom účte Koofr a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">V nastaveniach MagentaCLOUD si vytvorte heslo protokolu WebDAV a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Vytvorte token aplikácie v časti Nastavenia &gt; Tokeny aplikácií a použite ho ako heslo. ID priestoru nájdete v informačnom paneli priestoru.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Zobrazované meno</string>
 	<string name="screen_s3_settings_access_key_label">Prístupový kľúč</string>
@@ -265,6 +282,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s pripojení</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
 	<string name="screen_cloud_settings_local_storage_locations">Umiestnenia lokálnych úložísk</string>
@@ -296,6 +314,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Staré heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nové heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
+	<string name="dialog_recovery_key_password_hint">Zadajte heslo pre „%1$s“ a zobrazí sa jeho obnovovací kľúč.</string>
+	<string name="dialog_recovery_key_password_positive_button">Zobraziť</string>
+	<string name="dialog_recovery_key_title">Kľúč na obnovenie</string>
+	<string name="dialog_recovery_key_description">Kľúč na obnovenie je jediný spôsob, ako obnoviť prístup k „%1$s“, ak stratíte heslo:</string>
+	<string name="dialog_recovery_key_storage_hint">Uschovajte si ho na veľmi bezpečnom mieste, napríklad v správcovi hesiel alebo vytlačený na papieri.</string>
+	<string name="dialog_recovery_key_copy_button">Kopírovať</string>
+	<string name="dialog_recovery_key_copied">Kľúč na obnovenie bol skopírovaný</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
 	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstránte tento trezor zo zoznamu a pridajte ho znovu. Odstrániť teraz?</string>

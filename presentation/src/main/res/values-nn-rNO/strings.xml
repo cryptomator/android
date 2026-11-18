@@ -36,6 +36,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Avbryt</string>
 	<string name="dialog_enter_password_positive_button">Låse opp</string>
+	<string name="dialog_recovery_key_password_positive_button">Vis</string>
+	<string name="dialog_recovery_key_copy_button">Kopiera</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">Lås</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">Lukk</string>

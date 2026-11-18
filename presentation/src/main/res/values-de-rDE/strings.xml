@@ -186,6 +186,7 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Benutzername</string>
+	<string name="screen_webdav_settings_server_label">Serveradresse</string>
 	<string name="screen_webdav_settings_password_label">Passwort</string>
 	<string name="screen_webdav_settings_done_button_text">Verbinden</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL muss ausgefüllt werden.</string>
@@ -273,6 +274,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive-Verbindungen</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint-Verbindungen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV-Verbindungen</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s Verbindungen</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud-Verbindungen</string>
 	<string name="screen_cloud_settings_box_connections">Box-Verbindungen</string>
 	<string name="screen_cloud_settings_s3_connections">S3-Verbindungen</string>
@@ -305,6 +307,9 @@
 	<string name="dialog_change_password_msg_old_password_empty">Altes Passwort muss ausgefüllt werden.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Neues Passwort muss ausgefüllt werden.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Neue Passwort stimmt nicht mit dem wiederholten Passwort überein.</string>
+	<string name="dialog_recovery_key_password_positive_button">Anzeigen</string>
+	<string name="dialog_recovery_key_copy_button">Kopieren</string>
+	<string name="dialog_recovery_key_copied">Rettungsschlüssel kopiert</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Tresor %1$s nicht gefunden</string>
 	<string name="dialog_vault_not_found_message">Der Tresor wurde umbenannt, verschoben oder gelöscht. Entferne diesen aus der Tresorliste und füge ihn erneut hinzu um fortzufahren. Tresor jetzt entfernen?</string>

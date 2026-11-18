@@ -271,6 +271,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Gammel adgangskode er obligatorisk.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Ny adgangskode er obligatorisk.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Adgangskoden matcher ikke den nye adgangskode.</string>
+	<string name="dialog_recovery_key_password_positive_button">Vis</string>
+	<string name="dialog_recovery_key_copy_button">Kopiér</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Boks %1$s ikke fundet</string>
 	<string name="dialog_vault_not_found_message">Boksen er blevet omdøbt, flyttet eller slettet. Fjern denne boks fra listen og tilføj den igen for at fortsætte. Fjern nu?</string>

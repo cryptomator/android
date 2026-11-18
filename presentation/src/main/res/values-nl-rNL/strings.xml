@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Nieuwe kluis aanmaken</string>
 	<string name="screen_vault_list_action_add_existing_vault">Bestaande kluis toevoegen</string>
 	<string name="screen_vault_list_vault_action_delete">Verwijderen</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Toon herstelsleutel</string>
 	<string name="screen_vault_list_vault_creation_hint">Klik hier om een nieuwe kluis aan te maken</string>
 	<string name="screen_vault_list_change_password_successful">Wachtwoord succesvol gewijzigd</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Levenslange licentie geeft nu %1$d%% korting tot %2$s</string>
@@ -186,12 +187,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Gebruikersnaam</string>
+	<string name="screen_webdav_settings_server_label">Serveradres</string>
+	<string name="screen_webdav_settings_space_id_label">Space ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Contract</string>
 	<string name="screen_webdav_settings_password_label">Wachtwoord</string>
 	<string name="screen_webdav_settings_done_button_text">Verbinden</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL mag niet leeg zijn.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL is ongeldig.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Gebruikersnaam mag niet leeg zijn.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Wachtwoord mag niet leeg zijn.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Het serveradresveld kan niet leeg zijn.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Serveradres is ongeldig.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Het Space ID-veld kan niet leeg zijn.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Selecteer een van de opties.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Als tweestapsverificatie is ingeschakeld, maak dan een app-wachtwoord aan en gebruik het in plaats van je accountwachtwoord.</string>
+	<string name="screen_webdav_settings_disroot_hint">Gebruik je Disroot gebruikersnaam of je e-mailadres als je je eigen domein gebruikt. Als tweestapsverificatie is ingeschakeld, maak dan een app-wachtwoord aan en gebruik het in plaats van je accountwachtwoord.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Als tweestapsverificatie is ingeschakeld, voeg dan de huidige eenmalige code toe aan je wachtwoord. De code is 30 minuten geldig.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Als tweestapsverificatie is ingeschakeld, voeg dan de huidige eenmalige code toe aan je wachtwoord. De code is 60 minuten geldig.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV vereist een betaald abonnement. Gebruik de WebDAV toegangssleutel van uw Icedrive account als wachtwoord.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV is niet beschikbaar bij het gratis abonnement.</string>
+	<string name="screen_webdav_settings_koofr_hint">Maak een app-wachtwoord in uw Koofr account en gebruik het in plaats van uw accountwachtwoord.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Maak een WebDAV protocol wachtwoord in uw MagentaCLOUD instellingen en gebruik het in plaats van uw account wachtwoord.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Maak een app-token aan onder Instellingen &gt; App Tokens en gebruik het als wachtwoord. U vindt de space-ID in het info-paneel van de space.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Weergavenaam</string>
 	<string name="screen_s3_settings_access_key_label">Toegangs code</string>
@@ -273,6 +290,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive verbindingen</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint Verbindingen</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV verbindingen</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connecties</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud verbindingen</string>
 	<string name="screen_cloud_settings_box_connections">Box verbindingen</string>
 	<string name="screen_cloud_settings_s3_connections">S3 verbindingen</string>
@@ -305,6 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Het oude wachtwoord kan niet leeg zijn.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nieuw wachtwoord kan niet leeg zijn.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nieuw wachtwoord komt niet overeen met het opnieuw ingevoerde wachtwoord.</string>
+	<string name="dialog_recovery_key_password_hint">Voer het wachtwoord voor \"%1$s\" in om de herstelsleutel te tonen.</string>
+	<string name="dialog_recovery_key_password_positive_button">Toon</string>
+	<string name="dialog_recovery_key_title">Herstelsleutel</string>
+	<string name="dialog_recovery_key_description">De herstelsleutel is je enige manier om toegang tot \"%1$s\" te herstellen als je jouw wachtwoord verliest:</string>
+	<string name="dialog_recovery_key_storage_hint">Bewaar het ergens heel veilig, bijvoorbeeld in een wachtwoordmanager of geprint op een vel papier.</string>
+	<string name="dialog_recovery_key_copy_button">Kopieer</string>
+	<string name="dialog_recovery_key_copied">Herstelsleutel gekopieerd</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Kluis %1$s niet gevonden</string>
 	<string name="dialog_vault_not_found_message">De kluis is hernoemd, verplaatst of verwijderd. Verwijder deze kluis uit de lijst en voeg opnieuw toe om verder te gaan. Nu verwijderen?</string>

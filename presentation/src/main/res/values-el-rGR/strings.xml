@@ -265,6 +265,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Ο παλιός κωδικός πρόσβασης δεν μπορεί να είναι κενός.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Ο νέος κωδικός πρόσβασης δεν μπορεί να είναι κενός.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Ο νέος κωδικός πρόσβασης δεν ταιριάζει με τον κωδικό πρόσβασης που πληκτρολογήθηκε.</string>
+	<string name="dialog_recovery_key_password_positive_button">Εμφάνιση</string>
+	<string name="dialog_recovery_key_copy_button">Αντιγραφή</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Η κρύπτη %1$s δεν βρέθηκε</string>
 	<string name="dialog_vault_not_found_message">Η κρύπτη μετονομάστηκε, μετακινήθηκε ή διαγράφηκε. Αφαιρέστε αυτή την κρύπτη από την λίστα και προσθέστε την ξανά για να συνεχίσετε. Αφαίρεση τώρα;</string>

@@ -267,6 +267,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Stare hasło nie może być puste.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nowe hasło nie może być puste.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Hasła nie zgadzają się.</string>
+	<string name="dialog_recovery_key_password_positive_button">Wyświetl</string>
+	<string name="dialog_recovery_key_copy_button">Skopiuj</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Sejfu %1$s nie odnaleziono</string>
 	<string name="dialog_vault_not_found_message">Sejf został przeniesiony, usunięty albo zmieniono jego nazwę. Usuń ten sejf z listy i dodaj go ponownie. Usunąć teraz?</string>

@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Új titkosított tároló készítése</string>
 	<string name="screen_vault_list_action_add_existing_vault">Meglévő tárolóhoz adás</string>
 	<string name="screen_vault_list_vault_action_delete">Eltávolítás</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Helyreállítási kulcs megjelenítése</string>
 	<string name="screen_vault_list_vault_creation_hint">Koppintson ide egy új titkosított tároló létrehozásához</string>
 	<string name="screen_vault_list_change_password_successful">Jelszó sikeresen megváltoztatva</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Az életre szóló licenc %1$d%% kedvezménnyel kapható %2$s-ig</string>
@@ -186,12 +187,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Felhasználónév</string>
+	<string name="screen_webdav_settings_server_label">Szerver címe</string>
+	<string name="screen_webdav_settings_space_id_label">Tárterület azonosítója</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Szerződés</string>
 	<string name="screen_webdav_settings_password_label">Jelszó</string>
 	<string name="screen_webdav_settings_done_button_text">Csatlakozás</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">Az elérési út nem lehet üres.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Érvénytelen URL.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">A felhasználónév nem lehet üres.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">A jelszó nem lehet üres.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">A szerver címe nem lehet üres.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">A szerver címe érvénytelen.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">A tárterület azonosítója nem lehet üres.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Válasszon egyet a lehetőségek közül.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Ha a kétfaktoros hitelesítés engedélyezve van, hozzon létre egy alkalmazásjelszót, és használja azt a fiókja jelszava helyett.</string>
+	<string name="screen_webdav_settings_disroot_hint">Használja a Disroot felhasználónevét vagy az e-mail címét, ha saját domaint használ. Ha a kétfaktoros hitelesítés engedélyezve van, hozzon létre egy alkalmazásjelszót, és használja azt a fiókja jelszava helyett.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Ha a kétfaktoros hitelesítés engedélyezve van, fűzze hozzá az aktuális egyszeri kódot a jelszavához. A kód 30 percig érvényes.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Ha a kétfaktoros hitelesítés engedélyezve van, fűzze hozzá az aktuális egyszeri kódot a jelszavához. A kód 60 percig érvényes.</string>
+	<string name="screen_webdav_settings_icedrive_hint">A WebDAV fizetős csomagot igényel. Használja az Icedrive-fiók WebDAV hozzáférési kulcsát jelszóként.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV nem érhető az ingyenes fiókhoz.</string>
+	<string name="screen_webdav_settings_koofr_hint">Hozzon létre egy alkalmazásjelszót a Koofr-fiókjában, és használja azt a fiók jelszava helyett.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Hozzon létre egy WebDAV protokoll jelszót a MagentaCLOUD beállításaiban, és használja azt a fiók jelszava helyett.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Hozzon létre egy alkalmazástokent a Beállítások &gt; Alkalmazástokenek menüpontban, és használja jelszóként. A tárterület azonosítóját annak információs paneljén találja.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Megjelenítendő név</string>
 	<string name="screen_s3_settings_access_key_label">Hozzáférési kulcs</string>
@@ -273,6 +290,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive kapcsolatok</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint kapcsolatok</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV kapcsolat</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">%1$s kapcsolat</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud kapcsolatok</string>
 	<string name="screen_cloud_settings_box_connections">Box kapcsolatok</string>
 	<string name="screen_cloud_settings_s3_connections">S3 kapcsolatok</string>
@@ -305,6 +323,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">A régi jelszó nem lehet üres.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Az új jelszó nem lehet üres.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Az új jelszó nem egyezik az ismételten begépelt jelszóval.</string>
+	<string name="dialog_recovery_key_password_hint">A helyreállítási kulcs megjelenítéséhez adja meg a következő tároló jelszavát: \"%1$s\".</string>
+	<string name="dialog_recovery_key_password_positive_button">Megmutatás</string>
+	<string name="dialog_recovery_key_title">Helyreállítási kulcs</string>
+	<string name="dialog_recovery_key_description">Ha elveszíti a jelszavát a következő tárolóhoz: \"%1$s\", akkor kizárólag a helyreállítási kulcs segítségével férhet hozzá újra:</string>
+	<string name="dialog_recovery_key_storage_hint">Tartsa egy nagyon biztonságos helyen, pl. jelszókezelőben vagy papíron kinyomtatva.</string>
+	<string name="dialog_recovery_key_copy_button">Másolás</string>
+	<string name="dialog_recovery_key_copied">Helyreállítási kulcs másolva</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">A titkosított tároló nem található: %1$s</string>
 	<string name="dialog_vault_not_found_message">A tárolót átnevezték, áthelyezték vagy törölték. Távolítsa el ezt a titkosított tárolót a listáról, majd adja hozzá újra a folytatáshoz. Eltávolítja most?</string>

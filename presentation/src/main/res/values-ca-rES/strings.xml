@@ -263,6 +263,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">La contrasenya antiga no es pot deixar en blanc.</string>
 	<string name="dialog_change_password_msg_new_password_empty">La contrasenya nova no es pot deixar en blanc.</string>
 	<string name="dialog_change_password_msg_password_mismatch">La contrasenya nova no coincideix.</string>
+	<string name="dialog_recovery_key_password_positive_button">Mostra</string>
+	<string name="dialog_recovery_key_copy_button">Copia</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">No s\'ha trobat la caixa forta %1$s</string>
 	<string name="dialog_vault_not_found_message">La caixa forta ha canviat de nom, s\'ha mogut o s\'ha esborrat. Elimina aquesta caixa forta de la llista i torna-la a afegir per a continuar. Vols eliminar-la ara?</string>

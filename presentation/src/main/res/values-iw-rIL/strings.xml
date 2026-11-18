@@ -258,6 +258,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">יש להזין סיסמה ישנה.</string>
 	<string name="dialog_change_password_msg_new_password_empty">יש להזין סיסמה חדשה.</string>
 	<string name="dialog_change_password_msg_password_mismatch">הסיסמא החדשה אינה תואמת לסיסמה שהוזנה.</string>
+	<string name="dialog_recovery_key_password_positive_button">הצג</string>
+	<string name="dialog_recovery_key_copy_button">העתק</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">הכספת %1$s לא נמצאה</string>
 	<string name="dialog_vault_not_found_message">ה Vault הנבחר נמחק, הועבר או השם השתנה. נא להסיר את ה Vault מהרשימה ולהוסיף מחדש בכדי להמשיך. להסיר עכשיו?</string>

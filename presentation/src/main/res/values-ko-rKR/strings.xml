@@ -70,7 +70,7 @@
 	<string name="screen_license_check_subscription_subtitle">연간</string>
 	<string name="screen_license_check_lifetime_title">평생 라이선스</string>
 	<string name="screen_license_check_lifetime_discount_badge_until">🔥 %2$s까지 %1$d%% 할인</string>
-	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 한정 시간 세일</string>
+	<string name="screen_license_check_lifetime_discount_badge_generic">🔥 기간 한정 세일</string>
 	<string name="screen_license_check_lifetime_subtitle">일회성</string>
 	<string name="screen_license_check_restore_purchase">구매 복원</string>
 	<string name="screen_license_check_terms">이용 약관</string>
@@ -121,6 +121,7 @@
 	<string name="screen_vault_list_action_create_new_vault">새 Vault 생성</string>
 	<string name="screen_vault_list_action_add_existing_vault">기존 Vault 추가</string>
 	<string name="screen_vault_list_vault_action_delete">제거</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">복구 키 보기</string>
 	<string name="screen_vault_list_vault_creation_hint">여기를 눌러 새 Vault를 생성하세요</string>
 	<string name="screen_vault_list_change_password_successful">비밀번호 변경 성공</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 평생 라이선스 %2$s까지 %1$d%% 할인</string>
@@ -185,12 +186,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">사용자 이름</string>
+	<string name="screen_webdav_settings_server_label">서버 주소</string>
+	<string name="screen_webdav_settings_space_id_label">스페이스 ID</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">계약</string>
 	<string name="screen_webdav_settings_password_label">비밀번호</string>
 	<string name="screen_webdav_settings_done_button_text">연결</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL을 입력해주세요.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL이 유효하지 않습니다.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">사용자 이름을 입력하십시오.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">암호를 입력하십시오.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">서버 주소는 비워 둘 수 없습니다.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">서버 주소가 올바르지 않습니다.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">스페이스 ID는 비워 둘 수 없습니다.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">옵션 중 하나를 선택하세요.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">2단계 인증이 활성화된 경우 앱 비밀번호를 생성하여 계정 비밀번호 대신 사용하세요.</string>
+	<string name="screen_webdav_settings_disroot_hint">Disroot 사용자 이름을 사용하거나, 자체 도메인을 사용하는 경우 이메일 주소를 입력하세요. 2단계 인증이 활성화된 경우 앱 비밀번호를 생성하여 계정 비밀번호 대신 사용하세요.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">2단계 인증이 활성화된 경우 비밀번호 뒤에 현재 일회용 코드를 덧붙여 입력하세요. 코드는 30분 동안 유효합니다.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">2단계 인증이 활성화된 경우 비밀번호 뒤에 현재 일회용 코드를 덧붙여 입력하세요. 코드는 60분 동안 유효합니다.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV를 사용하려면 유료 요금제가 필요합니다. Icedrive 계정의 WebDAV 액세스 키를 비밀번호로 사용하세요.</string>
+	<string name="screen_webdav_settings_kdrive_hint">무료 요금제에서는 WebDAV를 사용할 수 없습니다.</string>
+	<string name="screen_webdav_settings_koofr_hint">Koofr 계정에서 앱 비밀번호를 생성하여 계정 비밀번호 대신 사용하세요.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">MagentaCLOUD 설정에서 WebDAV 프로토콜 비밀번호를 생성하여 계정 비밀번호 대신 사용하세요.</string>
+	<string name="screen_webdav_settings_opencloud_hint">설정 &gt; 앱 토큰에서 앱 토큰을 생성하여 비밀번호로 사용하세요. 스페이스의 정보 패널에서 스페이스 ID를 확인할 수 있습니다.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">표시 이름</string>
 	<string name="screen_s3_settings_access_key_label">접근 키</string>
@@ -228,6 +245,8 @@
 	<string name="screen_settings_block_app_when_obscured_summary">입력을 가로채는 것과 가장된 유저 인터페이스를 표시하는 것을 막습니다</string>
 	<string name="screen_settings_secure_screen">스크린샷 차단</string>
 	<string name="screen_settings_secure_screen_summary">최근 사용 목록과 앱 내부에서 스크린샷 차단</string>
+	<string name="screen_settings_documents_provider">파일 앱에서 ${vault} 열기</string>
+	<string name="screen_settings_documents_provider_summary">다른 앱이 시스템 파일 선택기를 통해 Vault의 파일을 열고 저장할 수 있도록 허용합니다. 잠긴 Vault는 열릴 때 잠금이 해제됩니다. 이 설정을 끄면 Vault가 숨겨지고 다른 앱에 부여되었던 접근 권한이 제거됩니다.</string>
 	<string name="screen_settings_section_search">검색</string>
 	<string name="screen_settings_live_search">실시간 검색</string>
 	<string name="screen_settings_live_search_summary">검색 내용 입력중 검색 결과 업데이트</string>
@@ -237,6 +256,8 @@
 	<string name="screen_settings_section_auto_lock">자동 잠금</string>
 	<string name="screen_settings_auto_lock_timeout">다음 시간 이후 잠금</string>
 	<string name="screen_settings_auto_lock_on_screen_lock">화면이 꺼졌을 때</string>
+	<string name="screen_settings_auto_lock_gracefully">전송 완료 대기</string>
+	<string name="screen_settings_auto_lock_gracefully_summary">진행 중인 업로드 및 다운로드가 완료될 때까지 기다린 후 자동으로 잠급니다</string>
 	<string name="screen_settings_section_auto_photo_upload">사진 자동 업로드</string>
 	<string name="screen_settings_section_auto_photo_upload_vault">업로드 할 Vault 선택</string>
 	<string name="screen_settings_section_auto_photo_upload_toggle">활성화</string>
@@ -268,6 +289,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
+	<string name="screen_cloud_settings_webdav_provider_connections">연결 %1$s개</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 연결</string>
 	<string name="screen_cloud_settings_box_connections">Box 연결</string>
 	<string name="screen_cloud_settings_s3_connections">S3 연결</string>
@@ -300,6 +322,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">이전 비밀번호를 입력하십시오.</string>
 	<string name="dialog_change_password_msg_new_password_empty">신규 비밀번호를 입력하십시오.</string>
 	<string name="dialog_change_password_msg_password_mismatch">비밀번호가 일치하지 않습니다.</string>
+	<string name="dialog_recovery_key_password_hint">\"%1$s\" 의 복구 키를 보려면 비밀번호를 입력하세요.</string>
+	<string name="dialog_recovery_key_password_positive_button">보기</string>
+	<string name="dialog_recovery_key_title">복구 키</string>
+	<string name="dialog_recovery_key_description">복구 키는 비밀번호를 잊어버렸을 때, \"%1$s\"의 접근을 복원할 수 있는 유일한 방법입니다:</string>
+	<string name="dialog_recovery_key_storage_hint">비밀번호 관리자에 저장하거나 종이에 인쇄하는 등 매우 안전한 곳에 보관하세요.</string>
+	<string name="dialog_recovery_key_copy_button">복사</string>
+	<string name="dialog_recovery_key_copied">복구 키 복사됨</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Vault %1$s을(를) 찾을 수 없음</string>
 	<string name="dialog_vault_not_found_message">이 Vault는 이름이 변경됐거나, 경로가 옮겨졌거나, 삭제되었습니다. 이 Vault를 목록에서 삭제하고 다시 추가하여 계속 진행하십시오. 지금 삭제하시겠습니까?</string>
@@ -349,6 +378,9 @@
 	<string name="dialog_progress_encryption">암호화 중&#8230;</string>
 	<string name="dialog_progress_decryption">복호화 중&#8230;</string>
 	<string name="action_progress_moving">이동 중&#8230;</string>
+	<string name="screen_file_browser_upload_failed">업로드에 실패했습니다. 탭하여 다시 시도하세요.</string>
+	<string name="documents_provider_upload_failed">업로드에 실패했습니다. 아래로 당겨 다시 시도하세요.</string>
+	<string name="documents_provider_upload_failed_in_folder">이 폴더의 업로드에 실패했습니다. 아래로 당겨 다시 시도하세요.</string>
 	<string name="dialog_lock_vault">잠그기</string>
 	<string name="dialog_accept_ssl_certificate_title">유효하지 않은 SSL 인증서</string>
 	<string name="dialog_accept_ssl_certificate_hint">SSL 인증서가 유효하지 않습니다. 인증서를 신뢰하고 계속 진행하겠습니까?</string>
@@ -439,6 +471,7 @@
 	<string name="dialog_no_full_version_message">이 Google 계정에서 기존 구매 내역을 찾을 수 없습니다.</string>
 	<string name="dialog_restore_failed_title">복원 실패함</string>
 	<string name="dialog_restore_failed_message">Play Store에 연결할 수 없습니다. 인터넷 연결 상태를 확인하고 다시 시도해 주세요.</string>
+	<string name="dialog_change_failed_title">%1$s(으)로 변경 실패</string>
 	<string name="dialog_hub_user_setup_required_title">사용자 설정 필요함</string>
 	<string name="dialog_hub_user_setup_required_hint">진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.</string>
 	<string name="dialog_hub_user_setup_required_neutral_button">프로필로 가기</string>
