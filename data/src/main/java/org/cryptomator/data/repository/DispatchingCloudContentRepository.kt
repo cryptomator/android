@@ -215,6 +215,12 @@ class DispatchingCloudContentRepository @Inject constructor(
 	}
 
 	fun updateCloudContentRepositoryFor(cloud: Cloud) {
+		if (delegates.containsKey(cloud)) {
+			val repository = createCloudContentRepositoryFor(cloud)
+			// put alone would keep the previous instance as the weak key, which the new repository doesn't hold
+			delegates.remove(cloud)
+			delegates[cloud] = repository
+		}
 		val clouds = delegates.keys.iterator()
 		while (clouds.hasNext()) {
 			val current = clouds.next()

@@ -1,6 +1,6 @@
 name: Bug Report
 description: Create a report to help us improve
-labels: ["type:bug"]
+type: "Bug"
 body:
   - type: checkboxes
     id: terms
@@ -9,7 +9,7 @@ body:
       options:
       - label: I have searched [existing issues](https://github.com/cryptomator/android/issues?q=) for duplicates
         required: true
-      - label: I agree to follow this project's [Code of Conduct](https://github.com/cryptomator/android/blob/develop/.github/CODE_OF_CONDUCT.md)
+      - label: I agree to follow this project's [Code of Conduct](https://github.com/cryptomator/.github/blob/main/CODE_OF_CONDUCT.md)
         required: true
   - type: input
     id: summary

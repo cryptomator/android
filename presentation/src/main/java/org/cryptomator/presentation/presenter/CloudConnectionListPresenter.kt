@@ -64,8 +64,14 @@ class CloudConnectionListPresenter @Inject constructor( //
 	private val selectedCloudType = AtomicReference<CloudTypeModel>()
 	private var pendingSharepointDrives: List<SharepointCloud>? = null
 
+	private var includeWebDavProviderClouds = false
+
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {
 		this.selectedCloudType.set(selectedCloudType)
+	}
+
+	fun setIncludeWebDavProviderClouds(includeWebDavProviderClouds: Boolean) {
+		this.includeWebDavProviderClouds = includeWebDavProviderClouds
 	}
 
 	fun loadCloudList() {
@@ -73,7 +79,8 @@ class CloudConnectionListPresenter @Inject constructor( //
 			.withCloudType(CloudTypeModel.valueOf(selectedCloudType.get())) //
 			.run(object : DefaultResultHandler<List<Cloud>>() {
 				override fun onSuccess(clouds: List<Cloud>) {
-					view?.showCloudModels(clouds.map { cloud -> cloudModelMapper.toModel(cloud) })
+					val cloudModels = clouds.map { cloud -> cloudModelMapper.toModel(cloud) }
+					view?.showCloudModels(cloudModels.filter { includeWebDavProviderClouds || it.cloudType() == selectedCloudType.get() })
 				}
 			})
 	}
@@ -145,8 +152,13 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.BOX -> requestActivityResult(ActivityResultCallbacks.boxAuthenticationFinished(), Intents.authenticateBoxIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
-			else -> throw IllegalStateException("Cloud type is not supported")
+			else -> addWebDavProviderCloud()
 		}
+	}
+
+	private fun addWebDavProviderCloud() {
+		val webDavProvider = selectedCloudType.get().webDavProvider ?: throw IllegalStateException("Cloud type is not supported")
+		requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent().withWebDavProvider(webDavProvider))
 	}
 
 	private fun addOnedriveCloud() {
@@ -268,11 +280,11 @@ class CloudConnectionListPresenter @Inject constructor( //
 
 	fun onChangeCloudClicked(cloudModel: CloudModel) {
 		when {
-			cloudModel.cloudType() == CloudTypeModel.WEBDAV -> {
+			cloudModel is WebDavCloudModel -> {
 				requestActivityResult(
 					ActivityResultCallbacks.addChangeMultiCloud(),  //
 					Intents.webDavAddOrChangeIntent() //
-						.withWebDavCloud(cloudModel as WebDavCloudModel)
+						.withWebDavCloud(cloudModel)
 				)
 			}
 			cloudModel.cloudType() == CloudTypeModel.S3 -> {

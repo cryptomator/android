@@ -44,6 +44,7 @@ class CloudConnectionListActivity : BaseActivity<ActivityLayoutBinding>(Activity
 
 	override fun setupPresenter() {
 		presenter.setSelectedCloudType(cloudConnectionListIntent.cloudType())
+		presenter.setIncludeWebDavProviderClouds(cloudConnectionListIntent.includeWebDavProviderClouds() == true)
 	}
 
 	override fun onStart() {

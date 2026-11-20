@@ -25,7 +25,7 @@ class HubkeyCryptoCloudProvider(
 ) : CryptoCloudProvider {
 
 	@Throws(BackendException::class)
-	override fun create(location: CloudFolder, password: CharSequence) {
+	override fun create(location: CloudFolder, password: CharSequence): String {
 		throw UnsupportedOperationException("This app can not (yet) create Hub vaults")
 	}
 
@@ -79,6 +79,11 @@ class HubkeyCryptoCloudProvider(
 	@Throws(BackendException::class)
 	override fun isVaultPasswordValid(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence): Boolean {
 		throw UnsupportedOperationException("Hub vaults do not support password based unlock")
+	}
+
+	@Throws(BackendException::class)
+	override fun recoveryKey(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence): String {
+		throw UnsupportedOperationException("Hub vaults do not have a recovery key")
 	}
 
 	override fun lock(vault: Vault) {

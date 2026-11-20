@@ -23,7 +23,7 @@ public abstract class CryptomatorDatabase extends RoomDatabase {
 	 * Continues greenDAO's version numbering, which ended at v14. The tables greenDAO created for v14 match
 	 * Room's v14 schema, so the upgrades in {@link DatabaseUpgrades} take a greenDAO file of any version to this one.
 	 */
-	static final int VERSION = 16;
+	static final int VERSION = 17;
 
 	public abstract CachedFileDao cachedFileDao();
 

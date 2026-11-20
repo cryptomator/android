@@ -4,6 +4,8 @@ import android.os.Bundle
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.SharepointCloud
+import org.cryptomator.domain.WebDavCloud
+import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.domain.exception.NetworkConnectionException
 import org.cryptomator.domain.exception.NoSuchCloudFileException
 import org.cryptomator.domain.usecases.ResultHandler
@@ -17,6 +19,7 @@ import org.cryptomator.domain.usecases.vault.DeleteVaultsUseCase
 import org.cryptomator.domain.usecases.vault.GetVaultListUseCase
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
+import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
@@ -63,6 +66,10 @@ class CloudConnectionListPresenterTest {
 		.withDriveName("Documents") //
 		.build()
 
+	private val genericWebDavCloud = webDavCloud(1L, null)
+	private val koofrCloud = webDavCloud(2L, WebDavProvider.KOOFR)
+	private val nextcloudCloud = webDavCloud(3L, WebDavProvider.NEXTCLOUD)
+
 	private lateinit var inTest: CloudConnectionListPresenter
 
 	@BeforeEach
@@ -80,7 +87,7 @@ class CloudConnectionListPresenterTest {
 			addOrChangeCloudConnectionUseCase,
 			mock<GetVaultListUseCase>(),
 			mock<DeleteVaultsUseCase>(),
-			mock<CloudModelMapper>(),
+			CloudModelMapper(),
 			exceptionHandlers
 		)
 		inTest.view = view
@@ -178,6 +185,56 @@ class CloudConnectionListPresenterTest {
 
 		verify(view).showProgress(ProgressModel.COMPLETED)
 		verify(exceptionHandlers).handle(view, error)
+	}
+
+	@Test
+	fun testProviderListShowsOnlyConnectionsOfThatProvider() {
+		inTest.setSelectedCloudType(CloudTypeModel.KOOFR)
+
+		assertThat(shownCloudsAfterLoading(), `is`(listOf<Cloud>(koofrCloud)))
+		verify(getCloudsUseCase).withCloudType(CloudType.WEBDAV)
+	}
+
+	@Test
+	fun testWebDavListShowsOnlyConnectionsWithoutProvider() {
+		inTest.setSelectedCloudType(CloudTypeModel.WEBDAV)
+
+		assertThat(shownCloudsAfterLoading(), `is`(listOf<Cloud>(genericWebDavCloud)))
+	}
+
+	@Test
+	fun testWebDavListIncludingProviderCloudsShowsEveryWebDavConnection() {
+		inTest.setSelectedCloudType(CloudTypeModel.WEBDAV)
+		inTest.setIncludeWebDavProviderClouds(true)
+
+		assertThat(shownCloudsAfterLoading(), `is`(listOf<Cloud>(genericWebDavCloud, koofrCloud, nextcloudCloud)))
+	}
+
+	@Test
+	fun testListOfAnotherCloudTypeShowsItsConnections() {
+		assertThat(shownCloudsAfterLoading(listOf(storedCloud)), `is`(listOf<Cloud>(storedCloud)))
+	}
+
+	private fun shownCloudsAfterLoading(storedClouds: List<Cloud> = listOf(genericWebDavCloud, koofrCloud, nextcloudCloud)): List<Cloud> {
+		inTest.loadCloudList()
+
+		val cloudsHandler = argumentCaptor<ResultHandler<List<Cloud>>>()
+		verify(getCloudsLauncher).run(cloudsHandler.capture())
+		cloudsHandler.firstValue.onSuccess(storedClouds)
+
+		val shown = argumentCaptor<List<CloudModel>>()
+		verify(view).showCloudModels(shown.capture())
+		return shown.firstValue.map { it.toCloud() }
+	}
+
+	private fun webDavCloud(id: Long, provider: WebDavProvider?): WebDavCloud {
+		return WebDavCloud.aWebDavCloudCloud() //
+			.withId(id) //
+			.withUrl("https://example.org/webdav/$id") //
+			.withUsername("alice") //
+			.withPassword("encryptedSecret") //
+			.withProvider(provider) //
+			.build()
 	}
 
 	private fun pickerDrivesOf(bundles: MockedConstruction<Bundle>): Serializable {

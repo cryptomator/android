@@ -41,38 +41,41 @@ class MasterkeyCryptoCloudProvider(
 ) : CryptoCloudProvider {
 
 	@Throws(BackendException::class)
-	override fun create(location: CloudFolder, password: CharSequence) {
+	override fun create(location: CloudFolder, password: CharSequence): String {
 		// Just for testing (id in VaultConfig is auto generated which makes sense while creating a vault but not for testing)
-		create(location, password, createVaultConfig())
+		return create(location, password, createVaultConfig())
 	}
 
 	// Visible for testing
 	@Throws(BackendException::class)
-	fun create(location: CloudFolder, password: CharSequence?, vaultConfigBuilder: VaultConfigBuilder) {
-		// 1. write masterkey:
-		val masterkey = Masterkey.generate(secureRandom)
-		try {
-			ByteArrayOutputStream().use { data ->
-				MasterkeyFileAccess(CryptoConstants.PEPPER, secureRandom).persist(masterkey, data, password, CryptoConstants.DEFAULT_MASTERKEY_FILE_VERSION)
-				cloudContentRepository.write(legacyMasterkeyFile(location), from(data.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, data.size().toLong())
+	fun create(location: CloudFolder, password: CharSequence?, vaultConfigBuilder: VaultConfigBuilder): String {
+		return Masterkey.generate(secureRandom).use { masterkey ->
+			// 1. write masterkey:
+			try {
+				ByteArrayOutputStream().use { data ->
+					MasterkeyFileAccess(CryptoConstants.PEPPER, secureRandom).persist(masterkey, data, password, CryptoConstants.DEFAULT_MASTERKEY_FILE_VERSION)
+					cloudContentRepository.write(legacyMasterkeyFile(location), from(data.toByteArray()), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, data.size().toLong())
+				}
+			} catch (e: IOException) {
+				throw FatalBackendException("Failed to write masterkey", e)
 			}
-		} catch (e: IOException) {
-			throw FatalBackendException("Failed to write masterkey", e)
+
+			// 2. initialize vault:
+			val vaultConfig = vaultConfigBuilder //
+				.vaultFormat(CryptoConstants.MAX_VAULT_VERSION) //
+				.cipherCombo(CryptoConstants.DEFAULT_CIPHER_COMBO) //
+				.keyId(URI.create(String.format("%s:%s", CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME))) //
+				.shorteningThreshold(CryptoConstants.DEFAULT_MAX_FILE_NAME) //
+				.build()
+			val encodedVaultConfig = vaultConfig.toToken(masterkey.encoded).toByteArray(StandardCharsets.UTF_8)
+			val vaultFile = cloudContentRepository.file(location, CryptoConstants.VAULT_FILE_NAME)
+			cloudContentRepository.write(vaultFile, from(encodedVaultConfig), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, encodedVaultConfig.size.toLong())
+
+			// 3. create root folder:
+			createRootFolder(location, cryptorFor(masterkey, vaultConfig.cipherCombo))
+
+			RecoveryKeyFactory.createRecoveryKey(masterkey)
 		}
-
-		// 2. initialize vault:
-		val vaultConfig = vaultConfigBuilder //
-			.vaultFormat(CryptoConstants.MAX_VAULT_VERSION) //
-			.cipherCombo(CryptoConstants.DEFAULT_CIPHER_COMBO) //
-			.keyId(URI.create(String.format("%s:%s", CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME))) //
-			.shorteningThreshold(CryptoConstants.DEFAULT_MAX_FILE_NAME) //
-			.build()
-		val encodedVaultConfig = vaultConfig.toToken(masterkey.encoded).toByteArray(StandardCharsets.UTF_8)
-		val vaultFile = cloudContentRepository.file(location, CryptoConstants.VAULT_FILE_NAME)
-		cloudContentRepository.write(vaultFile, from(encodedVaultConfig), ProgressAware.NO_OP_PROGRESS_AWARE_UPLOAD, false, encodedVaultConfig.size.toLong())
-
-		// 3. create root folder:
-		createRootFolder(location, cryptorFor(masterkey, vaultConfig.cipherCombo))
 	}
 
 	@Throws(BackendException::class)
@@ -177,20 +180,36 @@ class MasterkeyCryptoCloudProvider(
 		return try {
 			// create a cryptor, which checks the password, then destroy it immediately
 			val unlockToken = createUnlockToken(vault, unverifiedVaultConfig)
-			val masterkey = unlockToken.getKeyFile(password)
-			val vaultCipherCombo = if (unverifiedVaultConfig.isPresent) {
-				val vaultConfig = verify(masterkey.encoded, unverifiedVaultConfig.get())
-				assertVaultVersionIsSupported(vaultConfig.vaultFormat)
-				vaultConfig.cipherCombo
-			} else {
-				val vaultVersion = MasterkeyFileAccess.readAllegedVaultVersion(unlockToken.keyFileData)
-				assertLegacyVaultVersionIsSupported(vaultVersion)
-				CryptorProvider.Scheme.SIV_CTRMAC
+			unlockToken.getKeyFile(password).use { masterkey ->
+				val vaultCipherCombo = if (unverifiedVaultConfig.isPresent) {
+					val vaultConfig = verify(masterkey.encoded, unverifiedVaultConfig.get())
+					assertVaultVersionIsSupported(vaultConfig.vaultFormat)
+					vaultConfig.cipherCombo
+				} else {
+					val vaultVersion = MasterkeyFileAccess.readAllegedVaultVersion(unlockToken.keyFileData)
+					assertLegacyVaultVersionIsSupported(vaultVersion)
+					CryptorProvider.Scheme.SIV_CTRMAC
+				}
+				cryptorFor(masterkey, vaultCipherCombo).destroy()
 			}
-			cryptorFor(masterkey, vaultCipherCombo).destroy()
 			true
 		} catch (e: InvalidPassphraseException) {
 			false
+		} catch (e: IOException) {
+			throw FatalBackendException(e)
+		}
+	}
+
+	@Throws(BackendException::class)
+	override fun recoveryKey(vault: Vault, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: CharSequence): String {
+		return try {
+			createUnlockToken(vault, unverifiedVaultConfig).getKeyFile(password).use { masterkey ->
+				// no vault version check: the recovery key does not depend on the vault format
+				if (unverifiedVaultConfig.isPresent) {
+					verify(masterkey.encoded, unverifiedVaultConfig.get())
+				}
+				RecoveryKeyFactory.createRecoveryKey(masterkey)
+			}
 		} catch (e: IOException) {
 			throw FatalBackendException(e)
 		}

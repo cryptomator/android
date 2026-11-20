@@ -35,6 +35,7 @@ import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
 import org.cryptomator.domain.usecases.vault.CreateHubDeviceUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
+import org.cryptomator.domain.usecases.vault.GetRecoveryKeyUseCase
 import org.cryptomator.domain.usecases.vault.GetUnverifiedVaultConfigUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
@@ -73,6 +74,7 @@ import timber.log.Timber
 class UnlockVaultPresenter @Inject constructor(
 	private val changePasswordUseCase: ChangePasswordUseCase,
 	private val deleteVaultUseCase: DeleteVaultUseCase,
+	private val getRecoveryKeyUseCase: GetRecoveryKeyUseCase,
 	private val getUnverifiedVaultConfigUseCase: GetUnverifiedVaultConfigUseCase,
 	private val lockVaultUseCase: LockVaultUseCase,
 	private val unlockVaultUsingMasterkeyUseCase: UnlockVaultUsingMasterkeyUseCase,
@@ -94,6 +96,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private var startedUsingPrepareUnlock = false
 	private var retryUnlockHandler: Handler? = null
 	private var pendingUnlock: PendingUnlock? = null
+	private var dialogAwaitingResume: (() -> Unit)? = null
 	private var hubAuthService: AuthorizationService? = null
 	private val closeHubAuthentication = {
 		if (!activity().isFinishing) {
@@ -114,6 +117,21 @@ class UnlockVaultPresenter @Inject constructor(
 
 	@Volatile
 	private var running: Boolean = false
+
+	override fun resumed() {
+		dialogAwaitingResume?.let { showDialog ->
+			dialogAwaitingResume = null
+			showDialog()
+		}
+	}
+
+	private fun showWhenResumed(showDialog: () -> Unit) {
+		if (isPaused) {
+			dialogAwaitingResume = showDialog
+		} else {
+			showDialog()
+		}
+	}
 
 	override fun destroyed() {
 		super.destroyed()
@@ -168,11 +186,15 @@ class UnlockVaultPresenter @Inject constructor(
 					}
 				})
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
+	}
+
+	private fun onCloudAuthenticationFailed(result: ActivityResult) {
+		view?.closeDialog()
+		val error = result.getSingleResult(Throwable::class.java)
+		error?.let { showError(it) }
+		finishWithResult(null)
 	}
 
 	private fun onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, vault: Vault) {
@@ -184,6 +206,7 @@ class UnlockVaultPresenter @Inject constructor(
 					unlockVault(intent.vaultModel())
 				}
 				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull())
+				UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> showWhenResumed { view?.showRecoveryKeyPasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull()) }
 				else -> {}
 			}
 		} else if (unverifiedVaultConfig.isPresent && unverifiedVaultConfig.get().keyLoadingStrategy() == KeyLoadingStrategy.HUB) {
@@ -219,6 +242,7 @@ class UnlockVaultPresenter @Inject constructor(
 			}
 			UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 			UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> showErrorAndFinish(HubVaultOperationNotSupportedException())
+			UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 			UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 		}
 	}
@@ -462,10 +486,7 @@ class UnlockVaultPresenter @Inject constructor(
 				startPrepareUnlockUseCase(vault)
 			}
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
 	}
 
@@ -618,6 +639,7 @@ class UnlockVaultPresenter @Inject constructor(
 						}
 					})
 			}
+			UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> {}
 		}
 	}
 
@@ -663,10 +685,7 @@ class UnlockVaultPresenter @Inject constructor(
 			val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
 			onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, oldPassword, newPassword)
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
 	}
 
@@ -697,6 +716,39 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onChangePasswordCanceled() {
 		finishWithResult(null)
+	}
+
+	fun onShowRecoveryKeyClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, password: String) {
+		view?.showProgress(ProgressModel.GENERIC)
+		getRecoveryKeyUseCase.withVault(vaultModel.toVault()) //
+			.andUnverifiedVaultConfig(Optional.fromNullable(unverifiedVaultConfig)) //
+			.andPassword(password) //
+			.run(object : DefaultResultHandler<String>() {
+				override fun onSuccess(recoveryKey: String) {
+					showWhenResumed { view?.showRecoveryKeyDialog(vaultModel, recoveryKey) }
+				}
+
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException( //
+							this@UnlockVaultPresenter, e,  //
+							ActivityResultCallbacks.showRecoveryKeyAfterAuthentication(vaultModel.toVault(), unverifiedVaultConfig, password)
+						)
+					) {
+						showError(e)
+					}
+				}
+			})
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun showRecoveryKeyAfterAuthentication(result: ActivityResult, vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig?, password: String) {
+		if (result.isResultOk) {
+			val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
+			val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
+			onShowRecoveryKeyClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, password)
+		} else {
+			onCloudAuthenticationFailed(result)
+		}
 	}
 
 	fun onGoToHubProfileClicked(unverifiedVaultConfig: UnverifiedHubVaultConfig) {
@@ -754,6 +806,7 @@ class UnlockVaultPresenter @Inject constructor(
 		unsubscribeOnDestroy( //
 			changePasswordUseCase,  //
 			deleteVaultUseCase, //
+			getRecoveryKeyUseCase, //
 			getUnverifiedVaultConfigUseCase, //
 			lockVaultUseCase, //
 			unlockVaultUsingMasterkeyUseCase, //

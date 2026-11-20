@@ -2,12 +2,12 @@ package org.cryptomator.presentation.model
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.WebDavCloud
-import org.cryptomator.presentation.R
+import org.cryptomator.domain.WebDavProvider
 
 class WebDavCloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	override fun name(): Int {
-		return R.string.cloud_names_webdav
+		return cloudType().displayNameResource
 	}
 
 	override fun username(): String? {
@@ -15,7 +15,7 @@ class WebDavCloudModel(cloud: Cloud) : CloudModel(cloud) {
 	}
 
 	override fun cloudType(): CloudTypeModel {
-		return CloudTypeModel.WEBDAV
+		return CloudTypeModel.valueOf(toCloud())
 	}
 
 	fun url(): String {
@@ -32,6 +32,10 @@ class WebDavCloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	fun certificate(): String? {
 		return cloud().certificate()
+	}
+
+	fun provider(): WebDavProvider? {
+		return cloud().provider()
 	}
 
 	private fun cloud(): WebDavCloud {

@@ -14,6 +14,8 @@ interface UnlockVaultView : View, EnterPasswordDialog.Callback {
 	fun cancelBasicAuthIfRunning()
 	fun stoppedBiometricAuthDuringCloudAuthentication(): Boolean
 	fun showChangePasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?)
+	fun showRecoveryKeyPasswordDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?)
+	fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String)
 	fun showCreateHubDeviceDialog(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig)
 	fun showHubUserSetupRequiredDialog(unverifiedHubVaultConfig: UnverifiedHubVaultConfig)
 	fun showHubLicenseUpgradeRequiredDialog()

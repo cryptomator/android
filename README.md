@@ -66,13 +66,13 @@ Signer #1 certificate MD5 digest: a34b0b5af30529bf5b096d0e00acefe2
 
 ## Contributing to Cryptomator for Android
 
-Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
+Please read our [contribution guide](https://github.com/cryptomator/.github/blob/main/CONTRIBUTING.md), if you would like to report a bug, ask a question, translate the app or help us with coding.
 
 Please make sure before creating a PR, to apply the code style by executing reformat code with optimize imports and rearrange code enabled. The best way to do this is to create a macro for it in android studio and set it to the save shortcut.
 
 ## Code of Conduct
 
-Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](https://github.com/cryptomator/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 

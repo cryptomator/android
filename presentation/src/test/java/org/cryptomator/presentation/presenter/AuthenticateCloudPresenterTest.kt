@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.WebDavCloud
+import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
@@ -109,6 +110,22 @@ class AuthenticateCloudPresenterTest {
 				verify(view).finish()
 				activityCompat.verify({ ActivityCompat.requestPermissions(any(), any(), any()) }, never())
 			}
+		}
+	}
+
+	@Test
+	fun testErrorsOfAProviderCloudAreHandledByTheWebDavStrategy() {
+		val providerCloud = WebDavCloud.aCopyOf(cloud).withProvider(WebDavProvider.NEXTCLOUD).build()
+		whenever(intent.cloud()).thenReturn(WebDavCloudModel(providerCloud))
+		whenever(intent.error()).thenReturn(WebDavServerNotFoundException(providerCloud))
+
+		Mockito.mockStatic(ContextCompat::class.java).use { contextCompat ->
+			contextCompat.`when`<Int> { ContextCompat.checkSelfPermission(any(), any()) }.thenReturn(PackageManager.PERMISSION_DENIED)
+
+			inTest.resumed()
+
+			verify(view).showMessage(eq(R.string.error_server_not_found), anyVararg())
+			verify(view).finish()
 		}
 	}
 

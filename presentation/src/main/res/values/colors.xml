@@ -24,6 +24,8 @@
 	<color name="password_strength_3">#40d47e</color>
 	<color name="password_strength_4">#27ae60</color>
 
+	<color name="recoveryKeyBackground">#1A49B04A</color>
+
 	<color name="list_divider">#1f000000</color>
 
 	<color name="popupMenuBackgroundColor">@color/m3_sys_color_light_background</color>

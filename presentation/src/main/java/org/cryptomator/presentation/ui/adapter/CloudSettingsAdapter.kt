@@ -40,6 +40,7 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 			val cloudModel = getItem(position)
 
 			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
+			binding.cloudUsername.visibility = View.GONE
 
 			when (cloudModel.cloudType()) {
 				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
@@ -49,13 +50,13 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 				CloudTypeModel.S3 -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
 				CloudTypeModel.WEBDAV -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
 				CloudTypeModel.LOCAL -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
-				else -> {
+				else -> if (cloudModel.cloudType().webDavProvider != null) {
+					binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_provider_connections, context.getString(cloudModel.name()))
+				} else {
 					binding.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
 					if (isAlreadyLoggedIn(cloudModel)) {
 						binding.cloudUsername.text = cloudModel.username()
 						binding.cloudUsername.visibility = View.VISIBLE
-					} else {
-						binding.cloudUsername.visibility = View.GONE
 					}
 				}
 			}

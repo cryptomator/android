@@ -7,7 +7,6 @@ import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.DialogBottomSheetCloudSettingsBinding
 import org.cryptomator.presentation.model.BoxCloudModel
 import org.cryptomator.presentation.model.CloudModel
-import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.LocalStorageModel
 import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
@@ -27,14 +26,14 @@ class CloudConnectionSettingsBottomSheet : BaseBottomSheet<CloudConnectionSettin
 	override fun setupView() {
 		val cloudModel = requireArguments().getSerializable(CLOUD_NODE_ARG) as CloudModel
 
-		when (cloudModel.cloudType()) {
-			CloudTypeModel.ONEDRIVE -> bindViewForOnedrive(cloudModel as OnedriveCloudModel)
-			CloudTypeModel.SHAREPOINT -> bindViewForSharepoint(cloudModel as SharepointCloudModel)
-			CloudTypeModel.WEBDAV -> bindViewForWebDAV(cloudModel as WebDavCloudModel)
-			CloudTypeModel.PCLOUD -> bindViewForPCloud(cloudModel as PCloudModel)
-			CloudTypeModel.BOX -> bindViewForBox(cloudModel as BoxCloudModel)
-			CloudTypeModel.S3 -> bindViewForS3(cloudModel as S3CloudModel)
-			CloudTypeModel.LOCAL -> bindViewForLocal(cloudModel as LocalStorageModel)
+		when (cloudModel) {
+			is OnedriveCloudModel -> bindViewForOnedrive(cloudModel)
+			is SharepointCloudModel -> bindViewForSharepoint(cloudModel)
+			is WebDavCloudModel -> bindViewForWebDAV(cloudModel)
+			is PCloudModel -> bindViewForPCloud(cloudModel)
+			is BoxCloudModel -> bindViewForBox(cloudModel)
+			is S3CloudModel -> bindViewForS3(cloudModel)
+			is LocalStorageModel -> bindViewForLocal(cloudModel)
 			else -> throw IllegalStateException("Cloud model is not binded in the view")
 		}
 

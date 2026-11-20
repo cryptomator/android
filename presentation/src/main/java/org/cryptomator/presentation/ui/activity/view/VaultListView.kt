@@ -16,6 +16,7 @@ interface VaultListView : View {
 	fun showVaultSettingsDialog(vaultModel: VaultModel)
 	fun showAddVaultBottomSheet()
 	fun showRenameDialog(vaultModel: VaultModel)
+	fun showRecoveryKeyDialog(vaultModel: VaultModel, recoveryKey: String)
 	fun isVaultLocked(vaultModel: VaultModel): Boolean
 	fun rowMoved(fromPosition: Int, toPosition: Int)
 	fun vaultMoved(vaults: List<VaultModel>)
