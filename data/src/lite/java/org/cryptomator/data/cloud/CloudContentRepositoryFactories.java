@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import org.cryptomator.data.cloud.crypto.CryptoCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.local.LocalStorageContentRepositoryFactory;
 import org.cryptomator.data.cloud.s3.S3CloudContentRepositoryFactory;
+import org.cryptomator.data.cloud.smb.SmbCloudContentRepositoryFactory;
 import org.cryptomator.data.cloud.webdav.WebDavCloudContentRepositoryFactory;
 import org.cryptomator.data.repository.CloudContentRepositoryFactory;
 import org.jetbrains.annotations.NotNull;
@@ -23,12 +24,14 @@ public class CloudContentRepositoryFactories implements Iterable<CloudContentRep
 	public CloudContentRepositoryFactories(S3CloudContentRepositoryFactory s3Factory, //
 			CryptoCloudContentRepositoryFactory cryptoFactory, //
 			LocalStorageContentRepositoryFactory localStorageFactory, //
-			WebDavCloudContentRepositoryFactory webDavFactory) {
+			WebDavCloudContentRepositoryFactory webDavFactory, //
+			SmbCloudContentRepositoryFactory smbFactory) {
 
 		factories = asList(s3Factory, //
 				cryptoFactory, //
 				localStorageFactory, //
-				webDavFactory);
+				webDavFactory, //
+				smbFactory);
 	}
 
 	@NotNull

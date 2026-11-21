@@ -24,6 +24,7 @@ import org.cryptomator.presentation.ui.activity.S3AddOrChangeActivity;
 import org.cryptomator.presentation.ui.activity.SetPasswordActivity;
 import org.cryptomator.presentation.ui.activity.SettingsActivity;
 import org.cryptomator.presentation.ui.activity.SharedFilesActivity;
+import org.cryptomator.presentation.ui.activity.SmbAddOrChangeActivity;
 import org.cryptomator.presentation.ui.activity.TextEditorActivity;
 import org.cryptomator.presentation.ui.activity.UnlockVaultActivity;
 import org.cryptomator.presentation.ui.activity.VaultListActivity;
@@ -39,6 +40,7 @@ import org.cryptomator.presentation.ui.fragment.ImagePreviewFragment;
 import org.cryptomator.presentation.ui.fragment.S3AddOrChangeFragment;
 import org.cryptomator.presentation.ui.fragment.SetPasswordFragment;
 import org.cryptomator.presentation.ui.fragment.SharedFilesFragment;
+import org.cryptomator.presentation.ui.fragment.SmbAddOrChangeFragment;
 import org.cryptomator.presentation.ui.fragment.TextEditorFragment;
 import org.cryptomator.presentation.ui.fragment.UnlockVaultFragment;
 import org.cryptomator.presentation.ui.fragment.VaultListFragment;
@@ -135,6 +137,10 @@ public interface ActivityComponent {
 	void inject(S3AddOrChangeActivity s3AddOrChangeActivity);
 
 	void inject(S3AddOrChangeFragment s3AddOrChangeFragment);
+
+	void inject(SmbAddOrChangeActivity smbAddOrChangeActivity);
+
+	void inject(SmbAddOrChangeFragment smbAddOrChangeFragment);
 
 	void inject(CryptomatorVariantsActivity cryptomatorVariantsActivity);
 
