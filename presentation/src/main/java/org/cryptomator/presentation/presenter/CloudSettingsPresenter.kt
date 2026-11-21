@@ -32,7 +32,6 @@ import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
 import org.cryptomator.presentation.workflow.ActivityResult
-import java.util.EnumSet
 import javax.inject.Inject
 
 @PerView
@@ -44,17 +43,6 @@ class CloudSettingsPresenter @Inject constructor( //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<CloudSettingsView>(exceptionMappings) {
 
-	private val nonSingleLoginClouds: Set<CloudTypeModel> = EnumSet.of( //
-		CloudTypeModel.CRYPTO,  //
-		CloudTypeModel.LOCAL,  //
-		CloudTypeModel.ONEDRIVE,  //
-		CloudTypeModel.SHAREPOINT,  //
-		CloudTypeModel.PCLOUD, //
-		CloudTypeModel.BOX, //
-		CloudTypeModel.S3, //
-		CloudTypeModel.WEBDAV, //
-		CloudTypeModel.SMB
-	)
 
 	fun loadClouds() {
 		getAllCloudsUseCase.run(CloudsSubscriber())
@@ -117,6 +105,9 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 			else -> {}
 		}
+		if (cloudTypeModel.webDavProvider != null) {
+			return context().getString(R.string.screen_cloud_settings_webdav_provider_connections, context().getString(cloudTypeModel.displayNameResource))
+		}
 		return context().getString(R.string.screen_cloud_settings_title)
 	}
 
@@ -152,6 +143,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aPCloud())
 					it.add(aBoxCloud())
 					it.add(aWebdavCloud())
+					it.addAll(webDavProviderClouds(clouds))
 					it.add(aS3Cloud())
 					it.add(aSmbCloud())
 					it.add(aLocalCloud())
@@ -208,6 +200,14 @@ class CloudSettingsPresenter @Inject constructor( //
 			return SmbCloudModel(SmbCloud.aSmbCloud().build())
 		}
 
+		private fun webDavProviderClouds(clouds: List<Cloud>): List<WebDavCloudModel> {
+			val providersWithConnections = clouds.mapNotNull { (it as? WebDavCloud)?.provider() }
+			return CloudTypeModel.entries //
+				.mapNotNull { it.webDavProvider } //
+				.filter { it in providersWithConnections } //
+				.map { WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().withProvider(it).build()) }
+		}
+
 		private fun aS3Cloud(): S3CloudModel {
 			return S3CloudModel(S3Cloud.aS3Cloud().build())
 		}
@@ -218,7 +218,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	}
 
 	private fun isSingleLoginCloud(cloudModel: CloudModel): Boolean {
-		return !nonSingleLoginClouds.contains(cloudModel.cloudType())
+		return !cloudModel.cloudType().isMultiInstance && cloudModel.cloudType() != CloudTypeModel.CRYPTO
 	}
 
 	init {

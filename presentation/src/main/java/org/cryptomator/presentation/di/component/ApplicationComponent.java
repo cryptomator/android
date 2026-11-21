@@ -28,6 +28,7 @@ import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
+import org.cryptomator.presentation.util.HubAuthRedirects;
 
 import javax.inject.Singleton;
 
@@ -78,5 +79,7 @@ public interface ApplicationComponent {
 	NetworkConnectionCheck networkConnectionCheck();
 
 	ProductPricesCache productPricesCache();
+
+	HubAuthRedirects hubAuthRedirects();
 
 }

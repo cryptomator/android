@@ -1,6 +1,7 @@
 package org.cryptomator.presentation.presenter
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
@@ -34,6 +35,7 @@ import org.cryptomator.domain.usecases.cloud.ResumeVaultUploadsUseCase
 import org.cryptomator.domain.usecases.vault.ChangePasswordUseCase
 import org.cryptomator.domain.usecases.vault.CreateHubDeviceUseCase
 import org.cryptomator.domain.usecases.vault.DeleteVaultUseCase
+import org.cryptomator.domain.usecases.vault.GetRecoveryKeyUseCase
 import org.cryptomator.domain.usecases.vault.GetUnverifiedVaultConfigUseCase
 import org.cryptomator.domain.usecases.vault.LockVaultUseCase
 import org.cryptomator.domain.usecases.vault.PrepareUnlockUseCase
@@ -44,8 +46,10 @@ import org.cryptomator.domain.usecases.vault.UnlockToken
 import org.cryptomator.domain.usecases.vault.UnlockVaultUsingMasterkeyUseCase
 import org.cryptomator.domain.usecases.vault.UpdateVaultParameterIfChangedRemotelyUseCase
 import org.cryptomator.domain.usecases.vault.VaultOrUnlockToken
+import org.cryptomator.generator.BoundCallback
 import org.cryptomator.generator.Callback
 import org.cryptomator.generator.InjectIntent
+import org.cryptomator.generator.InstanceState
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.UnlockVaultIntent
@@ -56,6 +60,7 @@ import org.cryptomator.presentation.model.VaultModel
 import org.cryptomator.presentation.ui.activity.view.UnlockVaultView
 import org.cryptomator.presentation.ui.dialog.EnterPasswordDialog
 import org.cryptomator.presentation.ui.dialog.HubCheckHostAuthenticityDialog
+import org.cryptomator.presentation.util.HubAuthRedirects
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.util.SharedPreferencesHandler
@@ -69,6 +74,7 @@ import timber.log.Timber
 class UnlockVaultPresenter @Inject constructor(
 	private val changePasswordUseCase: ChangePasswordUseCase,
 	private val deleteVaultUseCase: DeleteVaultUseCase,
+	private val getRecoveryKeyUseCase: GetRecoveryKeyUseCase,
 	private val getUnverifiedVaultConfigUseCase: GetUnverifiedVaultConfigUseCase,
 	private val lockVaultUseCase: LockVaultUseCase,
 	private val unlockVaultUsingMasterkeyUseCase: UnlockVaultUsingMasterkeyUseCase,
@@ -81,6 +87,7 @@ class UnlockVaultPresenter @Inject constructor(
 	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase,
 	private val authenticationExceptionHandler: AuthenticationExceptionHandler,
 	private val sharedPreferencesHandler: SharedPreferencesHandler,
+	private val hubAuthRedirects: HubAuthRedirects,
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<UnlockVaultView>(exceptionMappings) {
 
@@ -89,13 +96,42 @@ class UnlockVaultPresenter @Inject constructor(
 	private var startedUsingPrepareUnlock = false
 	private var retryUnlockHandler: Handler? = null
 	private var pendingUnlock: PendingUnlock? = null
+	private var dialogAwaitingResume: (() -> Unit)? = null
 	private var hubAuthService: AuthorizationService? = null
+	private val closeHubAuthentication = {
+		if (!activity().isFinishing) {
+			activity().startActivity(Intent(activity(), activity().javaClass).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+		}
+	}
+
+	/**
+	 * Set from opening the Hub login until its result is handled, so that a recreated screen waits for that result instead
+	 * of starting the unlock over.
+	 */
+	@JvmField
+	@InstanceState
+	var hubAuthenticationStarted = false
 
 	@InjectIntent
 	lateinit var intent: UnlockVaultIntent
 
 	@Volatile
 	private var running: Boolean = false
+
+	override fun resumed() {
+		dialogAwaitingResume?.let { showDialog ->
+			dialogAwaitingResume = null
+			showDialog()
+		}
+	}
+
+	private fun showWhenResumed(showDialog: () -> Unit) {
+		if (isPaused) {
+			dialogAwaitingResume = showDialog
+		} else {
+			showDialog()
+		}
+	}
 
 	override fun destroyed() {
 		super.destroyed()
@@ -104,9 +140,13 @@ class UnlockVaultPresenter @Inject constructor(
 			retryUnlockHandler?.removeCallbacksAndMessages(null)
 		}
 		hubAuthService?.dispose()
+		hubAuthRedirects.stopAwaitingRedirect(closeHubAuthentication)
 	}
 
 	fun setup() {
+		if (hubAuthenticationStarted) {
+			return
+		}
 		if (intent.vaultAction() == UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD) {
 			view?.getEncryptedPasswordWithBiometricAuthentication(intent.vaultModel())
 			return
@@ -146,11 +186,15 @@ class UnlockVaultPresenter @Inject constructor(
 					}
 				})
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
+	}
+
+	private fun onCloudAuthenticationFailed(result: ActivityResult) {
+		view?.closeDialog()
+		val error = result.getSingleResult(Throwable::class.java)
+		error?.let { showError(it) }
+		finishWithResult(null)
 	}
 
 	private fun onUnverifiedVaultConfigRetrieved(unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, vault: Vault) {
@@ -162,6 +206,7 @@ class UnlockVaultPresenter @Inject constructor(
 					unlockVault(intent.vaultModel())
 				}
 				UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> view?.showChangePasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull())
+				UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> showWhenResumed { view?.showRecoveryKeyPasswordDialog(intent.vaultModel(), unverifiedVaultConfig.orNull()) }
 				else -> {}
 			}
 		} else if (unverifiedVaultConfig.isPresent && unverifiedVaultConfig.get().keyLoadingStrategy() == KeyLoadingStrategy.HUB) {
@@ -192,14 +237,12 @@ class UnlockVaultPresenter @Inject constructor(
 	fun allowedHubHosts(unverifiedHubVaultConfig: UnverifiedHubVaultConfig, vault: Vault) {
 		when (intent.vaultAction()) {
 			UnlockVaultIntent.VaultAction.UNLOCK -> {
-				if (hubAuthService == null) {
-					hubAuthService = AuthorizationService(context())
-				}
 				view?.showProgress(ProgressModel.GENERIC)
 				unlockHubVault(unverifiedHubVaultConfig, vault)
 			}
 			UnlockVaultIntent.VaultAction.UNLOCK_FOR_BIOMETRIC_AUTH -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 			UnlockVaultIntent.VaultAction.CHANGE_PASSWORD -> showErrorAndFinish(HubVaultOperationNotSupportedException())
+			UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 			UnlockVaultIntent.VaultAction.ENCRYPT_PASSWORD -> showErrorAndFinish(HubVaultOperationNotSupportedException())
 		}
 	}
@@ -250,11 +293,11 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	private fun unlockHubVault(unverifiedVaultConfig: UnverifiedHubVaultConfig, vault: Vault) {
-		val authIntent = buildHubAuthIntent(unverifiedVaultConfig)
-		requestActivityResult(ActivityResultCallbacks.hubAuthenticationUnlock(vault, unverifiedVaultConfig), authIntent)
+		val authRequest = buildHubAuthRequest(unverifiedVaultConfig)
+		requestHubAuthentication(ActivityResultCallbacks.hubAuthenticationUnlock(vault, unverifiedVaultConfig, authRequest.jsonSerializeString()), authRequest)
 	}
 
-	private fun buildHubAuthIntent(unverifiedVaultConfig: UnverifiedHubVaultConfig): Intent? {
+	private fun buildHubAuthRequest(unverifiedVaultConfig: UnverifiedHubVaultConfig): AuthorizationRequest {
 		val serviceConfig = AuthorizationServiceConfiguration(Uri.parse(unverifiedVaultConfig.authEndpoint.toString()), Uri.parse(unverifiedVaultConfig.tokenEndpoint.toString()))
 		val authRequestBuilder = AuthorizationRequest.Builder(
 			serviceConfig,
@@ -262,26 +305,48 @@ class UnlockVaultPresenter @Inject constructor(
 			ResponseTypeValues.CODE,
 			Uri.parse(CryptoConstants.HUB_REDIRECT_URL)
 		)
-		return hubAuthService?.getAuthorizationRequestIntent(authRequestBuilder.build())
+		return authRequestBuilder.build()
+	}
+
+	/**
+	 * Opens the Hub login in the browser rather than through AppAuth's activity, whose redirect gets lost when the unlock
+	 * runs in another app's task. When [hubAuthRedirects] receives the redirect, this screen relaunches itself on top of
+	 * the login to close it. A screen recreated meanwhile isn't relaunched, so the user closes the login. Closing it
+	 * returns a canceled result, so the callbacks take the redirect from [hubAuthRedirects] in [requestHubAccessToken].
+	 */
+	private fun requestHubAuthentication(callback: BoundCallback<*, out ActivityResult?>, authRequest: AuthorizationRequest) {
+		val browser = hubAuthService().browserDescriptor ?: return showErrorAndFinish(HubAuthenticationFailedException(ActivityNotFoundException()))
+		val authIntent = if (browser.useCustomTab) hubAuthService().createCustomTabsIntentBuilder().build().intent else Intent(Intent.ACTION_VIEW)
+		authIntent.setPackage(browser.packageName).setData(authRequest.toUri())
+		hubAuthenticationStarted = true
+		requestActivityResult(callback, authIntent)
+		hubAuthRedirects.awaitRedirect(closeHubAuthentication)
+	}
+
+	private fun requestHubAccessToken(authRequestJson: String, onAccessToken: (String) -> Unit) {
+		hubAuthenticationStarted = false
+		val authRequest = AuthorizationRequest.jsonDeserialize(authRequestJson)
+		val redirectUri = hubAuthRedirects.takeRedirectUri()
+		when {
+			redirectUri == null || redirectUri.isOpaque -> showErrorAndFinish(HubAuthenticationFailedException())
+			redirectUri.getQueryParameter("error") != null -> showErrorAndFinish(HubAuthenticationFailedException(AuthorizationException.fromOAuthRedirect(redirectUri)))
+			redirectUri.getQueryParameter("state") != authRequest.state -> showErrorAndFinish(HubAuthenticationFailedException(AuthorizationException.AuthorizationRequestErrors.STATE_MISMATCH))
+			else -> {
+				val resp = AuthorizationResponse.Builder(authRequest).fromUri(redirectUri).build()
+				hubAuthService().performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
+					token?.accessToken?.let(onAccessToken) ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
+				}
+			}
+		}
+	}
+
+	private fun hubAuthService(): AuthorizationService {
+		return hubAuthService ?: AuthorizationService(context()).also { hubAuthService = it }
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun hubAuthenticationUnlock(result: ActivityResult, vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig) {
-		if (result.isResultOk) {
-			val resp = AuthorizationResponse.fromIntent(result.intent())
-			if (resp != null) {
-				hubAuthService?.performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
-					token?.accessToken?.let {
-						unlockHubVault(vault, unverifiedHubVaultConfig, it)
-					} ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
-				}
-			} else {
-				val ex = AuthorizationException.fromIntent(result.intent())
-				showErrorAndFinish(HubAuthenticationFailedException(ex))
-			}
-		} else {
-			showErrorAndFinish(HubAuthenticationFailedException())
-		}
+	fun hubAuthenticationUnlock(result: ActivityResult, vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, authRequest: String) {
+		requestHubAccessToken(authRequest) { unlockHubVault(vault, unverifiedHubVaultConfig, it) }
 	}
 
 	private fun unlockHubVault(vault: Vault, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, accessToken: String) {
@@ -312,36 +377,24 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onCreateHubDeviceClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {
 		view?.showProgress(ProgressModel.GENERIC)
-		val authIntent = buildHubAuthIntent(unverifiedVaultConfig)
-		requestActivityResult(ActivityResultCallbacks.hubAuthenticationCreateDevice(vaultModel, unverifiedVaultConfig, deviceName, setupCode), authIntent)
+		val authRequest = buildHubAuthRequest(unverifiedVaultConfig)
+		requestHubAuthentication(ActivityResultCallbacks.hubAuthenticationCreateDevice(vaultModel, unverifiedVaultConfig, deviceName, setupCode, authRequest.jsonSerializeString()), authRequest)
 	}
 
 	@Callback(dispatchResultOkOnly = false)
-	fun hubAuthenticationCreateDevice(result: ActivityResult, vault: VaultModel, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String) {
-		if (result.isResultOk) {
-			val resp = AuthorizationResponse.fromIntent(result.intent())
-			if (resp != null) {
-				hubAuthService?.performTokenRequest(resp.createTokenExchangeRequest()) { token, ex ->
-					token?.accessToken?.let {
-						createHubDeviceUseCase
-							.withAccessToken(it)
-							.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
-							.andDeviceName(deviceName)
-							.andSetupCode(setupCode)
-							.run(object : DefaultResultHandler<Void?>() {
-								override fun onSuccess(void: Void?) {
-									view?.showProgress(ProgressModel.COMPLETED)
-									unlockHubVault(unverifiedHubVaultConfig, vault.toVault())
-								}
-							})
-					} ?: showErrorAndFinish(HubAuthenticationFailedException(ex))
-				}
-			} else {
-				val ex = AuthorizationException.fromIntent(result.intent())
-				showErrorAndFinish(HubAuthenticationFailedException(ex))
-			}
-		} else {
-			showErrorAndFinish(HubAuthenticationFailedException())
+	fun hubAuthenticationCreateDevice(result: ActivityResult, vault: VaultModel, unverifiedHubVaultConfig: UnverifiedHubVaultConfig, deviceName: String, setupCode: String, authRequest: String) {
+		requestHubAccessToken(authRequest) {
+			createHubDeviceUseCase
+				.withAccessToken(it)
+				.andUnverifiedVaultConfig(unverifiedHubVaultConfig)
+				.andDeviceName(deviceName)
+				.andSetupCode(setupCode)
+				.run(object : DefaultResultHandler<Void?>() {
+					override fun onSuccess(void: Void?) {
+						view?.showProgress(ProgressModel.COMPLETED)
+						unlockHubVault(unverifiedHubVaultConfig, vault.toVault())
+					}
+				})
 		}
 	}
 
@@ -433,10 +486,7 @@ class UnlockVaultPresenter @Inject constructor(
 				startPrepareUnlockUseCase(vault)
 			}
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
 	}
 
@@ -589,6 +639,7 @@ class UnlockVaultPresenter @Inject constructor(
 						}
 					})
 			}
+			UnlockVaultIntent.VaultAction.SHOW_RECOVERY_KEY -> {}
 		}
 	}
 
@@ -634,10 +685,7 @@ class UnlockVaultPresenter @Inject constructor(
 			val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
 			onChangePasswordClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, oldPassword, newPassword)
 		} else {
-			view?.closeDialog()
-			val error = result.getSingleResult(Throwable::class.java)
-			error?.let { showError(it) }
-			finishWithResult(null)
+			onCloudAuthenticationFailed(result)
 		}
 	}
 
@@ -668,6 +716,39 @@ class UnlockVaultPresenter @Inject constructor(
 
 	fun onChangePasswordCanceled() {
 		finishWithResult(null)
+	}
+
+	fun onShowRecoveryKeyClick(vaultModel: VaultModel, unverifiedVaultConfig: UnverifiedVaultConfig?, password: String) {
+		view?.showProgress(ProgressModel.GENERIC)
+		getRecoveryKeyUseCase.withVault(vaultModel.toVault()) //
+			.andUnverifiedVaultConfig(Optional.fromNullable(unverifiedVaultConfig)) //
+			.andPassword(password) //
+			.run(object : DefaultResultHandler<String>() {
+				override fun onSuccess(recoveryKey: String) {
+					showWhenResumed { view?.showRecoveryKeyDialog(vaultModel, recoveryKey) }
+				}
+
+				override fun onError(e: Throwable) {
+					if (!authenticationExceptionHandler.handleAuthenticationException( //
+							this@UnlockVaultPresenter, e,  //
+							ActivityResultCallbacks.showRecoveryKeyAfterAuthentication(vaultModel.toVault(), unverifiedVaultConfig, password)
+						)
+					) {
+						showError(e)
+					}
+				}
+			})
+	}
+
+	@Callback(dispatchResultOkOnly = false)
+	fun showRecoveryKeyAfterAuthentication(result: ActivityResult, vault: Vault, unverifiedVaultConfig: UnverifiedVaultConfig?, password: String) {
+		if (result.isResultOk) {
+			val cloud = result.getSingleResult(CloudModel::class.java).toCloud()
+			val vaultWithUpdatedCloud = Vault.aCopyOf(vault).withCloud(cloud).build()
+			onShowRecoveryKeyClick(VaultModel(vaultWithUpdatedCloud), unverifiedVaultConfig, password)
+		} else {
+			onCloudAuthenticationFailed(result)
+		}
 	}
 
 	fun onGoToHubProfileClicked(unverifiedVaultConfig: UnverifiedHubVaultConfig) {
@@ -725,6 +806,7 @@ class UnlockVaultPresenter @Inject constructor(
 		unsubscribeOnDestroy( //
 			changePasswordUseCase,  //
 			deleteVaultUseCase, //
+			getRecoveryKeyUseCase, //
 			getUnverifiedVaultConfigUseCase, //
 			lockVaultUseCase, //
 			unlockVaultUsingMasterkeyUseCase, //

@@ -454,7 +454,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 	private inner class WebDAVAuthStrategy : AuthStrategy {
 
 		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.WEBDAV
+			return cloud is WebDavCloudModel
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {

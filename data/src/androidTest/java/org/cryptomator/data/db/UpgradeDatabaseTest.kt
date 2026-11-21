@@ -9,6 +9,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
 import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.crypto.CredentialCryptor
@@ -71,6 +72,7 @@ class UpgradeDatabaseTest {
 		Upgrade13To14(sharedPreferencesHandler).migrate(db)
 		Upgrade14To15().migrate(db)
 		Upgrade15To16().migrate(db)
+		Upgrade16To17().migrate(db)
 
 		// the clouds seeded for v1 that no later upgrade removes, and the single update check row
 		Sql.query("CLOUD_ENTITY").executeOn(db).use {
@@ -1121,6 +1123,63 @@ class UpgradeDatabaseTest {
 				it.moveToFirst()
 				Assert.assertThat(it.getString(it.getColumnIndex("SHAREPOINT_DRIVE_ID")), CoreMatchers.`is`("driveId"))
 				Assert.assertThat(it.getString(it.getColumnIndex("SHAREPOINT_DRIVE_NAME")), CoreMatchers.`is`("driveName"))
+			}
+	}
+
+	@Test
+	fun upgrade16To17() {
+		LegacyDatabaseV1.createOn(db)
+		Upgrade1To2().migrate(db)
+		Upgrade2To3(context).migrate(db)
+		Upgrade3To4().migrate(db)
+		Upgrade4To5().migrate(db)
+		Upgrade5To6().migrate(db)
+		Upgrade6To7().migrate(db)
+		Upgrade7To8().migrate(db)
+		Upgrade8To9(sharedPreferencesHandler).migrate(db)
+		Upgrade9To10(sharedPreferencesHandler).migrate(db)
+		Upgrade10To11().migrate(db)
+		Upgrade11To12(sharedPreferencesHandler).migrate(db)
+		Upgrade12To13(context).migrate(db)
+		Upgrade13To14(sharedPreferencesHandler).migrate(db)
+		Upgrade14To15().migrate(db)
+		Upgrade15To16().migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 15) //
+			.text("TYPE", CloudType.WEBDAV.name) //
+			.text("URL", "https://example.org/webdav") //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", "accessToken") //
+			.executeOn(db)
+
+		Upgrade16To17().migrate(db)
+
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 16) //
+			.text("TYPE", CloudType.WEBDAV.name) //
+			.text("URL", "https://app.koofr.net/dav/Koofr") //
+			.text("USERNAME", "username") //
+			.text("ACCESS_TOKEN", "accessToken") //
+			.text("WEBDAV_PROVIDER", WebDavProvider.KOOFR.name) //
+			.executeOn(db)
+
+		Sql.query("CLOUD_ENTITY") //
+			.where("_id", Sql.eq(15L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("TYPE")), CoreMatchers.`is`(CloudType.WEBDAV.name))
+				Assert.assertThat(it.getString(it.getColumnIndex("URL")), CoreMatchers.`is`("https://example.org/webdav"))
+				Assert.assertThat(it.getString(it.getColumnIndex("USERNAME")), CoreMatchers.`is`("username"))
+				Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN")), CoreMatchers.`is`("accessToken"))
+				Assert.assertThat(it.isNull(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(true))
+			}
+
+		Sql.query("CLOUD_ENTITY") //
+			.where("_id", Sql.eq(16L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(WebDavProvider.KOOFR.name))
 			}
 	}
 }

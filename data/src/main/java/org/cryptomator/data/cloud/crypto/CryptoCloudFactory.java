@@ -39,12 +39,21 @@ public class CryptoCloudFactory {
 		this.cryptoCloudContentRepositoryFactory = cryptoCloudContentRepositoryFactory;
 	}
 
-	public void create(CloudFolder location, CharSequence password) throws BackendException {
-		masterkeyCryptoCloudProvider().create(location, password);
+	public String create(CloudFolder location, CharSequence password) throws BackendException {
+		return masterkeyCryptoCloudProvider().create(location, password);
 	}
 
+	/**
+	 * Takes what the unlock found out about {@code vault} from the vault as it was unlocked, e.g. whether a Hub vault has a
+	 * paid license, since a stored vault doesn't know it.
+	 */
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
-		return new CryptoCloud(aCopyOf(vault).build());
+		Vault.Builder decryptedVault = aCopyOf(vault);
+		Vault unlocked = cryptoCloudContentRepositoryFactory.unlockedVault(vault);
+		if (unlocked != null) {
+			decryptedVault.withHubVault(unlocked.isHubVault()).withHubPaidLicense(unlocked.hasHubPaidLicense());
+		}
+		return new CryptoCloud(decryptedVault.build());
 	}
 
 	public Optional<UnverifiedVaultConfig> unverifiedVaultConfig(Vault vault) throws BackendException {
@@ -78,6 +87,10 @@ public class CryptoCloudFactory {
 
 	public boolean isVaultPasswordValid(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
 		return cryptoCloudProvider(unverifiedVaultConfig).isVaultPasswordValid(vault, unverifiedVaultConfig, password);
+	}
+
+	public String recoveryKey(Vault vault, Optional<UnverifiedVaultConfig> unverifiedVaultConfig, CharSequence password) throws BackendException {
+		return cryptoCloudProvider(unverifiedVaultConfig).recoveryKey(vault, unverifiedVaultConfig, password);
 	}
 
 	public void lock(Vault vault) {

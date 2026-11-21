@@ -13,6 +13,7 @@ import org.cryptomator.domain.S3Cloud;
 import org.cryptomator.domain.SharepointCloud;
 import org.cryptomator.domain.SmbCloud;
 import org.cryptomator.domain.WebDavCloud;
+import org.cryptomator.domain.WebDavProvider;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -99,6 +100,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withUsername(entity.getUsername()) //
 						.withPassword(entity.getAccessToken()) //
 						.withCertificate(entity.getWebdavCertificate()) //
+						.withProvider(entity.getWebdavProvider() == null ? null : WebDavProvider.valueOf(entity.getWebdavProvider())) //
 						.build();
 			case SMB:
 				return aSmbCloud() //
@@ -161,6 +163,8 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setUrl(((WebDavCloud) domainObject).url());
 				result.setUsername(((WebDavCloud) domainObject).username());
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
+				WebDavProvider provider = ((WebDavCloud) domainObject).provider();
+				result.setWebdavProvider(provider == null ? null : provider.name());
 				break;
 			case SMB:
 				result.setAccessToken(((SmbCloud) domainObject).password());

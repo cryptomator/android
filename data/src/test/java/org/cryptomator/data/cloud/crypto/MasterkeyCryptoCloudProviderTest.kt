@@ -2,10 +2,13 @@ package org.cryptomator.data.cloud.crypto
 
 import android.content.Context
 import com.google.common.base.Optional
+import com.google.common.io.BaseEncoding
 import org.cryptomator.cryptolib.api.Cryptor
 import org.cryptomator.cryptolib.api.CryptorProvider
 import org.cryptomator.cryptolib.api.FileNameCryptor
+import org.cryptomator.cryptolib.api.InvalidPassphraseException
 import org.cryptomator.cryptolib.api.Masterkey
+import org.cryptomator.cryptolib.common.MasterkeyFileAccess
 import org.cryptomator.data.cloud.crypto.BackupFileIdSuffixGenerator.generate
 import org.cryptomator.data.cloud.crypto.MasterkeyCryptoCloudProvider.UnlockTokenImpl
 import org.cryptomator.data.cloud.crypto.VaultConfig.VaultConfigBuilder
@@ -19,6 +22,7 @@ import org.cryptomator.domain.UnverifiedVaultConfig
 import org.cryptomator.domain.Vault
 import org.cryptomator.domain.exception.BackendException
 import org.cryptomator.domain.exception.vaultconfig.MissingVaultConfigFileException
+import org.cryptomator.domain.exception.vaultconfig.VaultKeyInvalidException
 import org.cryptomator.domain.repository.CloudContentRepository
 import org.cryptomator.domain.usecases.ProgressAware
 import org.cryptomator.domain.usecases.cloud.DataSource
@@ -34,6 +38,7 @@ import org.junit.jupiter.params.provider.ValueSource
 import org.mockito.Mockito
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
@@ -42,6 +47,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStream
@@ -58,6 +64,8 @@ internal class MasterkeyCryptoCloudProviderTest {
 		"{  \"version\": 7,  \"scryptSalt\": \"AAAAAAAAAAA=\",  \"scryptCostParam\": 32768,  \"scryptBlockSize\": 8,  \"primaryMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"hmacMasterKey\": \"D2kc+xBoAcVY+M7s74YBEy6l7ga2+Nz+HS5o0TQY3JMW1uQ5jTlLIQ==\",  \"versionMac\": \"cn2sAK6l9p1/w9deJVUuW3h7br056mpv5srvALiYw+g=\"}"
 	private val vaultConfig =
 		"eyJraWQiOiJtYXN0ZXJrZXlmaWxlOm1hc3RlcmtleS5jcnlwdG9tYXRvciIsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0.eyJqdGkiOiIiLCJmb3JtYXQiOjgsImNpcGhlckNvbWJvIjoiU0lWX0dDTSIsInNob3J0ZW5pbmdUaHJlc2hvbGQiOjIyMH0.HHMkCqK-kFv_TXAhrzgp8vuPhws_2NswhaAHB9hkKBs"
+
+	private val vaultConfigWithBrokenSignature = vaultConfig.substringBeforeLast('.') + ".I" + vaultConfig.substringAfterLast('.').drop(1)
 
 	private var context: Context = mock()
 	private var cloud: Cloud = mock()
@@ -125,7 +133,12 @@ internal class MasterkeyCryptoCloudProviderTest {
 		whenever(cloudContentRepository.folder(lvl1Dir, lvl2Dir.name)).thenReturn(lvl2Dir)
 		whenever(cloudContentRepository.create(lvl2Dir)).thenReturn(lvl2Dir)
 
-		inTest.create(foo, "foo", VaultConfigBuilder().id(""))
+		val recoveryKey = inTest.create(foo, "foo", VaultConfigBuilder().id(""))
+
+		MatcherAssert.assertThat(recoveryKey, CoreMatchers.`is`("ad ".repeat(42) + "at assume"))
+		val usedMasterkey = argumentCaptor<Masterkey>()
+		verify(inTest).cryptorFor(usedMasterkey.capture(), any())
+		MatcherAssert.assertThat(usedMasterkey.firstValue.isDestroyed, CoreMatchers.`is`(true))
 
 		verify(cloudContentRepository).write(
 			eq(masterKeyFile), any(
@@ -330,8 +343,109 @@ internal class MasterkeyCryptoCloudProviderTest {
 		}
 	}
 
+	@DisplayName("recoveryKey(\"foo\", \"foo\")")
+	@ParameterizedTest(name = "Legacy vault format {0}")
+	@ValueSource(booleans = [true, false])
+	@Throws(BackendException::class)
+	fun testRecoveryKey(legacy: Boolean) {
+		stubVaultWithMasterkeyFile(if (legacy) masterkeyV7 else masterkeyV8)
+
+		val recoveryKey = inTest.recoveryKey(vault, unverifiedVaultConfig(legacy, vaultConfig), "foo")
+
+		MatcherAssert.assertThat(recoveryKey, CoreMatchers.`is`("ad ".repeat(42) + "at assume"))
+	}
+
+	@DisplayName("recoveryKey(\"foo\", \"bar\")")
+	@ParameterizedTest(name = "Legacy vault format {0}")
+	@ValueSource(booleans = [true, false])
+	@Throws(BackendException::class)
+	fun testRecoveryKeyInvalidPassword(legacy: Boolean) {
+		stubVaultWithMasterkeyFile(if (legacy) masterkeyV7 else masterkeyV8)
+
+		Assertions.assertThrows(InvalidPassphraseException::class.java) {
+			inTest.recoveryKey(vault, unverifiedVaultConfig(legacy, vaultConfig), "bar")
+		}
+	}
+
+	@Test
+	@DisplayName("recoveryKey() of the masterkey behind the recovery key test vector of Cryptomator for desktop")
+	@Throws(BackendException::class)
+	fun testRecoveryKeyOfNonZeroMasterkey() {
+		val rawKey = BaseEncoding.base16().lowerCase().decode("bb01e256b7836e6bf8ecaee867397065b1dc12a976676f5badb805c4a03b8b9e295d53e81e8c4a2b9af3652dd51213f11de810282c1ae4c9387a9eceb18bad03")
+		val masterkeyFile = ByteArrayOutputStream().use { out ->
+			MasterkeyFileAccess(CryptoConstants.PEPPER, SecureRandom()).persist(Masterkey(rawKey), out, "foo", CryptoConstants.MAX_VAULT_VERSION_WITHOUT_VAULT_CONFIG)
+			out.toString(StandardCharsets.UTF_8.name())
+		}
+		stubVaultWithMasterkeyFile(masterkeyFile)
+
+		val recoveryKey = inTest.recoveryKey(vault, Optional.absent(), "foo")
+
+		MatcherAssert.assertThat(
+			recoveryKey, CoreMatchers.`is`(
+				"pathway lift abuse plenty export texture gentleman landscape beyond ceiling around leaf cafe charity border breakdown victory surely computer cat linger restrict " //
+						+ "infer crowd live computer true written amazed investor boot depth left theory snow whereby terminal weekly reject happiness circuit partial cup ad"
+			)
+		)
+	}
+
+	@Test
+	@DisplayName("recoveryKey() destroys the loaded masterkey")
+	@Throws(BackendException::class)
+	fun testRecoveryKeyDestroysMasterkey() {
+		val masterkey = Masterkey(ByteArray(64))
+		val unlockToken: UnlockTokenImpl = mock()
+		whenever(unlockToken.getKeyFile("foo")).thenReturn(masterkey)
+		Mockito.doReturn(unlockToken).`when`(inTest).createUnlockToken(vault, Optional.absent())
+
+		inTest.recoveryKey(vault, Optional.absent(), "foo")
+
+		MatcherAssert.assertThat(masterkey.isDestroyed, CoreMatchers.`is`(true))
+	}
+
+	@Test
+	@DisplayName("isVaultPasswordValid() destroys the loaded masterkey when the vault config does not match")
+	@Throws(BackendException::class)
+	fun testVaultPasswordValidDestroysMasterkeyOnFailure() {
+		val masterkey = Masterkey(ByteArray(64))
+		val unlockToken: UnlockTokenImpl = mock()
+		whenever(unlockToken.getKeyFile("foo")).thenReturn(masterkey)
+		val brokenVaultConfig = unverifiedVaultConfig(false, vaultConfigWithBrokenSignature)
+		Mockito.doReturn(unlockToken).`when`(inTest).createUnlockToken(vault, brokenVaultConfig)
+
+		Assertions.assertThrows(VaultKeyInvalidException::class.java) {
+			inTest.isVaultPasswordValid(vault, brokenVaultConfig, "foo")
+		}
+
+		MatcherAssert.assertThat(masterkey.isDestroyed, CoreMatchers.`is`(true))
+	}
+
+	@Test
+	@DisplayName("recoveryKey() of a masterkey that did not sign the vault config")
+	@Throws(BackendException::class)
+	fun testRecoveryKeyOfMasterkeyNotMatchingVaultConfig() {
+		stubVaultWithMasterkeyFile(masterkeyV8)
+
+		Assertions.assertThrows(VaultKeyInvalidException::class.java) {
+			inTest.recoveryKey(vault, unverifiedVaultConfig(false, vaultConfigWithBrokenSignature), "foo")
+		}
+	}
+
+	private fun unverifiedVaultConfig(legacy: Boolean, vaultConfig: String): Optional<UnverifiedVaultConfig> {
+		return if (legacy) {
+			Optional.absent()
+		} else {
+			Optional.of(UnverifiedVaultConfig(vaultConfig, URI.create(String.format("%s:%s", CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME)), CryptoConstants.MAX_VAULT_VERSION))
+		}
+	}
+
 	@Throws(BackendException::class)
 	private fun testVaultPasswordVault(masterkeyContent: String, unverifiedVaultConfig: Optional<UnverifiedVaultConfig>, password: String): Boolean {
+		stubVaultWithMasterkeyFile(masterkeyContent)
+		return inTest.isVaultPasswordValid(vault, unverifiedVaultConfig, password)
+	}
+
+	@Throws(BackendException::class)
+	private fun stubVaultWithMasterkeyFile(masterkeyContent: String) {
 		val cloudType: CloudType = mock()
 
 		whenever(cloud.type()).thenReturn(cloudType)
@@ -361,6 +475,5 @@ internal class MasterkeyCryptoCloudProviderTest {
 			copyStreamToStream(ByteArrayInputStream(masterkeyContent.toByteArray()), out)
 			null
 		}.`when`(cloudContentRepository).read(eq(masterKeyFile), any(), eq(ProgressAware.NO_OP_PROGRESS_AWARE_DOWNLOAD))
-		return inTest.isVaultPasswordValid(vault, unverifiedVaultConfig, password)
 	}
 }

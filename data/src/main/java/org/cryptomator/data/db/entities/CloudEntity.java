@@ -31,6 +31,9 @@ public class CloudEntity {
 	@ColumnInfo(name = "WEBDAV_CERTIFICATE")
 	private String webdavCertificate;
 
+	@ColumnInfo(name = "WEBDAV_PROVIDER")
+	private String webdavProvider;
+
 	@ColumnInfo(name = "S3_BUCKET")
 	private String s3Bucket;
 
@@ -104,6 +107,14 @@ public class CloudEntity {
 
 	public void setWebdavCertificate(String webdavCertificate) {
 		this.webdavCertificate = webdavCertificate;
+	}
+
+	public String getWebdavProvider() {
+		return webdavProvider;
+	}
+
+	public void setWebdavProvider(String webdavProvider) {
+		this.webdavProvider = webdavProvider;
 	}
 
 	public String getS3Bucket() {

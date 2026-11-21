@@ -5,13 +5,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.SmbCloud
 import org.cryptomator.domain.WebDavCloud
+import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.NoAuthenticationProvidedException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
@@ -44,7 +44,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -103,7 +102,7 @@ class AuthenticateCloudPresenterTest {
 				inTest.resumed()
 				activityCompat.verify({ ActivityCompat.requestPermissions(any(), eq(arrayOf<String?>(Manifest.permission.ACCESS_LOCAL_NETWORK)), any()) }, times(1))
 
-				val state = bundle()
+				val state = instanceStateBundle()
 				InstanceStates.save(inTest, state)
 				val recreated = presenter()
 				InstanceStates.restore(recreated, state)
@@ -131,6 +130,23 @@ class AuthenticateCloudPresenterTest {
 				verify(view).finish()
 				activityCompat.verify({ ActivityCompat.requestPermissions(any(), any(), any()) }, never())
 			}
+		}
+	}
+
+	@Test
+	fun testErrorsOfAProviderCloudAreHandledByTheWebDavStrategy() {
+		val webDavCloud = WebDavCloud.aWebDavCloudCloud().withId(1L).withUrl("http://192.168.178.20/webdav").withUsername("alice").withPassword("encryptedSecret").build()
+		val providerCloud = WebDavCloud.aCopyOf(webDavCloud).withProvider(WebDavProvider.NEXTCLOUD).build()
+		whenever(intent.cloud()).thenReturn(WebDavCloudModel(providerCloud))
+		whenever(intent.error()).thenReturn(WebDavServerNotFoundException(providerCloud))
+
+		Mockito.mockStatic(ContextCompat::class.java).use { contextCompat ->
+			contextCompat.`when`<Int> { ContextCompat.checkSelfPermission(any(), any()) }.thenReturn(PackageManager.PERMISSION_DENIED)
+
+			inTest.resumed()
+
+			verify(view).showMessage(eq(R.string.error_server_not_found), anyVararg())
+			verify(view).finish()
 		}
 	}
 
@@ -245,7 +261,7 @@ class AuthenticateCloudPresenterTest {
 	 */
 	private fun recreatedWhileTheSettingsAreOpen(): Recreated {
 		whenever(intent.error()).thenReturn(WrongCredentialsException(cloud))
-		val state = bundle()
+		val state = instanceStateBundle()
 		val requestCode = argumentCaptor<Int>()
 		withSettingsScreens { targets, _ ->
 			inTest.resumed()
@@ -270,19 +286,6 @@ class AuthenticateCloudPresenterTest {
 			mock<CreateNewVaultWorkflow>()
 		).also { it.view = view }
 	}
-
-	private fun bundle(): Bundle {
-		val values = HashMap<String, Any?>()
-		val bundle = mock<Bundle>()
-		doAnswer { values[it.getArgument(0)] = it.getArgument<Any?>(1) }.whenever(bundle).putBoolean(any(), any())
-		doAnswer { values[it.getArgument(0)] = it.getArgument<Any?>(1) }.whenever(bundle).putInt(any(), any())
-		doAnswer { values[it.getArgument(0)] = it.getArgument<Any?>(1) }.whenever(bundle).putSerializable(any(), anyOrNull())
-		whenever(bundle.getBoolean(any())).thenAnswer { values[it.getArgument(0)] as Boolean? ?: false }
-		whenever(bundle.getInt(any())).thenAnswer { values[it.getArgument(0)] as Int? ?: 0 }
-		whenever(bundle.getSerializable(any())).thenAnswer { values[it.getArgument(0)] }
-		return bundle
-	}
-
 	private fun withSettingsScreens(block: (targets: List<Any?>, intents: MockedConstruction<Intent>) -> Unit) {
 		Mockito.mockStatic(Toast::class.java).use { toasts ->
 			val toast = mock<Toast>()

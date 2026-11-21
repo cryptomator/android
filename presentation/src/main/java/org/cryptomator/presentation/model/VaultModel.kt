@@ -30,7 +30,7 @@ class VaultModel(private val vault: Vault) : Serializable {
 	}
 
 	val cloudType: CloudTypeModel
-		get() = CloudTypeModel.valueOf(vault.cloudType)
+		get() = vault.cloud?.let { CloudTypeModel.valueOf(it) } ?: CloudTypeModel.valueOf(vault.cloudType)
 	val password: String?
 		get() = vault.password
 	val passwordCryptoMode: CryptoMode?

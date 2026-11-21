@@ -16,6 +16,7 @@ class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callba
 		fun onRenameVaultClick(vaultModel: VaultModel)
 		fun onLockVaultClick(vaultModel: VaultModel)
 		fun onChangePasswordClick(vaultModel: VaultModel)
+		fun onShowRecoveryKeyClick(vaultModel: VaultModel)
 	}
 
 	override fun setupView() {
@@ -43,6 +44,10 @@ class SettingsVaultBottomSheet : BaseBottomSheet<SettingsVaultBottomSheet.Callba
 		}
 		binding.changePassword.setOnClickListener {
 			callback?.onChangePasswordClick(vaultModel)
+			dismiss()
+		}
+		binding.showRecoveryKey.setOnClickListener {
+			callback?.onShowRecoveryKeyClick(vaultModel)
 			dismiss()
 		}
 	}

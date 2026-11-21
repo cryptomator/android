@@ -3,9 +3,9 @@ package org.cryptomator.presentation.workflow;
 import android.content.Context;
 
 import org.cryptomator.domain.CloudFolder;
-import org.cryptomator.domain.Vault;
 import org.cryptomator.domain.usecases.cloud.GetRootFolderUseCase;
 import org.cryptomator.domain.usecases.vault.CreateVaultUseCase;
+import org.cryptomator.domain.usecases.vault.CreatedVault;
 import org.cryptomator.generator.Callback;
 import org.cryptomator.presentation.R;
 import org.cryptomator.presentation.model.CloudFolderModel;
@@ -123,10 +123,17 @@ public class CreateNewVaultWorkflow extends Workflow<CreateNewVaultWorkflow.Stat
 				.withVaultName(state().name) //
 				.andPassword(state().password) //
 				.andFolder(state().location) //
-				.run(((VaultListPresenter) presenter()).new ProgressCompletingResultHandler<Vault>() {
+				// not a ProgressCompletingResultHandler: completing the progress after onSuccess would replace the recovery key dialog
+				.run(((VaultListPresenter) presenter()).new DefaultResultHandler<CreatedVault>() {
 					@Override
-					public void onSuccess(Vault vault) {
-						((VaultListPresenter) presenter()).onAddOrCreateVaultCompleted(vault);
+					public void onSuccess(CreatedVault createdVault) {
+						((VaultListPresenter) presenter()).onCreateVaultCompleted(createdVault);
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						presenter().getView().showProgress(ProgressModel.COMPLETED);
+						super.onError(e);
 					}
 				});
 	}

@@ -40,6 +40,7 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 			val cloudModel = getItem(position)
 
 			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
+			binding.cloudUsername.visibility = View.GONE
 
 			binding.cloudUsername.text = ""
 			binding.cloudUsername.visibility = View.GONE
@@ -53,7 +54,9 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 				CloudTypeModel.SMB -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_smb_connections)
 				CloudTypeModel.WEBDAV -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
 				CloudTypeModel.LOCAL -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
-				else -> {
+				else -> if (cloudModel.cloudType().webDavProvider != null) {
+					binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_provider_connections, context.getString(cloudModel.name()))
+				} else {
 					binding.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
 					if (isAlreadyLoggedIn(cloudModel)) {
 						binding.cloudUsername.text = cloudModel.username()

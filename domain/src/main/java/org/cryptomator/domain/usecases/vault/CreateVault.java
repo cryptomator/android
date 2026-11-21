@@ -30,14 +30,15 @@ class CreateVault {
 		this.password = password;
 	}
 
-	public Vault execute() throws BackendException {
+	public CreatedVault execute() throws BackendException {
 		CloudFolder vaultFolder = cloudContentRepository.folder(folder, vaultName);
 		vaultFolder = cloudContentRepository.create(vaultFolder);
-		cloudRepository.create(vaultFolder, password);
-		return vaultRepository.store(aVault() //
+		String recoveryKey = cloudRepository.create(vaultFolder, password);
+		Vault vault = vaultRepository.store(aVault() //
 				.thatIsNew() //
 				.withNamePathAndCloudFrom(vaultFolder) //
 				.withPosition(vaultRepository.vaults().size()) //
 				.build());
+		return new CreatedVault(vault, recoveryKey);
 	}
 }
