@@ -140,17 +140,27 @@ class VaultListPresenter @Inject constructor( //
 		requestReviewIfPending()
 	}
 
-	// The review card must not cover another prompt. The request stays pending while prepareView() still runs its dialogs
-	// and permission requests, and while a dialog is open.
 	private fun requestReviewIfPending() {
-		if (!startupPromptsRunning && sharedPreferencesHandler.reviewRequestPending() && view?.hasOpenDialog() == false) {
+		if (sharedPreferencesHandler.reviewRequestPending() && !reviewCardBlocked()) {
 			sharedPreferencesHandler.setReviewRequestPending(false)
 			view?.requestReview()
 		}
 	}
 
-	fun onReviewRequestDeferred() {
-		sharedPreferencesHandler.setReviewRequestPending(true)
+	fun onReviewFlowReady(launch: () -> Unit) {
+		// isPaused comes first because hasOpenDialog() must not run on an activity that left the foreground.
+		if (isPaused || reviewCardBlocked()) {
+			Timber.tag("VaultListPresenter").i("Review flow deferred")
+			sharedPreferencesHandler.setReviewRequestPending(true)
+		} else {
+			launch()
+		}
+	}
+
+	// The review card must not cover another prompt. The request stays pending while prepareView() still runs its dialogs
+	// and permission requests, and while a dialog is open.
+	private fun reviewCardBlocked(): Boolean {
+		return startupPromptsRunning || view?.hasOpenDialog() != false
 	}
 
 	private fun launchWelcomeFlowIfNeeded(): Boolean {

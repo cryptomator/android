@@ -192,7 +192,7 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 	}
 
 	override fun requestReview() {
-		ReviewRequester.request(this) { vaultListPresenter.onReviewRequestDeferred() }
+		ReviewRequester.request(this, vaultListPresenter::onReviewFlowReady)
 	}
 
 	override fun renameVault(vaultModel: VaultModel) {

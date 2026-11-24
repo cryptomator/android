@@ -48,6 +48,9 @@ import org.mockito.Mockito;
 import java.util.Collections;
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.never;
@@ -127,6 +130,7 @@ public class VaultListPresenterTest {
 	private SharedPreferencesHandler sharedPreferencesHandler = Mockito.mock(SharedPreferencesHandler.class);
 	private ProductPricesCache productPricesCache = Mockito.mock(ProductPricesCache.class);
 	private ExceptionHandlers exceptionMappings = Mockito.mock(ExceptionHandlers.class);
+	private Function0<Unit> launchReviewFlow = Mockito.mock(Function0.class);
 	private VaultListPresenter inTest;
 
 	@BeforeEach
@@ -259,10 +263,32 @@ public class VaultListPresenterTest {
 	}
 
 	@Test
-	public void testDeferredReviewRequestIsPendingAgain() {
-		inTest.onReviewRequestDeferred();
+	public void testReadyReviewFlowIsLaunchedWhenNothingBlocksIt() {
+		inTest.onReviewFlowReady(launchReviewFlow);
 
+		verify(launchReviewFlow).invoke();
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(true);
+	}
+
+	@Test
+	public void testReadyReviewFlowIsPendingAgainWhenADialogWasOpenedMeanwhile() {
+		when(vaultListView.hasOpenDialog()).thenReturn(true);
+
+		inTest.onReviewFlowReady(launchReviewFlow);
+
+		verify(launchReviewFlow, never()).invoke();
 		verify(sharedPreferencesHandler).setReviewRequestPending(true);
+	}
+
+	@Test
+	public void testReadyReviewFlowIsPendingAgainWhenTheVaultListWasLeftMeanwhile() {
+		inTest.pause();
+
+		inTest.onReviewFlowReady(launchReviewFlow);
+
+		verify(launchReviewFlow, never()).invoke();
+		verify(sharedPreferencesHandler).setReviewRequestPending(true);
+		verify(vaultListView, never()).hasOpenDialog();
 	}
 
 	@Test
