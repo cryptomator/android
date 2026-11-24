@@ -104,6 +104,7 @@ class VaultListPresenter @Inject constructor( //
 
 	private var vaultAction: VaultAction? = null
 	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
+	private var startupPromptsRunning = false
 	private val licenseChangeListener = Consumer<String> { _ ->
 		if (!isPaused) {
 			updateSalePromo()
@@ -135,6 +136,31 @@ class VaultListPresenter @Inject constructor( //
 			createdVaultAwaitingRecoveryKeyDialog = null
 			showRecoveryKeyDialog(it)
 		}
+
+		requestReviewIfPending()
+	}
+
+	private fun requestReviewIfPending() {
+		if (sharedPreferencesHandler.reviewRequestPending() && !reviewCardBlocked()) {
+			sharedPreferencesHandler.setReviewRequestPending(false)
+			view?.requestReview()
+		}
+	}
+
+	fun onReviewFlowReady(launch: () -> Unit) {
+		// isPaused comes first because hasOpenDialog() must not run on an activity that left the foreground.
+		if (isPaused || reviewCardBlocked()) {
+			Timber.tag("VaultListPresenter").i("Review flow deferred")
+			sharedPreferencesHandler.setReviewRequestPending(true)
+		} else {
+			launch()
+		}
+	}
+
+	// The review card must not cover another prompt. The request stays pending while prepareView() still runs its dialogs
+	// and permission requests, and while a dialog is open.
+	private fun reviewCardBlocked(): Boolean {
+		return startupPromptsRunning || view?.hasOpenDialog() != false
 	}
 
 	private fun launchWelcomeFlowIfNeeded(): Boolean {
@@ -206,6 +232,8 @@ class VaultListPresenter @Inject constructor( //
 		if (launchWelcomeFlowIfNeeded()) {
 			return
 		}
+
+		startupPromptsRunning = true
 
 		if (!sharedPreferencesHandler.isScreenLockDialogAlreadyShown) {
 			val keyguardManager = context().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
@@ -325,6 +353,10 @@ class VaultListPresenter @Inject constructor( //
 					if (vaults.isNotEmpty()) {
 						view?.showDialog(CBCPasswordVaultsMigrationDialog.newInstance(vaults))
 					}
+				}
+
+				override fun onFinished() {
+					startupPromptsRunning = false
 				}
 			})
 	}
@@ -606,9 +638,23 @@ class VaultListPresenter @Inject constructor( //
 		view?.addOrUpdateVault(VaultModel(vault))
 		navigateToVaultContent(vault, folder)
 		view?.showProgress(ProgressModel.COMPLETED)
+		countUnlockForReviewRequest()
 		if (checkToStartAutoImageUpload(vault)) {
 			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.startAutoUpload(cryptoCloud)
+		}
+	}
+
+	private fun countUnlockForReviewRequest() {
+		if (!FlavorConfig.isPremiumFlavor) {
+			return
+		}
+		val unlockCount = sharedPreferencesHandler.vaultListUnlockCount() + 1
+		if (unlockCount <= UNLOCKS_BEFORE_REVIEW_REQUEST) {
+			sharedPreferencesHandler.setVaultListUnlockCount(unlockCount)
+			if (unlockCount == UNLOCKS_BEFORE_REVIEW_REQUEST) {
+				sharedPreferencesHandler.setReviewRequestPending(true)
+			}
 		}
 	}
 
@@ -747,5 +793,10 @@ class VaultListPresenter @Inject constructor( //
 			removeStoredVaultPasswordsUseCase, //
 			saveVaultsUseCase
 		)
+	}
+
+	companion object {
+
+		private const val UNLOCKS_BEFORE_REVIEW_REQUEST = 3
 	}
 }

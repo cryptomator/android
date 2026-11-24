@@ -270,6 +270,22 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(SALE_PROMO_DISMISSED_UNTIL, date)
 	}
 
+	fun reviewRequestPending(): Boolean {
+		return defaultSharedPreferences.getValue(REVIEW_REQUEST_PENDING, false)
+	}
+
+	fun setReviewRequestPending(value: Boolean) {
+		defaultSharedPreferences.setValue(REVIEW_REQUEST_PENDING, value)
+	}
+
+	fun vaultListUnlockCount(): Int {
+		return defaultSharedPreferences.getValue(VAULT_LIST_UNLOCK_COUNT, 0)
+	}
+
+	fun setVaultListUnlockCount(count: Int) {
+		defaultSharedPreferences.setValue(VAULT_LIST_UNLOCK_COUNT, count)
+	}
+
 	fun keepUnlockedWhileEditing(): Boolean {
 		return defaultSharedPreferences.getBoolean(KEEP_UNLOCKED_WHILE_EDITING, false)
 	}
@@ -413,6 +429,8 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		private const val SALE_PROMO_DISMISSED_UNTIL = "salePromoDismissedUntil"
 		private const val PURCHASE_REVOKED_PENDING = "purchaseRevokedPending"
 		private const val PURCHASE_REVOKED_REASON = "purchaseRevokedReason"
+		private const val REVIEW_REQUEST_PENDING = "reviewRequestPending"
+		private const val VAULT_LIST_UNLOCK_COUNT = "vaultListUnlockCount"
 		const val DEBUG_MODE = "debugMode"
 		const val DISABLE_APP_WHEN_OBSCURED = "disableAppWhenObscured"
 		const val SECURE_SCREEN = "secureScreen"

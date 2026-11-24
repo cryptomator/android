@@ -13,6 +13,8 @@ interface VaultListView : View {
 	fun addOrUpdateVault(vault: VaultModel)
 	fun renameVault(vaultModel: VaultModel)
 	fun navigateToVaultContent(vault: VaultModel, decryptedRoot: CloudFolderModel)
+	fun hasOpenDialog(): Boolean
+	fun requestReview()
 	fun showVaultSettingsDialog(vaultModel: VaultModel)
 	fun showAddVaultBottomSheet()
 	fun showRenameDialog(vaultModel: VaultModel)

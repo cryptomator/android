@@ -44,6 +44,8 @@ class PurchaseManager(
 		return clearIfNotFound && applyCleared(kind, wasActive)
 	}
 
+	fun hasCompletedPurchase(purchases: List<Purchase>): Boolean = purchases.any { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+
 	private fun applyActive(kind: Kind, purchase: Purchase, wasActive: Boolean) {
 		when (kind) {
 			Kind.LIFETIME -> if (!wasActive) {
