@@ -249,7 +249,7 @@
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
 	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
 	<string name="screen_settings_documents_provider">Показувати сховища в додатку «Файли»</string>
-	<string name="screen_settings_documents_provider_summary">Дозволяє іншим застосункам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших застосунків скасується.</string>
+	<string name="screen_settings_documents_provider_summary">Дозволяє іншим додаткам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших додатків скасується.</string>
 	<string name="screen_settings_section_search">Пошук</string>
 	<string name="screen_settings_live_search">Пошук в реальному часі</string>
 	<string name="screen_settings_live_search_summary">Оновлювати результати пошуку при введенні запиту</string>
