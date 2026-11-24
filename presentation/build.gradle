@@ -123,27 +123,27 @@ android {
 
 	sourceSets {
 		playstore {
-			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/', 'src/playReview/java/']
 		}
 
 		playstoreiap {
-			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/playstoreiap/java/']
+			java.srcDirs = ['src/main/java', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/playstoreiap/java/', 'src/playReview/java/']
 		}
 
 		apkstore {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/apkStorePlaystore/java/', 'src/nonplaystoreiap/java/', 'src/noPlayReview/java/']
 		}
 
 		fdroid {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/fdroid/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/', 'src/noPlayReview/java/']
 		}
 
 		lite {
-			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
+			java.srcDirs = ['src/main/java/', 'src/lite/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/', 'src/noPlayReview/java/']
 		}
 
 		accrescent {
-			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/']
+			java.srcDirs = ['src/main/java/', 'src/apiKey/java/', 'src/accrescent/java/', 'src/fdroidLiteAccrescent/java/', 'src/nonplaystoreiap/java/', 'src/noPlayReview/java/']
 		}
 	}
 
@@ -171,6 +171,7 @@ dependencies {
 	def dependencies = rootProject.ext.dependencies
 	def cloudFlavors = ['playstore', 'playstoreiap', 'apkstore', 'fdroid', 'accrescent']
 	def googleFlavors = ['playstore', 'playstoreiap', 'apkstore']
+	def playFlavors = ['playstore', 'playstoreiap']
 	def addToFlavors = { flavors, dep, Closure config = null ->
 		flavors.each { flavor ->
 			if (config) {
@@ -244,6 +245,7 @@ dependencies {
 	implementation dependencies.rxBinding
 
 	playstoreiapImplementation dependencies.billing
+	addToFlavors(playFlavors, dependencies.playReview)
 
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 

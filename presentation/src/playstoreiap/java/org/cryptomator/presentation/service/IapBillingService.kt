@@ -224,6 +224,9 @@ class IapBillingService : Service(), PurchasesUpdatedListener {
 		if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
 			purchaseManager.handlePurchases(PurchaseManager.Kind.LIFETIME, purchases) { token -> acknowledgePurchase(token) }
 			purchaseManager.handlePurchases(PurchaseManager.Kind.SUBSCRIPTION, purchases) { token -> acknowledgePurchase(token) }
+			if (purchaseManager.hasCompletedPurchase(purchases)) {
+				sharedPreferencesHandler.setReviewRequestPending(true)
+			}
 		} else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
 			Timber.tag("IapBillingService").i("User canceled purchase flow")
 		} else {

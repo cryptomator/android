@@ -159,6 +159,10 @@
 			android:key="sendErrorReport"
 			android:title="@string/screen_settings_error_report_label" />
 
+		<androidx.preference.PreferenceScreen
+			android:key="rateApp"
+			android:title="@string/screen_settings_rate_app_label" />
+
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/screen_settings_advanced_settings">

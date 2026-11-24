@@ -101,6 +101,7 @@ ext {
 	recyclerViewFastScrollVersion = '2.0.1'
 
 	billingclientVersion = '9.1.0'
+	playReviewVersion = '2.0.2'
 
 	// testing dependencies
 
@@ -203,7 +204,8 @@ ext {
 			zxcvbn                         : "com.nulab-inc:zxcvbn:${zxcvbnVersion}",
 			scaleImageView                 : "com.github.cryptomator:subsampling-scale-image-view:${scaleImageViewVersion}",
 			jsonWebToken                   : "com.auth0:java-jwt:${jsonWebTokenVersion}",
-			billing                        : "com.android.billingclient:billing:${billingclientVersion}"
+			billing                        : "com.android.billingclient:billing:${billingclientVersion}",
+			playReview                     : "com.google.android.play:review:${playReviewVersion}"
 	]
 
 }

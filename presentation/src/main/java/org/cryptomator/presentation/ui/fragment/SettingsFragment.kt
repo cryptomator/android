@@ -31,6 +31,7 @@ import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
 import org.cryptomator.presentation.ui.layout.PreferenceFragmentCompatLayout
+import org.cryptomator.presentation.util.ReviewRequester
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.SharedPreferencesHandler.Companion.CRYPTOMATOR_VARIANTS
@@ -54,6 +55,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		setupAppVersion()
 		setupLicense()
 		setupCryptomatorVariants()
+		setupRateApp()
 	}
 
 	private val sendErrorReportClickListener = Preference.OnPreferenceClickListener {
@@ -303,6 +305,16 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		}
 	}
 
+	private fun setupRateApp() {
+		val rateAppPref = findPreference(RATE_APP_ITEM_KEY) as Preference? ?: return
+		val storeListingIntent = ReviewRequester.storeListingIntent(requireContext())
+		if (storeListingIntent != null) {
+			rateAppPref.intent = storeListingIntent
+		} else {
+			rateAppPref.parent?.removePreference(rateAppPref)
+		}
+	}
+
 	override fun onResume() {
 		super.onResume()
 		(findPreference(SEND_ERROR_REPORT_ITEM_KEY) as Preference?)?.onPreferenceClickListener = sendErrorReportClickListener
@@ -397,6 +409,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 
 		private const val APP_VERSION_ITEM_KEY = "appVersion"
 		private const val SEND_ERROR_REPORT_ITEM_KEY = "sendErrorReport"
+		private const val RATE_APP_ITEM_KEY = "rateApp"
 		private const val BIOMETRIC_AUTHENTICATION_ITEM_KEY = "biometricAuthentication"
 		private const val LICENSE_ITEM_KEY = "license"
 		private const val MANAGE_SUBSCRIPTION_KEY = "manageSubscription"

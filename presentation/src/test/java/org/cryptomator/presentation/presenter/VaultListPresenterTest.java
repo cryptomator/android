@@ -1,9 +1,12 @@
 package org.cryptomator.presentation.presenter;
 
 import android.app.Activity;
+import android.content.Intent;
 
+import org.cryptomator.data.cloud.crypto.CryptoCloud;
 import org.cryptomator.data.util.NetworkConnectionCheck;
 import org.cryptomator.domain.Cloud;
+import org.cryptomator.domain.CloudFolder;
 import org.cryptomator.domain.CloudType;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.Vault;
@@ -30,9 +33,11 @@ import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper;
 import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.ui.activity.view.VaultListView;
 import org.cryptomator.presentation.util.FileUtil;
+import org.cryptomator.presentation.workflow.ActivityResult;
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow;
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler;
 import org.cryptomator.presentation.workflow.CreateNewVaultWorkflow;
+import org.cryptomator.util.FlavorConfig;
 import org.cryptomator.util.SharedPreferencesHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,6 +48,8 @@ import org.mockito.Mockito;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -178,6 +185,145 @@ public class VaultListPresenterTest {
 		inTest.resume();
 
 		verify(vaultListView, times(1)).showRecoveryKeyDialog(Mockito.any(), Mockito.eq(A_RECOVERY_KEY));
+	}
+
+	@Test
+	public void testResumedWithPendingReviewRequestRequestsReviewAndClearsIt() {
+		stubResumable();
+		when(sharedPreferencesHandler.reviewRequestPending()).thenReturn(true);
+
+		inTest.resumed();
+
+		verify(sharedPreferencesHandler).setReviewRequestPending(false);
+		verify(vaultListView).requestReview();
+	}
+
+	@Test
+	public void testResumedWithoutPendingReviewRequestDoesNotRequestReview() {
+		stubResumable();
+
+		inTest.resumed();
+
+		verify(vaultListView, never()).requestReview();
+	}
+
+	@Test
+	public void testResumedBeforeWelcomeFlowKeepsPendingReviewRequest() {
+		when(sharedPreferencesHandler.hasCompletedWelcomeFlow()).thenReturn(false);
+		when(sharedPreferencesHandler.reviewRequestPending()).thenReturn(true);
+
+		inTest.resumed();
+
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(false);
+		verify(vaultListView, never()).requestReview();
+	}
+
+	@Test
+	public void testPendingReviewRequestWaitsUntilStartupPromptsOfPrepareViewAreDone() {
+		stubResumable();
+		when(sharedPreferencesHandler.isScreenLockDialogAlreadyShown()).thenReturn(true);
+		when(sharedPreferencesHandler.reviewRequestPending()).thenReturn(true);
+
+		inTest.prepareView();
+		inTest.resumed();
+		inTest.resumed();
+
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(false);
+		verify(vaultListView, never()).requestReview();
+
+		ArgumentCaptor<ResultHandler<List<Vault>>> cbcVaultsHandler = ArgumentCaptor.forClass(ResultHandler.class);
+		verify(listCBCEncryptedPasswordVaultsUseCase).run(cbcVaultsHandler.capture());
+		cbcVaultsHandler.getValue().onFinished();
+		inTest.resumed();
+
+		verify(sharedPreferencesHandler).setReviewRequestPending(false);
+		verify(vaultListView).requestReview();
+	}
+
+	@Test
+	public void testPendingReviewRequestWaitsForNextResumeWhenRecoveryKeyIsShown() {
+		stubResumable();
+		when(sharedPreferencesHandler.reviewRequestPending()).thenReturn(true);
+
+		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
+		inTest.resumed();
+
+		verify(vaultListView).showRecoveryKeyDialog(Mockito.any(), Mockito.eq(A_RECOVERY_KEY));
+		verify(vaultListView, never()).requestReview();
+
+		inTest.resumed();
+
+		verify(vaultListView).requestReview();
+	}
+
+	@Test
+	public void testUnlockFromVaultListIsCountedInPremiumFlavor() {
+		assumeTrue(FlavorConfig.INSTANCE.isPremiumFlavor());
+		when(sharedPreferencesHandler.vaultListUnlockCount()).thenReturn(0);
+
+		unlockFromVaultList();
+
+		verify(sharedPreferencesHandler).setVaultListUnlockCount(1);
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(true);
+	}
+
+	@Test
+	public void testThirdUnlockFromVaultListMarksReviewRequestPendingWithoutRequestingIt() {
+		assumeTrue(FlavorConfig.INSTANCE.isPremiumFlavor());
+		when(sharedPreferencesHandler.vaultListUnlockCount()).thenReturn(2);
+
+		unlockFromVaultList();
+
+		verify(sharedPreferencesHandler).setVaultListUnlockCount(3);
+		verify(sharedPreferencesHandler).setReviewRequestPending(true);
+		verify(vaultListView, never()).requestReview();
+	}
+
+	@Test
+	public void testUnlocksAfterTheThirdDoNotMarkReviewRequestPendingAgain() {
+		assumeTrue(FlavorConfig.INSTANCE.isPremiumFlavor());
+		when(sharedPreferencesHandler.vaultListUnlockCount()).thenReturn(3);
+
+		unlockFromVaultList();
+
+		verify(sharedPreferencesHandler, never()).setVaultListUnlockCount(Mockito.anyInt());
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(true);
+	}
+
+	@Test
+	public void testUnlockFromVaultListIsNotCountedOutsidePremiumFlavor() {
+		assumeFalse(FlavorConfig.INSTANCE.isPremiumFlavor());
+		when(sharedPreferencesHandler.vaultListUnlockCount()).thenReturn(2);
+
+		unlockFromVaultList();
+
+		verify(sharedPreferencesHandler, never()).setVaultListUnlockCount(Mockito.anyInt());
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(true);
+	}
+
+	private void stubResumable() {
+		when(sharedPreferencesHandler.hasCompletedWelcomeFlow()).thenReturn(true);
+		when(sharedPreferencesHandler.licenseToken()).thenReturn("token");
+		when(licenseEnforcer.evaluateTrialState()).thenReturn(new LicenseEnforcer.TrialState(false, false, null));
+	}
+
+	private void unlockFromVaultList() {
+		CryptoCloud cloud = Mockito.mock(CryptoCloud.class);
+		when(cloud.getVault()).thenReturn(AN_UNLOCKED_VAULT);
+		CloudFolder folder = Mockito.mock(CloudFolder.class);
+		when(folder.getCloud()).thenReturn(cloud);
+		Intent intent = Mockito.mock(Intent.class);
+		when(intent.getSerializableExtra(Mockito.any())).thenReturn(cloud);
+		ActivityResult result = Mockito.mock(ActivityResult.class);
+		when(result.intent()).thenReturn(intent);
+		GetRootFolderUseCase.Launcher launcher = Mockito.mock(GetRootFolderUseCase.Launcher.class);
+		when(getRootFolderUseCase.withCloud(Mockito.any())).thenReturn(launcher);
+
+		inTest.vaultUnlockedVaultList(result);
+
+		ArgumentCaptor<ResultHandler<CloudFolder>> rootFolderHandler = ArgumentCaptor.forClass(ResultHandler.class);
+		verify(launcher).run(rootFolderHandler.capture());
+		rootFolderHandler.getValue().onSuccess(folder);
 	}
 
 	@Test

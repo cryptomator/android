@@ -104,6 +104,8 @@ class VaultListPresenter @Inject constructor( //
 
 	private var vaultAction: VaultAction? = null
 	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
+	private var startupPromptsRunning = false
+	private var recoveryKeyDialogShown = false
 	private val licenseChangeListener = Consumer<String> { _ ->
 		if (!isPaused) {
 			updateSalePromo()
@@ -134,6 +136,19 @@ class VaultListPresenter @Inject constructor( //
 		createdVaultAwaitingRecoveryKeyDialog?.let {
 			createdVaultAwaitingRecoveryKeyDialog = null
 			showRecoveryKeyDialog(it)
+		}
+
+		requestReviewIfPending()
+	}
+
+	// The review card must not cover another prompt. The request stays pending while prepareView() still runs its dialogs
+	// and permission requests, and on the resume that shows a recovery key.
+	private fun requestReviewIfPending() {
+		if (recoveryKeyDialogShown) {
+			recoveryKeyDialogShown = false
+		} else if (!startupPromptsRunning && sharedPreferencesHandler.reviewRequestPending()) {
+			sharedPreferencesHandler.setReviewRequestPending(false)
+			view?.requestReview()
 		}
 	}
 
@@ -206,6 +221,8 @@ class VaultListPresenter @Inject constructor( //
 		if (launchWelcomeFlowIfNeeded()) {
 			return
 		}
+
+		startupPromptsRunning = true
 
 		if (!sharedPreferencesHandler.isScreenLockDialogAlreadyShown) {
 			val keyguardManager = context().getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
@@ -325,6 +342,10 @@ class VaultListPresenter @Inject constructor( //
 					if (vaults.isNotEmpty()) {
 						view?.showDialog(CBCPasswordVaultsMigrationDialog.newInstance(vaults))
 					}
+				}
+
+				override fun onFinished() {
+					startupPromptsRunning = false
 				}
 			})
 	}
@@ -606,9 +627,23 @@ class VaultListPresenter @Inject constructor( //
 		view?.addOrUpdateVault(VaultModel(vault))
 		navigateToVaultContent(vault, folder)
 		view?.showProgress(ProgressModel.COMPLETED)
+		countUnlockForReviewRequest()
 		if (checkToStartAutoImageUpload(vault)) {
 			val cryptomatorApp = activity().application as CryptomatorApp
 			cryptomatorApp.startAutoUpload(cryptoCloud)
+		}
+	}
+
+	private fun countUnlockForReviewRequest() {
+		if (!FlavorConfig.isPremiumFlavor) {
+			return
+		}
+		val unlockCount = sharedPreferencesHandler.vaultListUnlockCount() + 1
+		if (unlockCount <= UNLOCKS_BEFORE_REVIEW_REQUEST) {
+			sharedPreferencesHandler.setVaultListUnlockCount(unlockCount)
+			if (unlockCount == UNLOCKS_BEFORE_REVIEW_REQUEST) {
+				sharedPreferencesHandler.setReviewRequestPending(true)
+			}
 		}
 	}
 
@@ -642,6 +677,7 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun showRecoveryKeyDialog(createdVault: CreatedVault) {
+		recoveryKeyDialogShown = true
 		view?.showRecoveryKeyDialog(VaultModel(createdVault.vault), createdVault.recoveryKey)
 	}
 
@@ -747,5 +783,10 @@ class VaultListPresenter @Inject constructor( //
 			removeStoredVaultPasswordsUseCase, //
 			saveVaultsUseCase
 		)
+	}
+
+	companion object {
+
+		private const val UNLOCKS_BEFORE_REVIEW_REQUEST = 3
 	}
 }

@@ -211,6 +211,29 @@ class PurchaseManagerTest {
 		assertEquals(emptyList<String>(), acknowledgedTokens)
 	}
 
+	// -- Completed purchase --
+
+	@Test
+	fun `hasCompletedPurchase is true for a PURCHASED lifetime purchase`() {
+		val purchase = mockPurchase(ProductInfo.PRODUCT_FULL_VERSION, Purchase.PurchaseState.PURCHASED, "token-1", isAcknowledged = false)
+
+		assertTrue(purchaseManager.hasCompletedPurchase(listOf(purchase)))
+	}
+
+	@Test
+	fun `hasCompletedPurchase is true for a PURCHASED subscription`() {
+		val purchase = mockPurchase(ProductInfo.PRODUCT_YEARLY_SUBSCRIPTION, Purchase.PurchaseState.PURCHASED, "sub-token", isAcknowledged = false)
+
+		assertTrue(purchaseManager.hasCompletedPurchase(listOf(purchase)))
+	}
+
+	@Test
+	fun `hasCompletedPurchase is false for a PENDING purchase`() {
+		val purchase = mockPurchase(ProductInfo.PRODUCT_FULL_VERSION, Purchase.PurchaseState.PENDING, "token-1", isAcknowledged = false)
+
+		assertFalse(purchaseManager.hasCompletedPurchase(listOf(purchase)))
+	}
+
 	private fun mockPurchase(productId: String, purchaseState: Int, token: String, isAcknowledged: Boolean): Purchase {
 		val purchase: Purchase = mock()
 		`when`(purchase.products).thenReturn(listOf(productId))

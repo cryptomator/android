@@ -39,6 +39,7 @@ import org.cryptomator.presentation.ui.dialog.VaultRenameDialog
 import org.cryptomator.presentation.ui.fragment.VaultListFragment
 import org.cryptomator.presentation.ui.layout.ObscuredAwareCoordinatorLayout.Listener
 import org.cryptomator.presentation.util.BiometricAuthenticationMigration
+import org.cryptomator.presentation.util.ReviewRequester
 import javax.inject.Inject
 
 @Activity
@@ -181,6 +182,10 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 
 	override fun navigateToVaultContent(vault: VaultModel, decryptedRoot: CloudFolderModel) {
 		vaultListPresenter.startIntent(browseFilesIntent().withTitle(vault.name).withFolder(decryptedRoot))
+	}
+
+	override fun requestReview() {
+		ReviewRequester.request(this)
 	}
 
 	override fun renameVault(vaultModel: VaultModel) {
