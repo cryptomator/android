@@ -241,19 +241,28 @@ public class VaultListPresenterTest {
 	}
 
 	@Test
-	public void testPendingReviewRequestWaitsForNextResumeWhenRecoveryKeyIsShown() {
+	public void testPendingReviewRequestWaitsWhileADialogIsOpen() {
 		stubResumable();
 		when(sharedPreferencesHandler.reviewRequestPending()).thenReturn(true);
+		when(vaultListView.hasOpenDialog()).thenReturn(true);
 
-		inTest.onCreateVaultCompleted(new CreatedVault(AN_UNLOCKED_VAULT, A_RECOVERY_KEY));
 		inTest.resumed();
 
-		verify(vaultListView).showRecoveryKeyDialog(Mockito.any(), Mockito.eq(A_RECOVERY_KEY));
+		verify(sharedPreferencesHandler, never()).setReviewRequestPending(false);
 		verify(vaultListView, never()).requestReview();
 
+		when(vaultListView.hasOpenDialog()).thenReturn(false);
 		inTest.resumed();
 
+		verify(sharedPreferencesHandler).setReviewRequestPending(false);
 		verify(vaultListView).requestReview();
+	}
+
+	@Test
+	public void testDeferredReviewRequestIsPendingAgain() {
+		inTest.onReviewRequestDeferred();
+
+		verify(sharedPreferencesHandler).setReviewRequestPending(true);
 	}
 
 	@Test

@@ -105,7 +105,6 @@ class VaultListPresenter @Inject constructor( //
 	private var vaultAction: VaultAction? = null
 	private var createdVaultAwaitingRecoveryKeyDialog: CreatedVault? = null
 	private var startupPromptsRunning = false
-	private var recoveryKeyDialogShown = false
 	private val licenseChangeListener = Consumer<String> { _ ->
 		if (!isPaused) {
 			updateSalePromo()
@@ -142,14 +141,16 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	// The review card must not cover another prompt. The request stays pending while prepareView() still runs its dialogs
-	// and permission requests, and on the resume that shows a recovery key.
+	// and permission requests, and while a dialog is open.
 	private fun requestReviewIfPending() {
-		if (recoveryKeyDialogShown) {
-			recoveryKeyDialogShown = false
-		} else if (!startupPromptsRunning && sharedPreferencesHandler.reviewRequestPending()) {
+		if (!startupPromptsRunning && sharedPreferencesHandler.reviewRequestPending() && view?.hasOpenDialog() == false) {
 			sharedPreferencesHandler.setReviewRequestPending(false)
 			view?.requestReview()
 		}
+	}
+
+	fun onReviewRequestDeferred() {
+		sharedPreferencesHandler.setReviewRequestPending(true)
 	}
 
 	private fun launchWelcomeFlowIfNeeded(): Boolean {
@@ -677,7 +678,6 @@ class VaultListPresenter @Inject constructor( //
 	}
 
 	private fun showRecoveryKeyDialog(createdVault: CreatedVault) {
-		recoveryKeyDialogShown = true
 		view?.showRecoveryKeyDialog(VaultModel(createdVault.vault), createdVault.recoveryKey)
 	}
 

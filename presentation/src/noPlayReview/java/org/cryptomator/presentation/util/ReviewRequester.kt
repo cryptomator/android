@@ -1,15 +1,15 @@
 package org.cryptomator.presentation.util
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.activity.ComponentActivity
 
 /**
  * Stub implementation used for flavors that are not distributed via Google Play.
  */
 object ReviewRequester {
 
-	fun request(activity: Activity) {
+	fun request(activity: ComponentActivity, onDeferred: () -> Unit) {
 		// no-op
 	}
 

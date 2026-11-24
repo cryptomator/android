@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import org.cryptomator.domain.Vault
 import org.cryptomator.generator.Activity
@@ -184,8 +185,14 @@ class VaultListActivity : BaseActivity<ActivityLayoutObscureAwareBinding>(Activi
 		vaultListPresenter.startIntent(browseFilesIntent().withTitle(vault.name).withFolder(decryptedRoot))
 	}
 
+	override fun hasOpenDialog(): Boolean {
+		// A dialog shown earlier in this pass of the main thread is only added once its transaction has run.
+		supportFragmentManager.executePendingTransactions()
+		return supportFragmentManager.fragments.any { it is DialogFragment }
+	}
+
 	override fun requestReview() {
-		ReviewRequester.request(this)
+		ReviewRequester.request(this) { vaultListPresenter.onReviewRequestDeferred() }
 	}
 
 	override fun renameVault(vaultModel: VaultModel) {
