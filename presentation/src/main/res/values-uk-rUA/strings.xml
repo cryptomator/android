@@ -278,6 +278,7 @@
 	<string name="screen_settings_license_terms_label">Ліцензійні умови</string>
 	<string name="screen_settings_section_support">Підтримка</string>
 	<string name="screen_settings_contact_label">Звернутися по допомогу</string>
+	<string name="screen_settings_rate_app_label">Оцінити додаток</string>
 	<string name="screen_settings_debug_mode_label">Режим налагодження</string>
 	<string name="screen_settings_error_report_label">Надіслати файл журналу</string>
 	<string name="screen_settings_error_report_failed">Не вдалося надіслати</string>
