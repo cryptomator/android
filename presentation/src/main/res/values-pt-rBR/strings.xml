@@ -276,6 +276,7 @@
 	<string name="screen_settings_license_terms_label">Termos de licença</string>
 	<string name="screen_settings_section_support">Suporte</string>
 	<string name="screen_settings_contact_label">Obter ajuda</string>
+	<string name="screen_settings_rate_app_label">Avalie o aplicativo</string>
 	<string name="screen_settings_debug_mode_label">Modo de depuração</string>
 	<string name="screen_settings_error_report_label">Enviar arquivos de registro</string>
 	<string name="screen_settings_error_report_failed">Falha ao enviar</string>
