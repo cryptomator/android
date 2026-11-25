@@ -277,6 +277,7 @@
 	<string name="screen_settings_license_terms_label">Лицензионное соглашение</string>
 	<string name="screen_settings_section_support">Поддержка</string>
 	<string name="screen_settings_contact_label">Запросить помощь</string>
+	<string name="screen_settings_rate_app_label">Оценить приложение</string>
 	<string name="screen_settings_debug_mode_label">Режим отладки</string>
 	<string name="screen_settings_error_report_label">Отправить файл журнала</string>
 	<string name="screen_settings_error_report_failed">Ошибка отправки</string>
