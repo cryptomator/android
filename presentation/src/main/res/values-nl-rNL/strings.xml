@@ -276,6 +276,7 @@
 	<string name="screen_settings_license_terms_label">Licentievoorwaarden</string>
 	<string name="screen_settings_section_support">Ondersteuning</string>
 	<string name="screen_settings_contact_label">Hulp vragen</string>
+	<string name="screen_settings_rate_app_label">Beoordeel app</string>
 	<string name="screen_settings_debug_mode_label">Foutopsporingsmodus</string>
 	<string name="screen_settings_error_report_label">Logbestand versturen</string>
 	<string name="screen_settings_error_report_failed">Verzenden mislukt</string>
