@@ -29,6 +29,7 @@ import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.util.ContentResolverUtil;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.util.HubAuthRedirects;
+import org.cryptomator.presentation.util.MicrosoftWorkaroundSaves;
 
 import javax.inject.Singleton;
 
@@ -81,5 +82,7 @@ public interface ApplicationComponent {
 	ProductPricesCache productPricesCache();
 
 	HubAuthRedirects hubAuthRedirects();
+
+	MicrosoftWorkaroundSaves microsoftWorkaroundSaves();
 
 }

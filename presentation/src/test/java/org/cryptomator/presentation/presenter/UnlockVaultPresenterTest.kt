@@ -14,6 +14,7 @@ import net.openid.appauth.TokenRequest
 import net.openid.appauth.TokenResponse
 import net.openid.appauth.browser.BrowserDescriptor
 import org.cryptomator.cryptolib.api.InvalidPassphraseException
+import org.cryptomator.data.cloud.crypto.CryptoCloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.UnverifiedHubVaultConfig
@@ -55,6 +56,7 @@ import org.mockito.Mockito
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -73,6 +75,8 @@ class UnlockVaultPresenterTest {
 	private val getRecoveryKeyLauncher = mock<GetRecoveryKeyUseCase.Launcher>(defaultAnswer = Mockito.RETURNS_SELF)
 	private val createHubDeviceUseCase = mock<CreateHubDeviceUseCase>()
 	private val createHubDeviceLauncher = mock<CreateHubDeviceUseCase.Launcher>(defaultAnswer = Mockito.RETURNS_SELF)
+	private val updateVaultParameterIfChangedRemotelyUseCase = mock<UpdateVaultParameterIfChangedRemotelyUseCase>()
+	private val updateVaultParameterIfChangedRemotelyLauncher = mock<UpdateVaultParameterIfChangedRemotelyUseCase.Launcher>(defaultAnswer = Mockito.RETURNS_SELF)
 	private val hubAuthRedirects = HubAuthRedirects()
 	private val exceptionMappings = mock<ExceptionHandlers>()
 	private val authenticationExceptionHandler = mock<AuthenticationExceptionHandler>()
@@ -110,6 +114,7 @@ class UnlockVaultPresenterTest {
 		whenever(getRecoveryKeyUseCase.withVault(any())).thenReturn(getRecoveryKeyLauncher)
 		whenever(unlockHubVaultUseCase.withVault(any())).thenReturn(unlockHubVaultLauncher)
 		whenever(createHubDeviceUseCase.withAccessToken(any())).thenReturn(createHubDeviceLauncher)
+		whenever(updateVaultParameterIfChangedRemotelyUseCase.withVault(any())).thenReturn(updateVaultParameterIfChangedRemotelyLauncher)
 		whenever(hubConfig.authEndpoint).thenReturn(URI("https://hub.example.org/auth"))
 		whenever(hubConfig.tokenEndpoint).thenReturn(URI("https://hub.example.org/token"))
 		whenever(hubConfig.clientId).thenReturn("cryptomator")
@@ -166,6 +171,25 @@ class UnlockVaultPresenterTest {
 		verify(unlockHubVaultLauncher).andAccessToken("access-token")
 		verify(unlockHubVaultLauncher).run(any())
 		verify(view, never()).finish()
+	}
+
+	@Test
+	fun testUnlockedHubVaultIsStoredAsItWasUnlockedAndNotAsTheVaultListKnewIt() {
+		val unlocked = mock<Vault>()
+		val unlockedCloud = mock<CryptoCloud> { on { vault } doReturn unlocked }
+		inTest.allowedHubHosts(hubConfig, vault)
+		val requestCode = argumentCaptor<Int>()
+		verify(activity).startActivityForResult(any(), requestCode.capture())
+		receiveRedirect("expected-state")
+		inTest.onActivityResult(requestCode.firstValue, Activity.RESULT_CANCELED, null)
+		completeTokenRequest(accessToken("access-token"))
+		val vaultUnlocked = argumentCaptor<ResultHandler<Cloud>>()
+		verify(unlockHubVaultLauncher).run(vaultUnlocked.capture())
+
+		vaultUnlocked.firstValue.onSuccess(unlockedCloud)
+
+		verify(updateVaultParameterIfChangedRemotelyUseCase).withVault(unlocked)
+		verify(updateVaultParameterIfChangedRemotelyLauncher).run(any())
 	}
 
 	@Test
@@ -512,7 +536,7 @@ class UnlockVaultPresenterTest {
 			createHubDeviceUseCase,
 			mock<RemoveStoredVaultPasswordsAndDisableBiometricAuthUseCase>(),
 			mock<SaveVaultUseCase>(),
-			mock<UpdateVaultParameterIfChangedRemotelyUseCase>(),
+			updateVaultParameterIfChangedRemotelyUseCase,
 			mock<ResumeVaultUploadsUseCase>(),
 			authenticationExceptionHandler,
 			mock<SharedPreferencesHandler>(),

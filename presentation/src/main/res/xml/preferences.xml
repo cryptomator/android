@@ -169,6 +169,12 @@
 
 		<SwitchPreference
 			android:defaultValue="false"
+			android:key="shareOfficeFilePublicly"
+			android:summary="@string/screen_settings_microsoft_apps_workaround_summary"
+			android:title="@string/screen_settings_microsoft_apps_workaround_label" />
+
+		<SwitchPreference
+			android:defaultValue="false"
 			android:key="keepUnlockedWhileEditing"
 			android:summary="@string/screen_settings_keep_unlocked_while_editing_files_summary"
 			android:title="@string/screen_settings_keep_unlocked_while_editing_files" />

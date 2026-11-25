@@ -30,6 +30,7 @@ import org.cryptomator.presentation.ui.activity.SettingsActivity
 import org.cryptomator.presentation.ui.dialog.DebugModeDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableAppWhenObscuredDisclaimerDialog
 import org.cryptomator.presentation.ui.dialog.DisableSecureScreenDisclaimerDialog
+import org.cryptomator.presentation.ui.dialog.MicrosoftWorkaroundDisclaimerDialog
 import org.cryptomator.presentation.ui.layout.PreferenceFragmentCompatLayout
 import org.cryptomator.presentation.util.ReviewRequester
 import org.cryptomator.util.FlavorConfig
@@ -109,6 +110,14 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
 		activity().delegate.localNightMode = sharedPreferencesHandler.screenStyleMode
 		true
+	}
+
+	private val microsoftWorkaroundChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+		// it is only turned on once the disclaimer is accepted
+		if (TRUE == newValue) {
+			activity().showDialog(MicrosoftWorkaroundDisclaimerDialog.newInstance())
+		}
+		FALSE == newValue
 	}
 
 	private fun activity(): SettingsActivity = this.activity as SettingsActivity
@@ -326,6 +335,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		(findPreference(SharedPreferencesHandler.DOCUMENTS_PROVIDER) as Preference?)?.onPreferenceChangeListener = documentsProviderChangedListener
 		(findPreference(SharedPreferencesHandler.SCREEN_STYLE_MODE) as Preference?)?.onPreferenceChangeListener = screenStyleModeChangedListener
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD) as Preference?)?.onPreferenceChangeListener = useAutoPhotoUploadChangedListener
+		(findPreference(SharedPreferencesHandler.MICROSOFT_WORKAROUND) as Preference?)?.onPreferenceChangeListener = microsoftWorkaroundChangeListener
 		if (FlavorConfig.isApkStoreFlavor) {
 			(findPreference(UPDATE_CHECK_ITEM_KEY) as Preference?)?.onPreferenceClickListener = updateCheckClickListener
 		}
@@ -399,6 +409,10 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 
 	fun disableAutoUpload() {
 		onUseAutoPhotoUploadChanged(false)
+	}
+
+	fun activateMicrosoftWorkaround() {
+		(findPreference(SharedPreferencesHandler.MICROSOFT_WORKAROUND) as SwitchPreference?)?.isChecked = true
 	}
 
 	fun rootView(): View {

@@ -1153,7 +1153,26 @@ class UpgradeDatabaseTest {
 			.text("ACCESS_TOKEN", "accessToken") //
 			.executeOn(db)
 
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 1) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "path") //
+			.text("FOLDER_NAME", "name") //
+			.text("CLOUD_TYPE", CloudType.WEBDAV.name) //
+			.integer("POSITION", 1) //
+			.executeOn(db)
+
 		Upgrade16To17().migrate(db)
+
+		Sql.insertInto("VAULT_ENTITY") //
+			.integer("_id", 2) //
+			.integer("FOLDER_CLOUD_ID", 15) //
+			.text("FOLDER_PATH", "hubPath") //
+			.text("FOLDER_NAME", "hubName") //
+			.text("CLOUD_TYPE", CloudType.WEBDAV.name) //
+			.integer("POSITION", 2) //
+			.bool("HUB_PAID_LICENSE", true) //
+			.executeOn(db)
 
 		Sql.insertInto("CLOUD_ENTITY") //
 			.integer("_id", 16) //
@@ -1180,6 +1199,21 @@ class UpgradeDatabaseTest {
 			.executeOn(db).use {
 				it.moveToFirst()
 				Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(WebDavProvider.KOOFR.name))
+			}
+
+		Sql.query("VAULT_ENTITY") //
+			.where("_id", Sql.eq(1L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("FOLDER_PATH")), CoreMatchers.`is`("path"))
+				Assert.assertThat(it.isNull(it.getColumnIndex("HUB_PAID_LICENSE")), CoreMatchers.`is`(true))
+			}
+
+		Sql.query("VAULT_ENTITY") //
+			.where("_id", Sql.eq(2L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getInt(it.getColumnIndex("HUB_PAID_LICENSE")), CoreMatchers.`is`(1))
 			}
 	}
 }

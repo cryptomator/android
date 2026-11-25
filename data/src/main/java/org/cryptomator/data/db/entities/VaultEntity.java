@@ -57,6 +57,13 @@ public class VaultEntity {
 	@ColumnInfo(name = "SHORTENING_THRESHOLD")
 	private Integer shorteningThreshold;
 
+	/**
+	 * Whether a Hub vault had a paid license when it was last unlocked, {@code null} for a vault that isn't known to be a
+	 * Hub vault. The write access of the locked vault is judged by it, e.g. for an editor that saves after the lock.
+	 */
+	@ColumnInfo(name = "HUB_PAID_LICENSE")
+	private Boolean hubPaidLicense;
+
 	public Long getId() {
 		return id;
 	}
@@ -136,5 +143,13 @@ public class VaultEntity {
 
 	public void setShorteningThreshold(Integer shorteningThreshold) {
 		this.shorteningThreshold = shorteningThreshold;
+	}
+
+	public Boolean getHubPaidLicense() {
+		return hubPaidLicense;
+	}
+
+	public void setHubPaidLicense(Boolean hubPaidLicense) {
+		this.hubPaidLicense = hubPaidLicense;
 	}
 }

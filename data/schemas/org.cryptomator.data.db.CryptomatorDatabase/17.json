@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 17,
-    "identityHash": "95ba879f5a157f795048a2d59828b907",
+    "identityHash": "60bedabdf9c0f3aa42dc41d7203744e5",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
@@ -131,7 +131,7 @@
       },
       {
         "tableName": "VAULT_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `FOLDER_CLOUD_ID` INTEGER, `FOLDER_PATH` TEXT, `FOLDER_NAME` TEXT, `CLOUD_TYPE` TEXT NOT NULL, `PASSWORD` TEXT, `PASSWORD_CRYPTO_MODE` TEXT, `POSITION` INTEGER, `FORMAT` INTEGER, `SHORTENING_THRESHOLD` INTEGER, FOREIGN KEY(`FOLDER_CLOUD_ID`) REFERENCES `CLOUD_ENTITY`(`_id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `FOLDER_CLOUD_ID` INTEGER, `FOLDER_PATH` TEXT, `FOLDER_NAME` TEXT, `CLOUD_TYPE` TEXT NOT NULL, `PASSWORD` TEXT, `PASSWORD_CRYPTO_MODE` TEXT, `POSITION` INTEGER, `FORMAT` INTEGER, `SHORTENING_THRESHOLD` INTEGER, `HUB_PAID_LICENSE` INTEGER, FOREIGN KEY(`FOLDER_CLOUD_ID`) REFERENCES `CLOUD_ENTITY`(`_id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "id",
@@ -182,6 +182,11 @@
           {
             "fieldPath": "shorteningThreshold",
             "columnName": "SHORTENING_THRESHOLD",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hubPaidLicense",
+            "columnName": "HUB_PAID_LICENSE",
             "affinity": "INTEGER"
           }
         ],
@@ -409,7 +414,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '95ba879f5a157f795048a2d59828b907')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '60bedabdf9c0f3aa42dc41d7203744e5')"
     ]
   }
 }

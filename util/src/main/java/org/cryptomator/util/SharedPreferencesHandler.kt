@@ -375,6 +375,10 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		defaultSharedPreferences.setValue(ASK_IGNORE_BATTERY_OPTIMIZATIONS_DIALOG_DISABLED, disable)
 	}
 
+	fun microsoftWorkaround(): Boolean {
+		return defaultSharedPreferences.getBoolean(MICROSOFT_WORKAROUND, false)
+	}
+
 	fun hasCompletedWelcomeFlow(): Boolean {
 		return defaultSharedPreferences.getValue(WELCOME_FLOW_COMPLETED, false)
 	}
@@ -442,6 +446,7 @@ constructor(context: Context) : SharedPreferences.OnSharedPreferenceChangeListen
 		const val PHOTO_UPLOAD_VAULT = "photoUploadVault"
 		const val PHOTO_UPLOAD_FOLDER = "photoUploadFolder"
 		const val PHOTO_UPLOAD_INCLUDING_VIDEOS = "photoUploadIncludingVideos"
+		const val MICROSOFT_WORKAROUND = "shareOfficeFilePublicly"
 		const val MAIL = "mail"
 		const val LICENSE_TOKEN = "licenseToken"
 		const val UPDATE_INTERVAL = "updateInterval"

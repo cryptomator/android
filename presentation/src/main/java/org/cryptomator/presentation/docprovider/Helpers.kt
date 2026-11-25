@@ -51,9 +51,10 @@ internal fun <T> whileUnlocked(vault: Vault, authenticationRequired: (Vault) -> 
 }
 
 /**
- * Like in the app, writing needs a license or a running trial, or for a Hub vault a paid Hub license, which only the vault
- * as it was unlocked knows about, see [unlockedVault]. Asking doesn't record that the trial expired, so that the app still
- * tells the user, see [LicenseEnforcer.peekWriteAccessForVault].
+ * Like in the app, writing needs a license or a running trial, or for a Hub vault a paid Hub license. An unlocked vault
+ * is judged by what its unlock found, see [unlockedVault], and a locked one by what its last unlock found, so that e.g.
+ * an editor's save after the vault was locked is still accepted. Asking doesn't record that the trial expired, so that
+ * the app still tells the user, see [LicenseEnforcer.peekWriteAccessForVault].
  */
 internal fun isWritable(vault: Vault, licenseEnforcer: LicenseEnforcer, unlockedVault: (Vault) -> Vault?): Boolean {
 	return !vault.cloud.isReadOnly() && !vault.isReadOnly && licenseEnforcer.peekWriteAccessForVault(VaultModel(unlockedVault(vault) ?: vault))

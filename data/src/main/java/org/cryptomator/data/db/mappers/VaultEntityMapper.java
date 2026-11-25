@@ -36,6 +36,8 @@ public class VaultEntityMapper extends EntityMapper<VaultWithCloud, Vault> {
 				.withPosition(vault.getPosition()) //
 				.withFormat(vault.getFormat()) //
 				.withShorteningThreshold(vault.getShorteningThreshold()) //
+				.withHubVault(vault.getHubPaidLicense() != null) //
+				.withHubPaidLicense(Boolean.TRUE.equals(vault.getHubPaidLicense())) //
 				.build();
 	}
 
@@ -64,6 +66,7 @@ public class VaultEntityMapper extends EntityMapper<VaultWithCloud, Vault> {
 		vault.setPosition(domainObject.getPosition());
 		vault.setFormat(domainObject.getFormat());
 		vault.setShorteningThreshold(domainObject.getShorteningThreshold());
+		vault.setHubPaidLicense(domainObject.isHubVault() ? domainObject.hasHubPaidLicense() : null);
 
 		VaultWithCloud result = new VaultWithCloud();
 		result.setVault(vault);

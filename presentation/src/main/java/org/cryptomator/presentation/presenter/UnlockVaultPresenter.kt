@@ -550,8 +550,10 @@ class UnlockVaultPresenter @Inject constructor(
 	}
 
 	/**
-	 * Stores the format and shortening threshold the vault turned out to have before finishing. An unlock started from the
-	 * Files app has no caller that would store them, and the documents provider opens the vault with the stored format.
+	 * Stores what the unlock found out about the vault before finishing: its format and shortening threshold, and whether it
+	 * is a Hub vault with a paid license. An unlock started from the Files app has no caller that would store them. The
+	 * documents provider opens the vault with the stored format and judges the write access of the locked vault by the stored
+	 * license.
 	 * The unlocked vault is only handed back within the app: the Files app, or another app holding a document of the
 	 * vault, just learns that the unlock succeeded.
 	 *
