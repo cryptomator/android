@@ -34,10 +34,16 @@ class ImportMicrosoftWorkaroundCopy {
 	 */
 	static final long SETTLE_MILLIS = 500;
 
+	/**
+	 * Attempts before the copy is given up on as still being written.
+	 */
+	static final int MAX_ATTEMPTS = 3;
+
 	private final Context context;
 	private final File copy;
 	private final byte[] hashWhenOpened;
 	private final Uri document;
+	long settleMillis = SETTLE_MILLIS;
 
 	public ImportMicrosoftWorkaroundCopy(Context context, @Parameter File copy, @Parameter byte[] hashWhenOpened, @Parameter Uri document) {
 		this.context = context;
@@ -47,37 +53,61 @@ class ImportMicrosoftWorkaroundCopy {
 	}
 
 	/**
-	 * @throws FileNotFoundException if the copy is gone when the save starts. A copy that goes missing during the save
-	 * fails with a {@link BackendException}, like a document that can't be written.
+	 * @throws FileNotFoundException if the copy is gone before an attempt to save it. A copy that can't be opened once an
+	 * attempt started fails with a {@link BackendException}, like a document that can't be written.
 	 */
 	public void execute() throws BackendException, FileNotFoundException {
-		awaitWrites();
-		if (!copy.exists()) {
-			throw MicrosoftWorkaroundCopies.notFound(copy);
-		}
-		try {
-			if (!MessageDigest.isEqual(hashWhenOpened, MicrosoftWorkaroundCopies.hash(copy))) {
-				save();
+		for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+			awaitWrites();
+			if (!copy.exists()) {
+				throw MicrosoftWorkaroundCopies.notFound(copy);
 			}
-		} catch (IOException e) {
-			throw new FatalBackendException(e);
+			try {
+				if (tryBringBack()) {
+					MicrosoftWorkaroundCopies.delete(copy);
+					return;
+				}
+			} catch (IOException e) {
+				throw new FatalBackendException(e);
+			}
 		}
-		MicrosoftWorkaroundCopies.delete(copy);
+		throw new FatalBackendException(MicrosoftWorkaroundCopies.describe(copy) + " is still being written");
+	}
+
+	/**
+	 * @return whether the copy is unchanged or saved. It is neither if the app wrote the copy while it was read. Then the
+	 * comparison may have missed the change, or the save may hold only a part of it.
+	 */
+	private boolean tryBringBack() throws IOException {
+		long lengthBefore = copy.length();
+		long lastModifiedBefore = copy.lastModified();
+		boolean unchanged = MessageDigest.isEqual(hashWhenOpened, MicrosoftWorkaroundCopies.hash(copy));
+		if (wasWrittenSince(lengthBefore, lastModifiedBefore)) {
+			return false;
+		}
+		return unchanged || save(lengthBefore, lastModifiedBefore);
+	}
+
+	private boolean wasWrittenSince(long lengthBefore, long lastModifiedBefore) {
+		return copy.length() != lengthBefore || copy.lastModified() != lastModifiedBefore;
 	}
 
 	private void awaitWrites() {
 		try {
-			Thread.sleep(SETTLE_MILLIS);
+			Thread.sleep(settleMillis);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 	}
 
 	/**
-	 * The provider has what was written once the document is closed, and uploads it from there. If writing fails, the
-	 * document is closed with an error instead, so that the provider drops the part that was written.
+	 * The provider has what was written once the document is closed, and uploads it from there. If writing fails, or the
+	 * app wrote the copy since its length and modification time were noted, the document is closed with an error instead,
+	 * so that the provider drops what was written.
+	 *
+	 * @return false if the app wrote the copy since then
 	 */
-	private void save() throws IOException {
+	private boolean save(long lengthBefore, long lastModifiedBefore) throws IOException {
 		ParcelFileDescriptor descriptor = context.getContentResolver().openFileDescriptor(document, "wt");
 		if (descriptor == null) {
 			throw new FileNotFoundException(document.toString());
@@ -89,7 +119,12 @@ class ImportMicrosoftWorkaroundCopy {
 			closeWithError(descriptor, e);
 			throw e;
 		}
+		if (wasWrittenSince(lengthBefore, lastModifiedBefore)) {
+			descriptor.closeWithError("The copy was written while it was saved");
+			return false;
+		}
 		descriptor.close();
+		return true;
 	}
 
 	private void closeWithError(ParcelFileDescriptor descriptor, Exception cause) {

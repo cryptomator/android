@@ -52,13 +52,17 @@ public class MicrosoftWorkaroundCopies {
 		}
 	}
 
+	static FileNotFoundException notFound(File copy) {
+		return new FileNotFoundException(describe(copy) + " not found");
+	}
+
 	/**
-	 * Names the copy by its folder, since the message ends up in the log, which must not reveal the name of a file in a
+	 * Names the copy by its folder, since the text ends up in the log, which must not reveal the name of a file in a
 	 * vault.
 	 */
-	static FileNotFoundException notFound(File copy) {
+	static String describe(File copy) {
 		File folder = copy.getParentFile();
-		return new FileNotFoundException("Copy " + (folder != null ? folder.getName() : "") + " not found");
+		return "Copy " + (folder != null ? folder.getName() : "");
 	}
 
 	/**
