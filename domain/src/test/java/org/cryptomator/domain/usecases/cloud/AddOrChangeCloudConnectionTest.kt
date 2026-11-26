@@ -3,6 +3,7 @@ package org.cryptomator.domain.usecases.cloud
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
 import org.cryptomator.domain.S3Cloud
+import org.cryptomator.domain.S3Provider
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.domain.exception.CloudAlreadyExistsException
@@ -35,7 +36,7 @@ class AddOrChangeCloudConnectionTest {
 	}
 
 	@Test
-	fun `a new provider connection adopts the matching connection without provider`() {
+	fun `a new WebDAV provider connection adopts the matching connection without provider`() {
 		storedClouds(storedGenericCloud)
 
 		AddOrChangeCloudConnection(cloudRepository, webDavCloud(id = null, provider = WebDavProvider.KOOFR, password = "newPassword")).execute()
@@ -47,7 +48,7 @@ class AddOrChangeCloudConnectionTest {
 	}
 
 	@Test
-	fun `a new connection without provider matching an existing one is rejected`() {
+	fun `a new WebDAV connection without provider matching an existing one is rejected`() {
 		storedClouds(storedGenericCloud)
 
 		assertThrows<CloudAlreadyExistsException> {
@@ -57,7 +58,7 @@ class AddOrChangeCloudConnectionTest {
 	}
 
 	@Test
-	fun `a new provider connection matching one of another provider is rejected`() {
+	fun `a new WebDAV provider connection matching one of another provider is rejected`() {
 		storedClouds(webDavCloud(id = 42L, provider = WebDavProvider.KDRIVE))
 
 		assertThrows<CloudAlreadyExistsException> {
@@ -67,17 +68,51 @@ class AddOrChangeCloudConnectionTest {
 	}
 
 	@Test
-	fun `a new connection of another type matching an existing one is rejected`() {
-		whenever(cloudRepository.clouds(CloudType.S3)).thenReturn(listOf(s3Cloud(42L)))
+	fun `a new S3 connection without provider matching an existing one is rejected`() {
+		whenever(cloudRepository.clouds(CloudType.S3)).thenReturn(listOf(s3Cloud(42L, null)))
 
 		assertThrows<CloudAlreadyExistsException> {
-			AddOrChangeCloudConnection(cloudRepository, s3Cloud(null)).execute()
+			AddOrChangeCloudConnection(cloudRepository, s3Cloud(null, null)).execute()
 		}
 		verify(cloudRepository, never()).store(any())
 	}
 
 	@Test
-	fun `a changed provider connection matching another connection is rejected`() {
+	fun `a new S3 provider connection adopts the matching connection without provider`() {
+		whenever(cloudRepository.clouds(CloudType.S3)).thenReturn(listOf(s3Cloud(42L, null, secretKey = "oldSecretKey")))
+
+		AddOrChangeCloudConnection(cloudRepository, s3Cloud(null, S3Provider.WASABI, secretKey = "newSecretKey")).execute()
+
+		val stored = argumentCaptor<Cloud>()
+		verify(cloudRepository).store(stored.capture())
+		val storedS3Cloud = stored.firstValue as S3Cloud
+		assertEquals(42L, storedS3Cloud.id())
+		assertEquals(S3Provider.WASABI, storedS3Cloud.provider())
+		assertEquals("newSecretKey", storedS3Cloud.secretKey())
+	}
+
+	@Test
+	fun `a new S3 provider connection matching one of another provider is rejected`() {
+		whenever(cloudRepository.clouds(CloudType.S3)).thenReturn(listOf(s3Cloud(42L, S3Provider.MINIO)))
+
+		assertThrows<CloudAlreadyExistsException> {
+			AddOrChangeCloudConnection(cloudRepository, s3Cloud(null, S3Provider.WASABI)).execute()
+		}
+		verify(cloudRepository, never()).store(any())
+	}
+
+	@Test
+	fun `a changed S3 provider connection matching another connection is rejected`() {
+		whenever(cloudRepository.clouds(CloudType.S3)).thenReturn(listOf(s3Cloud(42L, null), s3Cloud(43L, S3Provider.WASABI)))
+
+		assertThrows<CloudAlreadyExistsException> {
+			AddOrChangeCloudConnection(cloudRepository, s3Cloud(43L, S3Provider.WASABI)).execute()
+		}
+		verify(cloudRepository, never()).store(any())
+	}
+
+	@Test
+	fun `a changed WebDAV provider connection matching another connection is rejected`() {
 		storedClouds(storedGenericCloud, webDavCloud(id = 43L, provider = WebDavProvider.KOOFR, url = "https://other.example.org"))
 
 		assertThrows<CloudAlreadyExistsException> {
@@ -109,8 +144,15 @@ class AddOrChangeCloudConnectionTest {
 		return stored.firstValue as WebDavCloud
 	}
 
-	private fun s3Cloud(id: Long?): S3Cloud {
-		return S3Cloud.aS3Cloud().withId(id).withS3Endpoint("https://s3.example.org").withS3Region("region").withS3Bucket("bucket").build()
+	private fun s3Cloud(id: Long?, provider: S3Provider?, secretKey: String = "secretKey"): S3Cloud {
+		return S3Cloud.aS3Cloud() //
+			.withId(id) //
+			.withS3Endpoint("https://s3.example.org") //
+			.withS3Region("region") //
+			.withS3Bucket("bucket") //
+			.withSecretKey(secretKey) //
+			.withProvider(provider) //
+			.build()
 	}
 
 	private fun webDavCloud(id: Long?, provider: WebDavProvider?, password: String = "password", url: String = "https://app.koofr.net/dav/Koofr"): WebDavCloud {

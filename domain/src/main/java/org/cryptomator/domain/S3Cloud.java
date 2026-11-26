@@ -11,6 +11,7 @@ public class S3Cloud implements Cloud {
 	private final String s3Endpoint;
 	private final String s3Region;
 	private final String displayName;
+	private final S3Provider provider;
 
 	private S3Cloud(Builder builder) {
 		this.id = builder.id;
@@ -20,6 +21,7 @@ public class S3Cloud implements Cloud {
 		this.s3Endpoint = builder.s3Endpoint;
 		this.s3Region = builder.s3Region;
 		this.displayName = builder.displayName;
+		this.provider = builder.provider;
 	}
 
 	public static Builder aS3Cloud() {
@@ -34,7 +36,8 @@ public class S3Cloud implements Cloud {
 				.withS3Bucket(s3Cloud.s3Bucket()) //
 				.withS3Endpoint(s3Cloud.s3Endpoint()) //
 				.withS3Region(s3Cloud.s3Region()) //
-				.withDisplayName(s3Cloud.displayName());
+				.withDisplayName(s3Cloud.displayName()) //
+				.withProvider(s3Cloud.provider());
 	}
 
 	@Override
@@ -64,6 +67,10 @@ public class S3Cloud implements Cloud {
 
 	public String displayName() {
 		return displayName;
+	}
+
+	public S3Provider provider() {
+		return provider;
 	}
 
 	@Override
@@ -130,6 +137,7 @@ public class S3Cloud implements Cloud {
 		private String s3Endpoint;
 		private String s3Region;
 		private String displayName;
+		private S3Provider provider;
 
 		private Builder() {
 		}
@@ -166,6 +174,11 @@ public class S3Cloud implements Cloud {
 
 		public Builder withDisplayName(String displayName) {
 			this.displayName = displayName;
+			return this;
+		}
+
+		public Builder withProvider(S3Provider provider) {
+			this.provider = provider;
 			return this;
 		}
 

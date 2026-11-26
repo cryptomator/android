@@ -2,12 +2,12 @@ package org.cryptomator.presentation.model
 
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.S3Cloud
-import org.cryptomator.presentation.R
+import org.cryptomator.domain.S3Provider
 
 class S3CloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	override fun name(): Int {
-		return R.string.cloud_names_s3
+		return cloudType().displayNameResource
 	}
 
 	override fun username(): String {
@@ -15,7 +15,7 @@ class S3CloudModel(cloud: Cloud) : CloudModel(cloud) {
 	}
 
 	override fun cloudType(): CloudTypeModel {
-		return CloudTypeModel.S3
+		return CloudTypeModel.valueOf(toCloud())
 	}
 
 	fun id(): Long? {
@@ -40,6 +40,10 @@ class S3CloudModel(cloud: Cloud) : CloudModel(cloud) {
 
 	fun s3Region(): String {
 		return cloud().s3Region()
+	}
+
+	fun provider(): S3Provider? {
+		return cloud().provider()
 	}
 
 	private fun cloud(): S3Cloud {

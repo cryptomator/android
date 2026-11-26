@@ -9,6 +9,7 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.base.Optional
 import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.S3Provider
 import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.util.FlavorConfig
 import org.cryptomator.util.SharedPreferencesHandler
@@ -1183,6 +1184,15 @@ class UpgradeDatabaseTest {
 			.text("WEBDAV_PROVIDER", WebDavProvider.KOOFR.name) //
 			.executeOn(db)
 
+		Sql.insertInto("CLOUD_ENTITY") //
+			.integer("_id", 17) //
+			.text("TYPE", CloudType.S3.name) //
+			.text("URL", "https://s3.eu-central-1.wasabisys.com") //
+			.text("USERNAME", "displayName") //
+			.text("ACCESS_TOKEN", "accessKey") //
+			.text("S3_PROVIDER", S3Provider.WASABI.name) //
+			.executeOn(db)
+
 		Sql.query("CLOUD_ENTITY") //
 			.where("_id", Sql.eq(15L)) //
 			.executeOn(db).use {
@@ -1192,6 +1202,7 @@ class UpgradeDatabaseTest {
 				Assert.assertThat(it.getString(it.getColumnIndex("USERNAME")), CoreMatchers.`is`("username"))
 				Assert.assertThat(it.getString(it.getColumnIndex("ACCESS_TOKEN")), CoreMatchers.`is`("accessToken"))
 				Assert.assertThat(it.isNull(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(true))
+				Assert.assertThat(it.isNull(it.getColumnIndex("S3_PROVIDER")), CoreMatchers.`is`(true))
 			}
 
 		Sql.query("CLOUD_ENTITY") //
@@ -1199,6 +1210,13 @@ class UpgradeDatabaseTest {
 			.executeOn(db).use {
 				it.moveToFirst()
 				Assert.assertThat(it.getString(it.getColumnIndex("WEBDAV_PROVIDER")), CoreMatchers.`is`(WebDavProvider.KOOFR.name))
+			}
+
+		Sql.query("CLOUD_ENTITY") //
+			.where("_id", Sql.eq(17L)) //
+			.executeOn(db).use {
+				it.moveToFirst()
+				Assert.assertThat(it.getString(it.getColumnIndex("S3_PROVIDER")), CoreMatchers.`is`(S3Provider.WASABI.name))
 			}
 
 		Sql.query("VAULT_ENTITY") //

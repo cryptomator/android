@@ -562,7 +562,7 @@ class VaultListPresenter @Inject constructor( //
 					.withCloudType(vault.cloudType) //
 					.withDialogTitle(context().getString(R.string.screen_cloud_connections_title)) //
 					.withFinishOnCloudItemClick(true) //
-					.withIncludeWebDavProviderClouds(true)
+					.withIncludeProviderClouds(true)
 			)
 		}
 	}

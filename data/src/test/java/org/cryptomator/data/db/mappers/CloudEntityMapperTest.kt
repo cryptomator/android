@@ -2,6 +2,8 @@ package org.cryptomator.data.db.mappers
 
 import org.cryptomator.domain.BoxCloud
 import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.S3Cloud
+import org.cryptomator.domain.S3Provider
 import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
@@ -53,6 +55,43 @@ class CloudEntityMapperTest {
 		assertThat(mapped.id(), `is`(42L))
 		assertThat(mapped.userId(), `is`("userId"))
 		assertThat(mapped.username(), `is`("user@example.com"))
+	}
+
+	@Test
+	fun testS3ProviderSurvivesRoundTrip() {
+		val cloud = S3Cloud.aS3Cloud() //
+			.withId(42L) //
+			.withS3Endpoint("https://s3.eu-central-1.wasabisys.com") //
+			.withS3Region("eu-central-1") //
+			.withS3Bucket("bucket") //
+			.withAccessKey("accessKey") //
+			.withSecretKey("secretKey") //
+			.withDisplayName("Wasabi") //
+			.withProvider(S3Provider.WASABI) //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as S3Cloud
+
+		assertThat(entity.type, `is`(CloudType.S3.name))
+		assertThat(entity.s3Provider, `is`("WASABI"))
+		assertThat(mapped.provider(), `is`(S3Provider.WASABI))
+	}
+
+	@Test
+	fun testS3CloudWithoutProviderSurvivesRoundTrip() {
+		val cloud = S3Cloud.aS3Cloud() //
+			.withId(42L) //
+			.withS3Endpoint("https://s3.example.org") //
+			.withS3Region("region") //
+			.withS3Bucket("bucket") //
+			.build()
+
+		val entity = mapper.toEntity(cloud)
+		val mapped = mapper.fromEntity(entity) as S3Cloud
+
+		assertThat(entity.s3Provider, `is`(nullValue()))
+		assertThat(mapped.provider(), `is`(nullValue()))
 	}
 
 	@Test

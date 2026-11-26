@@ -85,26 +85,9 @@ class CloudSettingsPresenter @Inject constructor( //
 			ActivityResultCallbacks.webDavConnectionListFinisheds(),  //
 			Intents.cloudConnectionListIntent() //
 				.withCloudType(cloudTypeModel) //
-				.withDialogTitle(effectiveTitle(cloudTypeModel)) //
+				.withDialogTitle(cloudTypeModel.connectionsTitle(context()) ?: context().getString(R.string.screen_cloud_settings_title)) //
 				.withFinishOnCloudItemClick(false)
 		)
-	}
-
-	private fun effectiveTitle(cloudTypeModel: CloudTypeModel): String {
-		when (cloudTypeModel) {
-			CloudTypeModel.ONEDRIVE -> return context().getString(R.string.screen_cloud_settings_onedrive_connections)
-			CloudTypeModel.SHAREPOINT -> return context().getString(R.string.screen_cloud_settings_sharepoint_connections)
-			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
-			CloudTypeModel.BOX -> return context().getString(R.string.screen_cloud_settings_box_connections)
-			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
-			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
-			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
-			else -> {}
-		}
-		if (cloudTypeModel.webDavProvider != null) {
-			return context().getString(R.string.screen_cloud_settings_webdav_provider_connections, context().getString(cloudTypeModel.displayNameResource))
-		}
-		return context().getString(R.string.screen_cloud_settings_title)
 	}
 
 	@Callback
@@ -141,6 +124,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aWebdavCloud())
 					it.addAll(webDavProviderClouds(clouds))
 					it.add(aS3Cloud())
+					it.addAll(s3ProviderClouds(clouds))
 					it.add(aLocalCloud())
 				}
 				.filter { cloud -> !(FlavorConfig.isLiteFlavor && excludeApiCloudsInLite(cloud.cloudType())) } //
@@ -201,6 +185,14 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		private fun aS3Cloud(): S3CloudModel {
 			return S3CloudModel(S3Cloud.aS3Cloud().build())
+		}
+
+		private fun s3ProviderClouds(clouds: List<Cloud>): List<S3CloudModel> {
+			val providersWithConnections = clouds.mapNotNull { (it as? S3Cloud)?.provider() }
+			return CloudTypeModel.entries //
+				.mapNotNull { it.s3Provider } //
+				.filter { it in providersWithConnections } //
+				.map { S3CloudModel(S3Cloud.aS3Cloud().withProvider(it).build()) }
 		}
 
 		private fun aLocalCloud(): CloudModel {

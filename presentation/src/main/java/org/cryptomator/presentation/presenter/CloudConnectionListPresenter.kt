@@ -64,14 +64,14 @@ class CloudConnectionListPresenter @Inject constructor( //
 	private val selectedCloudType = AtomicReference<CloudTypeModel>()
 	private var pendingSharepointDrives: List<SharepointCloud>? = null
 
-	private var includeWebDavProviderClouds = false
+	private var includeProviderClouds = false
 
 	fun setSelectedCloudType(selectedCloudType: CloudTypeModel) {
 		this.selectedCloudType.set(selectedCloudType)
 	}
 
-	fun setIncludeWebDavProviderClouds(includeWebDavProviderClouds: Boolean) {
-		this.includeWebDavProviderClouds = includeWebDavProviderClouds
+	fun setIncludeProviderClouds(includeProviderClouds: Boolean) {
+		this.includeProviderClouds = includeProviderClouds
 	}
 
 	fun loadCloudList() {
@@ -80,7 +80,7 @@ class CloudConnectionListPresenter @Inject constructor( //
 			.run(object : DefaultResultHandler<List<Cloud>>() {
 				override fun onSuccess(clouds: List<Cloud>) {
 					val cloudModels = clouds.map { cloud -> cloudModelMapper.toModel(cloud) }
-					view?.showCloudModels(cloudModels.filter { includeWebDavProviderClouds || it.cloudType() == selectedCloudType.get() })
+					view?.showCloudModels(cloudModels.filter { includeProviderClouds || it.cloudType() == selectedCloudType.get() })
 				}
 			})
 	}
@@ -152,13 +152,16 @@ class CloudConnectionListPresenter @Inject constructor( //
 			CloudTypeModel.BOX -> requestActivityResult(ActivityResultCallbacks.boxAuthenticationFinished(), Intents.authenticateBoxIntent())
 			CloudTypeModel.S3 -> requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.s3AddOrChangeIntent())
 			CloudTypeModel.LOCAL -> openDocumentTree()
-			else -> addWebDavProviderCloud()
+			else -> addProviderCloud()
 		}
 	}
 
-	private fun addWebDavProviderCloud() {
-		val webDavProvider = selectedCloudType.get().webDavProvider ?: throw IllegalStateException("Cloud type is not supported")
-		requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), Intents.webDavAddOrChangeIntent().withWebDavProvider(webDavProvider))
+	private fun addProviderCloud() {
+		val cloudType = selectedCloudType.get()
+		val intent = cloudType.webDavProvider?.let { Intents.webDavAddOrChangeIntent().withWebDavProvider(it) } //
+			?: cloudType.s3Provider?.let { Intents.s3AddOrChangeIntent().withS3Provider(it) } //
+			?: throw IllegalStateException("Cloud type is not supported")
+		requestActivityResult(ActivityResultCallbacks.addChangeMultiCloud(), intent)
 	}
 
 	private fun addOnedriveCloud() {
@@ -287,11 +290,11 @@ class CloudConnectionListPresenter @Inject constructor( //
 						.withWebDavCloud(cloudModel)
 				)
 			}
-			cloudModel.cloudType() == CloudTypeModel.S3 -> {
+			cloudModel is S3CloudModel -> {
 				requestActivityResult(
 					ActivityResultCallbacks.addChangeMultiCloud(),  //
 					Intents.s3AddOrChangeIntent() //
-						.withS3Cloud(cloudModel as S3CloudModel)
+						.withS3Cloud(cloudModel)
 				)
 			}
 			else -> {

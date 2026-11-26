@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 17,
-    "identityHash": "60bedabdf9c0f3aa42dc41d7203744e5",
+    "identityHash": "892fb525870e9719bd73c513775a6383",
     "entities": [
       {
         "tableName": "CLOUD_ENTITY",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `TYPE` TEXT NOT NULL, `ACCESS_TOKEN` TEXT, `ACCESS_TOKEN_CRYPTO_MODE` TEXT, `URL` TEXT, `USERNAME` TEXT, `WEBDAV_CERTIFICATE` TEXT, `WEBDAV_PROVIDER` TEXT, `S3_BUCKET` TEXT, `S3_REGION` TEXT, `S3_SECRET_KEY` TEXT, `S3_SECRET_KEY_CRYPTO_MODE` TEXT, `SHAREPOINT_DRIVE_ID` TEXT, `SHAREPOINT_DRIVE_NAME` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `TYPE` TEXT NOT NULL, `ACCESS_TOKEN` TEXT, `ACCESS_TOKEN_CRYPTO_MODE` TEXT, `URL` TEXT, `USERNAME` TEXT, `WEBDAV_CERTIFICATE` TEXT, `WEBDAV_PROVIDER` TEXT, `S3_BUCKET` TEXT, `S3_REGION` TEXT, `S3_SECRET_KEY` TEXT, `S3_SECRET_KEY_CRYPTO_MODE` TEXT, `S3_PROVIDER` TEXT, `SHAREPOINT_DRIVE_ID` TEXT, `SHAREPOINT_DRIVE_NAME` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -67,6 +67,11 @@
           {
             "fieldPath": "s3SecretKeyCryptoMode",
             "columnName": "S3_SECRET_KEY_CRYPTO_MODE",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "s3Provider",
+            "columnName": "S3_PROVIDER",
             "affinity": "TEXT"
           },
           {
@@ -414,7 +419,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '60bedabdf9c0f3aa42dc41d7203744e5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '892fb525870e9719bd73c513775a6383')"
     ]
   }
 }
