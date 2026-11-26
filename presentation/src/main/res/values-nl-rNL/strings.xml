@@ -32,6 +32,7 @@
 	<string name="error_vault_version_mismatch">Versie gespecificeerd in %1$s is anders dan %2$s</string>
 	<string name="error_vault_key_invalid">%1$s komt niet overeen met deze %2$s</string>
 	<string name="error_vault_config_loading">Algemene fout tijdens het laden van de kluisconfiguratie</string>
+	<string name="error_file_not_found_after_opening_using_3party">Het lokale bestand is niet meer aanwezig na het terugschakelen naar Cryptomator. Mogelijke wijzigingen kunnen niet teruggestuurd worden naar de cloud.</string>
 	<string name="error_no_such_bucket">Deze bucket is niet gevonden</string>
 	<string name="error_masterkey_location_not_supported">Aangepaste Masterkey locatie nog niet ondersteund</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Kan niet communiceren met de F-Droid app. Niet geïnstalleerd?</string>
@@ -283,6 +284,8 @@
 	<string name="screen_settings_security_label">Beveiligingstips</string>
 	<string name="screen_settings_section_version">Versie</string>
 	<string name="screen_settings_advanced_settings">Geavanceerde opties</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Een oplossing om Microsoft-bestanden te openen</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Open bestanden in Microsoft-apps met schrijfrechten</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ontgrendelen versnellen</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Download kluisconfiguratie op de achtergrond wanneer gevraagd wordt om het wachtwoord of biometrische authenticatie in te voeren</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Ontgrendeld houden</string>
@@ -402,6 +405,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Aandacht</string>
 	<string name="dialog_debug_mode_positive_button">Inschakelen</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Vanwege een bug in Microsoft-apps moet het te bewerken bestand met deze apps worden gedeeld in een openbare mediamap op uw apparaat. Nadat Cryptomator is hervat, wordt het openbaar toegankelijke bestand opnieuw verwijderd, maar Cryptomator kan intussen geen invloed uitoefenen op wat er met dit bestand is gebeurd. Als de wijzigingen niet in de kluis kunnen worden opgeslagen, blijft het bestand daar totdat Cryptomator een paar uur later opnieuw wordt gestart. Zorg ervoor dat je op de hoogte bent van dit gedrag wanneer je deze optie activeert. Dit geldt alleen voor Microsoft-bestandstypen.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Deze instelling is een beveiligingsfunctie en voorkomt dat andere apps gebruikers misleiden en hen dingen laten doen die ze niet willen doen.\n\nDoor deze instelling uit te schakelen, bevestigt u dat u <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">op de hoogte bent van de risico\'s</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Aandacht</string>
 	<string name="dialog_disable_app_obscured_positive_button">Uitschakelen</string>
