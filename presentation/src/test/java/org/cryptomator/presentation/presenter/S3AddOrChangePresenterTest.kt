@@ -178,6 +178,15 @@ class S3AddOrChangePresenterTest {
 	}
 
 	@Test
+	fun testProviderInputWithOtherAmazonRegionInChinaIsCheckedWithTheEndpointOfThatPartition() {
+		inTest.setS3Provider(S3Provider.AMAZON_S3)
+
+		checkingProviderInput { inTest.checkProviderInput("accessKey", "secretKey", "vaults", "", "", S3Provider.AMAZON_S3.choices.size, "cn-northwest-1", "Amazon S3") }
+
+		verify(view).onCheckUserInputSucceeded("encryptedAccessKey", "encryptedSecretKey", "vaults", "https://s3.cn-northwest-1.amazonaws.com.cn", "cn-northwest-1", null, "Amazon S3")
+	}
+
+	@Test
 	fun testProviderInputWithAccountIdIsCheckedWithTheEndpointOfTheAccountAndTheFixedRegion() {
 		inTest.setS3Provider(S3Provider.CLOUDFLARE_R2)
 

@@ -38,6 +38,17 @@ class S3ProviderTest {
 	}
 
 	@Test
+	fun testAmazonRegionsOfOtherPartitionsUseTheDomainOfTheirPartition() {
+		assertEquals("https://s3.cn-north-1.amazonaws.com.cn", S3Provider.AMAZON_S3.endpoint("", "", "cn-north-1"))
+		assertEquals("https://s3.cn-northwest-1.amazonaws.com.cn", S3Provider.AMAZON_S3.endpoint("", "", "cn-northwest-1"))
+		assertEquals("https://s3.eusc-de-east-1.amazonaws.eu", S3Provider.AMAZON_S3.endpoint("", "", "eusc-de-east-1"))
+		assertEquals("https://s3.eu-central-1.amazonaws.com", S3Provider.AMAZON_S3.endpoint("", "", "eu-central-1"))
+		assertEquals("https://s3.us-gov-west-1.amazonaws.com", S3Provider.AMAZON_S3.endpoint("", "", "us-gov-west-1"))
+		assertEquals("cn-north-1", S3Provider.AMAZON_S3.region("cn-north-1"))
+		assertTrue(S3Provider.AMAZON_S3.choices.containsAll(listOf("cn-north-1", "cn-northwest-1")))
+	}
+
+	@Test
 	fun testChosenEndpointNameIsInsertedIntoTheEndpointWithAFixedRegion() {
 		assertEquals("https://us-ord-10.linodeobjects.com", S3Provider.AKAMAI.endpoint("", "", "us-ord-10"))
 		assertEquals("https://ewr1.vultrobjects.com", S3Provider.VULTR.endpoint("", "", "ewr1"))
