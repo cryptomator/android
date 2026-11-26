@@ -331,6 +331,7 @@ abstract class BaseActivity<VB : ViewBinding>(val bindingFactory: (LayoutInflate
 		return activity().findViewById(R.id.locations_recycler_view)
 			?: activity().findViewById(R.id.rl_choose_cloud_service)
 			?: activity().findViewById(R.id.coordinator_layout)
+			// e.g. the cloud settings screens, which ask for the local network permission
 			?: activity().findViewById(android.R.id.content)
 	}
 

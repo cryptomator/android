@@ -7,6 +7,7 @@ import org.cryptomator.domain.OnedriveCloud
 import org.cryptomator.domain.PCloud
 import org.cryptomator.domain.S3Cloud
 import org.cryptomator.domain.SharepointCloud
+import org.cryptomator.domain.SmbCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.di.PerView
 import org.cryptomator.domain.exception.FatalBackendException
@@ -26,6 +27,7 @@ import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.SharepointCloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudSettingsView
@@ -40,6 +42,7 @@ class CloudSettingsPresenter @Inject constructor( //
 	private val cloudModelMapper: CloudModelMapper,  //
 	exceptionMappings: ExceptionHandlers
 ) : Presenter<CloudSettingsView>(exceptionMappings) {
+
 
 	fun loadClouds() {
 		getAllCloudsUseCase.run(CloudsSubscriber())
@@ -97,6 +100,7 @@ class CloudSettingsPresenter @Inject constructor( //
 			CloudTypeModel.PCLOUD -> return context().getString(R.string.screen_cloud_settings_pcloud_connections)
 			CloudTypeModel.BOX -> return context().getString(R.string.screen_cloud_settings_box_connections)
 			CloudTypeModel.WEBDAV -> return context().getString(R.string.screen_cloud_settings_webdav_connections)
+			CloudTypeModel.SMB -> return context().getString(R.string.screen_cloud_settings_smb_connections)
 			CloudTypeModel.S3 -> return context().getString(R.string.screen_cloud_settings_s3_connections)
 			CloudTypeModel.LOCAL -> return context().getString(R.string.screen_cloud_settings_local_storage_locations)
 			else -> {}
@@ -141,6 +145,7 @@ class CloudSettingsPresenter @Inject constructor( //
 					it.add(aWebdavCloud())
 					it.addAll(webDavProviderClouds(clouds))
 					it.add(aS3Cloud())
+					it.add(aSmbCloud())
 					it.add(aLocalCloud())
 				}
 				.filter { cloud -> !(FlavorConfig.isLiteFlavor && excludeApiCloudsInLite(cloud.cloudType())) } //
@@ -189,6 +194,10 @@ class CloudSettingsPresenter @Inject constructor( //
 
 		private fun aWebdavCloud(): WebDavCloudModel {
 			return WebDavCloudModel(WebDavCloud.aWebDavCloudCloud().build())
+		}
+
+		private fun aSmbCloud(): SmbCloudModel {
+			return SmbCloudModel(SmbCloud.aSmbCloud().build())
 		}
 
 		private fun webDavProviderClouds(clouds: List<Cloud>): List<WebDavCloudModel> {

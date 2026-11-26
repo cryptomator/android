@@ -13,6 +13,7 @@ import org.cryptomator.presentation.model.OnedriveCloudModel
 import org.cryptomator.presentation.model.PCloudModel
 import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.SharepointCloudModel
+import org.cryptomator.presentation.model.SmbCloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import javax.inject.Inject
 
@@ -35,6 +36,7 @@ class CloudModelMapper @Inject constructor() : ModelMapper<CloudModel, Cloud>() 
 			CloudType.S3 -> S3CloudModel(domainObject)
 			CloudType.CRYPTO -> CryptoCloudModel(domainObject)
 			CloudType.WEBDAV -> WebDavCloudModel(domainObject)
+			CloudType.SMB -> SmbCloudModel(domainObject)
 			null -> throw IllegalStateException("The type of the object shouldn't be null")
 		}
 	}
