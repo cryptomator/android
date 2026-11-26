@@ -292,7 +292,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Соединения с SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">Подключений: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Локальные места хранения</string>
