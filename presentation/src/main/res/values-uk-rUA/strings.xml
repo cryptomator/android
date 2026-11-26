@@ -32,6 +32,7 @@
 	<string name="error_vault_version_mismatch">Версія вказана у %1$s відрізняється від %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не збігається з цим %2$s</string>
 	<string name="error_vault_config_loading">Під час завантаження конфігурації сховища сталася загальна помилка</string>
+	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після повернення до Cryptomator. Можливі зміни не вдасться синхронізувати з хмарним сховищем.</string>
 	<string name="error_no_such_bucket">Такого S3-кошика не існує</string>
 	<string name="error_masterkey_location_not_supported">Власне розташування Masterkey ще не підтримується</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв’язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
@@ -285,6 +286,8 @@
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Обхідний спосіб відкриття файлів Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в програмах Microsoft із дозволом на редагування</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажувати конфігурацію сховища у фоновому режимі, поки очікується введення пароля або біометрична автентифікація</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
@@ -293,7 +296,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">З\'єднань: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
