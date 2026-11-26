@@ -219,11 +219,30 @@
 	<string name="screen_s3_settings_bucket_label">Наявний кошик</string>
 	<string name="screen_s3_settings_endpoint_label">Кінцева адреса з іменем хосту, портом і шляхом до кошика</string>
 	<string name="screen_s3_settings_region_label">Регіон</string>
+	<string name="screen_s3_settings_other_choice">Інші…</string>
+	<string name="screen_s3_settings_example">наприклад, %1$s</string>
+	<string name="screen_s3_settings_server_label">Адреса сервера</string>
+	<string name="screen_s3_settings_account_id_label">ID облікового запису</string>
+	<string name="screen_s3_settings_endpoint_name_label">Назва кінцевої точки (endpoint)</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Поле «Відображуване ім’я» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Поле «Ключ доступу» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Поле «Секретний ключ» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Поле «Наявний кошик» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Поля «Кінцева точка» або «Регіон» не можуть бути порожніми</string>
+	<string name="screen_s3_settings_msg_server_not_empty">Поле «Адреса сервера» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_server_is_invalid">Адреса сервера недійсна</string>
+	<string name="screen_s3_settings_msg_region_not_empty">Поле «Регіон» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_region_is_invalid">Регіон недійсний</string>
+	<string name="screen_s3_settings_msg_account_id_not_empty">Поле «ID облікового запису» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_account_id_is_invalid">ID облікового запису недійсний</string>
+	<string name="screen_s3_settings_msg_endpoint_name_not_empty">Поле «Назва кінцевої точки» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_endpoint_name_is_invalid">Назва кінцевої точки недійсна</string>
+	<string name="screen_s3_settings_akamai_hint">Назву кінцевої точки (endpoint) можна знайти в параметрах вашого сховища (bucket) — це частина адреси перед «.linodeobjects.com».</string>
+	<string name="screen_s3_settings_backblaze_b2_hint">Створіть ключ застосунку (Application Key) і використовуйте його keyID як ключ доступу (Access Key), а applicationKey — як секретний ключ (Secret Key). Головний ключ застосунку (Master Application Key) не підтримується.</string>
+	<string name="screen_s3_settings_cloudflare_r2_hint">Створіть API-токен R2, щоб отримати ключ доступу (Access Key) і секретний ключ (Secret Key). Для сховищ (buckets), прив’язаних до певної юрисдикції, натомість потрібне підключення S3.</string>
+	<string name="screen_s3_settings_google_cloud_storage_hint">Створіть ключ HMAC у розділі Cloud Storage &gt; Settings &gt; Interoperability і використовуйте його access ID як ключ доступу (Access Key).</string>
+	<string name="screen_s3_settings_storj_hint">Створіть облікові дані S3 у консолі Storj, щоб отримати ключ доступу (Access Key) і секретний ключ (Secret Key).</string>
+	<string name="screen_s3_settings_vultr_hint">Назву кінцевої точки (endpoint) можна знайти в імені хоста вашого Object Storage — це частина адреси перед «.vultrobjects.com».</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Поле «Назва сховища» не може бути порожнім.</string>
 	<string name="screen_enter_vault_name_vault_label">Назва сховища</string>
@@ -296,6 +315,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
+	<string name="screen_cloud_settings_provider_connections">З’єднань: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
@@ -406,6 +426,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в програмах Microsoft файл, який потрібно відредагувати, має бути наданий цим програмам у спільному доступі в загальнодоступній папці мультимедійних файлів на вашому пристрої. Після відновлення роботи Cryptomator загальнодоступний файл видаляється, однак Cryptomator не може контролювати, що відбувалося з ним протягом цього часу. Якщо зміни у файлі не вдасться зберегти у сховищі, він залишатиметься на пристрої, доки Cryptomator не буде запущено знову через кілька годин. Перш ніж активувати цю опцію, переконайтеся, що ви розумієте особливості такої поведінки. Це стосується лише файлів форматів Microsoft.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>
