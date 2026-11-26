@@ -82,10 +82,10 @@ import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
 import org.cryptomator.presentation.ui.dialog.FileNameDialog
 import org.cryptomator.presentation.util.ContentResolverUtil
+import org.cryptomator.presentation.util.ExternalEditingSteps
 import org.cryptomator.presentation.util.FileNameBlacklist
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.FolderNameBlacklist
-import org.cryptomator.presentation.util.MicrosoftWorkaroundSaves
 import org.cryptomator.presentation.util.ShareFileHelper
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AddExistingVaultWorkflow
@@ -123,7 +123,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
 	private val prepareMicrosoftWorkaroundCopyUseCase: PrepareMicrosoftWorkaroundCopyUseCase, //
 	private val importMicrosoftWorkaroundCopyUseCase: ImportMicrosoftWorkaroundCopyUseCase, //
-	private val microsoftWorkaroundSaves: MicrosoftWorkaroundSaves, //
+	private val externalEditingSteps: ExternalEditingSteps, //
 	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
 	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase, //
 	private val openVaultFilesUseCase: OpenVaultFilesUseCase, //
@@ -199,8 +199,6 @@ class BrowseFilesPresenter @Inject constructor( //
 
 	@JvmField
 	var openWritableFileNotification: OpenWritableFileNotification? = null
-
-	private var isStartingExternalEditing = false
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -765,14 +763,15 @@ class BrowseFilesPresenter @Inject constructor( //
 	 * workaround, see [viewFileWithMicrosoftWorkaround].
 	 */
 	private fun viewExternalFile(cloudFile: CloudFileModel, uri: Uri) {
-		// one start runs at a time and the browser tracks one editor, so an open that finishes while another editor
-		// starts or is open is dropped. So is any open while a Microsoft app's copy is still being saved, whichever
-		// document it is of. Reopening that document would get it as it was before the save, and the end of the save
-		// would unpin the base of the new editor.
-		if (isStartingExternalEditing || microsoftWorkaroundSaves.isRunning || uriToOpenedFile != null) {
+		// the browser tracks one editor, so an open that finishes while another editor is open is dropped. So is any open
+		// while a step of another one is still running, in whichever browser and of whichever document. An open that
+		// fails or finds its browser left unpins the base, and so does the end of the save of a Microsoft app's copy,
+		// which would unpin the base of a new editor of that document. Reopening the document during the save would also
+		// get it as it was before.
+		if (externalEditingSteps.isRunning || uriToOpenedFile != null) {
 			return
 		}
-		isStartingExternalEditing = true
+		externalEditingSteps.started()
 		val writable = licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())
 		// the editor is launched once the base is pinned, so that its saves are based on the version it opened
 		startExternalEditingUseCase //
@@ -789,13 +788,15 @@ class BrowseFilesPresenter @Inject constructor( //
 						permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 					}
 					launchEditor(cloudFile, uri, uri, permissionFlags)
-					isStartingExternalEditing = false
 				}
 
 				override fun onError(e: Throwable) {
-					isStartingExternalEditing = false
 					unpinBase(uri)
 					super.onError(e)
+				}
+
+				override fun onFinished() {
+					externalEditingSteps.finished()
 				}
 			})
 	}
@@ -806,6 +807,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	 * once the app returns, see [openFileFinished].
 	 */
 	private fun viewFileWithMicrosoftWorkaround(cloudFile: CloudFileModel, document: Uri, copy: File) {
+		externalEditingSteps.started()
 		prepareMicrosoftWorkaroundCopyUseCase //
 			.withDocument(document) //
 			.andTarget(copy) //
@@ -824,7 +826,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 
 				override fun onFinished() {
-					isStartingExternalEditing = false
+					externalEditingSteps.finished()
 				}
 			})
 	}
@@ -892,7 +894,7 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	private fun importMicrosoftWorkaroundCopy(session: MicrosoftWorkaroundSession, document: Uri) {
-		microsoftWorkaroundSaves.started()
+		externalEditingSteps.started()
 		importMicrosoftWorkaroundCopyUseCase //
 			.withCopy(session.copy) //
 			.andHashWhenOpened(session.hashWhenOpened) //
@@ -908,7 +910,7 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 
 				override fun onFinished() {
-					microsoftWorkaroundSaves.finished()
+					externalEditingSteps.finished()
 					// the import no longer writes the document, so the base isn't kept pinned for it any longer
 					unpinBase(document)
 				}

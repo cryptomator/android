@@ -27,9 +27,9 @@ import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.util.ContentResolverUtil;
+import org.cryptomator.presentation.util.ExternalEditingSteps;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.util.HubAuthRedirects;
-import org.cryptomator.presentation.util.MicrosoftWorkaroundSaves;
 
 import javax.inject.Singleton;
 
@@ -83,6 +83,6 @@ public interface ApplicationComponent {
 
 	HubAuthRedirects hubAuthRedirects();
 
-	MicrosoftWorkaroundSaves microsoftWorkaroundSaves();
+	ExternalEditingSteps externalEditingSteps();
 
 }

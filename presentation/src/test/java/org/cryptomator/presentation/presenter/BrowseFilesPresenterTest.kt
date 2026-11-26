@@ -1,7 +1,9 @@
 package org.cryptomator.presentation.presenter
 
 import android.app.Activity
+import android.content.res.Resources
 import android.net.Uri
+import android.os.StrictMode
 import android.provider.DocumentsContract
 import android.widget.Toast
 import org.cryptomator.data.cloud.crypto.CryptoCloud
@@ -27,6 +29,7 @@ import org.cryptomator.domain.usecases.cloud.StartExternalEditingUseCase
 import org.cryptomator.domain.usecases.vault.AssertUnlockedUseCase
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
+import org.cryptomator.presentation.licensing.LicenseEnforcer
 import org.cryptomator.presentation.model.CloudFileModel
 import org.cryptomator.presentation.model.CloudFolderModel
 import org.cryptomator.presentation.model.ProgressStateModel
@@ -34,7 +37,9 @@ import org.cryptomator.presentation.model.mappers.CloudFolderModelMapper
 import org.cryptomator.presentation.model.mappers.ProgressStateModelMapper
 import org.cryptomator.presentation.service.OpenWritableFileNotification
 import org.cryptomator.presentation.ui.activity.view.BrowseFilesView
-import org.cryptomator.presentation.util.MicrosoftWorkaroundSaves
+import org.cryptomator.presentation.util.ExternalEditingSteps
+import org.cryptomator.presentation.util.FileUtil
+import org.cryptomator.util.SharedPreferencesHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
@@ -77,15 +82,19 @@ class BrowseFilesPresenterTest {
 	private val endExternalEditingUseCase: EndExternalEditingUseCase = mock()
 	private val unpin: EndExternalEditingUseCase.Launcher = mock()
 	private val prepareMicrosoftWorkaroundCopyUseCase: PrepareMicrosoftWorkaroundCopyUseCase = mock()
+	private val prepare: PrepareMicrosoftWorkaroundCopyUseCase.Launcher = mock()
 	private val importMicrosoftWorkaroundCopyUseCase: ImportMicrosoftWorkaroundCopyUseCase = mock()
 	private val import: ImportMicrosoftWorkaroundCopyUseCase.Launcher = mock()
-	private val microsoftWorkaroundSaves = MicrosoftWorkaroundSaves()
+	private val externalEditingSteps = ExternalEditingSteps()
 	private val document: Uri = mock()
 	private val openVaultFilesUseCase: OpenVaultFilesUseCase = mock()
 	private val openVaultFiles: OpenVaultFilesUseCase.Launcher = mock()
 	private val startExternalEditingUseCase: StartExternalEditingUseCase = mock()
 	private val progressStateModelMapper: ProgressStateModelMapper = mock()
 	private val exceptionMappings: ExceptionHandlers = mock()
+	private val fileUtil: FileUtil = mock()
+	private val sharedPreferencesHandler: SharedPreferencesHandler = mock()
+	private val licenseEnforcer: LicenseEnforcer = mock()
 
 	@TempDir
 	lateinit var directory: File
@@ -103,6 +112,8 @@ class BrowseFilesPresenterTest {
 		val assertion: AssertUnlockedUseCase.Launcher = mock()
 		whenever(assertUnlockedUseCase.withVault(any())).thenReturn(assertion)
 		whenever(endExternalEditingUseCase.withDocumentId(any())).thenReturn(unpin)
+		whenever(prepareMicrosoftWorkaroundCopyUseCase.withDocument(any())).thenReturn(prepare)
+		whenever(prepare.andTarget(any())).thenReturn(prepare)
 		whenever(importMicrosoftWorkaroundCopyUseCase.withCopy(any())).thenReturn(import)
 		whenever(import.andHashWhenOpened(any())).thenReturn(import)
 		whenever(import.andDocument(any())).thenReturn(import)
@@ -122,7 +133,7 @@ class BrowseFilesPresenterTest {
 		renameFileUseCase = mock(),
 		renameFolderUseCase = mock(),
 		assertUnlockedUseCase = assertUnlockedUseCase,
-		fileUtil = mock(),
+		fileUtil = fileUtil,
 		fileNameBlacklist = mock(),
 		folderNameBlacklist = mock(),
 		moveFilesUseCase = mock(),
@@ -136,7 +147,7 @@ class BrowseFilesPresenterTest {
 		endExternalEditingUseCase = endExternalEditingUseCase,
 		prepareMicrosoftWorkaroundCopyUseCase = prepareMicrosoftWorkaroundCopyUseCase,
 		importMicrosoftWorkaroundCopyUseCase = importMicrosoftWorkaroundCopyUseCase,
-		microsoftWorkaroundSaves = microsoftWorkaroundSaves,
+		externalEditingSteps = externalEditingSteps,
 		listVaultFolderUseCase = listVaultFolderUseCase,
 		ensureVaultThumbnailsUseCase = mock(),
 		vaultDocumentRepository = vaultDocumentRepository,
@@ -152,8 +163,8 @@ class BrowseFilesPresenterTest {
 		progressStateModelMapper = progressStateModelMapper,
 		progressModelMapper = mock(),
 		shareFileHelper = mock(),
-		sharedPreferencesHandler = mock(),
-		licenseEnforcer = mock(),
+		sharedPreferencesHandler = sharedPreferencesHandler,
+		licenseEnforcer = licenseEnforcer,
 		exceptionMappings = exceptionMappings
 	).also { it.view = view }
 
@@ -326,7 +337,7 @@ class BrowseFilesPresenterTest {
 	fun `a file can be opened in an editor again after pinning the base of another one failed`() {
 		val pinning = startOpeningInEditor()
 
-		withDocumentIds { pinning.onError(RuntimeException()) }
+		withDocumentIds { fail(pinning) }
 		openInEditor("Budget.xlsx")
 
 		verify(startExternalEditingUseCase, times(2)).withDocumentId("1:4")
@@ -337,11 +348,92 @@ class BrowseFilesPresenterTest {
 		val pinning = startOpeningInEditor()
 		inTest.pause()
 
-		withDocumentIds { pinning.onSuccess(null) }
+		withDocumentIds { succeed(pinning, null) }
 		openInEditor("Budget.xlsx")
 
 		verify(unpin).run(any())
 		verify(startExternalEditingUseCase, times(2)).withDocumentId("1:4")
+	}
+
+	@Test
+	fun `a browser that was recreated while the base of a file is pinned doesn't open a file in an editor, whose base the first one would unpin`() {
+		val pinning = startOpeningInEditor()
+		inTest.pause()
+		val recreated = browser()
+
+		openInEditor("Budget.xlsx", recreated)
+
+		verify(startExternalEditingUseCase).withDocumentId("1:4")
+
+		withDocumentIds { succeed(pinning, null) }
+		openInEditor("Budget.xlsx", recreated)
+
+		inOrder(unpin, startExternalEditingUseCase) {
+			verify(unpin).run(any())
+			verify(startExternalEditingUseCase).withDocumentId("1:4")
+		}
+	}
+
+	@Test
+	fun `a browser that was recreated while a Microsoft workaround copy is made doesn't open a file in an editor either`() {
+		val copy = microsoftWorkaroundCopy()
+		useMicrosoftWorkaround(copy)
+		val pinning = startOpeningInEditor()
+		withDocumentIds { succeed(pinning, null) }
+		val preparing = argumentCaptor<ResultHandler<ByteArray>>().apply { verify(prepare).run(capture()) }.firstValue
+		inTest.pause()
+		val recreated = browser()
+
+		openInEditor("Budget.xlsx", recreated)
+
+		verify(startExternalEditingUseCase).withDocumentId("1:4")
+
+		withFileUris { withDocumentIds { succeed(preparing, byteArrayOf(1)) } }
+		openInEditor("Budget.xlsx", recreated)
+
+		// the browser that was left neither launches the editor nor keeps the copy
+		assertFalse(copy.parentFile!!.exists())
+		inOrder(unpin, startExternalEditingUseCase) {
+			verify(unpin).run(any())
+			verify(startExternalEditingUseCase).withDocumentId("1:4")
+		}
+	}
+
+	private fun useMicrosoftWorkaround(copy: File) {
+		val resources: Resources = mock {
+			on { getStringArray(R.array.microsoft_extensions) } doReturn arrayOf("xlsx")
+		}
+		whenever(activity.resources).thenReturn(resources)
+		whenever(licenseEnforcer.hasWriteAccessForVault(anyOrNull())).thenReturn(true)
+		whenever(sharedPreferencesHandler.microsoftWorkaround()).thenReturn(true)
+		whenever(fileUtil.microsoftWorkaroundCopyFor(any())).thenReturn(copy)
+	}
+
+	/**
+	 * Lets a Microsoft workaround copy be handed over as a file URI.
+	 */
+	private fun withFileUris(block: () -> Unit) {
+		Mockito.mockStatic(StrictMode::class.java).use {
+			Mockito.mockConstruction(StrictMode.VmPolicy.Builder::class.java).use {
+				Mockito.mockStatic(Uri::class.java).use { uris ->
+					uris.`when`<Uri> { Uri.fromFile(any()) }.thenReturn(mock())
+					block()
+				}
+			}
+		}
+	}
+
+	/**
+	 * As a use case reports its result.
+	 */
+	private fun <T> succeed(handler: ResultHandler<T>, result: T) {
+		handler.onSuccess(result)
+		handler.onFinished()
+	}
+
+	private fun fail(handler: ResultHandler<*>) {
+		handler.onError(RuntimeException())
+		handler.onFinished()
 	}
 
 	/**
