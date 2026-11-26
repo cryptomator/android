@@ -291,7 +291,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">conexões do OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Conexões com SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">conexões da WebDAV</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">%1$s conexões</string>
 	<string name="screen_cloud_settings_pcloud_connections">conexões do pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Conexões Box</string>
 	<string name="screen_cloud_settings_s3_connections">Conexões do S3</string>
