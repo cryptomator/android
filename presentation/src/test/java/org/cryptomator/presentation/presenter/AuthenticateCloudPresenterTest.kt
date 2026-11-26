@@ -3,13 +3,18 @@ package org.cryptomator.presentation.presenter
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import org.cryptomator.domain.S3Cloud
+import org.cryptomator.domain.S3Provider
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
 import org.cryptomator.domain.exception.authentication.LocalNetworkPermissionMissingException
 import org.cryptomator.domain.exception.authentication.WebDavServerNotFoundException
+import org.cryptomator.domain.exception.authentication.WrongCredentialsException
 import org.cryptomator.domain.usecases.cloud.AddOrChangeCloudConnectionUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudsUseCase
 import org.cryptomator.domain.usecases.cloud.GetUsernameUseCase
@@ -17,6 +22,7 @@ import org.cryptomator.domain.usecases.cloud.ReauthenticateBoxUseCase
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.intent.AuthenticateCloudIntent
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.WebDavCloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.AuthenticateCloudView
@@ -27,6 +33,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
@@ -34,6 +41,7 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.io.Serializable
 
 class AuthenticateCloudPresenterTest {
 
@@ -126,6 +134,33 @@ class AuthenticateCloudPresenterTest {
 
 			verify(view).showMessage(eq(R.string.error_server_not_found), anyVararg())
 			verify(view).finish()
+		}
+	}
+
+	@Test
+	fun testWrongCredentialsOfAProviderCloudAreHandledByTheS3Strategy() {
+		val providerCloud = S3Cloud.aS3Cloud() //
+			.withId(2L) //
+			.withS3Endpoint("https://s3.eu-central-1.wasabisys.com") //
+			.withS3Region("eu-central-1") //
+			.withS3Bucket("vaults") //
+			.withDisplayName("Wasabi") //
+			.withProvider(S3Provider.WASABI) //
+			.build()
+		val providerCloudModel = S3CloudModel(providerCloud)
+		whenever(intent.cloud()).thenReturn(providerCloudModel)
+		whenever(intent.error()).thenReturn(WrongCredentialsException(providerCloud))
+
+		Mockito.mockStatic(Toast::class.java).use { toast ->
+			toast.`when`<Toast> { Toast.makeText(anyOrNull(), any<CharSequence>(), any()) }.thenReturn(mock<Toast>())
+			Mockito.mockConstruction(Intent::class.java).use { intents ->
+				inTest.resumed()
+
+				val s3Setup = intents.constructed().single()
+				verify(s3Setup).putExtra("s3Cloud", providerCloudModel as Serializable)
+				verify(activity).startActivity(s3Setup)
+				verify(view, never()).finish()
+			}
 		}
 	}
 

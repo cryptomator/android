@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import org.cryptomator.presentation.R
 import org.cryptomator.presentation.databinding.ItemCloudSettingBinding
 import org.cryptomator.presentation.model.CloudModel
-import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.ui.adapter.CloudSettingsAdapter.CloudSettingViewHolder
 import javax.inject.Inject
 
@@ -42,22 +41,14 @@ constructor(private val context: Context) : RecyclerViewBaseAdapter<CloudModel, 
 			binding.cloudImage.setImageResource(cloudModel.cloudType().cloudImageResource)
 			binding.cloudUsername.visibility = View.GONE
 
-			when (cloudModel.cloudType()) {
-				CloudTypeModel.ONEDRIVE -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_onedrive_connections)
-				CloudTypeModel.SHAREPOINT -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_sharepoint_connections)
-				CloudTypeModel.PCLOUD -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_pcloud_connections)
-				CloudTypeModel.BOX -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_box_connections)
-				CloudTypeModel.S3 -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_s3_connections)
-				CloudTypeModel.WEBDAV -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_connections)
-				CloudTypeModel.LOCAL -> binding.cloudName.text = context.getString(R.string.screen_cloud_settings_local_storage_locations)
-				else -> if (cloudModel.cloudType().webDavProvider != null) {
-					binding.cloudName.text = context.getString(R.string.screen_cloud_settings_webdav_provider_connections, context.getString(cloudModel.name()))
-				} else {
-					binding.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
-					if (isAlreadyLoggedIn(cloudModel)) {
-						binding.cloudUsername.text = cloudModel.username()
-						binding.cloudUsername.visibility = View.VISIBLE
-					}
+			val connectionsTitle = cloudModel.cloudType().connectionsTitle(context)
+			if (connectionsTitle != null) {
+				binding.cloudName.text = connectionsTitle
+			} else {
+				binding.cloudName.text = getCloudNameText(isAlreadyLoggedIn(cloudModel), cloudModel)
+				if (isAlreadyLoggedIn(cloudModel)) {
+					binding.cloudUsername.text = cloudModel.username()
+					binding.cloudUsername.visibility = View.VISIBLE
 				}
 			}
 

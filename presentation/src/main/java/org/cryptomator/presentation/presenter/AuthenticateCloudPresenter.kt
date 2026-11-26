@@ -511,7 +511,7 @@ class AuthenticateCloudPresenter @Inject constructor( //
 		private var authenticationStarted = false
 
 		override fun supports(cloud: CloudModel): Boolean {
-			return cloud.cloudType() == CloudTypeModel.S3
+			return cloud is S3CloudModel
 		}
 
 		override fun resumed(intent: AuthenticateCloudIntent) {

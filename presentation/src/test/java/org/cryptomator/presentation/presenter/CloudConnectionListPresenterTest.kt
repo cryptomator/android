@@ -1,8 +1,13 @@
 package org.cryptomator.presentation.presenter
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import org.cryptomator.domain.Cloud
 import org.cryptomator.domain.CloudType
+import org.cryptomator.domain.S3Cloud
+import org.cryptomator.domain.S3Provider
 import org.cryptomator.domain.SharepointCloud
 import org.cryptomator.domain.WebDavCloud
 import org.cryptomator.domain.WebDavProvider
@@ -22,6 +27,7 @@ import org.cryptomator.presentation.exception.ExceptionHandlers
 import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.CloudTypeModel
 import org.cryptomator.presentation.model.ProgressModel
+import org.cryptomator.presentation.model.S3CloudModel
 import org.cryptomator.presentation.model.mappers.CloudModelMapper
 import org.cryptomator.presentation.ui.activity.view.CloudConnectionListView
 import org.cryptomator.presentation.ui.dialog.ChooseSharepointDriveDialog
@@ -69,6 +75,9 @@ class CloudConnectionListPresenterTest {
 	private val genericWebDavCloud = webDavCloud(1L, null)
 	private val koofrCloud = webDavCloud(2L, WebDavProvider.KOOFR)
 	private val nextcloudCloud = webDavCloud(3L, WebDavProvider.NEXTCLOUD)
+	private val genericS3Cloud = s3Cloud(4L, null)
+	private val wasabiCloud = s3Cloud(5L, S3Provider.WASABI)
+	private val hetznerCloud = s3Cloud(6L, S3Provider.HETZNER)
 
 	private lateinit var inTest: CloudConnectionListPresenter
 
@@ -205,9 +214,52 @@ class CloudConnectionListPresenterTest {
 	@Test
 	fun testWebDavListIncludingProviderCloudsShowsEveryWebDavConnection() {
 		inTest.setSelectedCloudType(CloudTypeModel.WEBDAV)
-		inTest.setIncludeWebDavProviderClouds(true)
+		inTest.setIncludeProviderClouds(true)
 
 		assertThat(shownCloudsAfterLoading(), `is`(listOf<Cloud>(genericWebDavCloud, koofrCloud, nextcloudCloud)))
+	}
+
+	@Test
+	fun testS3ProviderListShowsOnlyConnectionsOfThatProvider() {
+		inTest.setSelectedCloudType(CloudTypeModel.WASABI)
+
+		assertThat(shownCloudsAfterLoading(listOf(genericS3Cloud, wasabiCloud, hetznerCloud)), `is`(listOf<Cloud>(wasabiCloud)))
+		verify(getCloudsUseCase).withCloudType(CloudType.S3)
+	}
+
+	@Test
+	fun testS3ListShowsOnlyConnectionsWithoutProvider() {
+		inTest.setSelectedCloudType(CloudTypeModel.S3)
+
+		assertThat(shownCloudsAfterLoading(listOf(genericS3Cloud, wasabiCloud, hetznerCloud)), `is`(listOf<Cloud>(genericS3Cloud)))
+	}
+
+	@Test
+	fun testAddingToAnS3ProviderListOpensTheSetupOfThatProvider() {
+		val activity = activityOfView()
+		inTest.setSelectedCloudType(CloudTypeModel.WASABI)
+
+		Mockito.mockConstruction(Intent::class.java).use { intents ->
+			inTest.onAddConnectionClicked()
+
+			val s3Setup = intents.constructed().single()
+			verify(s3Setup).putExtra("s3Provider", S3Provider.WASABI as Serializable)
+			verify(activity).startActivityForResult(eq(s3Setup), any())
+		}
+	}
+
+	@Test
+	fun testChangingAnS3ProviderConnectionOpensItsSetup() {
+		val activity = activityOfView()
+		val wasabiCloudModel = S3CloudModel(wasabiCloud)
+
+		Mockito.mockConstruction(Intent::class.java).use { intents ->
+			inTest.onChangeCloudClicked(wasabiCloudModel)
+
+			val s3Setup = intents.constructed().single()
+			verify(s3Setup).putExtra("s3Cloud", wasabiCloudModel as Serializable)
+			verify(activity).startActivityForResult(eq(s3Setup), any())
+		}
 	}
 
 	@Test
@@ -225,6 +277,24 @@ class CloudConnectionListPresenterTest {
 		val shown = argumentCaptor<List<CloudModel>>()
 		verify(view).showCloudModels(shown.capture())
 		return shown.firstValue.map { it.toCloud() }
+	}
+
+	private fun activityOfView(): Activity {
+		val activity = mock<Activity>()
+		whenever(view.activity()).thenReturn(activity)
+		whenever(view.context()).thenReturn(mock<Context>())
+		return activity
+	}
+
+	private fun s3Cloud(id: Long, provider: S3Provider?): S3Cloud {
+		return S3Cloud.aS3Cloud() //
+			.withId(id) //
+			.withS3Endpoint("https://s3.example.org") //
+			.withS3Region("region") //
+			.withS3Bucket("bucket-$id") //
+			.withDisplayName("alice") //
+			.withProvider(provider) //
+			.build()
 	}
 
 	private fun webDavCloud(id: Long, provider: WebDavProvider?): WebDavCloud {

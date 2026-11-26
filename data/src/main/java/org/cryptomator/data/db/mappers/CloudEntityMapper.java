@@ -10,6 +10,7 @@ import org.cryptomator.domain.LocalStorageCloud;
 import org.cryptomator.domain.OnedriveCloud;
 import org.cryptomator.domain.PCloud;
 import org.cryptomator.domain.S3Cloud;
+import org.cryptomator.domain.S3Provider;
 import org.cryptomator.domain.SharepointCloud;
 import org.cryptomator.domain.WebDavCloud;
 import org.cryptomator.domain.WebDavProvider;
@@ -90,6 +91,7 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 						.withSecretKey(entity.getS3SecretKey()) //
 						.withS3Bucket(entity.getS3Bucket()) //
 						.withDisplayName(entity.getUsername()) //
+						.withProvider(entity.getS3Provider() == null ? null : S3Provider.valueOf(entity.getS3Provider())) //
 						.build();
 			case WEBDAV:
 				return aWebDavCloudCloud() //
@@ -148,14 +150,16 @@ public class CloudEntityMapper extends EntityMapper<CloudEntity, Cloud> {
 				result.setS3SecretKey(((S3Cloud) domainObject).secretKey());
 				result.setS3Bucket(((S3Cloud) domainObject).s3Bucket());
 				result.setUsername(((S3Cloud) domainObject).displayName());
+				S3Provider s3Provider = ((S3Cloud) domainObject).provider();
+				result.setS3Provider(s3Provider == null ? null : s3Provider.name());
 				break;
 			case WEBDAV:
 				result.setAccessToken(((WebDavCloud) domainObject).password());
 				result.setUrl(((WebDavCloud) domainObject).url());
 				result.setUsername(((WebDavCloud) domainObject).username());
 				result.setWebdavCertificate(((WebDavCloud) domainObject).certificate());
-				WebDavProvider provider = ((WebDavCloud) domainObject).provider();
-				result.setWebdavProvider(provider == null ? null : provider.name());
+				WebDavProvider webDavProvider = ((WebDavCloud) domainObject).provider();
+				result.setWebdavProvider(webDavProvider == null ? null : webDavProvider.name());
 				break;
 			default:
 				throw new IllegalStateException("Unhandled enum constant " + domainObject.type());

@@ -142,6 +142,21 @@
 	<string name="cloud_names_web_de" translatable="false">WEB.DE Online-Speicher</string>
 	<string name="cloud_names_woelkli" translatable="false">wölkli</string>
 	<string name="cloud_names_yandex_disk" translatable="false">Yandex Disk</string>
+	<string name="cloud_names_akamai" translatable="false">Akamai Object Storage</string>
+	<string name="cloud_names_amazon_s3" translatable="false">Amazon S3</string>
+	<string name="cloud_names_backblaze_b2" translatable="false">Backblaze B2</string>
+	<string name="cloud_names_cloudflare_r2" translatable="false">Cloudflare R2</string>
+	<string name="cloud_names_digitalocean_spaces" translatable="false">DigitalOcean Spaces</string>
+	<string name="cloud_names_exoscale" translatable="false">Exoscale Object Storage</string>
+	<string name="cloud_names_google_cloud_storage" translatable="false">Google Cloud Storage</string>
+	<string name="cloud_names_hetzner" translatable="false">Hetzner Object Storage</string>
+	<string name="cloud_names_ionos" translatable="false">IONOS Object Storage</string>
+	<string name="cloud_names_minio" translatable="false">MinIO</string>
+	<string name="cloud_names_ovhcloud" translatable="false">OVHcloud Object Storage</string>
+	<string name="cloud_names_scaleway" translatable="false">Scaleway Object Storage</string>
+	<string name="cloud_names_storj" translatable="false">Storj</string>
+	<string name="cloud_names_vultr" translatable="false">Vultr Object Storage</string>
+	<string name="cloud_names_wasabi" translatable="false">Wasabi</string>
 
 	<!-- # permission -->
 
@@ -306,6 +321,11 @@
 	<string name="screen_s3_settings_bucket_label">Existing Bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Endpoint</string>
 	<string name="screen_s3_settings_region_label">Region</string>
+	<string name="screen_s3_settings_other_choice">Other…</string>
+	<string name="screen_s3_settings_example">e.g. %1$s</string>
+	<string name="screen_s3_settings_server_label">Server Address</string>
+	<string name="screen_s3_settings_account_id_label">Account ID</string>
+	<string name="screen_s3_settings_endpoint_name_label">Endpoint Name</string>
 	<string name="screen_s3_settings_amazon_s3_text" translatable="false">Amazon S3</string>
 
 	<string name="screen_s3_settings_msg_display_name_not_empty">Display Name can\'t be empty</string>
@@ -313,6 +333,20 @@
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Secret Key can\'t be empty</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket can\'t be empty</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Endpoint or Region can\'t be empty</string>
+	<string name="screen_s3_settings_msg_server_not_empty">Server Address can\'t be empty</string>
+	<string name="screen_s3_settings_msg_server_is_invalid">Server Address is invalid</string>
+	<string name="screen_s3_settings_msg_region_not_empty">Region can\'t be empty</string>
+	<string name="screen_s3_settings_msg_region_is_invalid">Region is invalid</string>
+	<string name="screen_s3_settings_msg_account_id_not_empty">Account ID can\'t be empty</string>
+	<string name="screen_s3_settings_msg_account_id_is_invalid">Account ID is invalid</string>
+	<string name="screen_s3_settings_msg_endpoint_name_not_empty">Endpoint Name can\'t be empty</string>
+	<string name="screen_s3_settings_msg_endpoint_name_is_invalid">Endpoint Name is invalid</string>
+	<string name="screen_s3_settings_akamai_hint">You find the endpoint name in the details of your bucket, in front of .linodeobjects.com.</string>
+	<string name="screen_s3_settings_backblaze_b2_hint">Create an application key and use its keyID as access key and its applicationKey as secret key. The master application key doesn\'t work.</string>
+	<string name="screen_s3_settings_cloudflare_r2_hint">Create an R2 API token to get the access key and secret key. Buckets with a jurisdiction need an S3 connection instead.</string>
+	<string name="screen_s3_settings_google_cloud_storage_hint">Create an HMAC key under Cloud Storage &gt; Settings &gt; Interoperability and use its access ID as access key.</string>
+	<string name="screen_s3_settings_storj_hint">Create S3 credentials in the Storj console to get the access key and secret key.</string>
+	<string name="screen_s3_settings_vultr_hint">You find the endpoint name in the hostname of your Object Storage, in front of .vultrobjects.com.</string>
 
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_title" translatable="false">@string/screen_vault_list_action_create_new_vault</string>
@@ -413,7 +447,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive connections</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint connections</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV connections</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connections</string>
+	<string name="screen_cloud_settings_provider_connections">%1$s connections</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud connections</string>
 	<string name="screen_cloud_settings_box_connections">Box connections</string>
 	<string name="screen_cloud_settings_s3_connections">S3 connections</string>

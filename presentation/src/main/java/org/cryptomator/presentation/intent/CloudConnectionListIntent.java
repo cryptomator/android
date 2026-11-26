@@ -15,6 +15,6 @@ public interface CloudConnectionListIntent {
 	Boolean finishOnCloudItemClick();
 
 	@Optional
-	Boolean includeWebDavProviderClouds();
+	Boolean includeProviderClouds();
 
 }

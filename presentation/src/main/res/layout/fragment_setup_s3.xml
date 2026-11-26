@@ -79,6 +79,7 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/endpoint_layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
@@ -94,6 +95,58 @@
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/server_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/server_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_s3_settings_server_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:inputType="textUri"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/account_id_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/account_id_edit_text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/screen_s3_settings_account_id_label"
+				android:imeOptions="flagNoPersonalizedLearning"
+				android:maxLines="1"
+				android:singleLine="true" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/choice_layout"
+			style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone">
+
+			<com.google.android.material.textfield.MaterialAutoCompleteTextView
+				android:id="@+id/choice_dropdown"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="none"
+				android:saveEnabled="false" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/region_layout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
@@ -107,6 +160,13 @@
 				android:singleLine="true" />
 
 		</com.google.android.material.textfield.TextInputLayout>
+
+		<TextView
+			android:id="@+id/hint_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:visibility="gone" />
 
 		<Button
 			android:id="@+id/create_cloud_button"

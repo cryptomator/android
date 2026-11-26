@@ -16,6 +16,7 @@ import org.cryptomator.presentation.model.CloudModel
 import org.cryptomator.presentation.model.ProgressModel
 import org.cryptomator.presentation.model.ProgressStateModel
 import org.cryptomator.presentation.ui.activity.view.WebDavAddOrChangeView
+import org.cryptomator.presentation.util.ServerUrl
 import org.cryptomator.presentation.workflow.ActivityResult
 import org.cryptomator.presentation.workflow.AuthenticationExceptionHandler
 import org.cryptomator.presentation.workflow.PermissionsResult
@@ -40,7 +41,7 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 
 	fun checkProviderInput(server: String, spaceId: String, variant: WebDavProviderVariant?, username: String, password: String) {
 		val provider = webDavProvider ?: throw IllegalStateException("No WebDAV provider set")
-		val serverUrl = serverUrl(server)
+		val serverUrl = ServerUrl.parse(server)
 		val statusMessage = when {
 			provider.requiresServer && server.isEmpty() -> getString(R.string.screen_webdav_settings_msg_server_must_not_be_empty)
 			provider.requiresSpaceId && spaceId.isEmpty() -> getString(R.string.screen_webdav_settings_msg_space_id_must_not_be_empty)
@@ -53,11 +54,6 @@ class WebDavAddOrChangePresenter @Inject internal constructor( //
 		} else {
 			checkUserInput(provider.url(serverUrl.orEmpty(), spaceId, variant), username, password, null, null)
 		}
-	}
-
-	private fun serverUrl(server: String): String? {
-		val serverWithScheme = if (server.contains("://")) server else "https://$server"
-		return serverWithScheme.toHttpUrlOrNull()?.takeIf { it.query == null && it.fragment == null && it.username.isEmpty() && it.password.isEmpty() }?.toString()
 	}
 
 	fun checkUserInput(urlPort: String, username: String, password: String, cloudId: Long?, certificate: String?) {

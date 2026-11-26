@@ -62,7 +62,7 @@ class WebDavAddOrChangeFragment : BaseFragment<FragmentSetupWebdavBinding>(Fragm
 	}
 
 	private fun showProviderContent(webDavProvider: WebDavProvider) {
-		val hintResource = CloudTypeModel.valueOf(webDavProvider).webDavHintResource
+		val hintResource = CloudTypeModel.valueOf(webDavProvider).providerHintResource
 		if (hintResource != 0) {
 			binding.hintText.setText(hintResource)
 			binding.hintText.visibility = View.VISIBLE
