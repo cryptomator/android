@@ -290,7 +290,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive kapcsolatok</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint kapcsolatok</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV kapcsolat</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">%1$s kapcsolat</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud kapcsolatok</string>
 	<string name="screen_cloud_settings_box_connections">Box kapcsolatok</string>
 	<string name="screen_cloud_settings_s3_connections">S3 kapcsolatok</string>
