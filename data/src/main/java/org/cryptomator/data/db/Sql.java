@@ -249,7 +249,11 @@ class Sql {
 		}
 
 		public SqlAddColumnBuilder addTextColumn(String name) {
-			return new SqlAddColumnBuilder(table, name);
+			return new SqlAddColumnBuilder(table, name, TEXT);
+		}
+
+		public SqlAddColumnBuilder addBoolColumn(String name) {
+			return new SqlAddColumnBuilder(table, name, BOOLEAN);
 		}
 	}
 
@@ -272,14 +276,16 @@ class Sql {
 
 		private final String table;
 		private final String column;
+		private final SqlCreateTableBuilder.ColumnType type;
 
-		private SqlAddColumnBuilder(String table, String column) {
+		private SqlAddColumnBuilder(String table, String column, SqlCreateTableBuilder.ColumnType type) {
 			this.table = table;
 			this.column = column;
+			this.type = type;
 		}
 
 		public void executeOn(SupportSQLiteDatabase db) {
-			db.execSQL(format("ALTER TABLE \"%s\" ADD COLUMN \"%s\" TEXT", table, column));
+			db.execSQL(format("ALTER TABLE \"%s\" ADD COLUMN \"%s\" %s", table, column, type.getText()));
 		}
 	}
 

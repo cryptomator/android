@@ -27,6 +27,7 @@ import org.cryptomator.presentation.di.module.ApplicationModule;
 import org.cryptomator.presentation.di.module.ThreadModule;
 import org.cryptomator.presentation.service.ProductPricesCache;
 import org.cryptomator.presentation.util.ContentResolverUtil;
+import org.cryptomator.presentation.util.ExternalEditingSteps;
 import org.cryptomator.presentation.util.FileUtil;
 import org.cryptomator.presentation.util.HubAuthRedirects;
 
@@ -81,5 +82,7 @@ public interface ApplicationComponent {
 	ProductPricesCache productPricesCache();
 
 	HubAuthRedirects hubAuthRedirects();
+
+	ExternalEditingSteps externalEditingSteps();
 
 }

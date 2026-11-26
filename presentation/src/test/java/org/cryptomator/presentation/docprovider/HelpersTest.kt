@@ -157,7 +157,7 @@ class HelpersTest {
 	fun `a Hub vault is writable with the paid Hub license its unlock found, without one only with a license of the app`() {
 		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
 		givenLicense()
-		// like a vault the repository loads, which doesn't know about Hub
+		// like a vault the repository loads that was never unlocked as a Hub vault
 		val stored = vaultPath().vault
 		val paid = Vault.aCopyOf(stored).withHubVault(true).withHubPaidLicense(true).build()
 		val unpaid = Vault.aCopyOf(stored).withHubVault(true).withHubPaidLicense(false).build()
@@ -167,6 +167,20 @@ class HelpersTest {
 		assertFalse(isWritable(stored, licenseEnforcer, locked))
 		givenLicense(token = "token")
 		assertTrue(isWritable(stored, licenseEnforcer) { unpaid })
+	}
+
+	@Test
+	fun `a locked Hub vault is writable if its last unlock found a paid Hub license, e g for an editor that saves after the lock`() {
+		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
+		givenLicense()
+		// like a Hub vault the repository loads, which knows what its last unlock found
+		val storedPaid = Vault.aCopyOf(vaultPath().vault).withHubVault(true).withHubPaidLicense(true).build()
+		val storedUnpaid = Vault.aCopyOf(storedPaid).withHubPaidLicense(false).build()
+
+		assertTrue(isWritable(storedPaid, licenseEnforcer, locked))
+		assertFalse(isWritable(storedUnpaid, licenseEnforcer, locked))
+		// once unlocked, what that unlock found counts
+		assertFalse(isWritable(storedPaid, licenseEnforcer) { storedUnpaid })
 	}
 
 	@Test

@@ -117,10 +117,13 @@ class MasterkeyCryptoCloudProvider(
 			if (cancelledFlag.get()) {
 				throw CancellationException()
 			}
+			// a vault that unlocks with a password isn't a Hub vault, even if it was stored as one when it was last unlocked
 			val vault = Vault.aCopyOf(token.vault) //
 				.withUnlocked(true) //
 				.withFormat(vaultFormat) //
 				.withShorteningThreshold(shorteningThreshold) //
+				.withHubVault(false) //
+				.withHubPaidLicense(false) //
 				.build()
 			cryptoCloudContentRepositoryFactory.registerCryptor(vault, cryptor)
 			vault

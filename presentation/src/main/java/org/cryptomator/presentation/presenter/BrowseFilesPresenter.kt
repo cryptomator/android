@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
+import android.os.StrictMode
 import android.provider.DocumentsContract
 import android.widget.Toast
 import org.cryptomator.domain.Cloud
@@ -35,10 +36,13 @@ import org.cryptomator.domain.usecases.cloud.EndExternalEditingUseCase
 import org.cryptomator.domain.usecases.cloud.EnsureVaultThumbnailsUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListRecursiveUseCase
 import org.cryptomator.domain.usecases.cloud.GetCloudListUseCase
+import org.cryptomator.domain.usecases.cloud.ImportMicrosoftWorkaroundCopyUseCase
 import org.cryptomator.domain.usecases.cloud.ListVaultFolderUseCase
+import org.cryptomator.domain.usecases.cloud.MicrosoftWorkaroundCopies
 import org.cryptomator.domain.usecases.cloud.MoveFilesUseCase
 import org.cryptomator.domain.usecases.cloud.MoveFoldersUseCase
 import org.cryptomator.domain.usecases.cloud.OpenVaultFilesUseCase
+import org.cryptomator.domain.usecases.cloud.PrepareMicrosoftWorkaroundCopyUseCase
 import org.cryptomator.domain.usecases.cloud.Progress
 import org.cryptomator.domain.usecases.cloud.RenameFileUseCase
 import org.cryptomator.domain.usecases.cloud.RenameFolderUseCase
@@ -78,6 +82,7 @@ import org.cryptomator.presentation.ui.dialog.ChangeFailedDialog
 import org.cryptomator.presentation.ui.dialog.ExportCloudFilesDialog
 import org.cryptomator.presentation.ui.dialog.FileNameDialog
 import org.cryptomator.presentation.util.ContentResolverUtil
+import org.cryptomator.presentation.util.ExternalEditingSteps
 import org.cryptomator.presentation.util.FileNameBlacklist
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.util.FolderNameBlacklist
@@ -92,6 +97,8 @@ import org.cryptomator.util.SharedPreferencesHandler
 import org.cryptomator.util.file.FileCacheUtils
 import org.cryptomator.util.file.MimeType
 import org.cryptomator.util.file.MimeTypes
+import java.io.File
+import java.io.FileNotFoundException
 import java.util.function.Supplier
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -114,6 +121,9 @@ class BrowseFilesPresenter @Inject constructor( //
 	private val moveFoldersUseCase: MoveFoldersUseCase,  //
 	private val getCloudListRecursiveUseCase: GetCloudListRecursiveUseCase,  //
 	private val getDecryptedCloudForVaultUseCase: GetDecryptedCloudForVaultUseCase, //
+	private val prepareMicrosoftWorkaroundCopyUseCase: PrepareMicrosoftWorkaroundCopyUseCase, //
+	private val importMicrosoftWorkaroundCopyUseCase: ImportMicrosoftWorkaroundCopyUseCase, //
+	private val externalEditingSteps: ExternalEditingSteps, //
 	private val prepareDownloadFilesUseCase: PrepareDownloadFilesUseCase, //
 	private val resumeVaultUploadsUseCase: ResumeVaultUploadsUseCase, //
 	private val openVaultFilesUseCase: OpenVaultFilesUseCase, //
@@ -176,14 +186,19 @@ class BrowseFilesPresenter @Inject constructor( //
 	@InstanceState
 	var uriToOpenedFile: Uri? = null
 
+	/**
+	 * Set while a Microsoft app edits a copy of [uriToOpenedFile] in shared storage, see [viewFileWithMicrosoftWorkaround].
+	 */
+	@JvmField
+	@InstanceState
+	var microsoftWorkaroundSession: MicrosoftWorkaroundSession? = null
+
 	@JvmField
 	@InstanceState
 	var finishWhenEditingEnds = false
 
 	@JvmField
 	var openWritableFileNotification: OpenWritableFileNotification? = null
-
-	private var isStartingExternalEditing = false
 
 	override fun workflows(): Iterable<Workflow<*>> {
 		return listOf(addExistingVaultWorkflow, createNewVaultWorkflow)
@@ -744,46 +759,35 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	/**
-	 * The other app saves through the documents provider, which uploads each save.
+	 * The other app saves through the documents provider, which uploads each save, unless it gets a copy for the Microsoft
+	 * workaround, see [viewFileWithMicrosoftWorkaround].
 	 */
 	private fun viewExternalFile(cloudFile: CloudFileModel, uri: Uri) {
-		// one start runs at a time and the browser tracks one editor, so an open that finishes while another editor
-		// starts or is open is dropped
-		if (isStartingExternalEditing || uriToOpenedFile != null) {
+		// the browser tracks one editor, so an open that finishes while another editor is open is dropped. So is any open
+		// while a step of another one is still running, in whichever browser and of whichever document. An open that
+		// fails or finds its browser left unpins the base, and so does the end of the save of a Microsoft app's copy,
+		// which would unpin the base of a new editor of that document. Reopening the document during the save would also
+		// get it as it was before.
+		if (externalEditingSteps.isRunning || uriToOpenedFile != null) {
 			return
 		}
-		isStartingExternalEditing = true
-		val viewFileIntent = Intent(Intent.ACTION_VIEW)
-		viewFileIntent.setDataAndType(uri, mimeTypes.fromFilename(cloudFile.name)?.toString())
-		var permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-		if (licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())) {
-			permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-		}
-		viewFileIntent.addFlags(permissionFlags)
+		externalEditingSteps.started()
+		val writable = licenseEnforcer.hasWriteAccessForVault(view?.folder?.vault())
 		// the editor is launched once the base is pinned, so that its saves are based on the version it opened
 		startExternalEditingUseCase //
 			.withDocumentId(DocumentsContract.getDocumentId(uri)) //
 			.run(object : DefaultResultHandler<Void?>() {
 				override fun onSuccess(result: Void?) {
-					// a browser that was left meanwhile has saved its state already, so a recreated one wouldn't
-					// know of this editor
-					if (isPaused || activity().isFinishing || activity().isDestroyed) {
-						unpinBase(uri)
+					val microsoftWorkaroundCopy = if (useMicrosoftWorkaround(cloudFile, writable)) fileUtil.microsoftWorkaroundCopyFor(cloudFile.name) else null
+					if (microsoftWorkaroundCopy != null) {
+						viewFileWithMicrosoftWorkaround(cloudFile, uri, microsoftWorkaroundCopy)
 						return
 					}
-					uriToOpenedFile = uri
-					if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
-						openWritableFileNotification = OpenWritableFileNotification(context())
-						openWritableFileNotification?.show()
-						val cryptomatorApp = activity().application as CryptomatorApp
-						cryptomatorApp.suspendLock()
+					var permissionFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+					if (writable) {
+						permissionFlags = permissionFlags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 					}
-					try {
-						requestActivityResult(ActivityResultCallbacks.openFileFinished(), viewFileIntent)
-					} catch (e: ActivityNotFoundException) {
-						endExternalEditing()
-						view?.showFileTypeNotSupportedDialog(cloudFile)
-					}
+					launchEditor(cloudFile, uri, uri, permissionFlags)
 				}
 
 				override fun onError(e: Throwable) {
@@ -792,9 +796,68 @@ class BrowseFilesPresenter @Inject constructor( //
 				}
 
 				override fun onFinished() {
-					isStartingExternalEditing = false
+					externalEditingSteps.finished()
 				}
 			})
+	}
+
+	/**
+	 * Microsoft apps can't save a document they got as a content URI, so they get the file URI of [copy] in shared storage
+	 * instead, made from [document] first. The provider doesn't see their saves then, so the copy is saved to the document
+	 * once the app returns, see [openFileFinished].
+	 */
+	private fun viewFileWithMicrosoftWorkaround(cloudFile: CloudFileModel, document: Uri, copy: File) {
+		externalEditingSteps.started()
+		prepareMicrosoftWorkaroundCopyUseCase //
+			.withDocument(document) //
+			.andTarget(copy) //
+			.run(object : DefaultResultHandler<ByteArray>() {
+				override fun onSuccess(hash: ByteArray) {
+					microsoftWorkaroundSession = MicrosoftWorkaroundSession(copy, hash)
+					// under the default VM policy, a file URI in an intent throws FileUriExposedException. The app needs that
+					// policy for nothing else.
+					StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().build())
+					launchEditor(cloudFile, document, Uri.fromFile(copy), 0)
+				}
+
+				override fun onError(e: Throwable) {
+					unpinBase(document)
+					super.onError(e)
+				}
+
+				override fun onFinished() {
+					externalEditingSteps.finished()
+				}
+			})
+	}
+
+	/**
+	 * Launches the editor of [document] with [launched], which is the document itself or a copy of it. A browser that was
+	 * left meanwhile ends the editing instead, before it began.
+	 */
+	private fun launchEditor(cloudFile: CloudFileModel, document: Uri, launched: Uri, permissionFlags: Int) {
+		if (isPaused || activity().isFinishing || activity().isDestroyed) {
+			// such a browser has saved its state already, so a recreated one wouldn't know of this editor
+			discardMicrosoftWorkaroundSession()
+			unpinBase(document)
+			return
+		}
+		val viewFileIntent = Intent(Intent.ACTION_VIEW)
+		viewFileIntent.setDataAndType(launched, mimeTypes.fromFilename(cloudFile.name)?.toString())
+		viewFileIntent.addFlags(permissionFlags)
+		uriToOpenedFile = document
+		if (sharedPreferencesHandler.keepUnlockedWhileEditing()) {
+			openWritableFileNotification = OpenWritableFileNotification(context())
+			openWritableFileNotification?.show()
+			val cryptomatorApp = activity().application as CryptomatorApp
+			cryptomatorApp.suspendLock()
+		}
+		try {
+			requestActivityResult(ActivityResultCallbacks.openFileFinished(), viewFileIntent)
+		} catch (e: ActivityNotFoundException) {
+			endExternalEditing()
+			view?.showFileTypeNotSupportedDialog(cloudFile)
+		}
 	}
 
 	/**
@@ -811,9 +874,47 @@ class BrowseFilesPresenter @Inject constructor( //
 		return false
 	}
 
+	private fun useMicrosoftWorkaround(cloudFile: CloudFileModel, writable: Boolean): Boolean {
+		return writable //
+				&& sharedPreferencesHandler.microsoftWorkaround() //
+				&& context().resources.getStringArray(R.array.microsoft_extensions).contains(FileUtil.getExtension(cloudFile.name)?.lowercase())
+	}
+
 	@Callback(dispatchResultOkOnly = false)
 	fun openFileFinished(result: ActivityResult) {
+		val document = uriToOpenedFile
+		val session = microsoftWorkaroundSession
+		if (document != null && session != null) {
+			// cleared so that endExternalEditing neither deletes the copy nor unpins the base, which the import still needs
+			uriToOpenedFile = null
+			microsoftWorkaroundSession = null
+			importMicrosoftWorkaroundCopy(session, document)
+		}
 		endExternalEditing()
+	}
+
+	private fun importMicrosoftWorkaroundCopy(session: MicrosoftWorkaroundSession, document: Uri) {
+		externalEditingSteps.started()
+		importMicrosoftWorkaroundCopyUseCase //
+			.withCopy(session.copy) //
+			.andHashWhenOpened(session.hashWhenOpened) //
+			.andDocument(document) //
+			.run(object : DefaultResultHandler<Void?>() {
+				override fun onError(e: Throwable) {
+					if (e is FileNotFoundException) {
+						Timber.tag("BrowseFilesPresenter").e(e, "Failed to read back changes, file isn't present anymore")
+						Toast.makeText(context(), R.string.error_file_not_found_after_opening_using_3party, Toast.LENGTH_LONG).show()
+					} else {
+						super.onError(e)
+					}
+				}
+
+				override fun onFinished() {
+					externalEditingSteps.finished()
+					// the import no longer writes the document, so the base isn't kept pinned for it any longer
+					unpinBase(document)
+				}
+			})
 	}
 
 	/**
@@ -836,6 +937,7 @@ class BrowseFilesPresenter @Inject constructor( //
 		// the editor's access ends with its task; revoking it would also take the access other apps were given through Files
 		uriToOpenedFile?.let(::unpinBase)
 		uriToOpenedFile = null
+		discardMicrosoftWorkaroundSession()
 		if (finishWhenEditingEnds) {
 			finishWhenEditingEnds = false
 			activity().finish()
@@ -843,8 +945,17 @@ class BrowseFilesPresenter @Inject constructor( //
 	}
 
 	/**
+	 * Deletes the copy a Microsoft app got, if any, since nothing saves what the app writes to it from now on.
+	 */
+	private fun discardMicrosoftWorkaroundSession() {
+		microsoftWorkaroundSession?.let { MicrosoftWorkaroundCopies.delete(it.copy) }
+		microsoftWorkaroundSession = null
+	}
+
+	/**
 	 * Ends what [StartExternalEditingUseCase] began for [uri]. Unlike [endExternalEditing], it leaves the notification and
-	 * lock suspension alone, which an open that didn't launch an editor never took.
+	 * lock suspension alone, which an open that didn't launch an editor never took and the save of a Microsoft workaround
+	 * copy no longer holds.
 	 */
 	private fun unpinBase(uri: Uri) {
 		endExternalEditingUseCase //
@@ -1451,7 +1562,9 @@ class BrowseFilesPresenter @Inject constructor( //
 		)
 		// listVaultFolderUseCase, ensureVaultThumbnailsUseCase and resumeVaultUploadsUseCase are left running when
 		// navigating, since unsubscribing would skip the onFinished their SerialRequests waits for.
-		// startExternalEditingUseCase is left running, too, since editing has to end also if the browser was left.
+		// startExternalEditingUseCase is left running, too, since editing has to end also if the browser was left. So are
+		// prepareMicrosoftWorkaroundCopyUseCase and importMicrosoftWorkaroundCopyUseCase, which have to clean up or save
+		// the copy in shared storage.
 		this.authenticationExceptionHandler = authenticationExceptionHandler
 	}
 }

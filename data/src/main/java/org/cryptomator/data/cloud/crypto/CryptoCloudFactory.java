@@ -45,7 +45,7 @@ public class CryptoCloudFactory {
 
 	/**
 	 * Takes what the unlock found out about {@code vault} from the vault as it was unlocked, e.g. whether a Hub vault has a
-	 * paid license, since a stored vault doesn't know it.
+	 * paid license, since a stored vault only knows what its last unlock found.
 	 */
 	public Cloud decryptedViewOf(Vault vault) throws BackendException {
 		Vault.Builder decryptedVault = aCopyOf(vault);

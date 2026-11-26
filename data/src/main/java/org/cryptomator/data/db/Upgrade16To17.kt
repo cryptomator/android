@@ -11,6 +11,7 @@ internal class Upgrade16To17 @Inject constructor() : DatabaseUpgrade(16, 17) {
 		db.beginTransaction()
 		try {
 			addWebDavProviderToCloudEntity(db)
+			addHubPaidLicenseToVaultEntity(db)
 			db.setTransactionSuccessful()
 		} finally {
 			db.endTransaction()
@@ -19,5 +20,9 @@ internal class Upgrade16To17 @Inject constructor() : DatabaseUpgrade(16, 17) {
 
 	private fun addWebDavProviderToCloudEntity(db: SupportSQLiteDatabase) {
 		Sql.alterTable("CLOUD_ENTITY").addTextColumn("WEBDAV_PROVIDER").executeOn(db)
+	}
+
+	private fun addHubPaidLicenseToVaultEntity(db: SupportSQLiteDatabase) {
+		Sql.alterTable("VAULT_ENTITY").addBoolColumn("HUB_PAID_LICENSE").executeOn(db)
 	}
 }

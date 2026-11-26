@@ -350,9 +350,9 @@ class SharedFilesPresenter @Inject constructor( //
 	}
 
 	/**
-	 * Asks with the vault of the chosen [location], which, unlike the [selectedVault] from the vault list, knows what its
-	 * unlock found out, e.g. whether a Hub vault has a paid license. Without a location yet, it is asked again once the
-	 * unlock found the root.
+	 * Asks with the vault of the chosen [location], which knows what this unlock found out, e.g. whether a Hub vault has a
+	 * paid license. The [selectedVault] from the vault list only knows what was stored before this unlock. Without a
+	 * location yet, it is asked again once the unlock found the root.
 	 */
 	private fun ensureWriteAccess(): Boolean {
 		val vault = location?.vault() ?: return true

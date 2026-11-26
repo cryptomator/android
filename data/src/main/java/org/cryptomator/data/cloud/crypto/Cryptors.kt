@@ -23,8 +23,8 @@ abstract class Cryptors internal constructor() {
 	abstract fun replace(old: Vault, updated: Vault, cryptor: Cryptor)
 
 	/**
-	 * [vault] as it was unlocked, or null if it is locked. Only the unlocked vault knows what the unlock found out, e.g.
-	 * whether a Hub vault has a paid license.
+	 * [vault] as it was unlocked, or null if it is locked. Only the unlocked vault knows what this unlock found out, e.g.
+	 * whether a Hub vault has a paid license; a stored vault knows what its last unlock found.
 	 */
 	abstract fun unlockedVault(vault: Vault): Vault?
 

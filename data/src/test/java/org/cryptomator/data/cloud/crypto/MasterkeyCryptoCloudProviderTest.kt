@@ -191,6 +191,30 @@ internal class MasterkeyCryptoCloudProviderTest {
 	}
 
 	@Test
+	@DisplayName("unlock(\"foo\") of a vault stored as a Hub vault with a paid license")
+	@Throws(BackendException::class, IOException::class)
+	fun testUnlockVaultThatWasAHubVault() {
+		val cloudType: CloudType = mock()
+
+		whenever(cloud.type()).thenReturn(cloudType)
+		whenever(vault.cloud).thenReturn(cloud)
+		whenever(vault.cloudType).thenReturn(cloudType)
+		whenever(vault.format).thenReturn(8)
+		whenever(vault.id).thenReturn(25L)
+		whenever(vault.name).thenReturn("foo")
+		whenever(vault.path).thenReturn("/foo")
+		whenever(vault.isHubVault).thenReturn(true)
+		whenever(vault.hasHubPaidLicense()).thenReturn(true)
+
+		val unlockToken = UnlockTokenImpl(vault, secureRandom, masterkeyV7.toByteArray(StandardCharsets.UTF_8))
+		val unverifiedVaultConfig = UnverifiedVaultConfig(vaultConfig, URI.create(String.format("%s:%s", CryptoConstants.MASTERKEY_SCHEME, CryptoConstants.MASTERKEY_FILE_NAME)), CryptoConstants.MAX_VAULT_VERSION)
+		val result: Vault = inTest.unlock(unlockToken, Optional.of(unverifiedVaultConfig), "foo") { false }
+
+		MatcherAssert.assertThat(result.isHubVault, CoreMatchers.`is`(false))
+		MatcherAssert.assertThat(result.hasHubPaidLicense(), CoreMatchers.`is`(false))
+	}
+
+	@Test
 	@DisplayName("unlockLegacy(\"foo\")")
 	@Throws(BackendException::class, IOException::class)
 	fun testUnlockLegacyVault() {
