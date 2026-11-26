@@ -289,7 +289,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive 연결</string>
 	<string name="screen_cloud_settings_sharepoint_connections">SharePoint 연결</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV 연결</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">연결 %1$s개</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud 연결</string>
 	<string name="screen_cloud_settings_box_connections">Box 연결</string>
 	<string name="screen_cloud_settings_s3_connections">S3 연결</string>
