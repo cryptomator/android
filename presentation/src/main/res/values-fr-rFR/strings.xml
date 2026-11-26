@@ -290,7 +290,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">Connexions OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Connexions SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Connexions WebDAV</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">%1$s connexions</string>
 	<string name="screen_cloud_settings_pcloud_connections">Connexions pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Connexions Box™</string>
 	<string name="screen_cloud_settings_s3_connections">Connexions S3</string>
