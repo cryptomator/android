@@ -286,7 +286,6 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
-	<string name="screen_cloud_settings_webdav_provider_connections">%1$s pripojení</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
 	<string name="screen_cloud_settings_local_storage_locations">Umiestnenia lokálnych úložísk</string>
