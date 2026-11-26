@@ -32,6 +32,7 @@
 	<string name="error_vault_version_mismatch">Версия, указанная в %1$s, отличается от %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не совпадает с %2$s</string>
 	<string name="error_vault_config_loading">Общая ошибка при загрузке конфигурации хранилища</string>
+	<string name="error_file_not_found_after_opening_using_3party">Локального файла больше нет после переключения на Cryptomator. Возможные изменения не могут быть переданы обратно в облако.</string>
 	<string name="error_no_such_bucket">Нет такого бакета</string>
 	<string name="error_masterkey_location_not_supported">Произвольное расположение Masterkey пока не поддерживается</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не удалось связаться с приложением F-Droid. Не установлено?</string>
@@ -217,11 +218,30 @@
 	<string name="screen_s3_settings_bucket_label">Имеющийся бакет</string>
 	<string name="screen_s3_settings_endpoint_label">Конечная точка</string>
 	<string name="screen_s3_settings_region_label">Регион</string>
+	<string name="screen_s3_settings_other_choice">Другие…</string>
+	<string name="screen_s3_settings_example">напр. %1$s</string>
+	<string name="screen_s3_settings_server_label">Адрес сервера</string>
+	<string name="screen_s3_settings_account_id_label">ID аккаунта</string>
+	<string name="screen_s3_settings_endpoint_name_label">Имя конечной точки</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Отображаемое имя не может быть пустым</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Ключ доступа не может быть пустым</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Секретный ключ не может быть пустым</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Бакет не может быть пустым</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Конечная точка или регион не могут быть пустыми</string>
+	<string name="screen_s3_settings_msg_server_not_empty">Адрес сервера не может быть пустым</string>
+	<string name="screen_s3_settings_msg_server_is_invalid">Некорректный адрес сервера</string>
+	<string name="screen_s3_settings_msg_region_not_empty">Регион не может быть пустым</string>
+	<string name="screen_s3_settings_msg_region_is_invalid">Некорректный регион</string>
+	<string name="screen_s3_settings_msg_account_id_not_empty">ID аккаунта не может быть пустым</string>
+	<string name="screen_s3_settings_msg_account_id_is_invalid">Некорректный ID аккаунта</string>
+	<string name="screen_s3_settings_msg_endpoint_name_not_empty">Имя конечной точки не может быть пустым</string>
+	<string name="screen_s3_settings_msg_endpoint_name_is_invalid">Некорректное имя конечной точки</string>
+	<string name="screen_s3_settings_akamai_hint">Имя конечной точки см. в сведениях о вашем сегменте, перед .linodeobjects.com.</string>
+	<string name="screen_s3_settings_backblaze_b2_hint">Создайте ключ приложения и используйте его keyID как ключ доступа, а ApplicationKey - как секретный ключ. Мастер-ключ приложения не работает.</string>
+	<string name="screen_s3_settings_cloudflare_r2_hint">Создайте токен API R2, чтобы получить ключ доступа и секретный ключ. Для групп с юрисдикцией требуется подключение S3.</string>
+	<string name="screen_s3_settings_google_cloud_storage_hint">Создайте ключ HMAC в разделе Облачное хранилище &gt; Настройки &gt; Совместимость и используйте его ID доступа как ключ доступа.</string>
+	<string name="screen_s3_settings_storj_hint">Создайте учётные данные S3 в консоли Storj для получения ключа доступа и секретного ключа.</string>
+	<string name="screen_s3_settings_vultr_hint">Имя конечной точки см. в имени хоста хранилища объектов, перед .vultrobjects.com.</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Имя хранилища не может быть пустым.</string>
 	<string name="screen_enter_vault_name_vault_label">Имя хранилища</string>
@@ -284,6 +304,8 @@
 	<string name="screen_settings_security_label">Советы по безопасности</string>
 	<string name="screen_settings_section_version">Версия</string>
 	<string name="screen_settings_advanced_settings">Дополнительные настройки</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Обход открытия файлов Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Открывать файлы в приложениях Microsoft с разрешением на запись</string>
 	<string name="screen_settings_background_unlock_preparation_label">Ускорить разблокировку</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Загружать конфигурацию хранилища в фоне при запросе пароля или биоаутентификации</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Держать разблокированным</string>
@@ -292,6 +314,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Подключения OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Соединения с SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Подключения WebDAV</string>
+	<string name="screen_cloud_settings_provider_connections">Подключений: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Подключения pCloud</string>
 	<string name="screen_cloud_settings_s3_connections">Подключения S3</string>
 	<string name="screen_cloud_settings_local_storage_locations">Локальные места хранения</string>
@@ -401,6 +424,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Внимание</string>
 	<string name="dialog_debug_mode_positive_button">Вкл.</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Из-за ошибки в приложениях Microsoft редактируемый файл должен быть передан этим приложениям в публичной папке на вашем устройстве. После возобновления работы Cryptomator публичный доступный файл снова удаляется, но Cryptomator не может влиять на то, что случилось с этим файлом. Если изменения не могут быть сохранены в хранилище, файл остается там до тех пор, пока Cryptomator не будет запущен через несколько часов. Включая эту опцию, убедитесь, что вы знаете о таком поведении. Это применимо только к типам файлов Microsoft.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Эта настройка безопасности не позволяет другим приложениям обманом вынуждать пользователей делать то, что им не нужно.\n\nОтключая её, вы подтверждаете, что <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">осознаёте риски</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Внимание</string>
 	<string name="dialog_disable_app_obscured_positive_button">Выкл.</string>
