@@ -30,6 +30,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">අවලංගු</string>
 	<string name="dialog_enter_password_positive_button">අගුළුහරින්න</string>
+	<string name="dialog_recovery_key_password_positive_button">පෙන්වන්න</string>
+	<string name="dialog_recovery_key_copy_button">පිටපත් කරන්න</string>
 	<!-- Vault not found -->
 	<string name="dialog_app_is_obscured_info_neutral_button">වසන්න</string>
 	<string name="dialog_enter_license_decline_button">අවලංගු</string>

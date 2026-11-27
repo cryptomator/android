@@ -300,6 +300,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">لا يمكن أن تكون كلمة المرور القديمة فارغة.</string>
 	<string name="dialog_change_password_msg_new_password_empty">كلمة المرور الجديدة لا يمكن أن تكون فارغة.</string>
 	<string name="dialog_change_password_msg_password_mismatch">كلمة المرور الجديدة يجب أن تتطابق مع تأكيد كلمة المرور.</string>
+	<string name="dialog_recovery_key_password_positive_button">عرض</string>
+	<string name="dialog_recovery_key_copy_button">نسخ</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">المخزن %1$s غير موجود</string>
 	<string name="dialog_vault_not_found_message">تم حذف، نقل أو تغيير اسم الخزنة. قم بحذف هذه الخزنة من اللائحة ثم أضفها مرة أخرى للمتابعة. هل تود حذفها الآن؟</string>

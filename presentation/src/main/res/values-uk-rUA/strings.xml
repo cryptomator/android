@@ -32,6 +32,7 @@
 	<string name="error_vault_version_mismatch">Версія вказана у %1$s відрізняється від %2$s</string>
 	<string name="error_vault_key_invalid">%1$s не збігається з цим %2$s</string>
 	<string name="error_vault_config_loading">Під час завантаження конфігурації сховища сталася загальна помилка</string>
+	<string name="error_file_not_found_after_opening_using_3party">Локальний файл більше не існує після повернення до Cryptomator. Можливі зміни не вдасться синхронізувати з хмарним сховищем.</string>
 	<string name="error_no_such_bucket">Такого S3-кошика не існує</string>
 	<string name="error_masterkey_location_not_supported">Власне розташування Masterkey ще не підтримується</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Не вдалося зв’язатися зі застосунком F-Droid. Можливо, його не встановлено?</string>
@@ -121,6 +122,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Створити нове сховище</string>
 	<string name="screen_vault_list_action_add_existing_vault">Додати наявне сховище</string>
 	<string name="screen_vault_list_vault_action_delete">Вилучити</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Показати ключ відновлення</string>
 	<string name="screen_vault_list_vault_creation_hint">Натисніть тут, щоб створити нове сховище</string>
 	<string name="screen_vault_list_change_password_successful">Пароль успішно змінено</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Знижка %1$d%% на довічну ліцензію діє до %2$s</string>
@@ -188,12 +190,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL-адреса</string>
 	<string name="screen_webdav_settings_username_label">Ім’я користувача</string>
+	<string name="screen_webdav_settings_server_label">Адреса сервера</string>
+	<string name="screen_webdav_settings_space_id_label">ID простору</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Договір</string>
 	<string name="screen_webdav_settings_password_label">Пароль</string>
 	<string name="screen_webdav_settings_done_button_text">Підключитися</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL-адреса не може бути порожньою.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">Неприпустима URL-адреса.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Поле імені користувача не може бути порожнім.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Пароль не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Адреса сервера не може бути порожньою.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Адреса сервера некоректна.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">Поле «ID простору» не може бути порожнім.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Виберіть один із варіантів.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Якщо увімкнено двофакторну автентифікацію, створіть пароль додатку й використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_disroot_hint">Використовуйте своє ім’я користувача Disroot або адресу електронної пошти, якщо у вас власний домен. Якщо увімкнено двофакторну автентифікацію, створіть пароль додатку й використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Якщо увімкнено двофакторну автентифікацію, додайте в кінець пароля поточний одноразовий код. Код дійсний протягом 30 хвилин.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Якщо увімкнено двофакторну автентифікацію, додайте в кінець пароля поточний одноразовий код. Код дійсний протягом 60 хвилин.</string>
+	<string name="screen_webdav_settings_icedrive_hint">Для роботи WebDAV потрібен платний тарифний план. Використовуйте ключ доступу WebDAV зі свого облікового запису Icedrive як пароль.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV недоступний на безплатному тарифному плані.</string>
+	<string name="screen_webdav_settings_koofr_hint">Створіть пароль додатку у своєму обліковому записі Koofr і використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">Створіть пароль протоколу WebDAV у налаштуваннях MagentaCLOUD і використовуйте його замість пароля облікового запису.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Створіть токен додатку в розділі «Налаштування» &gt; «Токени додатків» і використовуйте його як пароль. ID простору можна знайти на інформаційній панелі простору.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Відображуване ім’я</string>
 	<string name="screen_s3_settings_access_key_label">Ключ доступу</string>
@@ -201,11 +219,30 @@
 	<string name="screen_s3_settings_bucket_label">Наявний кошик</string>
 	<string name="screen_s3_settings_endpoint_label">Кінцева адреса з іменем хосту, портом і шляхом до кошика</string>
 	<string name="screen_s3_settings_region_label">Регіон</string>
+	<string name="screen_s3_settings_other_choice">Інші…</string>
+	<string name="screen_s3_settings_example">наприклад, %1$s</string>
+	<string name="screen_s3_settings_server_label">Адреса сервера</string>
+	<string name="screen_s3_settings_account_id_label">ID облікового запису</string>
+	<string name="screen_s3_settings_endpoint_name_label">Назва кінцевої точки (endpoint)</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Поле «Відображуване ім’я» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Поле «Ключ доступу» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Поле «Секретний ключ» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Поле «Наявний кошик» не може бути порожнім</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Поля «Кінцева точка» або «Регіон» не можуть бути порожніми</string>
+	<string name="screen_s3_settings_msg_server_not_empty">Поле «Адреса сервера» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_server_is_invalid">Адреса сервера недійсна</string>
+	<string name="screen_s3_settings_msg_region_not_empty">Поле «Регіон» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_region_is_invalid">Регіон недійсний</string>
+	<string name="screen_s3_settings_msg_account_id_not_empty">Поле «ID облікового запису» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_account_id_is_invalid">ID облікового запису недійсний</string>
+	<string name="screen_s3_settings_msg_endpoint_name_not_empty">Поле «Назва кінцевої точки» не може бути порожнім</string>
+	<string name="screen_s3_settings_msg_endpoint_name_is_invalid">Назва кінцевої точки недійсна</string>
+	<string name="screen_s3_settings_akamai_hint">Назву кінцевої точки (endpoint) можна знайти в параметрах вашого сховища (bucket) — це частина адреси перед «.linodeobjects.com».</string>
+	<string name="screen_s3_settings_backblaze_b2_hint">Створіть ключ застосунку (Application Key) і використовуйте його keyID як ключ доступу (Access Key), а applicationKey — як секретний ключ (Secret Key). Головний ключ застосунку (Master Application Key) не підтримується.</string>
+	<string name="screen_s3_settings_cloudflare_r2_hint">Створіть API-токен R2, щоб отримати ключ доступу (Access Key) і секретний ключ (Secret Key). Для сховищ (buckets), прив’язаних до певної юрисдикції, натомість потрібне підключення S3.</string>
+	<string name="screen_s3_settings_google_cloud_storage_hint">Створіть ключ HMAC у розділі Cloud Storage &gt; Settings &gt; Interoperability і використовуйте його access ID як ключ доступу (Access Key).</string>
+	<string name="screen_s3_settings_storj_hint">Створіть облікові дані S3 у консолі Storj, щоб отримати ключ доступу (Access Key) і секретний ключ (Secret Key).</string>
+	<string name="screen_s3_settings_vultr_hint">Назву кінцевої точки (endpoint) можна знайти в імені хоста вашого Object Storage — це частина адреси перед «.vultrobjects.com».</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Поле «Назва сховища» не може бути порожнім.</string>
 	<string name="screen_enter_vault_name_vault_label">Назва сховища</string>
@@ -232,7 +269,7 @@
 	<string name="screen_settings_secure_screen">Блокувати знімки екрану</string>
 	<string name="screen_settings_secure_screen_summary">Блокувати знімки екрану в списку нещодавніх та у додатку</string>
 	<string name="screen_settings_documents_provider">Показувати сховища в додатку «Файли»</string>
-	<string name="screen_settings_documents_provider_summary">Дозволяє іншим застосункам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших застосунків скасується.</string>
+	<string name="screen_settings_documents_provider_summary">Дозволяє іншим додаткам відкривати та зберігати файли у ваших сховищах через системне вікно вибору файлів. Заблоковані сховища розблоковуються під час відкриття. Якщо вимкнути цю функцію, сховища стануть прихованими, а доступ для інших додатків скасується.</string>
 	<string name="screen_settings_section_search">Пошук</string>
 	<string name="screen_settings_live_search">Пошук в реальному часі</string>
 	<string name="screen_settings_live_search_summary">Оновлювати результати пошуку при введенні запиту</string>
@@ -261,12 +298,15 @@
 	<string name="screen_settings_license_terms_label">Ліцензійні умови</string>
 	<string name="screen_settings_section_support">Підтримка</string>
 	<string name="screen_settings_contact_label">Звернутися по допомогу</string>
+	<string name="screen_settings_rate_app_label">Оцінити додаток</string>
 	<string name="screen_settings_debug_mode_label">Режим налагодження</string>
 	<string name="screen_settings_error_report_label">Надіслати файл журналу</string>
 	<string name="screen_settings_error_report_failed">Не вдалося надіслати</string>
 	<string name="screen_settings_security_label">Поради з безпеки</string>
 	<string name="screen_settings_section_version">Версія</string>
 	<string name="screen_settings_advanced_settings">Розширені налаштування</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Обхідний спосіб відкриття файлів Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Відкривати файли в програмах Microsoft із дозволом на редагування</string>
 	<string name="screen_settings_background_unlock_preparation_label">Прискорити розблокування</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Завантажувати конфігурацію сховища у фоновому режимі, поки очікується введення пароля або біометрична автентифікація</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Залишати розблокованим</string>
@@ -275,6 +315,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">Підключення OneDrive</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Підключення до SharePoint</string>
 	<string name="screen_cloud_settings_webdav_connections">Підключення WebDAV</string>
+	<string name="screen_cloud_settings_provider_connections">З’єднань: %1$s</string>
 	<string name="screen_cloud_settings_pcloud_connections">Підключення pCloud</string>
 	<string name="screen_cloud_settings_box_connections">Підключення Box</string>
 	<string name="screen_cloud_settings_s3_connections">Підключення S3</string>
@@ -307,6 +348,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Поле «Старий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Поле «Новий пароль» не може бути порожнім.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Новий пароль не збігається з підтвердженим паролем.</string>
+	<string name="dialog_recovery_key_password_hint">Введіть пароль для «%1$s», щоб показати його ключ відновлення.</string>
+	<string name="dialog_recovery_key_password_positive_button">Показати</string>
+	<string name="dialog_recovery_key_title">Ключ відновлення</string>
+	<string name="dialog_recovery_key_description">Ключ відновлення — це ваш єдиний спосіб відновити доступ до «%1$s», якщо ви втратите пароль:</string>
+	<string name="dialog_recovery_key_storage_hint">Зберігайте його в надійному місці, наприклад у менеджері паролів або роздрукованим на папері.</string>
+	<string name="dialog_recovery_key_copy_button">Копіювати</string>
+	<string name="dialog_recovery_key_copied">Ключ відновлення скопійовано</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Сховище %1$s не знайдено</string>
 	<string name="dialog_vault_not_found_message">Сховище було перейменовано, переміщено або видалено. Вилучіть це сховище зі списку та додайте його знову, щоб продовжити. Вилучити зараз?</string>
@@ -378,6 +426,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Увага</string>
 	<string name="dialog_debug_mode_positive_button">Увімкнути</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Через помилку в програмах Microsoft файл, який потрібно відредагувати, має бути наданий цим програмам у спільному доступі в загальнодоступній папці мультимедійних файлів на вашому пристрої. Після відновлення роботи Cryptomator загальнодоступний файл видаляється, однак Cryptomator не може контролювати, що відбувалося з ним протягом цього часу. Якщо зміни у файлі не вдасться зберегти у сховищі, він залишатиметься на пристрої, доки Cryptomator не буде запущено знову через кілька годин. Перш ніж активувати цю опцію, переконайтеся, що ви розумієте особливості такої поведінки. Це стосується лише файлів форматів Microsoft.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Це налаштування є функцією безпеки, що запобігає спробам інших програм змусити користувачів робити те, чого вони не хочуть.\n\nВимкнувши це, ви підтверджуєте, що <a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">усвідомлюєте ризики</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Увага</string>
 	<string name="dialog_disable_app_obscured_positive_button">Вимкнути</string>

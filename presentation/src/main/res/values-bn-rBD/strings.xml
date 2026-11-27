@@ -214,6 +214,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">পুরনো পাসওয়ার্ড অংশ খালি থাকতে পারবে না।</string>
 	<string name="dialog_change_password_msg_new_password_empty">নতুন পাসওয়ার্ড অংশ খালি থাকতে পারবে না।</string>
 	<string name="dialog_change_password_msg_password_mismatch">নতুন পাসওয়ার্ডটি পুনরায় টাইপ করা পাসওয়ার্ডের সাথে মেলে না।</string>
+	<string name="dialog_recovery_key_password_positive_button">দেখান</string>
+	<string name="dialog_recovery_key_copy_button">কপি</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">%1$s ভোল্টটি পাওয়া যায়নি</string>
 	<string name="dialog_vault_not_found_message">ভোল্টটির হয়তো নাম পরিবর্তন, স্থানান্তর বা মুছে ফেলা হয়েছে। তালিকা থেকে ভোল্টটি সরান এবং চালিয়ে যেতে পুনরায় যোগ করুন। ভোল্টটি সরাবেন?</string>

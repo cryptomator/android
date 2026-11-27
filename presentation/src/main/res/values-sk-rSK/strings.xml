@@ -32,6 +32,7 @@
 	<string name="error_vault_version_mismatch">Verzia definovaná v %1$s je odlišná od %2$s</string>
 	<string name="error_vault_key_invalid">%1$s nezodpovedá s týmto %2$s</string>
 	<string name="error_vault_config_loading">Chyba počas zavádzania konfigurácie trezora</string>
+	<string name="error_file_not_found_after_opening_using_3party">Lokálny súbor už nie je k dispozícii po prepnutí späť na Cryptomator. Prípadné zmeny nie je možné preniesť späť do cloudu.</string>
 	<string name="error_no_such_bucket">Bucket neexistuje</string>
 	<string name="error_masterkey_location_not_supported">Voliteľnost umiestnenia hlavného kľúča zatiaľ nie je podporovaná</string>
 	<string name="error_interact_with_fdroid_but_fdroid_missing">Komunikácia s aplikáciou F-Droid zlyhala. Nie je nainštalovaná?</string>
@@ -116,6 +117,7 @@
 	<string name="screen_vault_list_action_create_new_vault">Vytvoriť nový trezor</string>
 	<string name="screen_vault_list_action_add_existing_vault">Pridať existujúci trezor</string>
 	<string name="screen_vault_list_vault_action_delete">Odstrániť</string>
+	<string name="screen_vault_list_vault_action_show_recovery_key">Zobraziť kľúč na obnovenie</string>
 	<string name="screen_vault_list_vault_creation_hint">Kliknúť sem pre vytvorenie nového trezora</string>
 	<string name="screen_vault_list_change_password_successful">Heslo úspešne zmenené</string>
 	<string name="screen_vault_list_sale_promo_banner">🔥 Doživotná licencia je zľavnená o %1$d%% do %2$s</string>
@@ -182,12 +184,28 @@
 	<!-- ## screen: webdav settings -->
 	<string name="screen_webdav_settings_url_port_label">URL</string>
 	<string name="screen_webdav_settings_username_label">Uživateľské meno</string>
+	<string name="screen_webdav_settings_server_label">Adresa servera</string>
+	<string name="screen_webdav_settings_space_id_label">ID Priestoru</string>
+	<string name="screen_webdav_settings_one_and_one_variant_label">Zmluva</string>
 	<string name="screen_webdav_settings_password_label">Heslo</string>
 	<string name="screen_webdav_settings_done_button_text">Pripojiť</string>
 	<string name="screen_webdav_settings_msg_url_must_not_be_empty">URL nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_url_is_invalid">URL je neplatná.</string>
 	<string name="screen_webdav_settings_msg_username_must_not_be_empty">Užívateľské meno nemôže byť prázdne.</string>
 	<string name="screen_webdav_settings_msg_password_must_not_be_empty">Heslo nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_server_must_not_be_empty">Adresa servera nemôže byť prázdna.</string>
+	<string name="screen_webdav_settings_msg_server_is_invalid">Adresa servera je neplatná.</string>
+	<string name="screen_webdav_settings_msg_space_id_must_not_be_empty">ID priestoru nemôže byť prázdne.</string>
+	<string name="screen_webdav_settings_msg_variant_must_be_selected">Vyberte jednu z možností.</string>
+	<string name="screen_webdav_settings_app_password_with_2fa_hint">Ak je povolené dvojfaktorové overenie, vytvorte heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_disroot_hint">Použite svoje používateľské meno Disroot alebo svoju e-mailovú adresu, ak používate vlastnú doménu. Ak je povolené dvojfaktorové overenie, vytvorte si heslo aplikácie a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_hidrive_ionos_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 30 minút.</string>
+	<string name="screen_webdav_settings_hidrive_strato_hint">Ak je povolené dvojfaktorové overenie, pridajte k heslu aktuálny jednorazový kód. Kód je platný 60 minút.</string>
+	<string name="screen_webdav_settings_icedrive_hint">WebDAV vyžaduje platený program. Ako heslo použite prístupový kľúč WebDAV z vášho účtu Icedrive.</string>
+	<string name="screen_webdav_settings_kdrive_hint">WebDAV nie je k dispozícii v bezplatnom pláne.</string>
+	<string name="screen_webdav_settings_koofr_hint">Vytvorte si heslo aplikácie vo svojom účte Koofr a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_magentacloud_hint">V nastaveniach MagentaCLOUD si vytvorte heslo protokolu WebDAV a používajte ho namiesto hesla k účtu.</string>
+	<string name="screen_webdav_settings_opencloud_hint">Vytvorte token aplikácie v časti Nastavenia &gt; Tokeny aplikácií a použite ho ako heslo. ID priestoru nájdete v informačnom paneli priestoru.</string>
 	<!-- ## screen: s3 settings -->
 	<string name="screen_s3_settings_display_name_label">Zobrazované meno</string>
 	<string name="screen_s3_settings_access_key_label">Prístupový kľúč</string>
@@ -195,11 +213,30 @@
 	<string name="screen_s3_settings_bucket_label">Existujúci bucket</string>
 	<string name="screen_s3_settings_endpoint_label">Koncový bod</string>
 	<string name="screen_s3_settings_region_label">Región</string>
+	<string name="screen_s3_settings_other_choice">Iné…</string>
+	<string name="screen_s3_settings_example">napr. %1$s</string>
+	<string name="screen_s3_settings_server_label">Adresa servera</string>
+	<string name="screen_s3_settings_account_id_label">ID účtu</string>
+	<string name="screen_s3_settings_endpoint_name_label">Názov koncového bodu</string>
 	<string name="screen_s3_settings_msg_display_name_not_empty">Zobrazované meno nemôže byť prázdne</string>
 	<string name="screen_s3_settings_msg_access_key_not_empty">Prístupový kľúč nemôže byť prázdny</string>
 	<string name="screen_s3_settings_msg_secret_key_not_empty">Tajný kľúč nesmie byť prázdny</string>
 	<string name="screen_s3_settings_msg_bucket_not_empty">Bucket nemôže byť prázdny</string>
 	<string name="screen_s3_settings_msg_endpoint_and_region_not_empty">Koncový bod alebo región nemôže byť prázdny</string>
+	<string name="screen_s3_settings_msg_server_not_empty">Adresa servera nemôže byť prázdna</string>
+	<string name="screen_s3_settings_msg_server_is_invalid">Adresa servera je neplatná</string>
+	<string name="screen_s3_settings_msg_region_not_empty">Región nemôže byť prázdny</string>
+	<string name="screen_s3_settings_msg_region_is_invalid">Región je neplatný</string>
+	<string name="screen_s3_settings_msg_account_id_not_empty">ID účtu nemôže byť prázdne</string>
+	<string name="screen_s3_settings_msg_account_id_is_invalid">ID účtu je neplatné</string>
+	<string name="screen_s3_settings_msg_endpoint_name_not_empty">Názov koncového bodu nemôže byť prázdny</string>
+	<string name="screen_s3_settings_msg_endpoint_name_is_invalid">Názov koncového bodu je neplatný</string>
+	<string name="screen_s3_settings_akamai_hint">Názov koncového bodu nájdete v detailoch vášho kontajnera, pred doménou .linodeobjects.com.</string>
+	<string name="screen_s3_settings_backblaze_b2_hint">Vytvorte aplikačný kľúč a použite jeho ID kľúča ako prístupový kľúč a jeho applicationKey ako tajný kľúč. Hlavný aplikačný kľúč nefunguje.</string>
+	<string name="screen_s3_settings_cloudflare_r2_hint">Vytvorte token rozhrania R2 API na získanie prístupového kľúča a tajného kľúča. Kontajnery s jurisdikciou potrebujú namiesto toho pripojenie S3.</string>
+	<string name="screen_s3_settings_google_cloud_storage_hint">Vytvorte kľúč HMAC v časti Cloudové úložisko &gt; Nastavenia &gt; Interoperabilita a použite jeho prístupové ID ako prístupový kľúč.</string>
+	<string name="screen_s3_settings_storj_hint">Vytvorte si prihlasovacie údaje S3 v konzole Storj, aby ste získali prístupový kľúč a tajný kľúč.</string>
+	<string name="screen_s3_settings_vultr_hint">Názov koncového bodu nájdete v názve hostiteľa vášho objektového úložiska, pred doménou .vultrobjects.com.</string>
 	<!-- ## screen: enter vault name -->
 	<string name="screen_enter_vault_name_msg_name_empty">Meno trezora nemôže byť prázdne.</string>
 	<string name="screen_enter_vault_name_vault_label">Meno trezora</string>
@@ -251,12 +288,15 @@
 	<string name="screen_settings_license_terms_label">Licenčné podmienky</string>
 	<string name="screen_settings_section_support">Podpora</string>
 	<string name="screen_settings_contact_label">Žiadosť o pomoc</string>
+	<string name="screen_settings_rate_app_label">Ohodnotiť aplikáciu</string>
 	<string name="screen_settings_debug_mode_label">Režim ladenia</string>
 	<string name="screen_settings_error_report_label">Odoslať Log súbor</string>
 	<string name="screen_settings_error_report_failed">Odosielanie zlyhalo</string>
 	<string name="screen_settings_security_label">Bezpečnostné tipy</string>
 	<string name="screen_settings_section_version">Verzia</string>
 	<string name="screen_settings_advanced_settings">Pokročilé nastavenia</string>
+	<string name="screen_settings_microsoft_apps_workaround_label">Riešenie otvárania súborov spoločnosti Microsoft</string>
+	<string name="screen_settings_microsoft_apps_workaround_summary">Otváranie súborov v aplikáciách spoločnosti Microsoft s povolením na zápis</string>
 	<string name="screen_settings_background_unlock_preparation_label">Urýchliť odomknutie</string>
 	<string name="screen_settings_background_unlock_preparation_label_summary">Stiahnuť konfiguráciu trezora na pozadí počas vyzvania na zadanie hesla alebo biometrickej autentikácie</string>
 	<string name="screen_settings_keep_unlocked_while_editing_files">Držať odomknuté</string>
@@ -265,6 +305,7 @@
 	<string name="screen_cloud_settings_onedrive_connections">OneDrive pripojenia</string>
 	<string name="screen_cloud_settings_sharepoint_connections">Pripojenia SharePointu</string>
 	<string name="screen_cloud_settings_webdav_connections">WebDAV pripojenia</string>
+	<string name="screen_cloud_settings_provider_connections">%1$s pripojení</string>
 	<string name="screen_cloud_settings_pcloud_connections">pCloud pripojenia</string>
 	<string name="screen_cloud_settings_s3_connections">S3 pripojenia</string>
 	<string name="screen_cloud_settings_local_storage_locations">Umiestnenia lokálnych úložísk</string>
@@ -296,6 +337,13 @@
 	<string name="dialog_change_password_msg_old_password_empty">Staré heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Nové heslo nemôže byť prázdne.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nové heslo nie je totožné s prepisovaným heslom.</string>
+	<string name="dialog_recovery_key_password_hint">Zadajte heslo pre „%1$s“ a zobrazí sa jeho obnovovací kľúč.</string>
+	<string name="dialog_recovery_key_password_positive_button">Zobraziť</string>
+	<string name="dialog_recovery_key_title">Kľúč na obnovenie</string>
+	<string name="dialog_recovery_key_description">Kľúč na obnovenie je jediný spôsob, ako obnoviť prístup k „%1$s“, ak stratíte heslo:</string>
+	<string name="dialog_recovery_key_storage_hint">Uschovajte si ho na veľmi bezpečnom mieste, napríklad v správcovi hesiel alebo vytlačený na papieri.</string>
+	<string name="dialog_recovery_key_copy_button">Kopírovať</string>
+	<string name="dialog_recovery_key_copied">Kľúč na obnovenie bol skopírovaný</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Súbor %1$s nenájdený</string>
 	<string name="dialog_vault_not_found_message">Trezor bol premenovaný, premiestnený alebo zmazaný. Odstránte tento trezor zo zoznamu a pridajte ho znovu. Odstrániť teraz?</string>
@@ -364,6 +412,7 @@
 	<string name="dialog_debug_mode_disclaimer_hint">V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.</string>
 	<string name="dialog_debug_mode_disclaimer_title">Upozornenie</string>
 	<string name="dialog_debug_mode_positive_button">Povoliť</string>
+	<string name="dialog_microsoft_workaround_disclaimer_hint">Kvôli chybe v aplikáciách spoločnosti Microsoft musí byť súbor, ktorý sa má upraviť, zdieľaný s týmito aplikáciami vo verejnom priečinku médií na vašom zariadení. Po obnovení Cryptomatoru sa verejne prístupný súbor opäť odstráni, ale Cryptomator nemôže ovplyvniť, čo sa s týmto súborom medzitým stalo. Ak sa jeho zmeny nedajú uložiť do úložiska, súbor tam zostane, kým sa Cryptomator o niekoľko hodín znova nespustí. Pri aktivácii tejto možnosti sa uistite, že ste si tohto správania vedomí. Toto sa bude vzťahovať iba na typy súborov spoločnosti Microsoft.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_hint">Toto nastavenie je bezpečnostná vlastnosť a zabraňuje ostatným aplikáciám klamať užívateľov robiť veci čo nechcú robiť.\n\nVypnutím súhlasíte s tým že<a href="https://docs.cryptomator.org/en/latest/android/settings/#block-app-when-obscured">ste si vedomí rizika</a>.</string>
 	<string name="dialog_disable_app_obscured_disclaimer_title">Upozornenie</string>
 	<string name="dialog_disable_app_obscured_positive_button">Zakázať</string>

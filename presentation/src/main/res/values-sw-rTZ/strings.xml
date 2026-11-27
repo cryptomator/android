@@ -252,6 +252,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">Neno la siri la zamani haliwezi kuwa tupu.</string>
 	<string name="dialog_change_password_msg_new_password_empty">Neno la siri jipya haliwezi kuwa tupu.</string>
 	<string name="dialog_change_password_msg_password_mismatch">Nneno la siri jipya haioani na neno la siri lililochapwa upya.</string>
+	<string name="dialog_recovery_key_password_positive_button">Onyesha</string>
+	<string name="dialog_recovery_key_copy_button">Nakili</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">Kuba%1$s haijapatikana</string>
 	<string name="dialog_vault_not_found_message">Kuba imepewa jina jipya, kuhamishwa au kufutwa. Ondoa kuba hii kutoka kwenye orodha na uiongeze tena ili kuendelea. Ondoa sasa?</string>

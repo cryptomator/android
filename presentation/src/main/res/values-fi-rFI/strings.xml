@@ -193,6 +193,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">Peruuta</string>
 	<string name="dialog_enter_password_positive_button">Avaa</string>
+	<string name="dialog_recovery_key_password_positive_button">Näytä</string>
+	<string name="dialog_recovery_key_copy_button">Kopioi</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_positive_button_text">Poista</string>
 	<string name="dialog_lock_vault">Lukitse</string>

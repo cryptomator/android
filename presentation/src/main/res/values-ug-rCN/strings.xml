@@ -49,6 +49,8 @@
 	<!-- # dialogs -->
 	<string name="dialog_button_cancel">بىكار قىل</string>
 	<string name="dialog_enter_password_positive_button">قۇلۇپنى ئاچ</string>
+	<string name="dialog_recovery_key_password_positive_button">كۆرسەت</string>
+	<string name="dialog_recovery_key_copy_button">كۆچۈر</string>
 	<!-- Vault not found -->
 	<string name="dialog_lock_vault">قۇلۇپلا</string>
 	<string name="dialog_app_is_obscured_info_neutral_button">ياپ</string>

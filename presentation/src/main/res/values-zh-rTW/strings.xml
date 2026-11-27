@@ -268,6 +268,8 @@
 	<string name="dialog_change_password_msg_old_password_empty">舊密碼不可留空。</string>
 	<string name="dialog_change_password_msg_new_password_empty">新密碼不可留空。</string>
 	<string name="dialog_change_password_msg_password_mismatch">新密碼與再次輸入的密碼不匹配</string>
+	<string name="dialog_recovery_key_password_positive_button">顯示</string>
+	<string name="dialog_recovery_key_copy_button">複製</string>
 	<!-- Vault not found -->
 	<string name="dialog_vault_not_found_title">找不到名為%1$s的加密檔案庫</string>
 	<string name="dialog_vault_not_found_message">這個加密檔案庫已經被重新命名、移動或刪除。 請先從清單中移除此加密檔案庫再重新加入。您現在要移除此檔案庫嗎？</string>
